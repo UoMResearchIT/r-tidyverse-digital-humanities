@@ -4,7 +4,7 @@
 
 [R](http://www.r-project.org/) is a popular statistical programming language.  It is free and open source. Over xx packages are available for R, which add additional functionality to the language.
 
- This course is designed for researchers who would like to use R for their data analysis and visualisation. Some basic programming techniques will also be taught.  It assumes no prior knowledge of programming, or the R enironment, but users should be comfortable with their usual computing environment (Windows/Mac/Linux). 
+ This course is designed for researchers who would like to use R for their data analysis and visualisation. Some basic programming techniques will also be taught.  It assumes no prior knowledge of programming, or the R environment, but users should be comfortable with their usual computing environment (Windows/Mac/Linux). 
 
 The aim of the course is to equip learners with the basics of the language, and with knowledge to find and use packages that will be useful in their fields of research.
 
