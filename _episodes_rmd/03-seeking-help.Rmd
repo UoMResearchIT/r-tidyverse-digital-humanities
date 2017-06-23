@@ -77,12 +77,6 @@ If you're not sure what package a function is in, or how it's specifically spell
 ??function_name
 ```
 
-## When you have no idea where to begin
-
-If you don't know what function or package you need to use
-[CRAN Task Views](http://cran.at.r-project.org/web/views)
-is a specially maintained list of packages grouped into
-fields. This can be a good starting point.
 
 ## When your code doesn't work: seeking help from your peers
 
