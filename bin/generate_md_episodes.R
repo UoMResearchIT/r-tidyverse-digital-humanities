@@ -23,13 +23,16 @@ generate_md_episodes <- function() {
     }
 
     ## get the Rmd file to process from the command line, and generate the path for their respective outputs
-    src_rmd <- commandArgs(trailingOnly = TRUE)
-    dest_md <- file.path("_episodes", gsub("Rmd$", "md", basename(src_rmd)))
+    args  <- commandArgs(trailingOnly = TRUE)
+    if (length(args) != 2){
+	    stop("input and output file must be passed to the script")
+    }
+
+    src_rmd <- args[1]
+    dest_md <- args[2] 
 
     ## knit the Rmd into markdown
-    mapply(function(x, y) {
-        knitr::knit(x, output = y)
-    }, src_rmd, dest_md)
+    knitr::knit(src_rmd, output = dest_md)
 
 }
 
