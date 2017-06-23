@@ -6,22 +6,20 @@ questions:
 - "How to find your way around RStudio?"
 - "How to interact with R?"
 - "How to manage your environment?"
-- "How to install packages?"
 objectives:
-- "To gain familiarity with the various panes in the RStudio IDE"
-- "To gain familiarity with the buttons, short cuts and options in the RStudio IDE"
-- "To understand variables and how to assign to them"
-- "To be able to manage your workspace in an interactive R session"
-- "To be able to use mathematical and comparison operations"
-- "To be able to call functions"
-- "Introduction to package management"
+- "Describe the purpose and use of each pane in the RStudio IDE"
+- "Locate buttons and options in the RStudio IDE"
+- "Define a variable"
+- "Assign data to a variable"
+- "Manage a workspace in an interactive R session"
+- "Use mathematical and comparison operators"
+- "Call functions"
 keypoints:
 - "Use RStudio to write and run R programs."
 - "R has the usual arithmetic operators and mathematical functions."
 - "Use `<-` to assign values to variables."
 - "Use `ls()` to list the variables in a program."
 - "Use `rm()` to delete objects in a program."
-- "Use `install.packages()` to install packages (libraries)."
 source: Rmd
 ---
 
@@ -595,7 +593,8 @@ ls()
 
 
 ~~~
-[1] "x" "y"
+[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+[5] "src_rmd"       "x"            
 ~~~
 {: .output}
 
@@ -652,7 +651,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x7fc1f7492e28>
+<bytecode: 0x1d8cd58>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -708,20 +707,10 @@ Error in rm(list <- ls()): ... must contain names or character strings
 >
 {: .callout}
 
-## R Packages
+## R packages
 
-It is possible to add functions to R by writing a package, or by
-obtaining a package written by someone else. As of this writing, there
-are over 10,000 packages available on CRAN (the comprehensive R archive
-network). R and RStudio have functionality for managing packages:
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a later lesson FIXME - xref. The teaching machines at the University have a number of additional packages installed by default.
 
-* You can see what packages are installed by typing
-  `installed.packages()`
-* You can install packages by typing `install.packages("packagename")`,
-  where `packagename` is the package name, in quotes.
-* You can update installed packages by typing `update.packages()`
-* You can remove a package with `remove.packages("packagename")`
-* You can make a package available for use with `library(packagename)`
 
 > ## Challenge 1
 >
@@ -854,23 +843,6 @@ network). R and RStudio have functionality for managing packages:
 > > 
 > > ~~~
 > > rm(age, mass)
-> > ~~~
-> > {: .r}
-> {: .solution}
-{: .challenge}
-
-> ## Challenge 5
->
-> Install the following packages: `ggplot2`, `plyr`, `gapminder`
->
-> > ## Solution to challenge 5
-> >
-> > We can use the `install.packages()` command to install the required packages.
-> > 
-> > ~~~
-> > install.packages("ggplot2")
-> > install.packages("plyr")
-> > install.packages("gapminder")
 > > ~~~
 > > {: .r}
 > {: .solution}

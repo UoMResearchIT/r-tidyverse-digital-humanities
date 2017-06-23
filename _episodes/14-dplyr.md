@@ -216,8 +216,7 @@ Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variable
  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
  $ gdpPercap: num  779 821 853 836 740 ...
- - attr(*, "vars")=List of 1
-  ..$ : symbol continent
+ - attr(*, "vars")= chr "continent"
  - attr(*, "drop")= logi TRUE
  - attr(*, "indices")=List of 5
   ..$ : int  24 25 26 27 28 29 30 31 32 33 ...
@@ -229,8 +228,7 @@ Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variable
  - attr(*, "biggest_group_size")= int 624
  - attr(*, "labels")='data.frame':	5 obs. of  1 variable:
   ..$ continent: Factor w/ 5 levels "Africa","Americas",..: 1 2 3 4 5
-  ..- attr(*, "vars")=List of 1
-  .. ..$ : symbol continent
+  ..- attr(*, "vars")= chr "continent"
   ..- attr(*, "drop")= logi TRUE
 ~~~
 {: .output}
@@ -284,7 +282,7 @@ even better.
 > >
 > >
 > >~~~
-> ># A tibble: 2 × 2
+> ># A tibble: 2 x 2
 > >       country mean_lifeExp
 > >        <fctr>        <dbl>
 > >1      Iceland     76.51142
@@ -307,7 +305,7 @@ even better.
 > >
 > >
 > >~~~
-> ># A tibble: 1 × 2
+> ># A tibble: 1 x 2
 > >       country mean_lifeExp
 > >        <fctr>        <dbl>
 > >1 Sierra Leone     36.76917
@@ -326,7 +324,7 @@ even better.
 > >
 > >
 > >~~~
-> ># A tibble: 1 × 2
+> ># A tibble: 1 x 2
 > >  country mean_lifeExp
 > >   <fctr>        <dbl>
 > >1 Iceland     76.51142
@@ -380,7 +378,7 @@ gapminder %>%
 
 
 ~~~
-# A tibble: 5 × 2
+# A tibble: 5 x 2
   continent     n
      <fctr> <int>
 1    Africa    52
@@ -406,7 +404,7 @@ gapminder %>%
 
 
 ~~~
-# A tibble: 5 × 2
+# A tibble: 5 x 2
   continent    se_pop
      <fctr>     <dbl>
 1    Africa 0.3663016
@@ -435,34 +433,34 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 ~~~
 {: .r}
 
-### Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: ifelse
 
 When creating new variables, we can hook this with a logical condition. A simple combination of 
 `mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
-of the data.frame will not change) or for updating values depending on this given conditon.
+of the data frame will not change) or for updating values depending on this given condition.
 
 
 ~~~
 ## keeping all data but "filtering" after a certain condition
 # calculate GDP only for people with a life expectation above 25
 gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
-    mutate(gdp_billion= ifelse(lifeExp > 25, gdpPercap*pop/10^9, NA)) %>%
-    group_by(continent,year) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap),
-              sd_gdpPercap=sd(gdpPercap),
-              mean_pop=mean(pop),
-              sd_pop=sd(pop),
-              mean_gdp_billion=mean(gdp_billion),
-              sd_gdp_billion=sd(gdp_billion))
+    mutate(gdp_billion = ifelse(lifeExp > 25, gdpPercap * pop / 10^9, NA)) %>%
+    group_by(continent, year) %>%
+    summarize(mean_gdpPercap = mean(gdpPercap),
+              sd_gdpPercap = sd(gdpPercap),
+              mean_pop = mean(pop),
+              sd_pop = sd(pop),
+              mean_gdp_billion = mean(gdp_billion),
+              sd_gdp_billion = sd(gdp_billion))
 
 ## updating only if certain condition is fullfilled
 # for life expectations above 40 years, the gpd to be expected in the future is scaled
 gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
-    mutate(gdp_futureExpectation= ifelse(lifeExp > 40, gdpPercap * 1.5, gdpPercap)) %>%
-    group_by(continent,year) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap),
-              mean_gdpPercap_expected=mean(gdp_futureExpectation))
+    mutate(gdp_futureExpectation = ifelse(lifeExp > 40, gdpPercap * 1.5, gdpPercap)) %>%
+    group_by(continent, year) %>%
+    summarize(mean_gdpPercap = mean(gdpPercap),
+              mean_gdpPercap_expected = mean(gdp_futureExpectation))
 ~~~
 {: .r}
 
@@ -484,7 +482,12 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
 ~~~
 {: .r}
 
-<img src="../fig/rmd-13-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
+
+
+~~~
+Error in ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
+~~~
+{: .error}
 
 This code makes the right plot but it also creates some variables (`starts.with`
 and `az.countries`) that we might not have any other uses for. Just as we used
@@ -508,7 +511,12 @@ gapminder %>%
 ~~~
 {: .r}
 
-<img src="../fig/rmd-13-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
+
+
+~~~
+Error in ggplot(., aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
+~~~
+{: .error}
 
 Using `dplyr` functions also helps us simplify things, for example we could
 combine the first two steps:
@@ -525,7 +533,12 @@ gapminder %>%
 ~~~
 {: .r}
 
-<img src="../fig/rmd-13-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />
+
+
+~~~
+Error in ggplot(., aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
+~~~
+{: .error}
 
 > ## Advanced Challenge
 >

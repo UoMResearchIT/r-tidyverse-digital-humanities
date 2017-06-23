@@ -6,13 +6,11 @@ questions:
 - "How can I manage my projects in R?"
 objectives:
 - To be able to create self-contained projects in RStudio
-- To be able to use git from within RStudio
 keypoints:
 - "Use RStudio to create and manage projects with consistent layout."
 - "Treat raw data as read-only."
 - "Treat generated output as disposable."
 - "Separate function definition and application."
-- "Use version control."
 source: Rmd
 ---
 
@@ -57,6 +55,12 @@ One of the most powerful and useful aspects of RStudio is its project management
 functionality. We'll be using this today to create a self-contained, reproducible
 project.
 
+> ## Version control:
+> 
+> It is always a good idea to use version control with your projects.  
+> This makes it easy to undo changes to your scripts, and to collaborate with others.
+> The [git](https://git-scm.com/) version control system, used with [github](https://www.github.com) is very 
+> popular, and integrates well with Rstudio.  [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT) (logon required)
 
 > ## Challenge: Creating a self-contained project
 >
@@ -66,8 +70,7 @@ project.
 > 2. Click "New Directory".
 > 3. Click "Empty Project".
 > 4. Type in the name of the directory to store your project, e.g. "my_project".
-> 5. Make sure that the checkbox for "Create a git repository" is selected.
-> 6. Click the "Create Project" button.
+> 5. Click the "Create Project" button.
 {: .challenge}
 
 Now when we start R in this project directory, or open this project with RStudio,
@@ -149,22 +152,28 @@ do what I want. You can also save all the commands you've entered using the
 `history` command, but I don't find it useful because when I'm typing its 90%
 trial and error.
 
+R studio also shows your command history; click the "history" tab in the top right window.  Multiple lines of history can be selected (by clicking while holding down the shift key), and then copied to the console or to your source window.
+
 When your project is new and shiny, the script file usually contains many lines
 of directly executed code. As it matures, reusable chunks get pulled into their
 own functions. It's a good idea to separate these into separate folders; one
 to store useful functions that you'll reuse across analyses and projects, and
 one to store the analysis scripts.
 
+
 > ## Tip: avoiding duplication
 >
 > You may find yourself using data or analysis scripts across several projects.
 > Typically you want to avoid duplication to save space and avoid having to
-> make updates to code in multiple places.
+> make updates to code in multiple places.  There are several ways of handling this:
 >
-> In this case I find it useful to make "symbolic links", which are essentially
+> It may be useful to make "symbolic links", which are essentially
 > shortcuts to files somewhere else on a filesystem. On Linux and OS X you can
 > use the `ln -s` command, and on Windows you can either create a shortcut or
 > use the `mklink` command from the windows terminal.
+>
+> Alternatively, you can develop your own package, and put your scripts and functions in this.  Although this 
+> is more complex it easier to share your methods with others.  Creating packages isn't covered in this course; a good book on the topic is Hadley Wickham's [R Packages](http://r-pkgs.had.co.nz/). 
 {: .callout}
 
 ### Save the data in the data directory
@@ -181,111 +190,3 @@ Now we have a good directory structure we will now place/save the data file in t
 > We will load and inspect these data later.
 {: .challenge}
 
-> ## Challenge 2
-> It is useful to get some general idea about the dataset, directly from the
-> command line, before loading it into R. Understanding the dataset better
-> will come in handy when making decisions on how to load it in R. Use the command-line
-> shell to answer the following questions:
-> 1. What is the size of the file?
-> 2. How many rows of data does it contain?
-> 3. What kinds of values are stored in this file?
->
-> > ## Solution to Challenge 2
-> >
-> > By running these commands in the shell:
-> > 
-> > ~~~
-> > ls -lh data/gapminder-FiveYearData.csv
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > 
-> > ~~~
-> > -rw-r--r--  1 naupaka  staff    80K Jul 19  2016 data/gapminder-FiveYearData.csv
-> > ~~~
-> > {: .output}
-> > The file size is 80K.
-> > 
-> > ~~~
-> > wc -l data/gapminder-FiveYearData.csv
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > 
-> > ~~~
-> >     1705 data/gapminder-FiveYearData.csv
-> > ~~~
-> > {: .output}
-> > There are 1705 lines. The data looks like:
-> > 
-> > ~~~
-> > head data/gapminder-FiveYearData.csv
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > 
-> > ~~~
-> > country,year,pop,continent,lifeExp,gdpPercap
-> > Afghanistan,1952,8425333,Asia,28.801,779.4453145
-> > Afghanistan,1957,9240934,Asia,30.332,820.8530296
-> > Afghanistan,1962,10267083,Asia,31.997,853.10071
-> > Afghanistan,1967,11537966,Asia,34.02,836.1971382
-> > Afghanistan,1972,13079460,Asia,36.088,739.9811058
-> > Afghanistan,1977,14880372,Asia,38.438,786.11336
-> > Afghanistan,1982,12881816,Asia,39.854,978.0114388
-> > Afghanistan,1987,13867957,Asia,40.822,852.3959448
-> > Afghanistan,1992,16317921,Asia,41.674,649.3413952
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
-
-> ## Tip: command line in R Studio
->
-> You can quickly open up a shell in RStudio using the **Tools -> Shell...** menu item.
-{: .callout}
-
-### Version Control
-
-We also set up our project to integrate with git, putting it under version control.
-RStudio has a nicer interface to git than shell, but is very limited in what it can
-do, so you will find yourself occasionally needing to use the shell. Let's go
-through and make an initial commit of our template files.
-
-The workspace/history pane has a tab for "Git". We can stage each file by checking the box:
-you will see a green "A" next to stage files and folders, and yellow question marks next to
-files or folders git doesn't know about yet. RStudio also nicely shows you the difference
-between files from different commits.
-
-> ## Tip: versioning disposable output
->
-> Generally you do not want to version disposable output (or read-only data).
-> You should modify the `.gitignore` file to tell git to ignore these files
-> and directories.
-{: .callout}
-
-> ## Challenge 3
->
-> 1. Create a directory within your project called `graphs`.
-> 2. Modify the `.gitignore` file to contain `graphs/`
-> so that this disposable output isn't versioned.
->
-> Add the newly created folders to version control using
-> the git interface.
->
-> > ## Solution to Challenge 3
-> >
-> > This can be done with the command line:
-> > ```
-> > $ mkdir graphs
-> > $ echo "graphs/" >> .gitignore
-> > ```
-> > {: . shell}
-> {: .solution}
-{: .challenge}
