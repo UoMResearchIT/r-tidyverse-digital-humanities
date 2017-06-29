@@ -13,7 +13,7 @@ keypoints:
 - "Access individual values by location using `[]`."
 - "Access slices of data using `[low:high]`."
 - "Access arbitrary sets of data using `[c(...)]`."
-- "Use `which` to select subsets of data based on value."
+- "Select subsets of data based on value."
 source: Rmd
 ---
 
@@ -278,23 +278,6 @@ x[c(-1, -5)]  # or x[-c(1,5)]
 {: .callout}
 
 
-To remove elements from a vector, we need to assign the results back
-into the variable:
-
-
-~~~
-x <- x[-4]
-x
-~~~
-{: .r}
-
-
-
-~~~
-  a   b   c   e 
-5.4 6.2 7.1 7.5 
-~~~
-{: .output}
 
 > ## Challenge 1
 >
@@ -413,7 +396,7 @@ To skip (or remove) a single named element:
 
 
 ~~~
-x[-which(names(x) == "a")]
+x[!(names(x) == "a")]
 ~~~
 {: .r}
 
@@ -425,9 +408,8 @@ x[-which(names(x) == "a")]
 ~~~
 {: .output}
 
-The `which` function returns the indices of all `TRUE` elements of its argument.
-Remember that expressions evaluate before being passed to functions. Let's break
-this down so that its clearer what's happening.
+
+Let's break this down so that its clearer what's happening.
 
 First this happens:
 
@@ -445,100 +427,26 @@ names(x) == "a"
 {: .output}
 
 The condition operator is applied to every name of the vector `x`. Only the
-first name is "a" so that element is TRUE.
+first name is "a" so that element is TRUE, and all the other elements are `FALSE`.
 
-`which` then converts this to an index:
-
-
-~~~
-which(names(x) == "a")
-~~~
-{: .r}
-
+`!` is the logical NOT operator, and so converts `TRUE` to `FALSE` and vice versa; all of the
+elements except the first are now `TRUE`:
 
 
 ~~~
-[1] 1
-~~~
-{: .output}
-
-
-
-Only the first element is `TRUE`, so `which` returns 1. Now that we have indices
-the skipping works because we have a negative index!
-
-Skipping multiple named indices is similar, but uses a different comparison
-operator:
-
-
-~~~
-x[-which(names(x) %in% c("a", "c"))]
+!(names(x) == "a")
 ~~~
 {: .r}
 
 
 
 ~~~
-  b   d   e 
-6.2 4.8 7.5 
+[1] FALSE  TRUE  TRUE  TRUE  TRUE
 ~~~
 {: .output}
 
-The `%in%` goes through each element of its left argument, in this case the
-names of `x`, and asks, "Does this element occur in the second argument?".
+Only elements of the vector that are true will be kept
 
-> ## Challenge 2
->
-> Run the following code to define vector `x` as above:
->
-> 
-> ~~~
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-> names(x) <- c('a', 'b', 'c', 'd', 'e')
-> print(x)
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
->   a   b   c   d   e 
-> 5.4 6.2 7.1 4.8 7.5 
-> ~~~
-> {: .output}
->
-> Given this vector `x`, what would you expect the following to do?
->
->~~~
-> x[-which(names(x) == "g")]
->~~~
->{: .r}
->
-> Try out this command and see what you get. Did this match your expectation?
-> Why did we get this result? (Tip: test out each part of the command on it's own - this is a useful debugging strategy)
->
-> Which of the following are true:
->
-> * A) if there are no `TRUE` values passed to `which`, an empty vector is returned
-> * B) if there are no `TRUE` values passed to `which`, an error message is shown
-> * C) `integer()` is an empty vector
-> * D) making an empty vector negative produces an "everything" vector
-> * E) `x[]` gives the same result as `x[integer()]`
->
-> > ## Solution to challenge 2
-> >
-> > A and C are correct.
-> >
-> > The `which` command returns the index of every `TRUE` value in its
-> > input. The `names(x) == "g"` command didn't return any `TRUE` values. Because
-> > there were no `TRUE` values passed to the `which` command, it returned an
-> > empty vector. Negating this vector with the minus sign didn't change its
-> > meaning. Because we used this empty vector to retrieve values from `x`, it
-> > produced an empty numeric vector. It was a `named numeric` empty vector
-> > because the vector type of x is "named numeric" since we assigned names to the
-> > values (try `str(x)` ).
-> {: .solution}
-{: .challenge}
 
 > ## Tip: Non-unique names
 >
@@ -595,7 +503,7 @@ names of `x`, and asks, "Does this element occur in the second argument?".
 >
 >
 >~~~
-> x[which(names(x) == 'a')]  # returns all three values
+> x[names(x) == 'a']  # returns all three values
 >~~~
 >{: .r}
 >
@@ -608,6 +516,24 @@ names of `x`, and asks, "Does this element occur in the second argument?".
 >{: .output}
 {: .callout}
 
+Skipping multiple named indices is similar, but uses a different comparison
+operator:
+
+
+~~~
+x[!(names(x) %in% c("a", "c"))]
+~~~
+{: .r}
+
+
+
+~~~
+named integer(0)
+~~~
+{: .output}
+
+The `%in%` goes through each element of its left argument, in this case the
+names of `x`, and asks, "Does this element occur in the second argument?".
 
 > ## Tip: Getting help for operators
 >
@@ -677,7 +603,7 @@ because it can introduce hard to find and subtle bugs!
 
 ## Subsetting through other logical operations
 
-We can also more simply subset through logical operations:
+When we removed a single named element one of the intermediate steps was a logical vector: 
 
 
 ~~~
@@ -758,7 +684,7 @@ named integer(0)
 > vector are `TRUE`).
 {: .callout}
 
-> ## Challenge 3
+> ## Challenge 2
 >
 > Given the following code:
 >
@@ -780,7 +706,7 @@ named integer(0)
 >
 > Write a subsetting command to return the values in x that are greater than 4 and less than 7.
 >
-> > ## Solution to challenge 3
+> > ## Solution to challenge 2
 > >
 > > 
 > > ~~~
@@ -1040,7 +966,7 @@ matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
 Matrices can also be subsetted using their rownames and column names
 instead of their row and column indices.
 
-> ## Challenge 4
+> ## Challenge 3
 >
 > Given the following code:
 >
@@ -1071,7 +997,7 @@ instead of their row and column indices.
 >
 > D. `m[2,c(4,5)]`
 >
-> > ## Solution to challenge 4
+> > ## Solution to challenge 3
 > >
 > > D
 > {: .solution}
@@ -1211,7 +1137,7 @@ xlist$data
 ~~~
 {: .output}
 
-> ## Challenge 5
+> ## Challenge 4
 > Given the following list:
 >
 > 
@@ -1223,7 +1149,7 @@ xlist$data
 > Using your knowledge of both list and vector subsetting, extract the number 2 from xlist.
 > Hint: the number 2 is contained within the "b" item in the list.
 >
-> > ## Solution to challenge 5
+> > ## Solution to challenge 4
 > >
 > > 
 > > ~~~
@@ -1265,7 +1191,7 @@ xlist$data
 {: .challenge}
 
 
-> ## Challenge 6
+> ## Challenge 5
 > Given a linear model:
 >
 > 
@@ -1276,7 +1202,7 @@ xlist$data
 >
 > Extract the residual degrees of freedom (hint: `attributes()` will help you)
 >
-> > ## Solution to challenge 6
+> > ## Solution to challenge 5
 > >
 > > 
 > > ~~~
@@ -1387,8 +1313,7 @@ gapminder[3,]
 But for a single column the result will be a vector (this can
 be changed with the third argument, `drop = FALSE`).
 
-> ## Challenge 7
->
+> ## Challenge 6
 > Fix each of the following common data frame subsetting errors:
 >
 > 1. Extract observations collected for the year 1957
@@ -1433,7 +1358,7 @@ be changed with the third argument, `drop = FALSE`).
 >    ~~~
 >    {: .r}
 >
-> > ## Solution to challenge 7
+> > ## Solution to challenge 6
 > >
 > > Fix each of the following common data frame subsetting errors:
 > >
@@ -1487,7 +1412,7 @@ be changed with the third argument, `drop = FALSE`).
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 8
+> ## Challenge 7
 >
 > 1. Why does `gapminder[1:20]` return an error? How does it differ from `gapminder[1:20, ]`?
 >
@@ -1495,7 +1420,7 @@ be changed with the third argument, `drop = FALSE`).
 > 2. Create a new `data.frame` called `gapminder_small` that only contains rows 1 through 9
 > and 19 through 23. You can do this in one or two steps.
 >
-> > ## Solution to challenge 8
+> > ## Solution to challenge 7
 > >
 > > 1.  `gapminder` is a data.frame so needs to be subsetted on two dimensions. `gapminder[1:20, ]` subsets the data to give the first 20 rows and all columns.
 > >
