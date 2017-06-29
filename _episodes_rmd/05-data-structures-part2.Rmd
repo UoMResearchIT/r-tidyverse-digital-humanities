@@ -286,7 +286,7 @@ into a script file so we can come back to it later.
 >
 > Go to file -> new file -> R script, and write an R script
 > to load in the gapminder dataset. Put it in the `scripts/`
-> directory and add it to version control.
+> directory.
 >
 > Run the script using the `source` function, using the file path
 > as its argument (or by pressing the "source" button in RStudio).
