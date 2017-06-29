@@ -29,4 +29,7 @@ usability.
 > Understand that computers store data and instructions (programs, scripts etc.) in files.
 > Files are organised in directories (folders).
 > Know how to access files not in the working directory by specifying the path.
+> 
+> Download the example data we will use for the lesson from [here.](https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip)
+>
 {: .prereq}
