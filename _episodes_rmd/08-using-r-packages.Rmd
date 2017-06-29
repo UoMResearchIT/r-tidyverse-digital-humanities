@@ -5,7 +5,8 @@ exercises: 0
 questions:
 - "How do find packages that will help us with our work?"
 objectives:
-- "Describe the process of using CRAN to find, and evaluate, suitable packages for our analysis, and work out how to use them" 
+- "To be able to use CRAN task views to identify packages to solve a problem."
+- "To understand sources of help for using a package" 
 keypoints:
 - "Keypoints go here"
 source: Rmd
