@@ -13,7 +13,7 @@ keypoints:
 - "Access individual values by location using `[]`."
 - "Access slices of data using `[low:high]`."
 - "Access arbitrary sets of data using `[c(...)]`."
-- "Select subsets of data based on value."
+- "Select subsets of data based on value by writing a statement that evaluates to a logical vector."
 source: Rmd
 ---
 
