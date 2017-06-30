@@ -4,7 +4,7 @@ root: .
 ---
 
 
-This is an _abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).  The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
+This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).  The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
 
 The goal of this lesson is to teach novice programmers to write modular code
 and best practices for using R for data analysis. R is commonly used in many
