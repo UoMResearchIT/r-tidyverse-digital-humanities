@@ -113,11 +113,9 @@ file. This console in RStudio is the same as the one you would get if
 you typed in `R` in your command-line environment.
 
 The first thing you will see in the R interactive session is a bunch
-of information, followed by a ">" and a blinking cursor. In many ways
-this is similar to the shell environment you learned about during the
-shell lessons: it operates on the same idea of a "Read, evaluate,
-print loop": you type in commands, R tries to execute them, and then
-returns a result.
+of information, followed by a ">" and a blinking cursor. It operates
+on the idea of a "Read, evaluate, print loop": you type in commands,
+R tries to execute them, and then returns a result.
 
 ## Using R as a calculator
 
@@ -651,7 +649,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x1d72d58>
+<bytecode: 0x2fccd58>
 <environment: namespace:base>
 ~~~
 {: .output}

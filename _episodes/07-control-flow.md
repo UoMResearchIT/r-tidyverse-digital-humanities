@@ -206,10 +206,8 @@ element. Here you need to make sure your condition is of length 1.
 If you want to iterate over
 a set of values, when the order of iteration is important, and perform the
 same operation on each, a `for()` loop will do the job.
-We saw `for()` loops in the shell lessons earlier. This is the most
-flexible of looping operations, but therefore also the hardest to use
-correctly. Avoid using `for()` loops unless the order of iteration is important:
-i.e. the calculation at each iteration depends on the results of previous iterations.
+ This is the most flexible of looping operations, but therefore the hardest to use
+correctly. 
 
 The basic structure of a `for()` loop is:
 
