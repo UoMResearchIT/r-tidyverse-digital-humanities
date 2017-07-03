@@ -1400,15 +1400,15 @@ be changed with the third argument, `drop = FALSE`).
 > >    {: .r}
 > >
 > > 5. Advanced: extract rows that contain information for the years 2002
-> >    and 2007
+> >    and 2007.
 > >
-> >     
-> >     ~~~
-> >     # gapminder[gapminder$year == 2002 | 2007,]
-> >     gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
-> >     gapminder[gapminder$year %in% c(2002, 2007),]
-> >     ~~~
-> >     {: .r}
+> >    
+> >    ~~~
+> >    # gapminder[gapminder$year == 2002 | 2007,]
+> >    gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
+> >    gapminder[gapminder$year %in% c(2002, 2007),]
+> >    ~~~
+> >    {: .r}
 > {: .solution}
 {: .challenge}
 
