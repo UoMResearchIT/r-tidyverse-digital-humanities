@@ -63,6 +63,10 @@ workshop-check :
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
 RMD_DST = $(patsubst _episodes_rmd/%.Rmd,_episodes/%.md,$(RMD_SRC))
 
+# RMarkdown slides
+SLIDE_SRC = $(wildcard _slides_rmd/*.Rmd)
+SLIDE_DST = $(patsubst _slides_rmd/%.Rmd,_slides/%.html,$(SLIDE_SRC))
+
 # Lesson source files in the order they appear in the navigation menu.
 MARKDOWN_SRC = \
   index.md \
@@ -114,10 +118,19 @@ lesson-files :
 	@echo 'RMD_DST:' ${RMD_DST}
 	@echo 'MARKDOWN_SRC:' ${MARKDOWN_SRC}
 	@echo 'HTML_DST:' ${HTML_DST}
+	@echo 'SLIDE_SRC:'${SLIDE_SRC}
+	@echo 'SLIDE_DST:'${SLIDE_DST}
 
 ## lesson-fixme     : show FIXME markers embedded in source files.
 lesson-fixme :
 	@fgrep -i -n FIXME ${MARKDOWN_SRC} || true
+
+## slides	    : make Rmd slideshows
+slides: ${SLIDE_DST}
+
+_slides/%.html:	_slides_rmd/%.Rmd
+	@Rscript -e "rmarkdown::render('$<', output_dir='$(dir $@)')"
+	
 
 #-------------------------------------------------------------------------------
 # Include extra commands if available.
