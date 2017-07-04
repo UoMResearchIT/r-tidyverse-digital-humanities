@@ -1,7 +1,7 @@
 ---
 title: "Data Analysis Using R"
 author: "David Mawdsley"
-date: "3 July 2017"
+date: "17 Octbober 2017"
 output: 
   revealjs::revealjs_presentation
   
@@ -11,27 +11,36 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## Introduction
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+* Aims of the day
+* Teaching methods
+* Other courses from Research IT
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
-## Slide with Bullets
+## Aims of the day
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+* Introduction to R
+  + No prior knowledge of R assumed
+  + Focus on using R for analysis rather than programming
+* The aim is to teach you enough know how to find out more
 
-## Slide with R Output
+## Teaching methods
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
+* The course is based on the [Software Carpentry](https://software-carpentry.org) [R for reproducible scientific research](http://swcarpentry.github.io/r-novice-gapminder/) course
+    + Abridged
+    + Doesn't cover topics that overlap with other Research IT courses
+  
+## Teaching methods
 
-## Slide with Plot
+* The course is _interactive_
+    + These are the only slides
+  
+## Other courses from Research IT
 
-```{r pressure}
-plot(pressure)
-```
-
+* We offer courses on [many aspects of scientific computing](http://www.itservices.manchester.ac.uk/our-services/research/training/)
+    + All are free for staff and PGRs
+* Material on version control was removed from today's course.
+    + Learning version control is _highly_ recommended
+    + [We have a course on this](https://app.manchester.ac.uk/rrgit)
+  
