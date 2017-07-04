@@ -23,6 +23,7 @@ knitr::opts_chunk$set(echo = FALSE)
 * Introduction to R
   + No prior knowledge of R assumed
   + Focus on using R for analysis rather than programming
+* Does not teach statistics
 * The aim is to teach you enough know how to find out more
 
 ## Teaching methods
