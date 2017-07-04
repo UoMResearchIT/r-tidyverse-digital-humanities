@@ -20,7 +20,7 @@ commands :
 serve-rmd: lesson-md lesson-watchrmd serve
 
 ## serve            : run a local server.
-serve : lesson-md
+serve : lesson-md slides
 	${JEKYLL} serve
 
 ## site             : build files but do not run a server.
@@ -125,7 +125,9 @@ lesson-files :
 lesson-fixme :
 	@fgrep -i -n FIXME ${MARKDOWN_SRC} || true
 
-## slides	    : make Rmd slideshows
+.PHONY : slides
+
+## slides		 : Generate html slides from Rmd slide decks
 slides: ${SLIDE_DST}
 
 _slides/%.html:	_slides_rmd/%.Rmd
