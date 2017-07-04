@@ -7,3 +7,6 @@ __pycache__
 _site
 *.Rproj.user
 *.Rproj
+_slides_rmd/*.html
+
+
