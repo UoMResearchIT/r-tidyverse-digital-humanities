@@ -14,8 +14,8 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Introduction
 
 * Aims of the day
-* Teaching methods
 * Other courses from Research IT
+* Teaching methods
 
 
 ## Aims of the day
@@ -26,6 +26,14 @@ knitr::opts_chunk$set(echo = FALSE)
 * Does not teach statistics
 * The aim is to teach you enough know how to find out more
 
+## Other courses from Research IT
+
+* We offer courses on [many aspects of scientific computing](http://ri.itservices.manchester.ac.uk/training)
+    + All are free for staff and PGRs
+* Material on version control was removed from today's course.
+    + Learning version control is _highly_ recommended
+    + [We have a course on this](https://app.manchester.ac.uk/rrgit)
+  
 ## Teaching methods
 
 * The course is based on the [Software Carpentry](https://software-carpentry.org) [R for reproducible scientific research](http://swcarpentry.github.io/r-novice-gapminder/) course
@@ -36,12 +44,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * The course is _interactive_
     + These are the only slides
-  
-## Other courses from Research IT
+* Getting help
+    + The Post-its
+    + Etherpad
 
-* We offer courses on [many aspects of scientific computing](http://www.itservices.manchester.ac.uk/our-services/research/training/)
-    + All are free for staff and PGRs
-* Material on version control was removed from today's course.
-    + Learning version control is _highly_ recommended
-    + [We have a course on this](https://app.manchester.ac.uk/rrgit)
-  
