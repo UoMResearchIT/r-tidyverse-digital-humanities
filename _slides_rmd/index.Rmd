@@ -3,8 +3,7 @@ title: "Data Analysis Using R"
 author: "David Mawdsley"
 date: "17 October 2017"
 output: 
-  revealjs::revealjs_presentation
-  
+  ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -30,10 +29,40 @@ knitr::opts_chunk$set(echo = FALSE)
 
 * We offer courses on [many aspects of scientific computing](http://ri.itservices.manchester.ac.uk/training)
     + All are free for staff and PGRs
-* Material on version control was removed from today's course.
-    + Learning version control is _highly_ recommended
+* Learning version control is _highly_ recommended
     + [We have a course on this](https://app.manchester.ac.uk/rrgit)
-  
+
+## Why learn R?
+
+* (probably) the most popular language for data-analysis
+* It's free
+* It's extensible
+
+## 
+
+```{r, echo=FALSE, message=FALSE}
+source("https://gist.githubusercontent.com/revodavid/6de6607fbe9a5638922a1aae28e554be/raw/2d137dc73024a1820ba92640b4b08e5a52251d47/CRAN_pkg_history.R")
+
+```
+
+Graph uses code from [http://blog.revolutionanalytics.com/2016/04/cran-package-growth.html](http://blog.revolutionanalytics.com/2016/04/cran-package-growth.html) with updated data.
+
+
+## Work with maps...
+```{r}
+library(leaflet)
+m = leaflet() %>% addTiles()
+m %>% setView( -2.233,53.467, zoom = 16)
+```
+
+## Interactive apps (Shiny)
+
+* Perform interactive visualisation and analysis
+    + Dashboards
+    + Modelling
+* [The Shiny user showcase](https://www.rstudio.com/products/shiny/shiny-user-showcase/) has many examples
+    + [Travelling salesman example](https://gallery.shinyapps.io/shiny-salesman/)
+
 ## Teaching methods
 
 * The course is based on the [Software Carpentry](https://software-carpentry.org) [R for reproducible scientific research](http://swcarpentry.github.io/r-novice-gapminder/) course
