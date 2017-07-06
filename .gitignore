@@ -8,6 +8,5 @@ _site
 *.Rproj.user
 *.Rproj
 _slides_rmd/*.html
-
-
+notes.md
 .Rproj.user
