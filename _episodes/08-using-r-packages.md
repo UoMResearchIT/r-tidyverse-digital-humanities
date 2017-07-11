@@ -79,7 +79,7 @@ Any of these packages should be able to do the task we want.  Useful things to l
 
 ## Understanding a packages DESCRIPTION file
 
-A `DESCRIPTION` file is included with every R package. This forms the basis of the package's page on CRAN.  Many of the fields in the file will be self explanatory.   The _Depends_ and _Imports_ fields list packages and software that the package depends on (this will invariably include R iteself).  When we install a package thse dependencies will be installed automatically.  _Suggests:_ lists package that, although not required for the basic operation of the package, will enhance it.  These are not installed automatically.   If the package has a homepage, it will be listed under the _URL_ field. The _reverse depend s_, _reverse imports_ and _reverse suggests_ fields list packages that depend on the package.  
+A `DESCRIPTION` file is included with every R package. This forms the basis of the package's page on CRAN.  Many of the fields in the file will be self explanatory.   The _Depends_ and _Imports_ fields list packages and software that the package depends on (this will invariably include R iteself).  When we install a package thse dependencies will be installed automatically.  _Suggests:_ lists package that, although not required for the basic operation of the package, will enhance it.  These are not installed automatically.   If the package has a homepage, it will be listed under the _URL_ field. The _reverse depends_, _reverse imports_ and _reverse suggests_ fields list packages that depend on the package; packages that are trusted by other packages are likely to be of good quality.  
 
 
 > ## Citing R and R packages
@@ -114,8 +114,12 @@ We may be prompted to select a mirror to install the package from. You should id
 >
 {: .callout}
 
-
-
+> ## Installing packages from a file or github
+> If a package is not available on CRAN, you will probably be provided with a URL containing the
+> package file, or a [https://www.github.com](github) repository.   These can be installed with
+> the `install_url()` or `install_github()` functions, which are part of the `devtools` package
+> which can be installed from CRAN.  We don't cover packages that are not on CRAN in this course.
+{: .callout}
 
 
 
