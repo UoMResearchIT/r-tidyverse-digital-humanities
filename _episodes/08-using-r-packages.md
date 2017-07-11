@@ -72,9 +72,9 @@ Any of these packages should be able to do the task we want.  Useful things to l
 * How easy it will be to use -- the reference manual is not a tutorial.  Package vignettes are often tutorials.
 * Colleagues' recommendations
 * Good software development practice:
-    # Version control
-    # Good documentation
-    # Continuous integration
+    * Version control
+    * Good documentation
+    * Continuous integration
 * The package licence - are you free to use the software?
 
 ## Understanding a packages DESCRIPTION file
