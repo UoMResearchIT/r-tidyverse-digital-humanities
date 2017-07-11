@@ -120,6 +120,37 @@ We may be prompted to select a mirror to install the package from. You should id
 > which can be installed from CRAN.  We don't cover packages that are not on CRAN in this course.
 {: .callout}
 
+> ## Where R looks for and installs packages 
+>  
+> R uses locations returned by the `.libPaths()` function to search for packages;  by default, packages
+> will be installed to the first path returned.
+> 
+> You can add a new path to the search using `.libpaths("path/to/directory")`.  If you are unable to
+> install packages on your machine you should add a path you have write access to.  
+>
+{: .callout}
+
+## Loading packages
+
+Installing a package makes it available on your computer.  To actually use the package we need to load it.  This is done with the `library()` command.
+
+```
+library("metafor")
+```
+{: .r}
+
+You can obtain help on a loaded package using `help(packagename)`.    As discussed in [the seeking help lesson]({{ page.root }}/03-seeking-help/), you can get help on functions within a package using `help(functionname)`, and view available vignettes using `vignette(package="packagename")`.
+
+> ## Conflicting names
+>
+> You may get a warning message when loading a package that a function is "masked".  This
+> happens when a function name has already been "claimed" by a package that's already 
+> loaded.  The most recently loaded function wins. 
+> 
+> If you want to use the function from the other package, use `packagename::function()`.
+> 
+{: .callout}
+
 
 
 
