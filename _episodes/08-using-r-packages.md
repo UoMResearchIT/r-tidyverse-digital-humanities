@@ -158,7 +158,15 @@ You can obtain help on a loaded package using `help(packagename)`.    As discuss
 Many of the packages in R are frequently updated.  This does mean that code written for one version of a package may not work with another version of the package (or, potentially even worse, run but give a _different_ result).  The `sessionInfo()` command prints information about the system, and the names and versions of packages that have been loaded.  You should include the output of `sessionInfo()` somewhere in your research.  The [packrat package](https://rstudio.github.io/packrat/) provides a way of keeping specific versions of packages associated with each of your projects.
 
 
-
+> ## Challenge
+> 
+> Make a new directory, which we will use as a temporary library for this lesson. Add 
+> it to the library path. 
+>
+> Look for a package (ideally on CRAN) that you think will be useful in your research, and install it to the library path.
+> Look at the help for the package, and try running any examples provided.
+> 
+{: .challenge}
 
 
 
