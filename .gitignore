@@ -10,3 +10,5 @@ _site
 _slides_rmd/*.html
 notes.md
 .Rproj.user
+.Rhistory
+
