@@ -4,19 +4,15 @@ root: .
 ---
 
 
-This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).  The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
+This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).  
+
+The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
 
 
 The slide deck used in the course can be found [https://mawds.github.io/r-novice-gapminder/slides/](here).
 
 
-The goal of this lesson is to teach novice programmers to write modular code
-and best practices for using R for data analysis. R is commonly used in many
-scientific disciplines for statistical analysis and its array of third-party
-packages greatly extend its usefulness.  The emphasis of these materials is to give
-attendees a strong foundation in the fundamentals of R, and to teach best
-practices for scientific computing: breaking down analyses into modular units,
-task automation, and encapsulation.
+The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many scientific disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach best practices for scientific computing.
 
 Note that this workshop will focus on teaching the fundamentals of the
 programming language R, and will not teach statistical analysis.
