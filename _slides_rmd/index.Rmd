@@ -9,11 +9,20 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+## Data Analysis Using R
+
+Initial tasks:
+1. Log into a PC (or have your laptop ready to use)
+2. Check you can load RStudio
+3. Open the course notes page at [https://mawds.github.io/r-novice-gapminder/](https://mawds.github.io/r-novice-gapminder/)
+  * There is a link to this slideshow there
+4. There is no sign-in sheet.  Attendance is recorded via the [https://goo.gl/forms/YZJ05PzX9tPFEtuV2](feedback form)
+
 
 ## Introduction
 
 * Aims of the day
-* Other courses from Research IT
+* Research IT
 * Teaching methods
 
 
@@ -25,12 +34,25 @@ knitr::opts_chunk$set(echo = FALSE)
 * Does not teach statistics
 * The aim is to teach you enough know how to find out more
 
-## Other courses from Research IT
 
-* We offer courses on [many aspects of scientific computing](http://ri.itservices.manchester.ac.uk/training)
-    + All are free for staff and PGRs
-* Learning version control is _highly_ recommended
-    + [We have a course on this](https://app.manchester.ac.uk/rrgit)
+## Research IT
+Described on the [IT Services website](http://www.itservices.manchester.ac.uk/research/)
+
+Announcements given via the [Research IT blog](https://researchitnews.org/) and newsletter (signup via the blog page)
+
+* [Training courses](http://ri.itservices.manchester.ac.uk/training) teach computing skills for research
+* Advice and guidance about research software
+* Access to specialist support and consultancy e.g. code reviews
+* Access to HPC systems
+* [Full list of services on offer](http://www.itservices.manchester.ac.uk/our-services/research/)
+Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
+
+## Housekeeping
+
+* Fire exit
+* Toilets
+* Course timing
+* Feedback ([form](https://goo.gl/forms/YZJ05PzX9tPFEtuV2) and verbal)
 
 ## Why learn R?
 
