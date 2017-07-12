@@ -3,7 +3,7 @@ title: "Data Analysis Using R"
 author: "David Mawdsley"
 date: "17 October 2017"
 output: 
-  ioslides_presentation
+  revealjs::revealjs_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -12,11 +12,12 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Data Analysis Using R
 
 Initial tasks:
+
 1. Log into a PC (or have your laptop ready to use)
 2. Check you can load RStudio
 3. Open the course notes page at [https://mawds.github.io/r-novice-gapminder/](https://mawds.github.io/r-novice-gapminder/)
   * There is a link to this slideshow there
-4. There is no sign-in sheet.  Attendance is recorded via the [https://goo.gl/forms/YZJ05PzX9tPFEtuV2](feedback form)
+4. There is no sign-in sheet.  Attendance is recorded via the [feedback form](https://goo.gl/forms/YZJ05PzX9tPFEtuV2)
 
 
 ## Introduction
@@ -45,6 +46,7 @@ Announcements given via the [Research IT blog](https://researchitnews.org/) and 
 * Access to specialist support and consultancy e.g. code reviews
 * Access to HPC systems
 * [Full list of services on offer](http://www.itservices.manchester.ac.uk/our-services/research/)
+
 Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
 
 ## Housekeeping
@@ -59,43 +61,23 @@ Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
 * (probably) the most popular language for data-analysis
 * It's free
 * It's extensible
-
-## 
-
-```{r, echo=FALSE, message=FALSE}
-source("https://gist.githubusercontent.com/revodavid/6de6607fbe9a5638922a1aae28e554be/raw/2d137dc73024a1820ba92640b4b08e5a52251d47/CRAN_pkg_history.R")
-
-```
-
-Graph uses code from [http://blog.revolutionanalytics.com/2016/04/cran-package-growth.html](http://blog.revolutionanalytics.com/2016/04/cran-package-growth.html) with updated data.
-
-
-## Work with maps...
-```{r}
-library(leaflet)
-m = leaflet() %>% addTiles()
-m %>% setView( -2.233,53.467, zoom = 16)
-```
-
-## Interactive apps (Shiny)
-
-* Perform interactive visualisation and analysis
-    + Dashboards
-    + Modelling
-* [The Shiny user showcase](https://www.rstudio.com/products/shiny/shiny-user-showcase/) has many examples
-    + [Travelling salesman example](https://gallery.shinyapps.io/shiny-salesman/)
+    + Interactive apps [Shiny](https://shiny.rstudio.com/)
+    + Reproducible research with [Knitr](https://yihui.name/knitr/)
+    + [Presentations](https://www.r-bloggers.com/creating-a-presentation-with-r/)
 
 ## Teaching methods
 
 * The course is based on the [Software Carpentry](https://software-carpentry.org) [R for reproducible scientific research](http://swcarpentry.github.io/r-novice-gapminder/) course
     + Abridged
-    + Doesn't cover topics that overlap with other Research IT courses
+    + Doesn't cover version control, but we offer [a separate course on this](http://app.manchester.ac.uk/rgit)
+    
   
 ## Teaching methods
 
 * The course is _interactive_
     + These are the only slides
 * Getting help
+    + Helpers
     + The Post-its
     + Etherpad
 
