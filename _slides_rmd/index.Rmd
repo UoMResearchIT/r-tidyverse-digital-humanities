@@ -3,12 +3,17 @@ title: "Data Analysis Using R"
 author: "David Mawdsley"
 date: "17 October 2017"
 output: 
-  revealjs::revealjs_presentation
+  revealjs::revealjs_presentation:
+    center: false
+    transition: fade
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+<style type="text/css">
+p { text-align: left; }
+</style>
 ## Data Analysis Using R
 
 Initial tasks:
