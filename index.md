@@ -28,6 +28,6 @@ usability.
 > Files are organised in directories (folders).
 > Know how to access files not in the working directory by specifying the path.
 > 
-> Download the example data we will use for the lesson from [here.](https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip)
+> Download the example data we will use for the lesson from [https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip](here.)
 >
 {: .prereq}
