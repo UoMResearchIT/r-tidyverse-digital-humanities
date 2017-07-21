@@ -17,82 +17,166 @@ source: Rmd
 
 
 
+In this course we will focus on tabular data - such as data from a spreadsheet or a csv file.  We will focus on manipulating and exploring data using the [tidyverse](http://tidyverse.org/).  This is a collection of packages that are designed to work well together.  Although much of the tidyverse's functionality exists in base R, or in other libraries, the tidyverse provides a more modern and streamlined approach to data-analysis, and deals with some of the idiosyncracies of base R.
+
+We install the tidyverse like any other R package:
+
+
+~~~
+install.packages("tidyverse")
+~~~
+{: .r}
+
+And load the core libraries in the tidyverse with:
+
+
+~~~
+library("tidyverse")
+~~~
+{: .r}
+
+
+
+~~~
+Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+~~~
+{: .output}
+
+
+
+~~~
+Conflicts with tidy packages ----------------------------------------------
+~~~
+{: .output}
+
+
+
+~~~
+filter(): dplyr, stats
+lag():    dplyr, stats
+~~~
+{: .output}
+
+There are other libraries included; these are less widely used, and must be loaded manually if they are required.  These won't be covered in the course. _perhaps include readxl?_
+
+Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the csv data from _xxx_, and take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+
+We will discuss loading other data formats later, and how to "tidy" data that isn't in a suitable form for analysis.
+
+We use the `read_csv()` function to load data from a comma separated file:
+
+
+
+~~~
+gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
+~~~
+{: .r}
+
+
+
+~~~
+Parsed with column specification:
+cols(
+  country = col_character(),
+  year = col_integer(),
+  pop = col_double(),
+  continent = col_character(),
+  lifeExp = col_double(),
+  gdpPercap = col_double()
+)
+~~~
+{: .output}
+
+As we discussed in [lesson 4]({{ page.root }}/04-data-structures-part1/), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
+
+For example, if we wanted to load `pop` as a character string, we would use:
+
+
+~~~
+gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv", 
+                             col_types = cols(
+                               country = col_character(),
+                               year = col_integer(),
+                               pop = col_character(),
+                               continent = col_character(),
+                               lifeExp = col_double(),
+                               gdpPercap = col_double()
+) )
+~~~
+{: .r}
+
+> ## Setting column types
+> 
+> Try reading a file using the `read_csv()` defaults (i.e. guessing column types)
+> If this fails you can cut and paste the guessed column specification, and modify
+> this with the correct column types.  It is good practice to do this anyway; it makes
+> the data types of your columns explicit, and will help protect you if the format 
+> of your data changes.
+{: .callout}
+
+## Viewing data
+
+We can preview our data by typing the name of the tibble into the console:
+
+~~~
+gapminder
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 1,704 x 6
+       country  year      pop continent lifeExp gdpPercap
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+In contrast to R's data frame, only a small subset of the data are shown.  We can also look at the data via the "Environment" panel in RStudio (by default this is one of the tabs in the top right window); clicking the name of the data-set (or the table icon to the right) will show the data.  C:w
+licking the arrow icon to the left of the name will show the attributes of the data-set.
+
+## Manipulating data frames
+
 Manipulation of dataframes means many things to many researchers, we often
 select certain observations (rows) or variables (columns), we often group the
-data by a certain variable(s), or we even calculate summary statistics. We can
-do these operations using the normal base R operations:
-
-
-~~~
-mean(gapminder[gapminder$continent == "Africa", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 2193.755
-~~~
-{: .output}
-
-
-
-~~~
-mean(gapminder[gapminder$continent == "Americas", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 7136.11
-~~~
-{: .output}
-
-
-
-~~~
-mean(gapminder[gapminder$continent == "Asia", "gdpPercap"])
-~~~
-{: .r}
-
-
-
-~~~
-[1] 7902.15
-~~~
-{: .output}
-
-But this isn't very *nice* because there is a fair bit of repetition. Repeating
-yourself will cost you time, both now and later, and potentially introduce some
-nasty bugs.
+data by a certain variable(s), or calculating sumary statistics. 
 
 ## The `dplyr` package
 
-Luckily, the [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
-package provides a number of very useful functions for manipulating dataframes
+The  [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
+package is part of the tidyverse.  It provides a number of very useful functions for manipulating dataframes
 in a way that will reduce the above repetition, reduce the probability of making
 errors, and probably even save you some typing. As an added bonus, you might
 even find the `dplyr` grammar easier to read.
 
-Here we're going to cover 6 of the most commonly used functions as well as using
-pipes (`%>%`) to combine them.
+We will cover:
 
-1. `select()`
-2. `filter()`
-3. `group_by()`
-4. `summarize()`
-5. `mutate()`
+1. selecting variables with `select()`
+2. subsetting observations with `filter()`
+3. grouping observations with `group_by()`
+4. generating summary statistics using `summarize()`
+5. generating new variables using `mutate()`
+6. chaining operations together using pipes `%>%` 
 
-If you have have not installed this package earlier, please do so:
+## Loading dplyr
 
-
-~~~
-install.packages('dplyr')
-~~~
-{: .r}
-
-Now let's load the package:
+dplyr is loaded as part of the tidyverse.  It can also be loaded on its own, using:
 
 
 ~~~
@@ -103,7 +187,7 @@ library("dplyr")
 ## Using select()
 
 If, for example, we wanted to move forward with only a few of the variables in
-our dataframe we could use the `select()` function. This will keep only the
+our dataframe we use the `select()` function. This will keep only the
 variables you select.
 
 
@@ -114,11 +198,37 @@ year_country_gdp <- select(gapminder,year,country,gdpPercap)
 
 ![](../fig/13-dplyr-fig1.png)
 
-If we open up `year_country_gdp` we'll see that it only contains the year,
-country and gdpPercap. Above we used 'normal' grammar, but the strengths of
-`dplyr` lie in combining several functions using pipes. Since the pipes grammar
-is unlike anything we've seen in R before, let's repeat what we've done above
-using pipes.
+## Using pipes
+
+The pipe operator ` %>% ` lets us pipe the output of one command into the next.  
+This allows us to build up a data-processing pipeline.  This approach has several advantages:
+
+* We can build the pipeline piecemeal - building the pipeline step-by-step is easier than trying to 
+perform a complex series of operations in one go
+* It is easy to modify and reuse the pipeline
+
+> ## Pipelines and the shell
+>
+> If you're familiar with the Unix shell, you may already have used pipes to
+> pass the output from one command to the next.  The concept is the same, except
+> we use the `|` character rather than R's pipe operator ` %>% `
+{: .callout}
+
+
+> ## Keyboard shortcuts and getting help
+> 
+> The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
+> Windows / Linux will insert the pipe operator.  On the mac, use xxxx.
+>
+> We can use tab completion to complete variable names when entering commands.
+> This saves typing and reduces the risk of error.
+> 
+> RStudio includes a helpful "cheat sheet", which summarises the main functionality
+> and syntax of `dplyr` and `tidyr` (covered in the next lesson).  This can be accessed via the
+> help menu --> cheatsheets --> data manipulation with dplyr, tidyr 
+{: .callout}
+
+Let's rewrite the previous command using the pipe operator:
 
 
 ~~~
@@ -130,9 +240,7 @@ To help you understand why we wrote that in that way, let's walk through it step
 by step. First we summon the gapminder dataframe and pass it on, using the pipe
 symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
-gets that from the previous pipe. **Fun Fact**: There is a good chance you have
-encountered pipes before in the shell. In R, a pipe symbol is `%>%` while in the
-shell it is `|` but the concept is the same!
+gets that from the previous pipe. 
 
 ## Using filter()
 
@@ -171,191 +279,86 @@ function, then we pass the filtered version of the gapminder dataframe to the
 case. If we used 'select' first, filter would not be able to find the variable
 continent since we would have removed it in the previous step.
 
-## Using group_by() and summarize()
+## Generating new variables
 
-Now, we were supposed to be reducing the error prone repetitiveness of what can
-be done with base R, but up to now we haven't done that since we would have to
-repeat the above for each continent. Instead of `filter()`, which will only pass
-observations that meet your criteria (in the above: `continent=="Europe"`), we
-can use `group_by()`, which will essentially use every unique criteria that you
-could have used in filter.
+The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we derive from existing variables in the data-frame. 
+
+As an example, the gapminder data contains the population of each country, and its gdp per capita.  We can use this to calculate the total gdp of each country:
 
 
 ~~~
-str(gapminder)
+gapminder_totalgdp <- gapminder %>% 
+  mutate(gdp = gdpPercap * pop)
+~~~
+{: .r}
+
+*Introduce lagging and leading variables, to do % change?  Or ranking countries?*
+
+## Calculating summary statistics
+
+We often wish to calculate a summary statistic (the mean, standard deviation, etc.)
+for a variable.  We frequently want to calculate a separate summary statistic for several
+groups of data (e.g. the experiment and control group).    We can calculate a summary statistic
+for the whole data-set using the dplyr's `summarise()` function:
+
+
+~~~
+gapminder %>% 
+  filter(year == 2007) %>% 
+  summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
 {: .r}
 
 
 
 ~~~
-'data.frame':	1704 obs. of  6 variables:
- $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
- $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
- $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
- $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
- $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
- $ gdpPercap: num  779 821 853 836 740 ...
+# A tibble: 1 x 2
+  meanlife medianlife
+     <dbl>      <dbl>
+1 67.00742    71.9355
 ~~~
 {: .output}
 
+To generate summary statistics for each value of another variable we use the 
+`group_by()` function:
 
 
 ~~~
-str(gapminder %>% group_by(continent))
+gapminder %>% 
+  filter(year == 2007) %>% 
+  group_by(continent) %>% 
+  summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
 {: .r}
 
 
 
 ~~~
-Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
- $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
- $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
- $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
- $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
- $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
- $ gdpPercap: num  779 821 853 836 740 ...
- - attr(*, "vars")= chr "continent"
- - attr(*, "drop")= logi TRUE
- - attr(*, "indices")=List of 5
-  ..$ : int  24 25 26 27 28 29 30 31 32 33 ...
-  ..$ : int  48 49 50 51 52 53 54 55 56 57 ...
-  ..$ : int  0 1 2 3 4 5 6 7 8 9 ...
-  ..$ : int  12 13 14 15 16 17 18 19 20 21 ...
-  ..$ : int  60 61 62 63 64 65 66 67 68 69 ...
- - attr(*, "group_sizes")= int  624 300 396 360 24
- - attr(*, "biggest_group_size")= int 624
- - attr(*, "labels")='data.frame':	5 obs. of  1 variable:
-  ..$ continent: Factor w/ 5 levels "Africa","Americas",..: 1 2 3 4 5
-  ..- attr(*, "vars")= chr "continent"
-  ..- attr(*, "drop")= logi TRUE
+# A tibble: 5 x 3
+  continent meanlife medianlife
+      <chr>    <dbl>      <dbl>
+1    Africa 54.80604    52.9265
+2  Americas 73.60812    72.8990
+3      Asia 70.72848    72.3960
+4    Europe 77.64860    78.6085
+5   Oceania 80.71950    80.7195
 ~~~
 {: .output}
-You will notice that the structure of the dataframe where we used `group_by()`
-(`grouped_df`) is not the same as the original `gapminder` (`data.frame`). A
-`grouped_df` can be thought of as a `list` where each item in the `list`is a
-`data.frame` which contains only the rows that correspond to the a particular
-value `continent` (at least in the example above).
-
-![](../fig/13-dplyr-fig2.png)
-
-## Using summarize()
-
-The above was a bit on the uneventful side because `group_by()` much more
-exciting in conjunction with `summarize()`. This will allow use to create new
-variable(s) by using functions that repeat for each of the continent-specific
-data frames. That is to say, using the `group_by()` function, we split our
-original dataframe into multiple pieces, then we can run functions
-(e.g. `mean()` or `sd()`) within `summarize()`.
-
-
-~~~
-gdp_bycontinents <- gapminder %>%
-    group_by(continent) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap))
-~~~
-{: .r}
-
-![](../fig/13-dplyr-fig3.png)
-
-That allowed us to calculate the mean gdpPercap for each continent, but it gets
-even better.
 
 > ## Challenge 2
 >
+> Calculate the average life expectancy in each continent, for each year.
 >
-> Calculate the average life expectancy per country. Which has the longest average life
-> expectancy and which has the shortest average life expectancy?
->
-> > ## Solution to Challenge 2
+> ## Solution to Challenge 2
 > >
 > >~~~
-> >lifeExp_bycountry <- gapminder %>%
-> >    group_by(country) %>%
-> >    summarize(mean_lifeExp=mean(lifeExp))
-> >lifeExp_bycountry %>% 
-> >    filter(mean_lifeExp == min(mean_lifeExp) | mean_lifeExp == max(mean_lifeExp))
+> > lifeExp_bycontinentyear <- gapminder %>% 
+> >    group_by(continent, year) %>% 
+> >   summarise(mean_lifeExp = mean(lifeExp))
 > >~~~
 > >{: .r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 2 x 2
-> >       country mean_lifeExp
-> >        <fctr>        <dbl>
-> >1      Iceland     76.51142
-> >2 Sierra Leone     36.76917
-> >~~~
-> >{: .output}
-> Another way to do this is to use the `dplyr` function `arrange()`, which 
-> arranges the rows in a data frame according to the order of one or more 
-> variables from the data frame.  It has similar syntax to other functions from 
-> the `dplyr` package. You can use `desc()` inside `arrange()` to sort in 
-> descending order.
-> >
-> >~~~
-> >lifeExp_bycountry %>%
-> >    arrange(mean_lifeExp) %>%
-> >    head(1)
-> >~~~
-> >{: .r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 1 x 2
-> >       country mean_lifeExp
-> >        <fctr>        <dbl>
-> >1 Sierra Leone     36.76917
-> >~~~
-> >{: .output}
-> >
-> >
-> >
-> >~~~
-> >lifeExp_bycountry %>%
-> >    arrange(desc(mean_lifeExp)) %>%
-> >    head(1)
-> >~~~
-> >{: .r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 1 x 2
-> >  country mean_lifeExp
-> >   <fctr>        <dbl>
-> >1 Iceland     76.51142
-> >~~~
-> >{: .output}
 > {: .solution}
 {: .challenge}
-
-The function `group_by()` allows us to group by multiple variables. Let's group by `year` and `continent`.
-
-
-
-~~~
-gdp_bycontinents_byyear <- gapminder %>%
-    group_by(continent,year) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap))
-~~~
-{: .r}
-
-That is already quite powerful, but it gets even better! You're not limited to defining 1 new variable in `summarize()`.
-
-
-~~~
-gdp_pop_bycontinents_byyear <- gapminder %>%
-    group_by(continent,year) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap),
-              sd_gdpPercap=sd(gdpPercap),
-              mean_pop=mean(pop),
-              sd_pop=sd(pop))
-~~~
-{: .r}
 
 ## count() and n()
 
@@ -380,7 +383,7 @@ gapminder %>%
 ~~~
 # A tibble: 5 x 2
   continent     n
-     <fctr> <int>
+      <chr> <int>
 1    Africa    52
 2      Asia    33
 3    Europe    30
@@ -406,7 +409,7 @@ gapminder %>%
 ~~~
 # A tibble: 5 x 2
   continent    se_pop
-     <fctr>     <dbl>
+      <chr>     <dbl>
 1    Africa 0.3663016
 2  Americas 0.5395389
 3      Asia 0.5962151
@@ -416,6 +419,7 @@ gapminder %>%
 {: .output}
 
 ## Using mutate()
+*Make this an exercise? - combining summary stats and mutate*
 
 We can also create new variables prior to (or even after) summarizing information using `mutate()`.
 
@@ -434,6 +438,9 @@ gdp_pop_bycontinents_byyear <- gapminder %>%
 {: .r}
 
 ## Connect mutate with logical filtering: ifelse
+
+*Not sure about this example - would ideally use if_else, but cannot for 1st one
+since it returns NA for false.*
 
 When creating new variables, we can hook this with a logical condition. A simple combination of 
 `mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
@@ -465,6 +472,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 {: .r}
 
 ## Combining `dplyr` and `ggplot2`
+*Probably incorporate this into the ggplot2 lesson*
 
 In the plotting lesson we looked at how to make a multi-panel figure by adding
 a layer of facet panels using `ggplot2`. Here is the code we used (with some
@@ -482,12 +490,7 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
-~~~
-{: .error}
+<img src="../fig/rmd-14-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
 
 This code makes the right plot but it also creates some variables (`starts.with`
 and `az.countries`) that we might not have any other uses for. Just as we used
@@ -511,12 +514,7 @@ gapminder %>%
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(., aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
-~~~
-{: .error}
+<img src="../fig/rmd-14-unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />
 
 Using `dplyr` functions also helps us simplify things, for example we could
 combine the first two steps:
@@ -533,12 +531,7 @@ gapminder %>%
 ~~~
 {: .r}
 
-
-
-~~~
-Error in ggplot(., aes(x = year, y = lifeExp, color = continent)): could not find function "ggplot"
-~~~
-{: .error}
+<img src="../fig/rmd-14-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
 
 > ## Advanced Challenge
 >
