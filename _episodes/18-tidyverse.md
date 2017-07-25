@@ -14,6 +14,8 @@ source: Rmd
 
 
 
+## EDIT THE VERSION IN 14-DPLYR
+
 In this course we will focus on tabular data - such as data from a spreadsheet or a csv file.  We will focus on manipulating and exploring data using the [tidyverse](http://tidyverse.org/).  This is a collection of packages that are designed to work well together.  Although much of the tidyverse's functionality exists in base R, or in other libraries, the tidyverse provides a more modern and streamlined approach to data-analysis, and deals with some of the idiosyncracies of base R.
 
 We can install the tidyverse like any other R package:
@@ -59,7 +61,7 @@ lag():    dplyr, stats
 ~~~
 {: .output}
 
-There are other libraries included; these are less widely used, and must be loaded manually if they are required.  These won't be covered in the course. _perhaps include readxl?_
+There are other libraries included in the tidyverse; these are less widely used, and must be loaded manually if they are required.  These won't be covered in the course. _perhaps include readxl?_
 
 Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the csv data from _xxx_, and take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line.   We use the `read_csv()` function to load data from a comma separated file:
 
@@ -98,7 +100,7 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
                                continent = col_character(),
                                lifeExp = col_double(),
                                gdpPercap = col_double()
-) )
+                             ) )
 ~~~
 {: .r}
 
@@ -108,6 +110,7 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 > this with the correct column types.  It is good practice to do this anyway; it makes
 > the data types of your columns explicit, and will help protect you if the format 
 > of your data changes.
+{: .callout}
 
 
 ## Viewing data
@@ -139,7 +142,7 @@ gapminder
 ~~~
 {: .output}
 
-In contrast to R's data frame, only a small subset of the data are shown.  We can also look at the data via the "Environment" panel in RStudio (by default this is one of the tabs in the top right window); clicking the name of the data-set (or the table icon to the right) will show the data.  C:w
-licking the arrow icon to the left of the name will show the attributes of the data-set.
+In contrast to R's data frame, only a small subset of the data are shown.  We can also look at the data via the "Environment" panel in RStudio (by default this is one of the tabs in the top right window); clicking the name of the data-set (or the table icon to the right) will show the data.  
+Clicking the arrow icon to the left of the name will show the attributes of the data-set.
 
 ## Include rest of dplyr lesson here
