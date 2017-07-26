@@ -20,6 +20,8 @@ source("../bin/chunk-options.R")
 knitr_fig_path("14-")
 ```
 
+# This lesson should replace lessons 4-7; Data structures to Control Flow
+
 In this course we will focus on tabular data - such as data from a spreadsheet or a csv file.  We will focus on manipulating and exploring data using the [tidyverse](http://tidyverse.org/).  This is a collection of packages that are designed to work well together.  Although much of the tidyverse's functionality exists in base R, or in other libraries, the tidyverse provides a more modern and streamlined approach to data-analysis, and deals with some of the idiosyncracies of base R.
 
 We install the tidyverse like any other R package:

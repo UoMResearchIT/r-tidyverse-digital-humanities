@@ -29,7 +29,7 @@ package, and the [ggplot2][ggplot2] package.
 
 Today we'll be learning about the ggplot2 package, because
 it is the most effective for creating publication quality
-graphics.
+graphics.  It is also part of the tidyverse, which we introduced in xxx.
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
@@ -63,9 +63,7 @@ earlier. For the second argument we passed in the `aes` function, which
 tells `ggplot` how variables in the **data** map to *aesthetic* properties of
 the figure, in this case the **x** and **y** locations. Here we told `ggplot` we
 want to plot the "gdpPercap" column of the gapminder data frame on the x-axis, and
-the "lifeExp" column on the y-axis. Notice that we didn't need to explicitly
-pass `aes` these columns (e.g. `x = gapminder[, "gdpPercap"]`), this is because
-`ggplot` is smart enough to know to look in the **data** for that column!
+the "lifeExp" column on the y-axis. 
 
 By itself, the call to `ggplot` isn't enough to draw a figure:
 
