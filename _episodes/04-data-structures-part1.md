@@ -1124,7 +1124,7 @@ $numbers
 
 
 
-We can now understand something a bit surprising in our data.frame; what happens if we run:
+We can now understand something a bit surprising in our tibble; what happens if we run:
 
 
 ~~~
@@ -1205,7 +1205,7 @@ str(cats[[1]])
 ~~~
 {: .output}
 
-Each row is an *observation* of different variables, itself a data.frame, and
+Each row is an *observation* of different variables, itself a tibble, and
 thus can be composed of elements of different types.
 
 
@@ -1258,7 +1258,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > ## Challenge 3
 >
 > There are several subtly different ways to call variables, observations and
-> elements from data.frames:
+> elements from tibbles:
 >
 > - `cats[1]`
 > - `cats[[1]]`
@@ -1270,7 +1270,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 >
 > Try out these examples and explain what is returned by each one.
 >
-> *Hint:* Use the function `typeof()` to examine what is returned in each case.
+> *Hint:* Use the functions `typeof()` and `str()` to examine what is returned in each case.
 >
 > > ## Solution to Challenge 3
 > > 
@@ -1290,9 +1290,9 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > 3  tabby
 > > ~~~
 > > {: .output}
-> > We can think of a data frame as a list of vectors. The single brace `[1]`
-> returns the first slice of the list, as another list. In this case it is the
-> first column of the data frame.
+> > The single `[]` returns a tibble containing the selected column(s)
+> > 
+> >
 > > 
 > > ~~~
 > > cats[[1]]
@@ -1306,7 +1306,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > Levels: black calico tabby
 > > ~~~
 > > {: .output}
-> > The double brace `[[1]]` returns the contents of the list item. In this case
+> > The double brace `[[1]]` returns the _contents_ of the tibble. In this case
 > it is the contents of the first column, a _vector_ of type _factor_.
 > > 
 > > ~~~
@@ -1323,6 +1323,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > {: .output}
 > > This example uses the `$` character to address items by name. _coat_ is the
 > first column of the data frame, again a _vector_ of type _factor_.
+> > 
 > > 
 > > ~~~
 > > cats["coat"]
@@ -1341,7 +1342,8 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > Here we are using a single brace `["coat"]` replacing the index number with
-> the column name. Like example 1, the returned object is a _list_.
+> the column name. Like example 1, the returned object is another tibble.
+> > 
 > > 
 > > ~~~
 > > cats[1, 1]
@@ -1358,9 +1360,8 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > This example uses a single brace, but this time we provide row and column
-> coordinates. The returned object is the value in row 1, column 1. The object
-> is an _integer_ but because it is part of a _vector_ of type _factor_, R
-> displays the label "calico" associated with the integer value.
+> coordinates. The returned object is a tibble containing the value in row 1, column 1. 
+> >
 > > 
 > > ~~~
 > > cats[, 1]
@@ -1380,7 +1381,9 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > {: .output}
 > > Like the previous example we use single braces and provide row and column
 > coordinates. The row coordinate is not specified, R interprets this missing
-> value as all the elements in this _column_ _vector_.
+> value as all the elements in the specified _column_ _vector_.  The command returns
+> a tibble.
+> > 
 > > 
 > > ~~~
 > > cats[1, ]
@@ -1397,10 +1400,18 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > Again we use the single brace with row and column coordinates. The column
-> coordinate is not specified. The return value is a _list_ containing all the
+> coordinate is not specified. The return value is a tibble containing all the
 > values in the first row.
+> 
+> If we extract a subset of a tibble the results are returned as another tibble.
+> This is one of the advantages of tibbles over base R's inbuilt data.frame type, 
+> which can return either a data frame or a vector depending on whether we select one
+> or multiple columns of data. 
 > {: .solution}
 {: .challenge}
+
+
+
 
 ## Matrices
 
