@@ -67,7 +67,7 @@ Without any arguments, `vignette()` will list all vignettes for all installed pa
 `package-name`, and `vignette("vignette-name")` will open the specified vignette.
 
 If a package doesn't have any vignettes, you can usually find help by typing
-`help("package-name")`.
+`help("package-name")`, or `package?package-name`.
 
 ## When you kind of remember the function
 
@@ -108,7 +108,7 @@ sessionInfo()
 
 
 ~~~
-R version 3.4.0 (2017-04-21)
+R version 3.4.1 (2017-06-30)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 16.04.2 LTS
 
@@ -128,11 +128,11 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  base     
 
 other attached packages:
-[1] checkpoint_0.4.0 stringr_1.2.0    knitr_1.16      
+[1] checkpoint_0.4.1 stringr_1.2.0    knitr_1.16      
 
 loaded via a namespace (and not attached):
-[1] compiler_3.4.0 magrittr_1.5   tools_3.4.0    stringi_1.1.5 
-[5] methods_3.4.0  evaluate_0.10 
+[1] compiler_3.4.1  magrittr_1.5    tools_3.4.1     stringi_1.1.5  
+[5] methods_3.4.1   evaluate_0.10.1
 ~~~
 {: .output}
 

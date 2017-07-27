@@ -66,7 +66,7 @@ Without any arguments, `vignette()` will list all vignettes for all installed pa
 `package-name`, and `vignette("vignette-name")` will open the specified vignette.
 
 If a package doesn't have any vignettes, you can usually find help by typing
-`help("package-name")`.
+`help("package-name")`, or `package?package-name`.
 
 ## When you kind of remember the function
 
