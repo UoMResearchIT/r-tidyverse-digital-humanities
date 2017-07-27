@@ -64,12 +64,9 @@ lag():    dplyr, stats
 
 There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required.  We won't cover most of these in the course. 
 
-Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the csv data from _xxx_, and take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the data from the [setup page]({{ page.root }}/setup), and decompress the contents to your data director.  Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
-We will discuss loading other data formats later, and how to "tidy" data that isn't in a suitable form for analysis.
-
-We use the `read_csv()` function to load data from a comma separated file:
-
+As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1) we use the `read_csv()` function to load data from a comma separated file:
 
 
 ~~~
@@ -112,44 +109,12 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 
 > ## Setting column types
 > 
-> Try reading a file using the `read_csv()` defaults (i.e. guessing column types)
+> Try reading a file using the `read_csv()` defaults (i.e. guessing column types).
 > If this fails you can cut and paste the guessed column specification, and modify
 > this with the correct column types.  It is good practice to do this anyway; it makes
 > the data types of your columns explicit, and will help protect you if the format 
 > of your data changes.
 {: .callout}
-
-## Viewing data
-
-We can preview our data by typing the name of the tibble into the console:
-
-~~~
-gapminder
-~~~
-{: .r}
-
-
-
-~~~
-# A tibble: 1,704 x 6
-       country  year      pop continent lifeExp gdpPercap
-         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
- 1 Afghanistan  1952  8425333      Asia  28.801  779.4453
- 2 Afghanistan  1957  9240934      Asia  30.332  820.8530
- 3 Afghanistan  1962 10267083      Asia  31.997  853.1007
- 4 Afghanistan  1967 11537966      Asia  34.020  836.1971
- 5 Afghanistan  1972 13079460      Asia  36.088  739.9811
- 6 Afghanistan  1977 14880372      Asia  38.438  786.1134
- 7 Afghanistan  1982 12881816      Asia  39.854  978.0114
- 8 Afghanistan  1987 13867957      Asia  40.822  852.3959
- 9 Afghanistan  1992 16317921      Asia  41.674  649.3414
-10 Afghanistan  1997 22227415      Asia  41.763  635.3414
-# ... with 1,694 more rows
-~~~
-{: .output}
-
-In contrast to R's data frame, only a small subset of the data are shown.  We can also look at the data via the "Environment" panel in RStudio (by default this is one of the tabs in the top right window); clicking the name of the data-set (or the table icon to the right) will show the data.  C:w
-licking the arrow icon to the left of the name will show the attributes of the data-set.
 
 ## Manipulating data frames
 
@@ -161,9 +126,8 @@ data by a certain variable(s), or calculating sumary statistics.
 
 The  [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
 package is part of the tidyverse.  It provides a number of very useful functions for manipulating dataframes
-in a way that will reduce the above repetition, reduce the probability of making
-errors, and probably even save you some typing. As an added bonus, you might
-even find the `dplyr` grammar easier to read.
+in a way that will reduce repetition, reduce the probability of making
+errors, and probably even save you some typing. 
 
 We will cover:
 
@@ -173,16 +137,6 @@ We will cover:
 4. generating summary statistics using `summarize()`
 5. generating new variables using `mutate()`
 6. chaining operations together using pipes `%>%` 
-
-## Loading dplyr
-
-dplyr is loaded as part of the tidyverse.  It can also be loaded on its own, using:
-
-
-~~~
-library("dplyr")
-~~~
-{: .r}
 
 ## Using select()
 
@@ -200,8 +154,7 @@ year_country_gdp <- select(gapminder,year,country,gdpPercap)
 
 ## Using pipes and dplyr
 
-The pipe operator ` %>% ` lets us pipe the output of one command into the next.  
-This allows us to build up a data-processing pipeline.  This approach has several advantages:
+The pipe operator `%>%` lets us pipe the output of one command into the next.   This allows us to build up a data-processing pipeline.  This approach has several advantages:
 
 * We can build the pipeline piecemeal - building the pipeline step-by-step is easier than trying to 
 perform a complex series of operations in one go
@@ -213,7 +166,7 @@ perform a complex series of operations in one go
 >
 > If you're familiar with the Unix shell, you may already have used pipes to
 > pass the output from one command to the next.  The concept is the same, except
-> we use the `|` character rather than R's pipe operator ` %>% `
+> we use the `|` character rather than R's pipe operator `%>%`
 {: .callout}
 
 
@@ -226,7 +179,7 @@ perform a complex series of operations in one go
 > This saves typing and reduces the risk of error.
 > 
 > RStudio includes a helpful "cheat sheet", which summarises the main functionality
-> and syntax of `dplyr` and `tidyr` (covered in the next lesson).  This can be accessed via the
+> and syntax of `dplyr` and `tidyr` (covered in xxx lesson).  This can be accessed via the
 > help menu --> cheatsheets --> data manipulation with dplyr, tidyr 
 {: .callout}
 
@@ -262,7 +215,7 @@ year_country_gdp_euro <- gapminder %>%
 > Write a single command (which can span multiple lines and includes pipes) that
 > will produce a dataframe that has the African values for `lifeExp`, `country`
 > and `year`, but not for other Continents.  How many rows does your dataframe
-> have and why?
+> have?
 >
 > > ## Solution to Challenge 1
 > >
@@ -270,20 +223,27 @@ year_country_gdp_euro <- gapminder %>%
 > >year_country_lifeExp_Africa <- gapminder %>%
 > >                            filter(continent=="Africa") %>%
 > >                            select(year,country,lifeExp)
+> > nrow(year_country_lifeExp_Africa)
 > >~~~
 > >{: .r}
+> >
+> >
+> >
+> >~~~
+> >[1] 624
+> >~~~
+> >{: .output}
+> > As with last time, first we pass the gapminder dataframe to the `filter()`
+> > function, then we pass the filtered version of the gapminder dataframe to the
+> > `select()` function. **Note:** The order of operations is very important in this
+> > case. If we used 'select' first, filter would not be able to find the variable
+> > continent since we would have removed it in the previous step.
 > {: .solution}
 {: .challenge}
 
-As with last time, first we pass the gapminder dataframe to the `filter()`
-function, then we pass the filtered version of the gapminder dataframe to the
-`select()` function. **Note:** The order of operations is very important in this
-case. If we used 'select' first, filter would not be able to find the variable
-continent since we would have removed it in the previous step.
-
 ## Generating new variables
 
-The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we derive from existing variables in the data-frame. 
+The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we _derive_ from existing variables in the data-frame. 
 
 As an example, the gapminder data contains the population of each country, and its gdp per capita.  We can use this to calculate the total gdp of each country:
 
@@ -294,7 +254,72 @@ gapminder_totalgdp <- gapminder %>%
 ~~~
 {: .r}
 
-*Introduce lagging and leading variables, to do % change?  Or ranking countries?*
+> ## Challenge 2
+> 
+> Create a tibble containing each country in Europe, its life expectancy in 2007
+> and the rank of the country's life expectancy. Can you reverse the ranking order
+> so that the country with the longest life expectancy gets the lowest rank?
+>
+> (It is not necessary to sort the countries by rank - we will sorting tibbles
+> shortly)
+> 
+> Hint: First filter and then mutate the data.  The cheat-sheet contains useful
+> functions you can use when you make new variables
+>
+> > ## Solution to challenge 2
+> > 
+> > ~~~
+> > europeLifeExp <- gapminder %>% 
+> >   filter(continent == "Europe", year == 2007) %>% 
+> >   select(country, lifeExp) %>% 
+> >   mutate(rank = min_rank(lifeExp))
+> > print(europeLifeExp, n=100)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 30 x 3
+> >                   country lifeExp  rank
+> >                     <chr>   <dbl> <int>
+> >  1                Albania  76.423    11
+> >  2                Austria  79.829    23
+> >  3                Belgium  79.441    20
+> >  4 Bosnia and Herzegovina  74.852     8
+> >  5               Bulgaria  73.005     3
+> >  6                Croatia  75.748    10
+> >  7         Czech Republic  76.486    12
+> >  8                Denmark  78.332    15
+> >  9                Finland  79.313    17
+> > 10                 France  80.657    26
+> > 11                Germany  79.406    18
+> > 12                 Greece  79.483    21
+> > 13                Hungary  73.338     4
+> > 14                Iceland  81.757    30
+> > 15                Ireland  78.885    16
+> > 16                  Italy  80.546    25
+> > 17             Montenegro  74.543     6
+> > 18            Netherlands  79.762    22
+> > 19                 Norway  80.196    24
+> > 20                 Poland  75.563     9
+> > 21               Portugal  78.098    14
+> > 22                Romania  72.476     2
+> > 23                 Serbia  74.002     5
+> > 24        Slovak Republic  74.663     7
+> > 25               Slovenia  77.926    13
+> > 26                  Spain  80.941    28
+> > 27                 Sweden  80.884    27
+> > 28            Switzerland  81.701    29
+> > 29                 Turkey  71.777     1
+> > 30         United Kingdom  79.425    19
+> > ~~~
+> > {: .output}
+> > 
+> > To reverse the order of the ranking, use the `desc` function, i.e.
+> > `mutate(rank = min_rank(desc(lifeExp)))`
+> {: .solution}
+{: .challenge}
 
 ## Calculating summary statistics
 
