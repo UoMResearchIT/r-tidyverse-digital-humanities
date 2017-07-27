@@ -1,14 +1,14 @@
 ---
-title: Dataframe Manipulation with dplyr
+title: Manipulating tibbles with dplyr
 teaching: 40
 exercises: 15
 questions:
-- "How can I manipulate dataframes without repeating myself?"
+- "How can I manipulate tibbles without repeating myself?"
 objectives:
-- " To be able to use the six main dataframe manipulation 'verbs' with pipes in  `dplyr`."
+- " To be able to use the six main `dplyr` data manipulation 'verbs' with pipes."
 keypoints:
-- "Use the `dplyr` package to manipulate dataframes."
-- "Use `select()` to choose variables from a dataframe."
+- "Use the `dplyr` package to manipulate tibbles."
+- "Use `select()` to choose variables from a tibbles."
 - "Use `filter()` to choose data based on values."
 - "Use `group_by()` and `summarize()` to work with subsets of data."
 - "Use `mutate()` to create new variables."
@@ -17,11 +17,9 @@ source: Rmd
 
 
 
-# This lesson should replace lessons 4-7; Data structures to Control Flow
+We used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  As with `readr`, much of of the functionality of the `tidyverse` already exists in base R, or in other libraries.  What differentiates the tidyverse from a mixture of base R and ad-hoc libraries is that it its packages are designed to work well togeher.  They provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncracies of base R.
 
-In this course we will focus on tabular data - such as data from a spreadsheet or a csv file.  We will focus on manipulating and exploring data using the [tidyverse](http://tidyverse.org/).  This is a collection of packages that are designed to work well together.  Although much of the tidyverse's functionality exists in base R, or in other libraries, the tidyverse provides a more modern and streamlined approach to data-analysis, and deals with some of the idiosyncracies of base R.
-
-We install the tidyverse like any other R package:
+If yuu are using a university PC the tidyverse should already be installed.  If not, it can be installed like any other R package:
 
 
 ~~~
@@ -29,7 +27,7 @@ install.packages("tidyverse")
 ~~~
 {: .r}
 
-And load the core libraries in the tidyverse with:
+We load the core libraries in the tidyverse with:
 
 
 ~~~
@@ -64,7 +62,7 @@ lag():    dplyr, stats
 ~~~
 {: .output}
 
-There are other libraries included; these are less widely used, and must be loaded manually if they are required.  These won't be covered in the course. _perhaps include readxl?_
+There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required.  We won't cover most of these in the course. 
 
 Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the csv data from _xxx_, and take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
