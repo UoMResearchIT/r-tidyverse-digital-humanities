@@ -8,10 +8,10 @@ questions:
 - "How do I represent categorical information in R?"
 objectives:
 - "To be aware of the different types of data."
-- "To begin exploring data frames, and understand how they are related to vectors, factors and lists."
+- "To begin exploring tibbles, and understand how they are related to vectors, factors and lists."
 - "To be able to ask questions from R about the type, class, and structure of an object."
 keypoints:
-- "Use `read.csv` to read tabular data in R."
+- "Use `read_csv` to read tabular data in R."
 - "The basic data types in R are double, integer, complex, logical, and character."
 - "Use factors to represent categories in R."
 source: Rmd
@@ -44,7 +44,26 @@ We can load this into R via the following:
 
 
 ~~~
-cats <- read.csv(file = "data/feline-data.csv")
+library(readr)
+cats <- read_csv(file = "data/feline-data.csv")
+~~~
+{: .r}
+
+
+
+~~~
+Parsed with column specification:
+cols(
+  coat = col_character(),
+  weight = col_double(),
+  likes_string = col_integer()
+)
+~~~
+{: .output}
+
+
+
+~~~
 cats
 ~~~
 {: .r}
@@ -52,22 +71,31 @@ cats
 
 
 ~~~
+# A tibble: 3 x 3
     coat weight likes_string
+   <chr>  <dbl>        <int>
 1 calico    2.1            1
 2  black    5.0            0
 3  tabby    3.2            1
 ~~~
 {: .output}
 
-The `read.table` function is used for reading in tabular data stored in a text
+We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.  We will discuss data-types shortly.
+
+The `read_table` function is used for reading in tabular data stored in a text
 file where the columns of data are separated by punctuation characters such as
-CSV files (csv = comma-separated values). Tabs and commas are the most common
+CSV files (csv = comma-separated values). 
+
+
+Tabs and commas are the most common
 punctuation characters used to separate or delimit data points in csv files. 
-For convenience R provides 2 other versions of `read.table`. These are: `read.csv`
+For convenience R provides 2 other versions of `read_table`. These are: `read_csv`
 for files where the data are separated with commas and `read.delim` for files
-where the data are separated with tabs. Of these three functions `read.csv` is
+where the data are separated with tabs. Of these three functions `read_csv` is
 the most commonly used.  If needed it is possible to override the default 
-delimiting punctuation marks for both `read.csv` and `read.delim`.
+delimiting punctuation marks for both `read_csv` and `read_delim`.
+
+R comes with a built in function `read.csv()`; this has several annoying default options.  Instead we use the `read_csv()` function, which is part of the `readr` package.
 
 
 We can begin exploring our dataset right away, pulling out columns by specifying
@@ -96,8 +124,7 @@ cats$coat
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
+[1] "calico" "black"  "tabby" 
 ~~~
 {: .output}
 
@@ -142,17 +169,9 @@ cats$weight + cats$coat
 
 
 ~~~
-Warning in Ops.factor(cats$weight, cats$coat): '+' not meaningful for
-factors
+Error in cats$weight + cats$coat: non-numeric argument to binary operator
 ~~~
 {: .error}
-
-
-
-~~~
-[1] NA NA NA
-~~~
-{: .output}
 
 Understanding what happened here is key to successfully analyzing data in R.
 
@@ -208,7 +227,7 @@ typeof(1L) # The L suffix forces the number to be an integer, since by default R
 
 
 ~~~
-typeof(1+1i)
+typeof(1 + 1i)
 ~~~
 {: .r}
 
@@ -276,19 +295,24 @@ Load the new cats data like before, and check what type of data we find in the
 
 
 ~~~
-cats <- read.csv(file="data/feline-data_v2.csv")
-typeof(cats$weight)
+cats <- read_csv(file = "data/feline-data_v2.csv")
 ~~~
 {: .r}
 
 
 
 ~~~
-[1] "integer"
+Parsed with column specification:
+cols(
+  coat = col_character(),
+  weight = col_character(),
+  likes_string = col_integer()
+)
 ~~~
 {: .output}
 
-Oh no, our weights aren't the double type anymore! If we try to do the same math
+If we compare this column specification to the column specification before, we see that the weight column has now been read in as `col_character()` instead of `col_double()`.  
+If we try to do the same math
 we did on them before, we run into trouble:
 
 
@@ -300,63 +324,55 @@ cats$weight + 2
 
 
 ~~~
-Warning in Ops.factor(cats$weight, 2): '+' not meaningful for factors
+Error in cats$weight + 2: non-numeric argument to binary operator
 ~~~
 {: .error}
 
-
-
-~~~
-[1] NA NA NA NA
-~~~
-{: .output}
-
 What happened? When R reads a csv file into one of these tables, it insists that
 everything in a column be the same basic type; if it can't understand
-*everything* in the column as a double, then *nobody* in the column gets to be a
+*everything* in the column as a double, then *nothing* in the column gets to be a
 double. The table that R loaded our cats data into is something called a
-*data.frame*, and it is our first example of something called a *data
-structure* - that is, a structure which R knows how to build out of the basic
+*tibble*, and it is our first example of something called a *data
+structure* - that is, a structure which is built out of the basic
 data types.
 
-We can see that it is a *data.frame* by calling the `class` function on it:
-
-
-~~~
-class(cats)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "data.frame"
-~~~
-{: .output}
+> # On tibbles
+> 
+> We used the `read_csv()` function, which is part of the `readr` package
+> to load the data.  This is similar to R's inbuilt `read.csv()`.  
+> R's standard data structure for tabular data is the `data.frame`.  In
+> contrast, `read_csv()` creates a `tibble` (also referred to, for historic
+> reasons as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+> and can, for the most part, be treated like a `data.frame`
+> 
+> You may find that some older functions don't work on tibbles.   A tibble
+> can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
+> a data frame to a tibble, use `as.tibble(mydataframe)`
+>
+{: .callout}
 
 In order to successfully use our data in R, we need to understand what the basic
 data structures are, and how they behave. For now, let's remove that extra line
 from our cats data and reload it, while we investigate this behavior further:
 
-feline-data.csv:
-
-```
-coat,weight,likes_string
-calico,2.1,1
-black,5.0,0
-tabby,3.2,1
-```
-
-And back in RStudio:
 
 
 ~~~
-cats <- read.csv(file="data/feline-data.csv")
+cats <- read_csv(file = "data/feline-data.csv")
 ~~~
 {: .r}
 
 
 
+~~~
+Parsed with column specification:
+cols(
+  coat = col_character(),
+  weight = col_double(),
+  likes_string = col_integer()
+)
+~~~
+{: .output}
 
 ## Vectors and Type Coercion
 
@@ -383,9 +399,8 @@ you don't choose the datatype, it'll default to `logical`; or, you can declare
 an empty vector of whatever type you like.
 
 
-
 ~~~
-another_vector <- vector(mode='character', length=3)
+another_vector <- vector(mode = 'character', length = 3)
 another_vector
 ~~~
 {: .r}
@@ -431,8 +446,8 @@ str(cats$weight)
 ~~~
 {: .output}
 
-we see that `cats$weight` is a vector, too - *the columns of data we load into R
-data.frames are all vectors*, and that's the root of why R forces everything in
+we see that `cats$weight` is a vector, too - *the columns of data we load into a tibble or a 
+data.frame are all vectors*, and that's the root of why R forces everything in
 a column to be the same basic data type.
 
 > ## Discussion 1
@@ -663,7 +678,7 @@ seq(10)
 
 
 ~~~
-seq(1,10, by=0.1)
+seq(1,10, by = 0.1)
 ~~~
 {: .r}
 
@@ -685,7 +700,7 @@ We can ask a few questions about vectors:
 
 ~~~
 sequence_example <- seq(10)
-head(sequence_example, n=2)
+head(sequence_example, n = 2)
 ~~~
 {: .r}
 
@@ -699,7 +714,7 @@ head(sequence_example, n=2)
 
 
 ~~~
-tail(sequence_example, n=4)
+tail(sequence_example, n = 4)
 ~~~
 {: .r}
 
@@ -803,52 +818,6 @@ names(my_example)
 {: .challenge}
 
 
-## Data Frames
-
-We said that columns in data.frames were vectors:
-
-
-~~~
-str(cats$weight)
-~~~
-{: .r}
-
-
-
-~~~
- num [1:3] 2.1 5 3.2
-~~~
-{: .output}
-
-
-
-~~~
-str(cats$likes_string)
-~~~
-{: .r}
-
-
-
-~~~
- logi [1:3] TRUE FALSE TRUE
-~~~
-{: .output}
-
-These make sense. But what about
-
-
-~~~
-str(cats$coat)
-~~~
-{: .r}
-
-
-
-~~~
- Factor w/ 3 levels "black","calico",..: 2 1 3
-~~~
-{: .output}
-
 ## Factors
 
 Another important data structure is called a *factor*. Factors usually look like
@@ -889,7 +858,7 @@ We can turn a vector into a factor like so:
 
 
 ~~~
-CATegories <- factor(coats)
+CATegories <- parse_factor(coats, levels = NULL)
 class(CATegories)
 ~~~
 {: .r}
@@ -911,85 +880,37 @@ str(CATegories)
 
 
 ~~~
- Factor w/ 3 levels "black","tabby",..: 2 3 3 1 2
+ Factor w/ 3 levels "tabby","tortoiseshell",..: 1 2 2 3 1
 ~~~
 {: .output}
 
-Now R has noticed that there are three possible categories in our data - but it
-also did something surprising; instead of printing out the strings we gave it,
-we got a bunch of numbers instead. R has replaced our human-readable categories
-with numbered indices under the hood, this is necessary as many statistical
-calculations utilise such numerical representations for categorical data:
+We specify `levels = NULL` to tell R to work out the levels to assign the factor.  The `parse_factor()`
+function does this by setting the levels in the order it first encounters each level. 
 
-
-~~~
-typeof(coats)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "character"
-~~~
-{: .output}
-
-
-
-~~~
-typeof(CATegories)
-~~~
-{: .r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-> ## Challenge 2
->
-> Is there a factor in our `cats` data.frame? what is its name?
-> Try using `?read.csv` to figure out how to keep text columns as character
-> vectors instead of factors; then write a command or two to show that the factor
-> in `cats` is actually a character vector when loaded in this way.
->
-> > ## Solution to Challenge 2
-> >
-> > One solution is use the argument `stringAsFactors`:
-> >
-> > 
-> > ~~~
-> > cats <- read.csv(file="data/feline-data.csv", stringsAsFactors=FALSE)
-> > str(cats$coat)
-> > ~~~
-> > {: .r}
-> >
-> > Another solution is use the argument `colClasses`
-> > that allow finer control.
-> >
-> > 
-> > ~~~
-> > cats <- read.csv(file="data/feline-data.csv", colClasses=c(NA, NA, "character"))
-> > str(cats$coat)
-> > ~~~
-> > {: .r}
-> >
-> > Note: new students find the help files difficult to understand; make sure to let them know
-> > that this is typical, and encourage them to take their best guess based on semantic meaning,
-> > even if they aren't sure.
-> {: .solution}
-{: .challenge}
-
-In modelling functions, it's important to know what the baseline levels are. This
-is assumed to be the first factor, but by default factors are labelled in
-alphabetical order. You can change this by specifying the levels:
+The ordering of the levels matters in many statistical procedures.  For example, if we
+were studying the effect of an experimental intervention we would normally wish to set
+the control group to be the baseline level (i.e. the first level in the factor).  You can
+change the levels by specifying the labels:
 
 
 ~~~
 mydata <- c("case", "control", "control", "case")
-factor_ordering_example <- factor(mydata, levels = c("control", "case"))
+factor_default_example <- parse_factor(mydata, levels = NULL)
+str(factor_default_example)
+~~~
+{: .r}
+
+
+
+~~~
+ Factor w/ 2 levels "case","control": 1 2 2 1
+~~~
+{: .output}
+
+
+
+~~~
+factor_ordering_example <- parse_factor(mydata, levels = c("control", "case"))
 str(factor_ordering_example)
 ~~~
 {: .r}
@@ -1002,8 +923,38 @@ str(factor_ordering_example)
 {: .output}
 
 In this case, we've explicitly told R that "control" should represented by 1, and
-"case" by 2. This designation can be very important for interpreting the
-results of statistical models!
+"case" by 2. 
+
+> ## Challenge 2
+>
+> Try repeating the mydata example, but deliberately mis-spell one of the values
+> e.g. "controll".  What happens when you try to make a factor of the data?  Does it
+> make a difference whether you set the factor levels yourself, or let R set them?
+>
+> > ## Solution
+> > 
+> > If we use `levels = NULL` the factor will be created without a warning (with 
+> > "controll" being assigned its own level).  If we explicitly specify the factor 
+> > levels we get a warning indicating that the "controll" value has been set to NA.
+> > **For this reason it is good practice to explicitly tell R what the factor levels
+> > are; it is better to know that someting has gone wrong when it happens, rather than
+> > finding out about it in your results.**
+> {: .solution}
+{: .challenge}
+    
+> ## Factors and readr    
+> 
+> In this lesson we've taught you how to make factors using the functionality in the
+> `readr` package.  Base R can also make factors using the `factor()` function.
+> the main differences between the two approaches are:
+> * `factor()` does not require us to pass `levels = NULL` if we want R to work out the levels automatically
+> * The automatic levels generated by `factor()` will be alphabetical
+> * `factor()` does not warn us if we have data that doesn't match any of the levels we have specified
+> 
+> It is chiefly for the final reason that we recommend using `parse_factor()` instead of `factor()`.  You
+> should be aware that the default ordering of factor levels differs between `factor()` and `parse_factor()`
+> though, as we mentioned, it's better practice to explicitly set factor levels anyway.
+{: .callout}
 
 ## Lists
 
@@ -1013,7 +964,7 @@ want in it:
 
 
 ~~~
-list_example <- list(1, "a", TRUE, 1+4i)
+list_example <- list(1, "a", TRUE, 1 + 4i)
 list_example
 ~~~
 {: .r}
@@ -1072,7 +1023,7 @@ typeof(cats)
 ~~~
 {: .output}
 
-We see that data.frames look like lists 'under the hood' - this is because a
+We see that tibbles look like lists 'under the hood' - this is because a
 data.frame is really a list of vectors and factors, as they have to be - in
 order to hold those columns that are a mix of vectors and factors, the
 data.frame needs something a bit more flexible than a vector to put all the
@@ -1091,8 +1042,7 @@ cats$coat
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
+[1] "calico" "black"  "tabby" 
 ~~~
 {: .output}
 
@@ -1106,8 +1056,12 @@ cats[,1]
 
 
 ~~~
-[1] calico black  tabby 
-Levels: black calico tabby
+# A tibble: 3 x 1
+    coat
+   <chr>
+1 calico
+2  black
+3  tabby
 ~~~
 {: .output}
 
@@ -1121,7 +1075,7 @@ typeof(cats[,1])
 
 
 ~~~
-[1] "integer"
+[1] "list"
 ~~~
 {: .output}
 
@@ -1135,7 +1089,8 @@ str(cats[,1])
 
 
 ~~~
- Factor w/ 3 levels "black","calico",..: 2 1 3
+Classes 'tbl_df', 'tbl' and 'data.frame':	3 obs. of  1 variable:
+ $ coat: chr  "calico" "black" "tabby"
 ~~~
 {: .output}
 
@@ -1151,7 +1106,9 @@ cats[1,]
 
 
 ~~~
+# A tibble: 1 x 3
     coat weight likes_string
+   <chr>  <dbl>        <lgl>
 1 calico    2.1         TRUE
 ~~~
 {: .output}
@@ -1180,8 +1137,8 @@ str(cats[1,])
 
 
 ~~~
-'data.frame':	1 obs. of  3 variables:
- $ coat        : Factor w/ 3 levels "black","calico",..: 2
+Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
+ $ coat        : chr "calico"
  $ weight      : num 2.1
  $ likes_string: logi TRUE
 ~~~
@@ -1214,7 +1171,9 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
+> > # A tibble: 3 x 1
 > >     coat
+> >    <chr>
 > > 1 calico
 > > 2  black
 > > 3  tabby
@@ -1232,8 +1191,7 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> > [1] "calico" "black"  "tabby" 
 > > ~~~
 > > {: .output}
 > > The double brace `[[1]]` returns the contents of the list item. In this case
@@ -1247,8 +1205,7 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> > [1] "calico" "black"  "tabby" 
 > > ~~~
 > > {: .output}
 > > This example uses the `$` character to address items by name. _coat_ is the
@@ -1262,7 +1219,9 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
+> > # A tibble: 3 x 1
 > >     coat
+> >    <chr>
 > > 1 calico
 > > 2  black
 > > 3  tabby
@@ -1279,8 +1238,10 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
-> > [1] calico
-> > Levels: black calico tabby
+> > # A tibble: 1 x 1
+> >     coat
+> >    <chr>
+> > 1 calico
 > > ~~~
 > > {: .output}
 > > This example uses a single brace, but this time we provide row and column
@@ -1296,8 +1257,12 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
-> > [1] calico black  tabby 
-> > Levels: black calico tabby
+> > # A tibble: 3 x 1
+> >     coat
+> >    <chr>
+> > 1 calico
+> > 2  black
+> > 3  tabby
 > > ~~~
 > > {: .output}
 > > Like the previous example we use single braces and provide row and column
@@ -1312,7 +1277,9 @@ str(cats[1,])
 > > 
 > > 
 > > ~~~
+> > # A tibble: 1 x 3
 > >     coat weight likes_string
+> >    <chr>  <dbl>        <lgl>
 > > 1 calico    2.1         TRUE
 > > ~~~
 > > {: .output}
