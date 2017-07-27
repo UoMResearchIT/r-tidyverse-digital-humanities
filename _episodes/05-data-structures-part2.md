@@ -1,15 +1,14 @@
 ---
-title: "Exploring Data Frames"
+title: "Exploring Tibbles"
 teaching: 20
 exercises: 10
 questions:
-- "How can I manipulate a data frame?"
+- "How can I manipulate tibbles?"
 objectives:
 - "Be able to add and remove rows and columns."
-- "Be able to remove rows with `NA` values."
-- "Be able to append two data frames"
+- "Be able to append two tibbles"
 - "Be able to articulate what a `factor` is and how to convert between `factor` and `character`."
-- "Be able to find basic properties of a data frames including size, class or type of the columns, names, and first few rows."
+- "Be able to find basic properties of tibles including size, class or type of the columns, names, and first few rows."
 keypoints:
 - "Use `cbind()` to add a new column to a data frame."
 - "Use `rbind()` to add a new row to a data frame."
@@ -28,16 +27,25 @@ source: Rmd
 At this point, you've see it all - in the last lesson, we toured all the basic
 data types and data structures in R. Everything you do will be a manipulation of
 those tools. But a whole lot of the time, the star of the show is going to be
-the data frame - the table that we created by loading information from a csv file. In this lesson, we'll learn a few more things
-about working with data frames.
+the tibble - the table that we created by loading information from a csv file.
+In this lesson, we'll learn a few more things about working with tibbles.
 
-## Adding columns and rows in data frame
+## Adding columns and rows to tibbles.
 
-We learned last time that the columns in a data frame were vectors, so that our
+We learned last time that the columns in a tibble were vectors, so that our
 data are consistent in type throughout the column. As such, if we want to add a
 new column, we need to start by making a new vector:
 
 
+~~~
+Parsed with column specification:
+cols(
+  coat = col_character(),
+  weight = col_double(),
+  likes_string = col_integer()
+)
+~~~
+{: .output}
 
 
 ~~~
@@ -49,7 +57,9 @@ cats
 
 
 ~~~
+# A tibble: 3 x 3
     coat weight likes_string
+   <chr>  <dbl>        <int>
 1 calico    2.1            1
 2  black    5.0            0
 3  tabby    3.2            1
@@ -83,7 +93,9 @@ cats
 
 
 ~~~
+# A tibble: 3 x 3
     coat weight likes_string
+   <chr>  <dbl>        <int>
 1 calico    2.1            1
 2  black    5.0            0
 3  tabby    3.2            1
@@ -93,7 +105,7 @@ cats
 
 
 ~~~
-age <- c(4,5,8)
+age <- c(2,3,5)
 cats <- cbind(cats, age)
 cats
 ~~~
@@ -103,9 +115,9 @@ cats
 
 ~~~
     coat weight likes_string age
-1 calico    2.1            1   4
-2  black    5.0            0   5
-3  tabby    3.2            1   8
+1 calico    2.1            1   2
+2  black    5.0            0   3
+3  tabby    3.2            1   5
 ~~~
 {: .output}
 
@@ -118,14 +130,6 @@ newRow <- list("tortoiseshell", 3.3, TRUE, 9)
 cats <- rbind(cats, newRow)
 ~~~
 {: .r}
-
-
-
-~~~
-Warning in `[<-.factor`(`*tmp*`, ri, value = "tortoiseshell"): invalid
-factor level, NA generated
-~~~
-{: .error}
 
 ## Factors
 
@@ -149,7 +153,7 @@ levels(cats$coat)
 
 
 ~~~
-[1] "black"  "calico" "tabby" 
+NULL
 ~~~
 {: .output}
 
@@ -160,6 +164,14 @@ levels(cats$coat) <- c(levels(cats$coat), 'tortoiseshell')
 cats <- rbind(cats, list("tortoiseshell", 3.3, TRUE, 9))
 ~~~
 {: .r}
+
+
+
+~~~
+Warning in `[<-.factor`(`*tmp*`, ri, value = structure(c("calico",
+"black", : invalid factor level, NA generated
+~~~
+{: .error}
 
 Alternatively, we can change a factor column to a character vector; we lose the
 handy categories of the factor, but can subsequently add any word we want to the
@@ -175,10 +187,10 @@ str(cats)
 
 ~~~
 'data.frame':	5 obs. of  4 variables:
- $ coat        : Factor w/ 4 levels "black","calico",..: 2 1 3 NA 4
+ $ coat        : Factor w/ 1 level "tortoiseshell": NA NA NA 1 1
  $ weight      : num  2.1 5 3.2 3.3 3.3
  $ likes_string: int  1 0 1 1 1
- $ age         : num  4 5 8 9 9
+ $ age         : num  2 3 5 9 9
 ~~~
 {: .output}
 
@@ -194,10 +206,10 @@ str(cats)
 
 ~~~
 'data.frame':	5 obs. of  4 variables:
- $ coat        : chr  "calico" "black" "tabby" NA ...
+ $ coat        : chr  NA NA NA "tortoiseshell" ...
  $ weight      : num  2.1 5 3.2 3.3 3.3
  $ likes_string: int  1 0 1 1 1
- $ age         : num  4 5 8 9 9
+ $ age         : num  2 3 5 9 9
 ~~~
 {: .output}
 
@@ -217,10 +229,10 @@ cats
 
 ~~~
            coat weight likes_string age
-1        calico    2.1            1   4
-2         black    5.0            0   5
-3         tabby    3.2            1   8
-4          <NA>    3.3            1   9
+1          <NA>    2.1            1   2
+2          <NA>    5.0            0   3
+3          <NA>    3.2            1   5
+4 tortoiseshell    3.3            1   9
 5 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -237,9 +249,9 @@ cats[-4,]
 
 ~~~
            coat weight likes_string age
-1        calico    2.1            1   4
-2         black    5.0            0   5
-3         tabby    3.2            1   8
+1          <NA>    2.1            1   2
+2          <NA>    5.0            0   3
+3          <NA>    3.2            1   5
 5 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -261,9 +273,7 @@ na.omit(cats)
 
 ~~~
            coat weight likes_string age
-1        calico    2.1            1   4
-2         black    5.0            0   5
-3         tabby    3.2            1   8
+4 tortoiseshell    3.3            1   9
 5 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -293,13 +303,9 @@ cats
 
 ~~~
             coat weight likes_string age
-1         calico    2.1            1   4
-2          black    5.0            0   5
-3          tabby    3.2            1   8
+4  tortoiseshell    3.3            1   9
 5  tortoiseshell    3.3            1   9
-11        calico    2.1            1   4
-21         black    5.0            0   5
-31         tabby    3.2            1   8
+41 tortoiseshell    3.3            1   9
 51 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
@@ -317,14 +323,10 @@ cats
 
 ~~~
            coat weight likes_string age
-1        calico    2.1            1   4
-2         black    5.0            0   5
-3         tabby    3.2            1   8
+1 tortoiseshell    3.3            1   9
+2 tortoiseshell    3.3            1   9
+3 tortoiseshell    3.3            1   9
 4 tortoiseshell    3.3            1   9
-5        calico    2.1            1   4
-6         black    5.0            0   5
-7         tabby    3.2            1   8
-8 tortoiseshell    3.3            1   9
 ~~~
 {: .output}
 

@@ -1,15 +1,14 @@
 ---
-title: "Exploring Data Frames"
+title: "Exploring Tibbles"
 teaching: 20
 exercises: 10
 questions:
-- "How can I manipulate a data frame?"
+- "How can I manipulate tibbles?"
 objectives:
 - "Be able to add and remove rows and columns."
-- "Be able to remove rows with `NA` values."
-- "Be able to append two data frames"
+- "Be able to append two tibbles"
 - "Be able to articulate what a `factor` is and how to convert between `factor` and `character`."
-- "Be able to find basic properties of a data frames including size, class or type of the columns, names, and first few rows."
+- "Be able to find basic properties of tibles including size, class or type of the columns, names, and first few rows."
 keypoints:
 - "Use `cbind()` to add a new column to a data frame."
 - "Use `rbind()` to add a new row to a data frame."
@@ -25,23 +24,24 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("05-")
+library(readr)
 ```
 
 
 At this point, you've see it all - in the last lesson, we toured all the basic
 data types and data structures in R. Everything you do will be a manipulation of
 those tools. But a whole lot of the time, the star of the show is going to be
-the data frame - the table that we created by loading information from a csv file. In this lesson, we'll learn a few more things
-about working with data frames.
+the tibble - the table that we created by loading information from a csv file.
+In this lesson, we'll learn a few more things about working with tibbles.
 
-## Adding columns and rows in data frame
+## Adding columns and rows to tibbles.
 
-We learned last time that the columns in a data frame were vectors, so that our
+We learned last time that the columns in a tibble were vectors, so that our
 data are consistent in type throughout the column. As such, if we want to add a
 new column, we need to start by making a new vector:
 
 ```{r, echo = FALSE}
-cats <- read.csv("data/feline-data.csv")
+cats <- read_csv("data/feline-data.csv")
 ```
 
 ```{r}
@@ -60,7 +60,7 @@ for every row in the table:
 
 ```{r}
 cats
-age <- c(4,5,8)
+age <- c(2,3,5)
 cats <- cbind(cats, age)
 cats
 ```
