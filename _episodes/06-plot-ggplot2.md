@@ -507,6 +507,9 @@ code to modify!
 [cheat]: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 [ggplot-doc]: http://docs.ggplot2.org/current/
 
+## ggplot Extensions
+
+ggplot is very flexible, and its capabilities can be extended.  Th
 
 
 
