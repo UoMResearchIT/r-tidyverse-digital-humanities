@@ -45,7 +45,7 @@ Let's start off with an example, using our gapminder data:
 
 
 ~~~
-library("ggplot2")
+library("tidyverse")
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ~~~
@@ -375,22 +375,103 @@ by adding a layer of **facet** panels.
 
 
 ~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp)) +
+gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
   geom_line() + facet_wrap( ~ continent)
 ~~~
 {: .r}
 
-<img src="../fig/rmd-06-facet-1.png" title="plot of chunk facet" alt="plot of chunk facet" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 (~). This tells R to draw a panel for each unique value in the country column
 of the gapminder dataset.
 
+> ## Challenge 5
+> 
+> Modify the plot so that each country has its own colour.   Although we would 
+> usually use a legend when plotting multiple series, you will find that this takes
+> up all of the plotting space; hide the legend.
+> 
+> Hint: There is a cheatsheet for `ggplot2` included with Rstudio
+> 
+> > ## Solution to challenge 5
+> > We can colour each country's line using the `colour` aesthetic:
+> > 
+> > 
+> > ~~~
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( ~ continent)
+> > ~~~
+> > {: .r}
+> >
+> > This will produce a plot that only shows (part of) the legend.
+> > we can hide the legend using `guides(colour = "none")`
+> >
+> > 
+> > ~~~
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
+
+> ## Challenge 6
+>
+> Create a density plot of GDP per capita, filled by continent.
+>
+> Advanced:
+>
+>  - Transform the x axis to better visualise the data spread.
+>  - Add a facet layer to panel the density plots by year.
+>
+> > ## Solution to challenge 6
+> >
+> > Create a density plot of GDP per capita, filled by continent.
+> >
+> > Advanced:
+> >  - Transform the x axis to better visualise the data spread.
+> >  - Add a facet layer to panel the density plots by year.
+> >
+> > 
+> > ~~~
+> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
+> >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+> > ~~~
+> > {: .r}
+> > 
+> > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
+The figure we produced in challenge 6 is visually rather complicated; it's difficult
+to get a feel for how the different continents' GDPs are changing over time.  Let's focus on 
+just a couple of continents.  
+
+When we want to start subsetting and mutating the data before plotting, the usefulness of
+"piped" data-analysis becomes apparent; we can peform our data transformations and then
+send the result to `ggplot2` without making an intermediate data set.
+
+
+~~~
+gapminder %>% filter(continent %in% c("Europe", "Africa")) %>% 
+  ggplot(aes(x = gdpPercap, fill = continent)) +
+  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+~~~
+{: .r}
+
+<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+
+
+
 ## Modifying text
 
 To clean this figure up for a publication we need to change some of the text
-elements. The x-axis is too cluttered, and the y axis should read
-"Life expectancy", rather than the column name in the data frame.
+elements.  For example the axis labels should be "human readable" rather than 
+the variable name from the data-set.  We may also wish to change the text size, etc.
 
 We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot 
@@ -401,15 +482,15 @@ of a fill legend would be set using `fill = "MyTitle"`.
 
 
 ~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, color=continent)) +
-  geom_line() + facet_wrap( ~ country) +
+gapminder %>% filter(continent %in% c("Europe", "Africa")) %>% 
+  ggplot(aes(x = gdpPercap, fill = continent)) +
+  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10() +
   labs(
-    x = "Year",              # x axis title
-    y = "Life expectancy",   # y axis title
+    x = "GDP per capita (log scale)",              # x axis title
+    y = "Density",   # y axis title
     title = "Figure 1",      # main title of figure
     color = "Continent"      # title of legend
-  ) +
-  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank())
+  ) 
 ~~~
 {: .r}
 
@@ -427,104 +508,8 @@ code to modify!
 [ggplot-doc]: http://docs.ggplot2.org/current/
 
 
-> ## Challenge 5
->
-> Create a density plot of GDP per capita, filled by continent.
->
-> Advanced:
->  - Transform the x axis to better visualise the data spread.
->  - Add a facet layer to panel the density plots by year.
->
-> > ## Solution to challenge 5
-> >
-> > Create a density plot of GDP per capita, filled by continent.
-> >
-> > Advanced:
-> >  - Transform the x axis to better visualise the data spread.
-> >  - Add a facet layer to panel the density plots by year.
-> >
-> > 
-> > ~~~
-> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill=continent)) +
-> >  geom_density(alpha=0.6) + facet_wrap( ~ year) + scale_x_log10()
-> > ~~~
-> > {: .r}
-> > 
-> > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
-> {: .solution}
-{: .challenge}
 
 
-## Combining `dplyr` and `ggplot2`
-
-In the plotting lesson we looked at how to make a multi-panel figure by adding
-a layer of facet panels using `ggplot2`. Here is the code we used (with some
-extra comments):
-
-
-~~~
-# Get the start letter of each country
-starts.with <- substr(gapminder$country, start = 1, stop = 1)
-# Filter countries that start with "A" or "Z"
-az.countries <- gapminder[starts.with %in% c("A", "Z"), ]
-# Make the plot
-ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
-  geom_line() + facet_wrap( ~ country)
-~~~
-{: .r}
-
-<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
-
-This code makes the right plot but it also creates some variables (`starts.with`
-and `az.countries`) that we might not have any other uses for. Just as we used
-`%>%` to pipe data along a chain of `dplyr` functions we can use it to pass data
-to `ggplot()`. Because `%>%` replaces the first argument in a function we don't
-need to specify the `data =` argument in the `ggplot()` function. By combining
-`dplyr` and `ggplot2` functions we can make the same figure without creating any
-new variables or modifying the data.  
-
-
-~~~
-gapminder %>% 
-   # Get the start letter of each country 
-   mutate(startsWith = substr(country, start = 1, stop = 1)) %>% 
-   # Filter countries that start with "A" or "Z"
-   filter(startsWith %in% c("A", "Z")) %>%
-   # Make the plot
-   ggplot(aes(x = year, y = lifeExp, color = continent)) + 
-   geom_line() + 
-   facet_wrap( ~ country)
-~~~
-{: .r}
-
-
-
-~~~
-Error in mutate(., startsWith = substr(country, start = 1, stop = 1)): could not find function "mutate"
-~~~
-{: .error}
-
-Using `dplyr` functions also helps us simplify things, for example we could
-combine the first two steps:
-
-
-~~~
-gapminder %>%
-    # Filter countries that start with "A" or "Z"
-	filter(substr(country, start = 1, stop = 1) %in% c("A", "Z")) %>%
-	# Make the plot
-	ggplot(aes(x = year, y = lifeExp, color = continent)) + 
-	geom_line() + 
-	facet_wrap( ~ country)
-~~~
-{: .r}
-
-
-
-~~~
-Error in substr(country, start = 1, stop = 1): object 'country' not found
-~~~
-{: .error}
 
 > ## Advanced Challenge
 >
@@ -544,13 +529,6 @@ Error in substr(country, start = 1, stop = 1): object 'country' not found
 > >    arrange(desc(mean_lifeExp))
 > >~~~
 > >{: .r}
-> >
-> >
-> >
-> >~~~
-> >Error in filter(., year == 2002): object 'year' not found
-> >~~~
-> >{: .error}
 > {: .solution}
 {: .challenge}
 
