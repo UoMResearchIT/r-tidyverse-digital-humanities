@@ -29,7 +29,7 @@ package, and the [ggplot2][ggplot2] package.
 
 Today we'll be learning about the ggplot2 package, because
 it is the most effective for creating publication quality
-graphics.  It is also part of the tidyverse, which we introduced in xxx.
+graphics.  It is also part of the tidyverse, which we introduced in [episode 4]({{ page.root }}/05-dplyr).
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
@@ -40,7 +40,8 @@ The key to understanding ggplot2 is thinking about a figure in layers.
 This idea may be familiar to you if you have used image editing programs like Photoshop, Illustrator, or
 Inkscape.
 
-Let's start off with an example:
+Let's start off with an example, using our gapminder data:
+
 
 
 ~~~
@@ -89,6 +90,22 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 <img src="../fig/rmd-08-lifeExp-vs-gdpPercap-scatter2-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter2" alt="plot of chunk lifeExp-vs-gdpPercap-scatter2" style="display: block; margin: auto;" />
 
+## Combining `dplyr` and `ggplot2`
+
+As `gplot2` is part of the tidyverse, we can use it with pipes.  As we will see later in the 
+episode, this will be particularly useful if we need to modify the data before plotting it.
+
+We can repeat the above plot, using a pipe, as follows:
+
+
+~~~
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
+~~~
+{: .r}
+
+<img src="../fig/rmd-08-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` symbol.
+
 > ## Challenge 1
 >
 > Modify the example so that the figure shows how life expectancy has
@@ -96,7 +113,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 >
 > 
 > ~~~
-> ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + geom_point()
+> gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
 > ~~~
 > {: .r}
 >
@@ -109,7 +126,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > >
 > > 
 > > ~~~
-> > ggplot(data = gapminder, aes(x = year, y = lifeExp)) + geom_point()
+> > gapminder %>%  ggplot(aes(x = year, y = lifeExp)) + geom_point()
 > > ~~~
 > > {: .r}
 > > 
@@ -137,7 +154,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 > >
 > > 
 > > ~~~
-> > ggplot(data = gapminder, aes(x = year, y = lifeExp, color=continent)) +
+> > gapminder %>% ggplot(aes(x = year, y = lifeExp, color=continent)) +
 > >   geom_point()
 > > ~~~
 > > {: .r}
@@ -155,7 +172,7 @@ Instead, let's tell `ggplot` to visualize the data as a line plot:
 
 
 ~~~
-ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country, color=continent)) +
+gapminder %>%  ggplot(aes(x=year, y=lifeExp, by=country, color=continent)) +
   geom_line()
 ~~~
 {: .r}
@@ -171,7 +188,7 @@ simply add another layer to the plot:
 
 
 ~~~
-ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country, color=continent)) +
+gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country, color=continent)) +
   geom_line() + geom_point()
 ~~~
 {: .r}
@@ -184,7 +201,7 @@ demonstration:
 
 
 ~~~
-ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country)) +
+gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country)) +
   geom_line(aes(color=continent)) + geom_point()
 ~~~
 {: .r}
@@ -213,14 +230,14 @@ lines.
 > >
 > > 
 > > ~~~
-> > ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country)) +
+> > gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country)) +
 > >  geom_point() + geom_line(aes(color=continent))
 > > ~~~
 > > {: .r}
 > > 
 > > <img src="../fig/rmd-08-ch3-sol-1.png" title="plot of chunk ch3-sol" alt="plot of chunk ch3-sol" style="display: block; margin: auto;" />
 > >
-> > The lines now get drawn over the points!
+> > The lines now get drawn over the points.
 > >
 > {: .solution}
 {: .challenge}
@@ -232,7 +249,7 @@ demonstrate we'll go back to our first example:
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color=continent)) +
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color=continent)) +
   geom_point()
 ~~~
 {: .r}
@@ -248,7 +265,7 @@ a large amount of data which is very clustered.
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point(alpha = 0.5) + scale_x_log10()
 ~~~
 {: .r}
@@ -272,8 +289,8 @@ We can fit a simple relationship to the data by adding another layer,
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method="lm")
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() + scale_x_log10() + geom_smooth(method = "lm")
 ~~~
 {: .r}
 
@@ -284,7 +301,7 @@ We can make the line thicker by *setting* the **size** aesthetic in the
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10() + geom_smooth(method="lm", size=1.5)
 ~~~
 {: .r}
@@ -312,7 +329,7 @@ variables and their visual representation.
 > >
 > > 
 > > ~~~
-> > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+> > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 > >  geom_point(size=3, color="orange") + scale_x_log10() +
 > >  geom_smooth(method="lm", size=1.5)
 > > ~~~
@@ -338,7 +355,7 @@ variables and their visual representation.
 > >
 > >
 > >~~~
-> > ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
+> > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
 > > geom_point(size=3, shape=17) + scale_x_log10() +
 > > geom_smooth(method="lm", size=1.5)
 > >~~~
@@ -372,7 +389,7 @@ names that start with the letter "A" or "Z".
 ~~~
 starts.with <- substr(gapminder$country, start = 1, stop = 1)
 az.countries <- gapminder[starts.with %in% c("A", "Z"), ]
-ggplot(data = az.countries, aes(x = year, y = lifeExp, color=continent)) +
+gapminder %>% ggplot(aes(x = year, y = lifeExp, color=continent)) +
   geom_line() + facet_wrap( ~ country)
 ~~~
 {: .r}
@@ -470,7 +487,7 @@ ggplot(data = az.countries, aes(x = year, y = lifeExp, color = continent)) +
 ~~~
 {: .r}
 
-<img src="../fig/rmd-08-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+<img src="../fig/rmd-08-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 This code makes the right plot but it also creates some variables (`starts.with`
 and `az.countries`) that we might not have any other uses for. Just as we used
