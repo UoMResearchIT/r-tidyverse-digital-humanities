@@ -457,9 +457,12 @@ send the result to `ggplot2` without making an intermediate data set.
 
 
 ~~~
-gapminder %>% filter(continent %in% c("Europe", "Africa")) %>% 
+gapminder %>% 
+  filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+  facet_wrap( ~ year) + 
+  scale_x_log10() + 
+  geom_density(alpha = 0.6) 
 ~~~
 {: .r}
 
@@ -482,9 +485,12 @@ of a fill legend would be set using `fill = "MyTitle"`.
 
 
 ~~~
-gapminder %>% filter(continent %in% c("Europe", "Africa")) %>% 
+gapminder %>% 
+  filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10() +
+  facet_wrap( ~ year) + 
+  scale_x_log10() + 
+  geom_density(alpha = 0.6) +
   labs(
     x = "GDP per capita (log scale)",              # x axis title
     y = "Density",   # y axis title
@@ -509,35 +515,34 @@ code to modify!
 
 ## ggplot Extensions
 
-ggplot is very flexible, and its capabilities can be extended.  Th
+ggplot is very flexible, and its capabilities can be extended.  The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages that can extend its capabilities.  If you have a specialised plotting need (for example plotting ROC curves, survival data or time series) there are packages that will allow you to make these plots with minimal effort.
+
+As an example of how easy it can be to extend ggplot, we will use the `ggjoy` plot to produce a stacked density plot, to better visualise the previous figure:
+
+
+~~~
+library(ggjoy)
+
+gapminder %>% 
+  filter(continent %in% c("Europe", "Africa")) %>% 
+  mutate(yearfact = parse_factor(year, levels = rev(sort(unique(year))))) %>% 
+  ggplot(aes(x = gdpPercap, y = yearfact, fill = continent)) +
+  scale_x_log10() + 
+  geom_joy(alpha = 0.6) 
+~~~
+{: .r}
+
+
+
+~~~
+Picking joint bandwidth of 0.128
+~~~
+{: .output}
+
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 
 
 
-> ## Advanced Challenge
->
-> Calculate the average life expectancy in 2002 of 2 randomly selected countries
-> for each continent. Then arrange the continent names in reverse order.
-> **Hint:** Use the `dplyr` functions `arrange()` and `sample_n()`, they have
-> similar syntax to other dplyr functions.
->
-> > ## Solution to Advanced Challenge
-> >
-> >~~~
-> >lifeExp_2countries_bycontinents <- gapminder %>%
-> >    filter(year==2002) %>%
-> >    group_by(continent) %>%
-> >    sample_n(2) %>%
-> >    summarize(mean_lifeExp=mean(lifeExp)) %>%
-> >    arrange(desc(mean_lifeExp))
-> >~~~
-> >{: .r}
-> {: .solution}
-{: .challenge}
 
-## Other great resources
 
-* [R for Data Science](http://r4ds.had.co.nz/)
-* [Data Wrangling Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
-* [Introduction to dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html)
-* [Data wrangling with R and RStudio](https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/)
