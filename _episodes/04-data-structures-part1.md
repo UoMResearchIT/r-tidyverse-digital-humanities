@@ -988,7 +988,7 @@ cats <- read_csv("data/feline-data.csv",
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
 > This is often not what you want.  This can be overridden by passing the option `stringsAsFactors = FALSE` 
-> to `read_csv()`.  
+> to `read.csv()`.  
 >
 > Base R can also make factors using the `factor()` function.
 > the main differences between the two approaches are:
