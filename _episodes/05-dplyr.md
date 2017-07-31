@@ -264,7 +264,7 @@ gapminder_totalgdp <- gapminder %>%
 > shortly)
 > 
 > Hint: First filter and then mutate the data.  The cheat-sheet contains useful
-> functions you can use when you make new variables
+> functions you can use when you make new variables.
 >
 > > ## Solution to challenge 2
 > > 
@@ -372,23 +372,46 @@ gapminder %>%
 ~~~
 {: .output}
 
-> ## Challenge 2
+> ## Challenge 3
 >
 > Calculate the average life expectancy in each continent, for each year.
 >
-> ## Solution to Challenge 2
+> > ## Solution to Challenge 3
+> >
 > >
 > >~~~
 > > lifeExp_bycontinentyear <- gapminder %>% 
 > >    group_by(continent, year) %>% 
 > >   summarise(mean_lifeExp = mean(lifeExp))
+> > print(lifeExp_bycontinentyear)
 > >~~~
 > >{: .r}
+> >
+> >
+> >
+> >~~~
+> ># A tibble: 60 x 3
+> ># Groups:   continent [?]
+> >   continent  year mean_lifeExp
+> >       <chr> <int>        <dbl>
+> > 1    Africa  1952     39.13550
+> > 2    Africa  1957     41.26635
+> > 3    Africa  1962     43.31944
+> > 4    Africa  1967     45.33454
+> > 5    Africa  1972     47.45094
+> > 6    Africa  1977     49.58042
+> > 7    Africa  1982     51.59287
+> > 8    Africa  1987     53.34479
+> > 9    Africa  1992     53.62958
+> >10    Africa  1997     53.59827
+> ># ... with 50 more rows
+> >~~~
+> >{: .output}
 > {: .solution}
 {: .challenge}
 
 ## count() and n()
-
+**Not sure this is the best place for this- should perhaps be later**
 A very common operation is to count the number of observations for each
 group. The `dplyr` package comes with two related functions that help with this.
 
@@ -449,20 +472,6 @@ gapminder %>%
 *Make this an exercise? - combining summary stats and mutate*
 
 We can also create new variables prior to (or even after) summarizing information using `mutate()`.
-
-
-~~~
-gdp_pop_bycontinents_byyear <- gapminder %>%
-    mutate(gdp_billion=gdpPercap*pop/10^9) %>%
-    group_by(continent,year) %>%
-    summarize(mean_gdpPercap=mean(gdpPercap),
-              sd_gdpPercap=sd(gdpPercap),
-              mean_pop=mean(pop),
-              sd_pop=sd(pop),
-              mean_gdp_billion=mean(gdp_billion),
-              sd_gdp_billion=sd(gdp_billion))
-~~~
-{: .r}
 
 ## Connect mutate with logical filtering: ifelse
 
