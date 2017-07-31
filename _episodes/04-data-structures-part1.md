@@ -1258,7 +1258,6 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 {: .output}
 
 > ## Challenge 3
->
 > There are several subtly different ways to call variables, observations and
 > elements from tibbles:
 >
@@ -1309,7 +1308,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > The double brace `[[1]]` returns the _contents_ of the tibble. In this case
-> it is the contents of the first column, a _vector_ of type _factor_.
+> >  it is the contents of the first column, a _vector_ of type _factor_.
 > > 
 > > ~~~
 > > cats$coat
@@ -1324,7 +1323,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > This example uses the `$` character to address items by name. _coat_ is the
-> first column of the data frame, again a _vector_ of type _factor_.
+> > first column of the data frame, again a _vector_ of type _factor_.
 > > 
 > > 
 > > ~~~
@@ -1344,7 +1343,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > ~~~
 > > {: .output}
 > > Here we are using a single brace `["coat"]` replacing the index number with
-> the column name. Like example 1, the returned object is another tibble.
+> > the column name. Like example 1, the returned object is another tibble.
 > > 
 > > 
 > > ~~~
@@ -1404,11 +1403,11 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > Again we use the single brace with row and column coordinates. The column
 > coordinate is not specified. The return value is a tibble containing all the
 > values in the first row.
-> 
-> If we extract a subset of a tibble the results are returned as another tibble.
-> This is one of the advantages of tibbles over base R's inbuilt data.frame type, 
-> which can return either a data frame or a vector depending on whether we select one
-> or multiple columns of data. 
+> >
+> > If we extract a subset of a tibble the results are returned as another tibble.
+> > This is one of the advantages of tibbles over base R's inbuilt data.frame type, 
+> > which can return either a data frame or a vector depending on whether we select one
+> > or multiple columns of data. 
 > {: .solution}
 {: .challenge}
 
@@ -1428,7 +1427,7 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 >  Populate each character vector with the names of the data types and data
 >  structures we've seen so far.
 >
-> > ## Solution to Challenge 6
+> > ## Solution to Challenge 4
 > > 
 > > ~~~
 > > dataTypes <- c('double', 'complex', 'integer', 'character', 'logical')
