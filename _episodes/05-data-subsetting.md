@@ -808,202 +808,6 @@ Levels: a b c d
 ~~~
 {: .output}
 
-## Matrix subsetting
-
-Matrices are also subsetted using the `[` function. In this case
-it takes two arguments: the first applying to the rows, the second
-to its columns:
-
-
-~~~
-set.seed(1)
-m <- matrix(rnorm(6*4), ncol=4, nrow=6)
-m[3:4, c(3,1)]
-~~~
-{: .r}
-
-
-
-~~~
-            [,1]       [,2]
-[1,]  1.12493092 -0.8356286
-[2,] -0.04493361  1.5952808
-~~~
-{: .output}
-
-You can leave the first or second arguments blank to retrieve all the
-rows or columns respectively:
-
-
-~~~
-m[, c(3,4)]
-~~~
-{: .r}
-
-
-
-~~~
-            [,1]        [,2]
-[1,] -0.62124058  0.82122120
-[2,] -2.21469989  0.59390132
-[3,]  1.12493092  0.91897737
-[4,] -0.04493361  0.78213630
-[5,] -0.01619026  0.07456498
-[6,]  0.94383621 -1.98935170
-~~~
-{: .output}
-
-If we only access one row or column, R will automatically convert the result
-to a vector:
-
-
-~~~
-m[3,]
-~~~
-{: .r}
-
-
-
-~~~
-[1] -0.8356286  0.5757814  1.1249309  0.9189774
-~~~
-{: .output}
-
-If you want to keep the output as a matrix, you need to specify a *third* argument;
-`drop = FALSE`:
-
-
-~~~
-m[3, , drop=FALSE]
-~~~
-{: .r}
-
-
-
-~~~
-           [,1]      [,2]     [,3]      [,4]
-[1,] -0.8356286 0.5757814 1.124931 0.9189774
-~~~
-{: .output}
-
-Unlike vectors, if we try to access a row or column outside of the matrix,
-R will throw an error:
-
-
-~~~
-m[, c(3,6)]
-~~~
-{: .r}
-
-
-
-~~~
-Error in m[, c(3, 6)]: subscript out of bounds
-~~~
-{: .error}
-
-> ## Tip: Higher dimensional arrays
->
-> when dealing with multi-dimensional arrays, each argument to `[`
-> corresponds to a dimension. For example, a 3D array, the first three
-> arguments correspond to the rows, columns, and depth dimension.
->
-{: .callout}
-
-Because matrices are vectors, we can
-also subset using only one argument:
-
-
-~~~
-m[5]
-~~~
-{: .r}
-
-
-
-~~~
-[1] 0.3295078
-~~~
-{: .output}
-
-
-This usually isn't useful, and often confusing to read. However it is useful to note that matrices
-are laid out in *column-major format* by default. That is the elements of the
-vector are arranged column-wise:
-
-
-~~~
-matrix(1:6, nrow=2, ncol=3)
-~~~
-{: .r}
-
-
-
-~~~
-     [,1] [,2] [,3]
-[1,]    1    3    5
-[2,]    2    4    6
-~~~
-{: .output}
-
-If you wish to populate the matrix by row, use `byrow=TRUE`:
-
-
-~~~
-matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
-~~~
-{: .r}
-
-
-
-~~~
-     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    4    5    6
-~~~
-{: .output}
-
-Matrices can also be subsetted using their rownames and column names
-instead of their row and column indices.
-
-> ## Challenge 3
->
-> Given the following code:
->
-> 
-> ~~~
-> m <- matrix(1:18, nrow=3, ncol=6)
-> print(m)
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
->      [,1] [,2] [,3] [,4] [,5] [,6]
-> [1,]    1    4    7   10   13   16
-> [2,]    2    5    8   11   14   17
-> [3,]    3    6    9   12   15   18
-> ~~~
-> {: .output}
->
-> 1. Which of the following commands will extract the values 11 and 14?
->
-> A. `m[2,4,2,5]`
->
-> B. `m[2:5]`
->
-> C. `m[4:5,2]`
->
-> D. `m[2,c(4,5)]`
->
-> > ## Solution to challenge 3
-> >
-> > D
-> {: .solution}
-{: .challenge}
-
-
 ## List subsetting
 
 Now we'll introduce some new subsetting operators. There are three functions
@@ -1137,7 +941,7 @@ xlist$data
 ~~~
 {: .output}
 
-> ## Challenge 4
+> ## Challenge 3
 > Given the following list:
 >
 > 
@@ -1149,7 +953,7 @@ xlist$data
 > Using your knowledge of both list and vector subsetting, extract the number 2 from xlist.
 > Hint: the number 2 is contained within the "b" item in the list.
 >
-> > ## Solution to challenge 4
+> > ## Solution to challenge 3
 > >
 > > 
 > > ~~~
@@ -1191,7 +995,7 @@ xlist$data
 {: .challenge}
 
 
-> ## Challenge 5
+> ## Challenge 4
 > Given a linear model:
 >
 > 
@@ -1202,7 +1006,7 @@ xlist$data
 >
 > Extract the residual degrees of freedom (hint: `attributes()` will help you)
 >
-> > ## Solution to challenge 5
+> > ## Solution to challenge 4
 > >
 > > 
 > > ~~~
@@ -1313,7 +1117,7 @@ gapminder[3,]
 But for a single column the result will be a vector (this can
 be changed with the third argument, `drop = FALSE`).
 
-> ## Challenge 6
+> ## Challenge 5
 > Fix each of the following common data frame subsetting errors:
 >
 > 1. Extract observations collected for the year 1957
@@ -1358,7 +1162,7 @@ be changed with the third argument, `drop = FALSE`).
 >    ~~~
 >    {: .r}
 >
-> > ## Solution to challenge 6
+> > ## Solution to challenge 5
 > >
 > > Fix each of the following common data frame subsetting errors:
 > >
@@ -1412,7 +1216,7 @@ be changed with the third argument, `drop = FALSE`).
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 7
+> ## Challenge 6
 >
 > 1. Why does `gapminder[1:20]` return an error? How does it differ from `gapminder[1:20, ]`?
 >
@@ -1420,7 +1224,7 @@ be changed with the third argument, `drop = FALSE`).
 > 2. Create a new `data.frame` called `gapminder_small` that only contains rows 1 through 9
 > and 19 through 23. You can do this in one or two steps.
 >
-> > ## Solution to challenge 7
+> > ## Solution to challenge 6
 > >
 > > 1.  `gapminder` is a data.frame so needs to be subsetted on two dimensions. `gapminder[1:20, ]` subsets the data to give the first 20 rows and all columns.
 > >
