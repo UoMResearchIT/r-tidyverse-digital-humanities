@@ -7,25 +7,19 @@ questions:
 - "What are the basic data types in R?"
 - "How do I represent categorical information in R?"
 - "How do I determine the type, class and structure of an object?"
-- "How do I access and subset specfic elements of basic data structures?"
 objectives:
 - "To be aware of the different types of data."
 - "To begin exploring tibbles, and understand how they are related to vectors, factors and lists."
-- "To be able to subset vectors and lists"
 - "To be able to ask questions from R about the type, class, and structure of an object."
 keypoints:
 - "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data.frame."
 - "Use `read_csv` to read tabular data into a tibble R."
-- "We can define vectors, matrics and lists in R"
-- "Indexing in R starts at 1, not 0."
-- "Access individual values by location using `[]`."
-- "Access slices of data using `[low:high]`."
-- "Access arbitrary sets of data using `[c(...)]`."
-- "Select subsets of data based on value by writing a statement that evaluates to a logical vector."
 - "The basic data types in R are double, integer, complex, logical, and character."
 - "Use factors to represent categories in R. You should specify the levels of your factors."
 source: Rmd
 ---
+
+
 
 One of R's most powerful features is its ability to deal with tabular data -
 such as you may already have in a spreadsheet or a CSV file. Let's start by
@@ -103,7 +97,7 @@ where the data are separated with tabs. Of these three functions `read_csv` is
 the most commonly used.  If needed it is possible to override the default 
 delimiting punctuation marks for both `read_csv` and `read_delim`.
 
-R comes with a built in function `read.csv()`; this has several annoying default options.  Instead we use the `read_csv()` function, which is part of the `readr` package.
+R comes with a built in function `read.csv()`; this has several annoying default options, and can be slow for large data-sets.  Instead we use the `read_csv()` function, which is part of the `readr` package.
 
 
 We can begin exploring our dataset right away, pulling out columns by specifying
@@ -350,7 +344,7 @@ data types.
 > to load the data.  This is similar to R's inbuilt `read.csv()`.  
 > R's standard data structure for tabular data is the `data.frame`.  In
 > contrast, `read_csv()` creates a `tibble` (also referred to, for historic
-> reasons as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+> reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
 > and can, for the most part, be treated like a `data.frame`
 > 
 > You may find that some older functions don't work on tibbles.   A tibble
