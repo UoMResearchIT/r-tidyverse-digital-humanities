@@ -2119,12 +2119,6 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 {: .challenge}
 
 
-## Matrices
-
-We can also define matrices in R.  We don't cover this in this course in any detail, since we are focussing
-on data-analysis, rather than maths and algorithms.   For details of the matrix class, you can refer to the [original Software Carpentry version of these notes](http://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1/#matrices).
-
-
 > ## Challenge 4
 >  Create a list of length two containing a character vector for each of the sections in this part of the workshop:
 >
@@ -2149,4 +2143,9 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > {: .solution}
 {: .challenge}
 
+
+## Matrices
+
+We can also define matrices in R.  We don't cover this in this course in any detail, since we are focussing
+on data-analysis, rather than maths and algorithms.   For details of the matrix class, you can refer to the [original Software Carpentry version of these notes](http://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1/#matrices).
 
