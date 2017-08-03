@@ -80,7 +80,7 @@ where the data are separated with tabs. Of these three functions `read_csv` is
 the most commonly used.  If needed it is possible to override the default 
 delimiting punctuation marks for both `read_csv` and `read_delim`.
 
-R comes with a built in function `read.csv()`; this has several annoying default options.  Instead we use the `read_csv()` function, which is part of the `readr` package.
+R comes with a built in function `read.csv()`; this has several annoying default options, and can be slow for large data-sets.  Instead we use the `read_csv()` function, which is part of the `readr` package.
 
 
 We can begin exploring our dataset right away, pulling out columns by specifying
@@ -177,7 +177,7 @@ data types.
 > to load the data.  This is similar to R's inbuilt `read.csv()`.  
 > R's standard data structure for tabular data is the `data.frame`.  In
 > contrast, `read_csv()` creates a `tibble` (also referred to, for historic
-> reasons as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+> reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
 > and can, for the most part, be treated like a `data.frame`
 > 
 > You may find that some older functions don't work on tibbles.   A tibble
