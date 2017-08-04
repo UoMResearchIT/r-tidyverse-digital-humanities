@@ -56,13 +56,13 @@ cats
 ```
 
 If we wish to add the details of another cat, we can make a tibble containing its information,
-and then use `bind_rows()` to append this to the tibble:
+and then use `bind_rows()` to append this to the tibble (note that we don't know the age of this cat, so we use `NA`):
 
 ```{r}
 newRow <- tibble(coat = "tortoiseshell", 
                weight = 3.3, 
                likes_string = TRUE, 
-               age = 9)
+               age = NA)
 fourcats <- bind_rows(cats, newRow)
 ```
 
@@ -101,53 +101,40 @@ Alternatively, we can let R change a factor column to a character vector, and th
 
 ## Removing rows
 
-We now know how to add rows and columns to our data frame in R - but in our
-first attempt to add a 'tortoiseshell' cat to the data frame we've accidentally
-added a garbage row:
+We now know how to add rows and columns to our data frame in R. How do we delete them?
 
 ```{r}
-cats
+fourcats
 ```
 
-We can ask for a data frame minus this offending row:
+Let's delete the cat we just added:
 
 ```{r}
-cats[-4,]
+fourcats[-4,]
 ```
 
 Notice the comma with nothing after it to indicate we want to drop the entire fourth row.
 
-Note: We could also remove both new rows at once by putting the row numbers
-inside of a vector: `cats[c(-4,-5),]`
+Note: We could remove several values at once by putting the row numbers inside a vector
+inside of a vector: `fourcats[c(-1,-4),]`
 
 Alternatively, we can drop all rows with `NA` values:
 
 ```{r}
-na.omit(cats)
+na.omit(fourcats)
 ```
 
-Let's reassign the output to `cats`, so that our changes will be permanent:
+We could also drop rows using the `filter()` command in `dplyr`, as described in xxx
 
-```{r}
-cats <- na.omit(cats)
-```
-
-## Appending to a data frame
+## Appending to a tibble
 
 The key to remember when adding data to a data frame is that *columns are
 vectors or factors, and rows are lists.* We can also glue two data frames
-together with `rbind`:
+together with `bind_rows`:
 
 ```{r}
-cats <- rbind(cats, cats)
-cats
-```
-But now the row names are unnecessarily complicated. We can remove the rownames,
-and R will automatically re-name them sequentially:
-
-```{r}
-rownames(cats) <- NULL
-cats
+sevencats <- bind_rows(fourcats, cats)
+sevencats
 ```
 
 > ## Challenge 1

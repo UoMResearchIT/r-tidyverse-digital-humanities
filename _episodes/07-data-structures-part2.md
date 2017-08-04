@@ -74,14 +74,14 @@ cats
 {: .output}
 
 If we wish to add the details of another cat, we can make a tibble containing its information,
-and then use `bind_rows()` to append this to the tibble:
+and then use `bind_rows()` to append this to the tibble (note that we don't know the age of this cat, so we use `NA`):
 
 
 ~~~
 newRow <- tibble(coat = "tortoiseshell", 
                weight = 3.3, 
                likes_string = TRUE, 
-               age = 9)
+               age = NA)
 fourcats <- bind_rows(cats, newRow)
 ~~~
 {: .r}
@@ -163,7 +163,7 @@ fourcats
 1        calico    2.1         TRUE     2
 2         black    5.0        FALSE     3
 3         tabby    3.2         TRUE     5
-4 tortoiseshell    3.3         TRUE     9
+4 tortoiseshell    3.3         TRUE    NA
 ~~~
 {: .output}
 
@@ -171,33 +171,32 @@ Alternatively, we can let R change a factor column to a character vector, and th
 
 ## Removing rows
 
-We now know how to add rows and columns to our data frame in R - but in our
-first attempt to add a 'tortoiseshell' cat to the data frame we've accidentally
-added a garbage row:
+We now know how to add rows and columns to our data frame in R. How do we delete them?
 
 
 ~~~
-cats
+fourcats
 ~~~
 {: .r}
 
 
 
 ~~~
-# A tibble: 3 x 4
-    coat weight likes_string   age
-  <fctr>  <dbl>        <lgl> <dbl>
-1 calico    2.1         TRUE     2
-2  black    5.0        FALSE     3
-3  tabby    3.2         TRUE     5
+# A tibble: 4 x 4
+           coat weight likes_string   age
+         <fctr>  <dbl>        <lgl> <dbl>
+1        calico    2.1         TRUE     2
+2         black    5.0        FALSE     3
+3         tabby    3.2         TRUE     5
+4 tortoiseshell    3.3         TRUE    NA
 ~~~
 {: .output}
 
-We can ask for a data frame minus this offending row:
+Let's delete the cat we just added:
 
 
 ~~~
-cats[-4,]
+fourcats[-4,]
 ~~~
 {: .r}
 
@@ -215,14 +214,14 @@ cats[-4,]
 
 Notice the comma with nothing after it to indicate we want to drop the entire fourth row.
 
-Note: We could also remove both new rows at once by putting the row numbers
-inside of a vector: `cats[c(-4,-5),]`
+Note: We could remove several values at once by putting the row numbers inside a vector
+inside of a vector: `fourcats[c(-1,-4),]`
 
 Alternatively, we can drop all rows with `NA` values:
 
 
 ~~~
-na.omit(cats)
+na.omit(fourcats)
 ~~~
 {: .r}
 
@@ -238,63 +237,34 @@ na.omit(cats)
 ~~~
 {: .output}
 
-Let's reassign the output to `cats`, so that our changes will be permanent:
+We could also drop rows using the `filter()` command in `dplyr`, as described in xxx
 
-
-~~~
-cats <- na.omit(cats)
-~~~
-{: .r}
-
-## Appending to a data frame
+## Appending to a tibble
 
 The key to remember when adding data to a data frame is that *columns are
 vectors or factors, and rows are lists.* We can also glue two data frames
-together with `rbind`:
+together with `bind_rows`:
 
 
 ~~~
-cats <- rbind(cats, cats)
-cats
-~~~
-{: .r}
-
-
-
-~~~
-# A tibble: 6 x 4
-    coat weight likes_string   age
-  <fctr>  <dbl>        <lgl> <dbl>
-1 calico    2.1         TRUE     2
-2  black    5.0        FALSE     3
-3  tabby    3.2         TRUE     5
-4 calico    2.1         TRUE     2
-5  black    5.0        FALSE     3
-6  tabby    3.2         TRUE     5
-~~~
-{: .output}
-But now the row names are unnecessarily complicated. We can remove the rownames,
-and R will automatically re-name them sequentially:
-
-
-~~~
-rownames(cats) <- NULL
-cats
+sevencats <- bind_rows(fourcats, cats)
+sevencats
 ~~~
 {: .r}
 
 
 
 ~~~
-# A tibble: 6 x 4
-    coat weight likes_string   age
-  <fctr>  <dbl>        <lgl> <dbl>
-1 calico    2.1         TRUE     2
-2  black    5.0        FALSE     3
-3  tabby    3.2         TRUE     5
-4 calico    2.1         TRUE     2
-5  black    5.0        FALSE     3
-6  tabby    3.2         TRUE     5
+# A tibble: 7 x 4
+           coat weight likes_string   age
+         <fctr>  <dbl>        <lgl> <dbl>
+1        calico    2.1         TRUE     2
+2         black    5.0        FALSE     3
+3         tabby    3.2         TRUE     5
+4 tortoiseshell    3.3         TRUE    NA
+5        calico    2.1         TRUE     2
+6         black    5.0        FALSE     3
+7         tabby    3.2         TRUE     5
 ~~~
 {: .output}
 
