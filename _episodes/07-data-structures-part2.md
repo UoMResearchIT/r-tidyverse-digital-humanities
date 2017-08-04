@@ -10,46 +10,32 @@ objectives:
 - "Be able to articulate what a `factor` is and how to convert between `factor` and `character`."
 - "Be able to find basic properties of tibles including size, class or type of the columns, names, and first few rows."
 keypoints:
-- "Use `cbind()` to add a new column to a data frame."
-- "Use `rbind()` to add a new row to a data frame."
+- "Use `bind_cols()` to add a new column to a tibble or data frame."
+- "Use `bind_rows()` to add a new row to a tibble or data frame."
 - "Remove rows from a data frame."
-- "Use `na.omit()` to remove rows from a data frame with `NA` values."
+- "Use `na.omit()` to remove rows from a tibble with `NA` values."
 - "Use `levels()` and `as.character()` to explore and manipulate factors"
-- "Use `str()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()` and `typeof()` to understand structure of the data frame"
-- "Read in a csv file using `read.csv()`"
-- "Understand `length()` of a data frame"
+- "Use `str()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()` and `typeof()` to understand structure of tibbles"
+- "Understand `length()` of a tibble"
 source: Rmd
 ---
 
 
 
+In this lesson, we'll learn a few more things about working with tibbles, using our cats example, 
+which we read in setting `coat` as a factor variable, and `likes_string` as a logical variable:
 
-At this point, you've see it all - in the last lesson, we toured all the basic
-data types and data structures in R. Everything you do will be a manipulation of
-those tools. But a whole lot of the time, the star of the show is going to be
-the tibble - the table that we created by loading information from a csv file.
-In this lesson, we'll learn a few more things about working with tibbles.
+
 
 ## Adding columns and rows to tibbles.
 
-We learned last time that the columns in a tibble were vectors, so that our
-data are consistent in type throughout the column. As such, if we want to add a
-new column, we need to start by making a new vector:
+We can add new rows and columns to tibbles using the `bind_rows()` and `bind_columns()` functions
+in the `dplyr` package.   They require that both aruments are tibbles (or data frames).
+
+Let's add a new column to our tibble giving the ages of the cats:
 
 
 ~~~
-Parsed with column specification:
-cols(
-  coat = col_character(),
-  weight = col_double(),
-  likes_string = col_integer()
-)
-~~~
-{: .output}
-
-
-~~~
-age <- c(2,3,5,12)
 cats
 ~~~
 {: .r}
@@ -59,159 +45,129 @@ cats
 ~~~
 # A tibble: 3 x 3
     coat weight likes_string
-   <chr>  <dbl>        <int>
-1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1
+  <fctr>  <dbl>        <lgl>
+1 calico    2.1         TRUE
+2  black    5.0        FALSE
+3  tabby    3.2         TRUE
 ~~~
 {: .output}
 
-We can then add this as a column via:
 
 
 ~~~
-cats <- cbind(cats, age)
+age <- tibble(age = c(2,3,5))
+cats <- bind_cols(cats, age)
+cats
 ~~~
 {: .r}
 
 
 
 ~~~
-Error in data.frame(..., check.names = FALSE): arguments imply differing number of rows: 3, 4
+# A tibble: 3 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
+~~~
+{: .output}
+
+If we wish to add the details of another cat, we can make a tibble containing its information,
+and then use `bind_rows()` to append this to the tibble:
+
+
+~~~
+newRow <- tibble(coat = "tortoiseshell", 
+               weight = 3.3, 
+               likes_string = TRUE, 
+               age = 9)
+fourcats <- bind_rows(cats, newRow)
+~~~
+{: .r}
+
+
+
+~~~
+Warning in bind_rows_(x, .id): binding factor and character vector,
+coercing into character vector
 ~~~
 {: .error}
 
-Why didn't this work? Of course, R wants to see one element in our new column
-for every row in the table:
 
 
 ~~~
-cats
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
 ~~~
-{: .r}
-
-
-
-~~~
-# A tibble: 3 x 3
-    coat weight likes_string
-   <chr>  <dbl>        <int>
-1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1
-~~~
-{: .output}
-
-
-
-~~~
-age <- c(2,3,5)
-cats <- cbind(cats, age)
-cats
-~~~
-{: .r}
-
-
-
-~~~
-    coat weight likes_string age
-1 calico    2.1            1   2
-2  black    5.0            0   3
-3  tabby    3.2            1   5
-~~~
-{: .output}
-
-Now how about adding rows - in this case, we saw last time that the rows of a
-data frame are made of lists:
-
-
-~~~
-newRow <- list("tortoiseshell", 3.3, TRUE, 9)
-cats <- rbind(cats, newRow)
-~~~
-{: .r}
+{: .error}
 
 ## Factors
 
-Another thing to look out for has emerged - when R creates a factor, it only
-allows whatever is originally there when our data was first loaded, which was
-'black', 'calico' and 'tabby' in our case. Anything new that doesn't fit into
-one of these categories is rejected as nonsense (becomes NA).
+Another thing to look out for has emerged - when we loaded the data, we set the `coat`
+variable to be a factor, and specified its levels. In our new row, `coat` is defined as
+a character variable; when we append the two, the `coat` column gets coerced to a 
+character variable.
 
-The warning is telling us that we unsuccessfully added 'tortoiseshell' to our
-*coat* factor, but 3.3 (a numeric), TRUE (a logical), and 9 (a numeric) were
-successfully added to *weight*, *likes_string*, and *age*, respectfully, since
-those values are not factors. To successfully add a cat with a
-'tortoiseshell' *coat*, explicitly add 'tortoiseshell' as a *level* in the factor:
+How can we handle this?  One approach might be to define the `coat` variable as a factor, and
+then join:
 
 
 ~~~
-levels(cats$coat)
+newRow$coat <- parse_factor(newRow$coat, levels = "tortoiseshell")
+fourcats <- bind_rows(cats, newRow)
 ~~~
 {: .r}
 
 
 
 ~~~
-NULL
-~~~
-{: .output}
-
-
-
-~~~
-levels(cats$coat) <- c(levels(cats$coat), 'tortoiseshell')
-cats <- rbind(cats, list("tortoiseshell", 3.3, TRUE, 9))
-~~~
-{: .r}
-
-
-
-~~~
-Warning in `[<-.factor`(`*tmp*`, ri, value = structure(c("calico",
-"black", : invalid factor level, NA generated
+Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
 ~~~
 {: .error}
 
-Alternatively, we can change a factor column to a character vector; we lose the
-handy categories of the factor, but can subsequently add any word we want to the
-column without babysitting the factor levels:
 
 
 ~~~
-str(cats)
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+Warning in bind_rows_(x, .id): binding character and factor vector,
+coercing into character vector
+~~~
+{: .error}
+
+We see that the `coat` variable is again coerced to a charater variable, owing to "unequal factor levels".
+Because R cannot tell _how_ it should combine the two factors, the variable is converted to a character variable.
+
+There are two approaches to handling this issue.  The safest, although more work, is to 
+make sure that both factors have the same levels before calling `bind_rows()`: 
+
+
+~~~
+coatFactorLevels <- c(levels(cats$coat), "tortoiseshell")
+
+cats$coat <- parse_factor(cats$coat,levels = coatFactorLevels)
+newRow$coat <- parse_factor(newRow$coat,levels = coatFactorLevels)
+
+fourcats <- bind_rows(cats, newRow)
+fourcats
 ~~~
 {: .r}
 
 
 
 ~~~
-'data.frame':	5 obs. of  4 variables:
- $ coat        : Factor w/ 1 level "tortoiseshell": NA NA NA 1 1
- $ weight      : num  2.1 5 3.2 3.3 3.3
- $ likes_string: int  1 0 1 1 1
- $ age         : num  2 3 5 9 9
+# A tibble: 4 x 4
+           coat weight likes_string   age
+         <fctr>  <dbl>        <lgl> <dbl>
+1        calico    2.1         TRUE     2
+2         black    5.0        FALSE     3
+3         tabby    3.2         TRUE     5
+4 tortoiseshell    3.3         TRUE     9
 ~~~
 {: .output}
 
-
-
-~~~
-cats$coat <- as.character(cats$coat)
-str(cats)
-~~~
-{: .r}
-
-
-
-~~~
-'data.frame':	5 obs. of  4 variables:
- $ coat        : chr  NA NA NA "tortoiseshell" ...
- $ weight      : num  2.1 5 3.2 3.3 3.3
- $ likes_string: int  1 0 1 1 1
- $ age         : num  2 3 5 9 9
-~~~
-{: .output}
+Alternatively, we can let R change a factor column to a character vector, and then convert the entire column to a factor once we are done appending data.
 
 ## Removing rows
 
@@ -228,12 +184,12 @@ cats
 
 
 ~~~
-           coat weight likes_string age
-1          <NA>    2.1            1   2
-2          <NA>    5.0            0   3
-3          <NA>    3.2            1   5
-4 tortoiseshell    3.3            1   9
-5 tortoiseshell    3.3            1   9
+# A tibble: 3 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
 ~~~
 {: .output}
 
@@ -248,11 +204,12 @@ cats[-4,]
 
 
 ~~~
-           coat weight likes_string age
-1          <NA>    2.1            1   2
-2          <NA>    5.0            0   3
-3          <NA>    3.2            1   5
-5 tortoiseshell    3.3            1   9
+# A tibble: 3 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
 ~~~
 {: .output}
 
@@ -272,9 +229,12 @@ na.omit(cats)
 
 
 ~~~
-           coat weight likes_string age
-4 tortoiseshell    3.3            1   9
-5 tortoiseshell    3.3            1   9
+# A tibble: 3 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
 ~~~
 {: .output}
 
@@ -302,11 +262,15 @@ cats
 
 
 ~~~
-            coat weight likes_string age
-4  tortoiseshell    3.3            1   9
-5  tortoiseshell    3.3            1   9
-41 tortoiseshell    3.3            1   9
-51 tortoiseshell    3.3            1   9
+# A tibble: 6 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
+4 calico    2.1         TRUE     2
+5  black    5.0        FALSE     3
+6  tabby    3.2         TRUE     5
 ~~~
 {: .output}
 But now the row names are unnecessarily complicated. We can remove the rownames,
@@ -322,11 +286,15 @@ cats
 
 
 ~~~
-           coat weight likes_string age
-1 tortoiseshell    3.3            1   9
-2 tortoiseshell    3.3            1   9
-3 tortoiseshell    3.3            1   9
-4 tortoiseshell    3.3            1   9
+# A tibble: 6 x 4
+    coat weight likes_string   age
+  <fctr>  <dbl>        <lgl> <dbl>
+1 calico    2.1         TRUE     2
+2  black    5.0        FALSE     3
+3  tabby    3.2         TRUE     5
+4 calico    2.1         TRUE     2
+5  black    5.0        FALSE     3
+6  tabby    3.2         TRUE     5
 ~~~
 {: .output}
 

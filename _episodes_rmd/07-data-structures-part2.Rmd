@@ -10,14 +10,13 @@ objectives:
 - "Be able to articulate what a `factor` is and how to convert between `factor` and `character`."
 - "Be able to find basic properties of tibles including size, class or type of the columns, names, and first few rows."
 keypoints:
-- "Use `cbind()` to add a new column to a data frame."
-- "Use `rbind()` to add a new row to a data frame."
+- "Use `bind_cols()` to add a new column to a tibble or data frame."
+- "Use `bind_rows()` to add a new row to a tibble or data frame."
 - "Remove rows from a data frame."
-- "Use `na.omit()` to remove rows from a data frame with `NA` values."
+- "Use `na.omit()` to remove rows from a tibble with `NA` values."
 - "Use `levels()` and `as.character()` to explore and manipulate factors"
-- "Use `str()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()` and `typeof()` to understand structure of the data frame"
-- "Read in a csv file using `read.csv()`"
-- "Understand `length()` of a data frame"
+- "Use `str()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()` and `typeof()` to understand structure of tibbles"
+- "Understand `length()` of a tibble"
 source: Rmd
 ---
 
@@ -25,82 +24,80 @@ source: Rmd
 source("../bin/chunk-options.R")
 knitr_fig_path("05-")
 library(readr)
+library(tibble)
+library(dplyr)
 ```
 
+In this lesson, we'll learn a few more things about working with tibbles, using our cats example, 
+which we read in setting `coat` as a factor variable, and `likes_string` as a logical variable:
 
-At this point, you've see it all - in the last lesson, we toured all the basic
-data types and data structures in R. Everything you do will be a manipulation of
-those tools. But a whole lot of the time, the star of the show is going to be
-the tibble - the table that we created by loading information from a csv file.
-In this lesson, we'll learn a few more things about working with tibbles.
+```{r, echo = FALSE}
+cats <- read_csv("data/feline-data.csv", 
+                 col_types = cols(coat = col_factor(levels = c("calico",
+                                                               "black",
+                                                               "tabby")),
+                                  likes_string = col_logical()
+                 )
+)
+```
 
 ## Adding columns and rows to tibbles.
 
-We learned last time that the columns in a tibble were vectors, so that our
-data are consistent in type throughout the column. As such, if we want to add a
-new column, we need to start by making a new vector:
+We can add new rows and columns to tibbles using the `bind_rows()` and `bind_columns()` functions
+in the `dplyr` package.   They require that both aruments are tibbles (or data frames).
 
-```{r, echo = FALSE}
-cats <- read_csv("data/feline-data.csv")
-```
-
-```{r}
-age <- c(2,3,5,12)
-cats
-```
-
-We can then add this as a column via:
-
-```{r, error=TRUE}
-cats <- cbind(cats, age)
-```
-
-Why didn't this work? Of course, R wants to see one element in our new column
-for every row in the table:
+Let's add a new column to our tibble giving the ages of the cats:
 
 ```{r}
 cats
-age <- c(2,3,5)
-cats <- cbind(cats, age)
+age <- tibble(age = c(2,3,5))
+cats <- bind_cols(cats, age)
 cats
 ```
 
-Now how about adding rows - in this case, we saw last time that the rows of a
-data frame are made of lists:
+If we wish to add the details of another cat, we can make a tibble containing its information,
+and then use `bind_rows()` to append this to the tibble:
 
 ```{r}
-newRow <- list("tortoiseshell", 3.3, TRUE, 9)
-cats <- rbind(cats, newRow)
+newRow <- tibble(coat = "tortoiseshell", 
+               weight = 3.3, 
+               likes_string = TRUE, 
+               age = 9)
+fourcats <- bind_rows(cats, newRow)
 ```
 
 ## Factors
 
-Another thing to look out for has emerged - when R creates a factor, it only
-allows whatever is originally there when our data was first loaded, which was
-'black', 'calico' and 'tabby' in our case. Anything new that doesn't fit into
-one of these categories is rejected as nonsense (becomes NA).
+Another thing to look out for has emerged - when we loaded the data, we set the `coat`
+variable to be a factor, and specified its levels. In our new row, `coat` is defined as
+a character variable; when we append the two, the `coat` column gets coerced to a 
+character variable.
 
-The warning is telling us that we unsuccessfully added 'tortoiseshell' to our
-*coat* factor, but 3.3 (a numeric), TRUE (a logical), and 9 (a numeric) were
-successfully added to *weight*, *likes_string*, and *age*, respectfully, since
-those values are not factors. To successfully add a cat with a
-'tortoiseshell' *coat*, explicitly add 'tortoiseshell' as a *level* in the factor:
+How can we handle this?  One approach might be to define the `coat` variable as a factor, and
+then join:
 
 ```{r}
-levels(cats$coat)
-levels(cats$coat) <- c(levels(cats$coat), 'tortoiseshell')
-cats <- rbind(cats, list("tortoiseshell", 3.3, TRUE, 9))
+newRow$coat <- parse_factor(newRow$coat, levels = "tortoiseshell")
+fourcats <- bind_rows(cats, newRow)
 ```
 
-Alternatively, we can change a factor column to a character vector; we lose the
-handy categories of the factor, but can subsequently add any word we want to the
-column without babysitting the factor levels:
+We see that the `coat` variable is again coerced to a charater variable, owing to "unequal factor levels".
+Because R cannot tell _how_ it should combine the two factors, the variable is converted to a character variable.
+
+There are two approaches to handling this issue.  The safest, although more work, is to 
+make sure that both factors have the same levels before calling `bind_rows()`: 
 
 ```{r}
-str(cats)
-cats$coat <- as.character(cats$coat)
-str(cats)
+coatFactorLevels <- c(levels(cats$coat), "tortoiseshell")
+
+cats$coat <- parse_factor(cats$coat,levels = coatFactorLevels)
+newRow$coat <- parse_factor(newRow$coat,levels = coatFactorLevels)
+
+fourcats <- bind_rows(cats, newRow)
+fourcats
 ```
+
+Alternatively, we can let R change a factor column to a character vector, and then convert the entire column to a factor once we are done appending data.
 
 ## Removing rows
 
