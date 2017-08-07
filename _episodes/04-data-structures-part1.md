@@ -84,44 +84,32 @@ cats
 
 We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.  We will discuss data-types shortly.
 
-The `read_table` function is used for reading in tabular data stored in a text
-file where the columns of data are separated by punctuation characters such as
-CSV files (csv = comma-separated values). 
 
-
-Tabs and commas are the most common
-punctuation characters used to separate or delimit data points in csv files. 
-For convenience R provides 2 other versions of `read_table`. These are: `read_csv`
-for files where the data are separated with commas and `read.delim` for files
-where the data are separated with tabs. Of these three functions `read_csv` is
-the most commonly used.  If needed it is possible to override the default 
-delimiting punctuation marks for both `read_csv` and `read_delim`.
-
-R comes with a built in function `read.csv()`; this has several annoying default options, and can be slow for large data-sets.  Instead we use the `read_csv()` function, which is part of the `readr` package.
+_R comes with a built in function `read.csv()`; this has several annoying default options, and can be slow for large data-sets.  Instead we use the `read_csv()` function, which is part of the `readr` package._
 
 > ## Miscellaneous Tips
 >
-> * Another type of file you might encounter are tab-separated value files (.tsv). To specify a tab as a separator, use `"\\t"` or `read.delim()`.
+> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then `read_fwf()` is they way to go.
 >
 > * Files can also be downloaded directly from the Internet into a local
 > folder of your choice onto your computer using the `download.file` function.
-> The `read.csv` function can then be executed to read the downloaded file from the download location, for example,
+> The `read_csv` function can then be executed to read the downloaded file from the download location, for example,
 > 
 > ~~~
 > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv", destfile = "data/gapminder-FiveYearData.csv")
-> gapminder <- read.csv("data/gapminder-FiveYearData.csv")
+> gapminder <- read_csv("data/gapminder-FiveYearData.csv")
 > ~~~
 > {: .r}
 >
-> * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read.csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
+> * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read_csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
 > 
 > ~~~
-> gapminder <- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv")
+> gapminder <- read_csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv")
 > ~~~
 > {: .r}
 >
 > * You can read directly from excel spreadsheets without
-> converting them to plain text first by using the [readxl](https://cran.r-project.org/web/packages/readxl/index.html) package.
+> converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
 
 
