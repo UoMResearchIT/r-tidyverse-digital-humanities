@@ -99,6 +99,19 @@ fourcats
 
 Alternatively, we can let R change a factor column to a character vector, and then convert the entire column to a factor once we are done appending data.
 
+> ## Discussion point
+>
+> Why is it better to define the factor levels beforehand?
+>
+> > ## Solution
+> >  
+> > If we define the factor levels beforehand we will be warned if there is data
+> > that does not match any of the factor levels.  This helps protect against reading
+> > in unexpected data.
+> > 
+> {: .solution}
+{: .discussion}
+
 ## Removing rows
 
 We now know how to add rows and columns to our data frame in R. How do we delete them?
