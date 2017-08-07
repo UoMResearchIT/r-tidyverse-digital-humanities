@@ -44,7 +44,7 @@ cats <- read_csv("data/feline-data.csv",
 ## Adding columns and rows to tibbles.
 
 We can add new rows and columns to tibbles using the `bind_rows()` and `bind_columns()` functions
-in the `dplyr` package.   They require that both aruments are tibbles (or data frames).
+in the `dplyr` package.   They require that both arguments are tibbles, data frames or lists that could be made tibbles or data frames.  In practice this means that, if we are adding a row from a list, the list elements must have the same names as the columns in the tibble we are joining the list to.
 
 Let's add a new column to our tibble giving the ages of the cats:
 
@@ -112,9 +112,13 @@ Alternatively, we can let R change a factor column to a character vector, and th
 > {: .solution}
 {: .discussion}
 
+We can also add additional rows to a tibble by defining a list with namesd elements (recall that each row of a tibble is a list).  This is demonstrated in the solution to challenge 1.
+
+
+
 ## Removing rows
 
-We now know how to add rows and columns to our data frame in R. How do we delete them?
+We now know how to add rows and columns to our tibble. How do we delete them?
 
 ```{r}
 fourcats
@@ -139,43 +143,41 @@ na.omit(fourcats)
 
 We could also drop rows using the `filter()` command in `dplyr`, as described in xxx
 
-## Appending to a tibble
-
-The key to remember when adding data to a data frame is that *columns are
-vectors or factors, and rows are lists.* We can also glue two data frames
-together with `bind_rows`:
-
-```{r}
-sevencats <- bind_rows(fourcats, cats)
-sevencats
-```
 
 > ## Challenge 1
 >
-> You can create a new data frame right from within R with the following syntax:
+> You can create a new tibble from within R with the following syntax:
 > ```{r}
-> df <- data.frame(id = c('a', 'b', 'c'),
+> tib <- tibble(id = c('a', 'b', 'c'),
 >                  x = 1:3,
->                  y = c(TRUE, TRUE, FALSE),
->                  stringsAsFactors = FALSE)
+>                  y = c(TRUE, TRUE, FALSE))
 > ```
-> Make a data frame that holds the following information for yourself:
+> Make a tibble that holds the following information for yourself:
 >
 > - first name
 > - last name
 > - lucky number
 >
-> Then use `rbind` to add an entry for the people sitting beside you.
-> Finally, use `cbind` to add a column with each person's answer to the question, "Is it time for coffee break?"
+> Then use `bind_rows()` to add entries the people sitting beside you.
+> Finally, use `bind_cols()` to add a column with each person's answer to the question, "Is it time for coffee break?"
 >
 > > ## Solution to Challenge 1
 > > ```{r}
-> > df <- data.frame(first = c('Grace'),
-> >                  last = c('Hopper'),
-> >                  lucky_number = c(0),
-> >                  stringsAsFactors = FALSE)
-> > df <- rbind(df, list('Marie', 'Curie', 238) )
-> > df <- cbind(df, coffeetime = c(TRUE,TRUE))
+> > people <- tibble(first = 'Grace',
+> >                  last = 'Hopper',
+> >                  lucky_number = 0)
+> > # We can add an extra row by defining a tibble containing the row:
+> > people <- bind_rows(people, tibble(first = 'Marie',
+                                       last = 'Curie',
+                                       lucky_number = 238))
+> > # Or by adding a named list to the tibble
+> > # Note that tibble columns are bound by name
+> > people <- bind_rows(people, list(
+                                     last = 'Turing',
+                                     first = 'Alan',
+                                     lucky_number = 1) )
+> > # When columns are added they are joined by *position*                              
+> > people <- bind_cols(people, coffeetime = c(TRUE, FALSE, TRUE))
 > > ```
 > {: .solution}
 {: .challenge}
