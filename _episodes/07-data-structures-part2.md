@@ -299,6 +299,32 @@ We could also drop rows using the `filter()` command in `dplyr`, as described in
 > {: .solution}
 {: .challenge}
 
+## The gapminder data
+
+In [lesson 06]({ page.root}/06-dplyr) we loaded the gapminder data, using `read_csv()`.  Let's return to this explore tibbles in a little more depth.
+
+
+~~~
+gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
+~~~
+{: .r}
+
+
+
+~~~
+Parsed with column specification:
+cols(
+  country = col_character(),
+  year = col_integer(),
+  pop = col_double(),
+  continent = col_character(),
+  lifeExp = col_double(),
+  gdpPercap = col_double()
+)
+~~~
+{: .output}
+
+
 Let's investigate gapminder a bit; the first thing we should always do is check
 out what the data looks like with `str`:
 
@@ -311,9 +337,32 @@ str(gapminder)
 
 
 ~~~
-Error in str(gapminder): object 'gapminder' not found
+Classes 'tbl_df', 'tbl' and 'data.frame':	1704 obs. of  6 variables:
+ $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+ $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+ $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: chr  "Asia" "Asia" "Asia" "Asia" ...
+ $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+ $ gdpPercap: num  779 821 853 836 740 ...
+ - attr(*, "spec")=List of 2
+  ..$ cols   :List of 6
+  .. ..$ country  : list()
+  .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+  .. ..$ year     : list()
+  .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
+  .. ..$ pop      : list()
+  .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+  .. ..$ continent: list()
+  .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+  .. ..$ lifeExp  : list()
+  .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+  .. ..$ gdpPercap: list()
+  .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
+  ..$ default: list()
+  .. ..- attr(*, "class")= chr  "collector_guess" "collector"
+  ..- attr(*, "class")= chr "col_spec"
 ~~~
-{: .error}
+{: .output}
 
 We can also examine individual columns of the data frame with our `typeof` function:
 
@@ -326,9 +375,9 @@ typeof(gapminder$year)
 
 
 ~~~
-Error in typeof(gapminder$year): object 'gapminder' not found
+[1] "integer"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -340,9 +389,9 @@ typeof(gapminder$country)
 
 
 ~~~
-Error in typeof(gapminder$country): object 'gapminder' not found
+[1] "character"
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -354,9 +403,9 @@ str(gapminder$country)
 
 
 ~~~
-Error in str(gapminder$country): object 'gapminder' not found
+ chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
 ~~~
-{: .error}
+{: .output}
 
 We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
@@ -367,13 +416,6 @@ variables in gapminder, what do you think the following will produce, and why?
 length(gapminder)
 ~~~
 {: .r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
-~~~
-{: .error}
 
 A fair guess would have been to say that the length of a data frame would be the
 number of rows it has (1704), but this is not the case; remember, a data frame
@@ -388,9 +430,9 @@ typeof(gapminder)
 
 
 ~~~
-Error in typeof(gapminder): object 'gapminder' not found
+[1] "list"
 ~~~
-{: .error}
+{: .output}
 
 When `length` gave us 6, it's because gapminder is built out of a list of 6
 columns. To get the number of rows and columns in our dataset, try:
@@ -404,9 +446,9 @@ nrow(gapminder)
 
 
 ~~~
-Error in nrow(gapminder): object 'gapminder' not found
+[1] 1704
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -418,9 +460,9 @@ ncol(gapminder)
 
 
 ~~~
-Error in ncol(gapminder): object 'gapminder' not found
+[1] 6
 ~~~
-{: .error}
+{: .output}
 
 Or, both at once:
 
@@ -433,9 +475,9 @@ dim(gapminder)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'gapminder' not found
+[1] 1704    6
 ~~~
-{: .error}
+{: .output}
 
 We'll also likely want to know what the titles of all the columns are, so we can
 ask for them later:
@@ -449,9 +491,9 @@ colnames(gapminder)
 
 
 ~~~
-Error in is.data.frame(x): object 'gapminder' not found
+[1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
 ~~~
-{: .error}
+{: .output}
 
 At this stage, it's important to ask ourselves if the structure R is reporting
 matches our intuition or expectations; do the basic data types reported for each
@@ -472,9 +514,17 @@ head(gapminder)
 
 
 ~~~
-Error in head(gapminder): object 'gapminder' not found
+# A tibble: 6 x 6
+      country  year      pop continent lifeExp gdpPercap
+        <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
+1 Afghanistan  1952  8425333      Asia  28.801  779.4453
+2 Afghanistan  1957  9240934      Asia  30.332  820.8530
+3 Afghanistan  1962 10267083      Asia  31.997  853.1007
+4 Afghanistan  1967 11537966      Asia  34.020  836.1971
+5 Afghanistan  1972 13079460      Asia  36.088  739.9811
+6 Afghanistan  1977 14880372      Asia  38.438  786.1134
 ~~~
-{: .error}
+{: .output}
 
 To make sure our analysis is reproducible, we should put the code
 into a script file so we can come back to it later.
@@ -492,8 +542,9 @@ into a script file so we can come back to it later.
 > > The contents of `script/load-gapminder.R`:
 > > 
 > > ~~~
+> > library(tidyverse)
 > > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv", destfile = "data/gapminder-FiveYearData.csv")
-> > gapminder <- read.csv(file = "data/gapminder-FiveYearData.csv")
+> > gapminder <- read_csv(file = "data/gapminder-FiveYearData.csv")
 > > ~~~
 > > {: .r}
 > > To run the script and load the data into the `gapminder` variable:
@@ -505,20 +556,3 @@ into a script file so we can come back to it later.
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 3
->
-> Read the output of `str(gapminder)` again;
-> this time, use what you've learned about factors, lists and vectors,
-> as well as the output of functions like `colnames` and `dim`
-> to explain what everything that `str` prints out for gapminder means.
-> If there are any parts you can't interpret, discuss with your neighbors!
->
-> > ## Solution to Challenge 3
-> >
-> > The object `gapminder` is a data frame with columns
-> > - `country` and `continent` are factors.
-> > - `year` is an integer vector.
-> > - `pop`, `lifeExp`, and `gdpPercap` are numeric vectors.
-> >
-> {: .solution}
-{: .challenge}

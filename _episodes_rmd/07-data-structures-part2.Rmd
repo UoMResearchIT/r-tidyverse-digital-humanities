@@ -182,6 +182,15 @@ We could also drop rows using the `filter()` command in `dplyr`, as described in
 > {: .solution}
 {: .challenge}
 
+## The gapminder data
+
+In [lesson 06]({ page.root}/06-dplyr) we loaded the gapminder data, using `read_csv()`.  Let's return to this explore tibbles in a little more depth.
+
+```{r}
+gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
+```
+
+
 Let's investigate gapminder a bit; the first thing we should always do is check
 out what the data looks like with `str`:
 
@@ -201,7 +210,7 @@ We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
 variables in gapminder, what do you think the following will produce, and why?
 
-```{r}
+```{r, eval=FALSE}
 length(gapminder)
 ```
 
@@ -263,8 +272,9 @@ into a script file so we can come back to it later.
 > > ## Solution to Challenge 2
 > > The contents of `script/load-gapminder.R`:
 > > ```{r eval = FALSE}
+> > library(tidyverse)
 > > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv", destfile = "data/gapminder-FiveYearData.csv")
-> > gapminder <- read.csv(file = "data/gapminder-FiveYearData.csv")
+> > gapminder <- read_csv(file = "data/gapminder-FiveYearData.csv")
 > > ```
 > > To run the script and load the data into the `gapminder` variable:
 > > ```{r eval = FALSE}
@@ -273,20 +283,3 @@ into a script file so we can come back to it later.
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 3
->
-> Read the output of `str(gapminder)` again;
-> this time, use what you've learned about factors, lists and vectors,
-> as well as the output of functions like `colnames` and `dim`
-> to explain what everything that `str` prints out for gapminder means.
-> If there are any parts you can't interpret, discuss with your neighbors!
->
-> > ## Solution to Challenge 3
-> >
-> > The object `gapminder` is a data frame with columns
-> > - `country` and `continent` are factors.
-> > - `year` is an integer vector.
-> > - `pop`, `lifeExp`, and `gdpPercap` are numeric vectors.
-> >
-> {: .solution}
-{: .challenge}
