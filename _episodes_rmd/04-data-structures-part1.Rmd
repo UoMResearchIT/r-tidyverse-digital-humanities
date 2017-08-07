@@ -91,9 +91,10 @@ _R comes with a built in function `read.csv()`; this has several annoying defaul
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
 
+As we're using RStudio, we can preview our data-set by selecting it from the "Environment" tab.  
 
 We can begin exploring our dataset right away, pulling out columns by specifying
-them using the `$` operator:
+them using the `$` operator (RStudio will autocomplete, and offer suggested column names as you type.  You can accept the suggestion by pressing "tab", and select from the list of possible selections using the up and down arrow keys):
 
 ```{r}
 cats$weight
