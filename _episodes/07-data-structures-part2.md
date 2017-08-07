@@ -299,42 +299,6 @@ We could also drop rows using the `filter()` command in `dplyr`, as described in
 > {: .solution}
 {: .challenge}
 
-## Realistic example
-So far, you've seen the basics of manipulating data frames with our cat data;
-now, let's use those skills to digest a more realistic dataset. Lets read in the
-gapminder dataset that we downloaded previously:
-
-
-~~~
-gapminder <- read.csv("data/gapminder-FiveYearData.csv")
-~~~
-{: .r}
-
-> ## Miscellaneous Tips
->
-> * Another type of file you might encounter are tab-separated value files (.tsv). To specify a tab as a separator, use `"\\t"` or `read.delim()`.
->
-> * Files can also be downloaded directly from the Internet into a local
-> folder of your choice onto your computer using the `download.file` function.
-> The `read.csv` function can then be executed to read the downloaded file from the download location, for example,
-> 
-> ~~~
-> download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv", destfile = "data/gapminder-FiveYearData.csv")
-> gapminder <- read.csv("data/gapminder-FiveYearData.csv")
-> ~~~
-> {: .r}
->
-> * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read.csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
-> 
-> ~~~
-> gapminder <- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv")
-> ~~~
-> {: .r}
->
-> * You can read directly from excel spreadsheets without
-> converting them to plain text first by using the [readxl](https://cran.r-project.org/web/packages/readxl/index.html) package.
-{: .callout}
-
 Let's investigate gapminder a bit; the first thing we should always do is check
 out what the data looks like with `str`:
 
@@ -347,15 +311,9 @@ str(gapminder)
 
 
 ~~~
-'data.frame':	1704 obs. of  6 variables:
- $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
- $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
- $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
- $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
- $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
- $ gdpPercap: num  779 821 853 836 740 ...
+Error in str(gapminder): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 We can also examine individual columns of the data frame with our `typeof` function:
 
@@ -368,9 +326,9 @@ typeof(gapminder$year)
 
 
 ~~~
-[1] "integer"
+Error in typeof(gapminder$year): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -382,9 +340,9 @@ typeof(gapminder$country)
 
 
 ~~~
-[1] "integer"
+Error in typeof(gapminder$country): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -396,9 +354,9 @@ str(gapminder$country)
 
 
 ~~~
- Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+Error in str(gapminder$country): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 We can also interrogate the data frame for information about its dimensions;
 remembering that `str(gapminder)` said there were 1704 observations of 6
@@ -413,9 +371,9 @@ length(gapminder)
 
 
 ~~~
-[1] 6
+Error in eval(expr, envir, enclos): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 A fair guess would have been to say that the length of a data frame would be the
 number of rows it has (1704), but this is not the case; remember, a data frame
@@ -430,9 +388,9 @@ typeof(gapminder)
 
 
 ~~~
-[1] "list"
+Error in typeof(gapminder): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 When `length` gave us 6, it's because gapminder is built out of a list of 6
 columns. To get the number of rows and columns in our dataset, try:
@@ -446,9 +404,9 @@ nrow(gapminder)
 
 
 ~~~
-[1] 1704
+Error in nrow(gapminder): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -460,9 +418,9 @@ ncol(gapminder)
 
 
 ~~~
-[1] 6
+Error in ncol(gapminder): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 Or, both at once:
 
@@ -475,9 +433,9 @@ dim(gapminder)
 
 
 ~~~
-[1] 1704    6
+Error in eval(expr, envir, enclos): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 We'll also likely want to know what the titles of all the columns are, so we can
 ask for them later:
@@ -491,9 +449,9 @@ colnames(gapminder)
 
 
 ~~~
-[1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
+Error in is.data.frame(x): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 At this stage, it's important to ask ourselves if the structure R is reporting
 matches our intuition or expectations; do the basic data types reported for each
@@ -514,15 +472,9 @@ head(gapminder)
 
 
 ~~~
-      country year      pop continent lifeExp gdpPercap
-1 Afghanistan 1952  8425333      Asia  28.801  779.4453
-2 Afghanistan 1957  9240934      Asia  30.332  820.8530
-3 Afghanistan 1962 10267083      Asia  31.997  853.1007
-4 Afghanistan 1967 11537966      Asia  34.020  836.1971
-5 Afghanistan 1972 13079460      Asia  36.088  739.9811
-6 Afghanistan 1977 14880372      Asia  38.438  786.1134
+Error in head(gapminder): object 'gapminder' not found
 ~~~
-{: .output}
+{: .error}
 
 To make sure our analysis is reproducible, we should put the code
 into a script file so we can come back to it later.
