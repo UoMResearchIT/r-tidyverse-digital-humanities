@@ -64,7 +64,7 @@ lag():    dplyr, stats
 
 There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required.  We won't cover most of these in the course. 
 
-Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the data from the [setup page]({{ page.root }}/setup), and decompress the contents to your data director.  Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder data](https://www.gapminder.org/).   Download the data from the [setup page]({{ page.root }}/setup), and decompress the contents to your data directory.  Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
 As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1) we use the `read_csv()` function to load data from a comma separated file:
 
