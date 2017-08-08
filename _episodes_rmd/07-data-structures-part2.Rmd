@@ -141,7 +141,7 @@ Alternatively, we can drop all rows with `NA` values:
 na.omit(fourcats)
 ```
 
-We could also drop rows using the `filter()` command in `dplyr`, as described in xxx
+We could also drop rows using the `filter()` command in `dplyr`, as described in FIXME xxx
 
 
 > ## Challenge 1

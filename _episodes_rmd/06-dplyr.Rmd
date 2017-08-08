@@ -124,13 +124,13 @@ perform a complex series of operations in one go
 > ## Keyboard shortcuts and getting help
 > 
 > The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use xxxx.
+> Windows / Linux will insert the pipe operator.  On the mac, use FIXME xxxx.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.
 > 
 > RStudio includes a helpful "cheat sheet", which summarises the main functionality
-> and syntax of `dplyr` and `tidyr` (covered in xxx lesson).  This can be accessed via the
+> and syntax of `dplyr` and `tidyr` (covered in FIXME xxx lesson).  This can be accessed via the
 > help menu --> cheatsheets --> data manipulation with dplyr, tidyr 
 {: .callout}
 

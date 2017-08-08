@@ -254,7 +254,7 @@ na.omit(fourcats)
 ~~~
 {: .output}
 
-We could also drop rows using the `filter()` command in `dplyr`, as described in xxx
+We could also drop rows using the `filter()` command in `dplyr`, as described in FIXME xxx
 
 
 > ## Challenge 1
