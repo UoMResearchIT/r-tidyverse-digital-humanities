@@ -11,4 +11,4 @@ _slides_rmd/*.html
 notes.md
 .Rproj.user
 .Rhistory
-
+.vscode
