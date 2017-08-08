@@ -1,5 +1,6 @@
 ---
 layout: page 
+title: Challenges and Discussion
 permalink: /challenge/
 ---
 <script>

@@ -343,10 +343,9 @@ permalink: /about/
 EXTRAS_DISCUSS_MD = '''\
 ---
 layout: page
-title: Discussion
-permalink: /discuss/
+title: Discussion and Challenges
+permalink: /challenge/
 ---
-FIXME
 '''
 
 EXTRAS_FIGURES_MD = '''\
