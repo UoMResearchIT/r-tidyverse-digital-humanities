@@ -33,7 +33,7 @@ There are several sources of packages in R:
 
 ## Bioconductor
 
-[Bioconductor](https://www.bioconductor.org/) is a more specalised repository, which contains packages for bioinformatics.  Common workflows are provided, and the packages are more thoroughly quality assured.   Because of its more specialised nature we don't focus on Bioconductor in this course.
+[Bioconductor](https://www.bioconductor.org/) is a more specialised repository, which contains packages for bioinformatics.  Common workflows are provided, and the packages are more thoroughly quality assured.   Because of its more specialised nature we don't focus on Bioconductor in this course.
 
 ## Github / personal websites
 
@@ -55,7 +55,7 @@ There are various ways of finding packages that might be useful in your research
 
 ## Example; meta analysis of clinical trial data
 
-Meta-analysis is a statistical technique that lets us combine the results of similar experiments, to obtain a better estimate of the effect we are trying to observe.  It is widely used in many research fields, including physics and medicine.   Assume we've been given some data that we have to meta-analyse, and we know that we want to fit a model using the inverse-variance method (this is a relatively simple meta-anlysis model) but we're not sure what the best package to use is.
+Meta-analysis is a statistical technique that lets us combine the results of similar experiments, to obtain a better estimate of the effect we are trying to observe.  It is widely used in many research fields, including physics and medicine.   Assume we've been given some data that we have to meta-analyse, and we know that we want to fit a model using the inverse-variance method (this is a relatively simple meta-analysis model) but we're not sure what the best package to use is.
 
 A Google search for "meta analysis R" suggests a package called "meta" on CRAN.  It also returns a link to the [R task view](https://cran.r-project.org/web/views/MetaAnalysis.html) for meta analysis.  How do we choose?
 
@@ -79,7 +79,7 @@ Any of these packages should be able to do the task we want.  Useful things to l
 
 ## Understanding a packages DESCRIPTION file
 
-A `DESCRIPTION` file is included with every R package. This forms the basis of the package's page on CRAN.  Many of the fields in the file will be self explanatory.   The _Depends_ and _Imports_ fields list packages and software that the package depends on (this will invariably include R iteself).  When we install a package thse dependencies will be installed automatically.  _Suggests:_ lists package that, although not required for the basic operation of the package, will enhance it.  These are not installed automatically.   If the package has a homepage, it will be listed under the _URL_ field. The _reverse depends_, _reverse imports_ and _reverse suggests_ fields list packages that depend on the package; packages that are trusted by other packages are likely to be of good quality.  
+A `DESCRIPTION` file is included with every R package. This forms the basis of the package's page on CRAN.  Many of the fields in the file will be self explanatory.   The _Depends_ and _Imports_ fields list packages and software that the package depends on (this will invariably include R itself).  When we install a package the dependencies will be installed automatically.  _Suggests:_ lists package that, although not required for the basic operation of the package, will enhance it.  These are not installed automatically.   If the package has a homepage, it will be listed under the _URL_ field. The _reverse depends_, _reverse imports_ and _reverse suggests_ fields list packages that depend on the package; packages that are trusted by other packages are likely to be of good quality.  
 
 
 > ## Citing R and R packages
@@ -106,7 +106,9 @@ install.packages("metafor")
 We may be prompted to select a mirror to install the package from. You should ideally select a mirror that is close by.  The package will then be installed. By default, the package's dependencies will also be installed.
 
 > ## Installing multiple packages
+> 
 > If you want to install more than one package, supply the list of packages as a character vector:
+>
 > ```{r, eval=FALSE}
 > install.packages(c("package1", "package2", "package3"))
 > ```
@@ -114,6 +116,7 @@ We may be prompted to select a mirror to install the package from. You should id
 {: .callout}
 
 > ## Installing packages from a file or github
+>
 > If a package is not available on CRAN, you will probably be provided with a URL containing the
 > package file, or a [https://www.github.com](github) repository.   These can be installed with
 > the `install_url()` or `install_github()` functions, which are part of the `devtools` package

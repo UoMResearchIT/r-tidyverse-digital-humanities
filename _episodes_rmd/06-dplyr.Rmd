@@ -20,7 +20,7 @@ source("../bin/chunk-options.R")
 knitr_fig_path("14-")
 ```
 
-We used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  As with `readr`, much of of the functionality of the `tidyverse` already exists in base R, or in other libraries.  What differentiates the tidyverse from a mixture of base R and ad-hoc libraries is that it its packages are designed to work well togeher.  They provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncracies of base R.
+We used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  As with `readr`, much of of the functionality of the `tidyverse` already exists in base R, or in other libraries.  What differentiates the tidyverse from a mixture of base R and ad-hoc libraries is that it its packages are designed to work well together.  They provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncrasies of base R.
 
 If yuu are using a university PC the tidyverse should already be installed.  If not, it can be installed like any other R package:
 
@@ -71,14 +71,14 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 
 ## Manipulating data frames
 
-Manipulation of dataframes means many things to many researchers, we often
+Manipulation of data frames means many things to many researchers, we often
 select certain observations (rows) or variables (columns), we often group the
-data by a certain variable(s), or calculating sumary statistics. 
+data by a certain variable(s), or calculating summary statistics. 
 
 ## The `dplyr` package
 
 The  [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
-package is part of the tidyverse.  It provides a number of very useful functions for manipulating dataframes
+package is part of the tidyverse.  It provides a number of very useful functions for manipulating data frames
 in a way that will reduce repetition, reduce the probability of making
 errors, and probably even save you some typing. 
 
@@ -94,7 +94,7 @@ We will cover:
 ## Using select()
 
 If, for example, we wanted to move forward with only a few of the variables in
-our dataframe we use the `select()` function. This will keep only the
+our data frame we use the `select()` function. This will keep only the
 variables you select.
 
 ```{r}
@@ -141,7 +141,7 @@ year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
 ```
 
 To help you understand why we wrote that in that way, let's walk through it step
-by step. First we summon the gapminder dataframe and pass it on, using the pipe
+by step. First we summon the gapminder data frame and pass it on, using the pipe
 symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
@@ -161,7 +161,7 @@ year_country_gdp_euro <- gapminder %>%
 >
 > Write a single command (which can span multiple lines and includes pipes) that
 > will produce a dataframe that has the African values for `lifeExp`, `country`
-> and `year`, but not for other Continents.  How many rows does your dataframe
+> and `year`, but not for other Continents.  How many rows does your data frame
 > have?
 >
 > > ## Solution to Challenge 1
@@ -183,7 +183,7 @@ year_country_gdp_euro <- gapminder %>%
 
 The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we _derive_ from existing variables in the data-frame. 
 
-As an example, the gapminder data contains the population of each country, and its gdp per capita.  We can use this to calculate the total gdp of each country:
+As an example, the gapminder data contains the population of each country, and its GDP per capita.  We can use this to calculate the total GDP of each country:
 
 ```{r}
 gapminder_totalgdp <- gapminder %>% 
@@ -273,7 +273,7 @@ gapminder %>%
 
 If we need to use the number of observations in calculations, the `n()` function
 is useful. For instance, if we wanted to get the standard error of the life
-expectency per continent:
+expectancy per continent:
 
 ```{r}
 gapminder %>%

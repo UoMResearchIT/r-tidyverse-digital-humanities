@@ -136,7 +136,7 @@ coercing into character vector
 ~~~
 {: .error}
 
-We see that the `coat` variable is again coerced to a charater variable, owing to "unequal factor levels".
+We see that the `coat` variable is again coerced to a character variable, owing to "unequal factor levels".
 Because R cannot tell _how_ it should combine the two factors, the variable is converted to a character variable.
 
 There are two approaches to handling this issue.  The safest, although more work, is to 
@@ -182,7 +182,7 @@ Alternatively, we can let R change a factor column to a character vector, and th
 > {: .solution}
 {: .discussion}
 
-We can also add additional rows to a tibble by defining a list with namesd elements (recall that each row of a tibble is a list).  This is demonstrated in the solution to challenge 1.
+We can also add additional rows to a tibble by defining a list with named elements (recall that each row of a tibble is a list).  This is demonstrated in the solution to challenge 1.
 
 
 
@@ -254,7 +254,7 @@ na.omit(fourcats)
 ~~~
 {: .output}
 
-We could also drop rows using the `filter()` command in `dplyr`, as described in FIXME xxx
+We could also drop rows using the `filter()` command in `dplyr`, as described in [episode 6]({{ page.root }}/06-dplyr) 
 
 
 > ## Challenge 1

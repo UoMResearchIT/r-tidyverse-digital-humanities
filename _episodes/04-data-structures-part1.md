@@ -89,7 +89,7 @@ _R comes with a built in function `read.csv()`; this has several annoying defaul
 
 > ## Miscellaneous Tips
 >
-> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then `read_fwf()` is they way to go.
+> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimiters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then `read_fwf()` is they way to go.
 >
 > * Files can also be downloaded directly from the Internet into a local
 > folder of your choice onto your computer using the `download.file` function.
@@ -115,7 +115,7 @@ _R comes with a built in function `read.csv()`; this has several annoying defaul
 As we're using RStudio, we can preview our data-set by selecting it from the "Environment" tab.  
 
 We can begin exploring our dataset right away, pulling out columns by specifying
-them using the `$` operator (RStudio will autocomplete, and offer suggested column names as you type.  You can accept the suggestion by pressing "tab", and select from the list of possible selections using the up and down arrow keys):
+them using the `$` operator (RStudio will auto-complete, and offer suggested column names as you type.  You can accept the suggestion by pressing "tab", and select from the list of possible selections using the up and down arrow keys):
 
 
 ~~~
@@ -1467,8 +1467,8 @@ c d
 > in programming, rather than data analysis.
 >
 >  * `!`, the "logical NOT" operator: converts `TRUE` to `FALSE` and `FALSE` to
->    `TRUE`. It can negate a single logical condition (eg `!TRUE` becomes
->    `FALSE`), or a whole vector of conditions(eg `!c(TRUE, FALSE)` becomes
+>    `TRUE`. It can negate a single logical condition (e.g. `!TRUE` becomes
+>    `FALSE`), or a whole vector of conditions(e.g. `!c(TRUE, FALSE)` becomes
 >    `c(FALSE, TRUE)`).
 >
 > Additionally, you can compare the elements within a single vector using the

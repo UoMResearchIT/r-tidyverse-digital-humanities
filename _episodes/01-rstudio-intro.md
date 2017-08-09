@@ -223,7 +223,7 @@ Remember that others may later read your code.
 
 
 The text after each line of code is called a
-"comment". Anything that follows after the hash (or octothorpe) symbol
+"comment". Anything that follows after the hash symbol
 `#` is ignored by R when it executes code.
 
 Really small or large numbers get a scientific notation:
@@ -649,7 +649,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x3482198>
+<bytecode: 0x1ecb198>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -707,7 +707,7 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a later lesson FIXME - xref. The teaching machines at the University have a number of additional packages installed by default.
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in [episode 9]({{ page.root }}/09-using-r-packages). The teaching machines at the University have a number of additional packages installed by default.
 
 
 > ## Challenge 1

@@ -79,7 +79,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
 We need to tell `ggplot` how we want to visually represent the data, which we
 do by adding a new **geom** layer. In our example, we used `geom_point`, which
 tells `ggplot` we want to visually represent the relationship between **x** and
-**y** as a scatterplot of points:
+**y** as a scatter-plot of points:
 
 
 ~~~
@@ -161,7 +161,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 
 ## Layers
 
-Using a scatterplot probably isn't the best for visualizing change over time.
+Using a scatter-plot probably isn't the best for visualizing change over time.
 Instead, let's tell `ggplot` to visualize the data as a line plot:
 
 
@@ -209,7 +209,7 @@ lines.
 
 > ## Tip: Setting an aesthetic to a value instead of a mapping
 >
-> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color=continent))`, ggplot will give a different color to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color="blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the color specification outside of the `aes()` function, like this: `geom_line(color="blue")`.
+> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color=continent))`, ggplot will give a different colour to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color="blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the colour specification outside of the `aes()` function, like this: `geom_line(color="blue")`.
 {: .callout}
 
 > ## Challenge 3
@@ -446,7 +446,7 @@ to get a feel for how the different continents' GDPs are changing over time.  Le
 just a couple of continents.  
 
 When we want to start subsetting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can peform our data transformations and then
+"piped" data-analysis becomes apparent; we can perform our data transformations and then
 send the result to `ggplot2` without making an intermediate data set.
 
 
@@ -474,7 +474,7 @@ We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot 
 title and any legend can be set using the `labs` function. Legend titles
 are set using the same names we used in the `aes` specification. Thus below
-the color legend title is set using `color = "Continent"`, while the title 
+the colour legend title is set using `color = "Continent"`, while the title 
 of a fill legend would be set using `fill = "MyTitle"`. 
 
 
