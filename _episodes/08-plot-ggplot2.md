@@ -109,13 +109,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 > ## Challenge 1
 >
 > Modify the example so that the figure shows how life expectancy has
-> changed over time:
->
-> 
-> ~~~
-> gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
-> ~~~
-> {: .r}
+> changed over time.
 >
 > Hint: the gapminder dataset has a column called "year", which should appear
 > on the x-axis.
@@ -380,7 +374,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 ~~~
 {: .r}
 
-<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 (~). This tells R to draw a panel for each unique value in the country column
@@ -466,7 +460,7 @@ gapminder %>%
 ~~~
 {: .r}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 
 
@@ -539,7 +533,7 @@ Picking joint bandwidth of 0.128
 ~~~
 {: .output}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 
 

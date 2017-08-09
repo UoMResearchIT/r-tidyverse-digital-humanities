@@ -99,11 +99,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 > ## Challenge 1
 >
 > Modify the example so that the figure shows how life expectancy has
-> changed over time:
->
-> ```{r, eval=FALSE}
-> gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
-> ```
+> changed over time.
 >
 > Hint: the gapminder dataset has a column called "year", which should appear
 > on the x-axis.
