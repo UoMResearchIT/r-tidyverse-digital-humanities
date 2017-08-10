@@ -37,3 +37,16 @@ Create anchor for each one of the episodes.
 {% for episode in site.episodes %}
 <article id="{{ episode.url }}"></article>
 {% endfor %}
+<script type="text/javascript">
+  function downloadJSAtOnload() {
+   var element = document.createElement("script");
+   element.src = "../assets/js/lesson.js";
+   document.body.appendChild(element);
+   alert("Press to hide solutions")
+  }
+  if (window.addEventListener)
+   window.addEventListener("load", downloadJSAtOnload, false);
+  else if (window.attachEvent)
+   window.attachEvent("onload", downloadJSAtOnload);
+  else window.onload = downloadJSAtOnload;
+</script>
