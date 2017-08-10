@@ -19,12 +19,10 @@ permalink: /challenge/
         var article_here = document.getElementById(this.episode);
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(this.responseText,"text/html");
-        var htmlDocBlockquote = htmlDoc.getElementsByTagName("blockquote");
-		for(j=0; j < htmlDocBlockquote.length; j++) {
-			if(htmlDocBlockquote[j].getAttribute("class") == "challenge"){
-        		article_here.innerHTML += htmlDocBlockquote[j].outerHTML;
-			}
-		}
+        var htmlDocBlockquote = htmlDoc.getElementsByClassName("challenge");
+	for(j=0; j < htmlDocBlockquote.length; j++) {
+		article_here.innerHTML += htmlDocBlockquote[j].outerHTML;
+	}
         }
       }
       episode_url = "{{ page.root }}" + lesson_episodes[i];
