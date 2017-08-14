@@ -40,10 +40,14 @@ for all of these countries in under a minute!
 
 ## Before Starting The Workshop
 
-Please ensure you have the latest version of R and RStudio installed on your machine. This is important, as some packages used in the workshop may not install correctly (or at all) if R is not up to date.
+If you are using your own computer, please ensure you have the latest version of R and RStudio installed on your machine. This is important, as some packages used in the workshop may not install correctly (or at all) if R is not up to date.
 
 [Download and install the latest version of R here](https://www.r-project.org/)
+
 [Download and install RStudio here](https://www.rstudio.com/)
+
+**The University machines already have suitable versions of R and RStudio installed.**  
+
 
 ## Introduction to RStudio
 
@@ -649,7 +653,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x1ecb198>
+<bytecode: 0x14ff810>
 <environment: namespace:base>
 ~~~
 {: .output}
