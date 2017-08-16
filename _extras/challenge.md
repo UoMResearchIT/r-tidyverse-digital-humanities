@@ -20,9 +20,9 @@ permalink: /challenge/
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(this.responseText,"text/html");
         var htmlDocBlockquote = htmlDoc.getElementsByClassName("challenge");
-	for(j=0; j < htmlDocBlockquote.length; j++) {
-		article_here.innerHTML += htmlDocBlockquote[j].outerHTML;
-	}
+	      for(j=0; j < htmlDocBlockquote.length; j++) {
+		      article_here.innerHTML += htmlDocBlockquote[j].outerHTML;
+        	}
         }
       }
       episode_url = "{{ page.root }}" + lesson_episodes[i];
@@ -30,6 +30,9 @@ permalink: /challenge/
       xmlHttp[i].send(null);
     }
     /* Call the code to fold the solutions away */
+    var element = document.createElement("script");
+    element.src = "../assets/js/jquery.min.js";
+    document.body.appendChild(element);
     var element = document.createElement("script");
     element.src = "../assets/js/lesson.js";
     document.body.appendChild(element);
@@ -41,5 +44,4 @@ Create anchor for each one of the episodes.
 {% for episode in site.episodes %}
 <article id="{{ episode.url }}"></article>
 {% endfor %}
-</script>
 
