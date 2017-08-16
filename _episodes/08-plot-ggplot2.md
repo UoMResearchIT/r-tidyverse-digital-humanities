@@ -541,7 +541,7 @@ Picking joint bandwidth of 0.128
 
 <img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
-[This Site](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) provides an excellent overview of the types of plot you can produce with `ggplot2` and extensions for it, with example code.  
+
 
 
 
