@@ -445,7 +445,7 @@ gapminder %>%
   geom_joy(alpha = 0.6) 
 ```
 
-
+[This Site](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) provides an excellent overview of the types of plot you can produce with `ggplot2` and extensions for it, with example code.  
 
 
 
