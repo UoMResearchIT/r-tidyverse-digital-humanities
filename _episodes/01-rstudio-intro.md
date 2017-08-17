@@ -653,7 +653,11 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
+<<<<<<< HEAD
 <bytecode: 0x14ff810>
+=======
+<bytecode: 0x1f8f198>
+>>>>>>> 45cc735... Tidy episode 01
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -711,9 +715,7 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in [episode 9]({{ page.root }}/09-using-r-packages). The teaching machines at the University have a number of additional packages installed by default.
-
-
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/09-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
 > ## Challenge 1
 >
 > Which of the following are valid R variable names?
@@ -829,7 +831,7 @@ R packages extend the functionality of R.  Over 10,000 packages have been writte
 > > [1] TRUE
 > > ~~~
 > > {: .output}
-> > This should yield a boolean value of TRUE since 109.25 is greater than 102.
+> > This will yield a boolean value of TRUE since 109.25 is greater than 102.
 > {: .solution}
 {: .challenge}
 
