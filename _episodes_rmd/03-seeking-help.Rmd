@@ -28,7 +28,7 @@ namespace (your interactive R session):
 help(function_name)
 ```
 
-This will load up a help page in RStudio (or as plain text in R by itself).
+This will load up a help page in RStudio (or by launching a web browser, or  as plain text if you are using R without RStudio).
 
 Each help page is broken down into sections:
 
@@ -94,7 +94,7 @@ help you ask a question from your peers:
 Will dump the data you're working with into a format so that it can
 be copy and pasted by anyone else into their R session.
 
-```{r}
+```{r, eval=FALSE}
 sessionInfo()
 ```
 
@@ -104,7 +104,7 @@ your issue.
 
 > ## Challenge 1
 >
-> Look at the help for the `c` function. What kind of vector do you
+> Look at the help for the combine function, `c`. What kind of vector do you
 > expect you will create if you evaluate the following:
 > ```{r, eval=FALSE}
 > c(1, 2, 3)
@@ -152,24 +152,6 @@ your issue.
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 3
-> Use help to find a function (and its associated parameters) that you could
-> use to load data from a csv file in which columns are delimited with "\t"
-> (tab) and the decimal point is a "." (period). This check for decimal
-> separator is important, especially if you are working with international
-> colleagues, because different countries have different conventions for the
-> decimal point (i.e. comma vs period).
-> hint: use `??csv` to lookup csv related functions.
-> > ## Solution to Challenge 3
-> >
-> > The standard R function for reading tab-delimited files with a period
-> > decimal separator is read.delim(). You can also do this with
-> > `read.table(file, sep="\t")` (the period is the *default* decimal
-> > separator for `read.table()`, although you may have to change
-> > the `comment.char` argument as well if your data file contains
-> > hash (#) characters
-> {: solution}
-{: .challenge}
 
 ## Other ports of call
 

@@ -27,7 +27,7 @@ help(function_name)
 ~~~
 {: .r}
 
-This will load up a help page in RStudio (or as plain text in R by itself).
+This will load up a help page in RStudio (or by launching a web browser, or  as plain text if you are using R without RStudio).
 
 Each help page is broken down into sections:
 
@@ -105,44 +105,13 @@ sessionInfo()
 ~~~
 {: .r}
 
-
-
-~~~
-R version 3.4.1 (2017-06-30)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 16.04.2 LTS
-
-Matrix products: default
-BLAS: /usr/lib/atlas-base/atlas/libblas.so.3.0
-LAPACK: /usr/lib/atlas-base/atlas/liblapack.so.3.0
-
-locale:
- [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
- [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
- [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  base     
-
-other attached packages:
-[1] checkpoint_0.4.1 stringr_1.2.0    knitr_1.16      
-
-loaded via a namespace (and not attached):
-[1] compiler_3.4.1  magrittr_1.5    tools_3.4.1     stringi_1.1.5  
-[5] methods_3.4.1   evaluate_0.10.1
-~~~
-{: .output}
-
 Will print out your current version of R, as well as any packages you
 have loaded. This can be useful for others to help reproduce and debug
 your issue.
 
 > ## Challenge 1
 >
-> Look at the help for the `c` function. What kind of vector do you
+> Look at the help for the combine function, `c`. What kind of vector do you
 > expect you will create if you evaluate the following:
 > 
 > ~~~
@@ -242,24 +211,6 @@ your issue.
 > {: .solution}
 {: .challenge}
 
-> ## Challenge 3
-> Use help to find a function (and its associated parameters) that you could
-> use to load data from a csv file in which columns are delimited with "\t"
-> (tab) and the decimal point is a "." (period). This check for decimal
-> separator is important, especially if you are working with international
-> colleagues, because different countries have different conventions for the
-> decimal point (i.e. comma vs period).
-> hint: use `??csv` to lookup csv related functions.
-> > ## Solution to Challenge 3
-> >
-> > The standard R function for reading tab-delimited files with a period
-> > decimal separator is read.delim(). You can also do this with
-> > `read.table(file, sep="\t")` (the period is the *default* decimal
-> > separator for `read.table()`, although you may have to change
-> > the `comment.char` argument as well if your data file contains
-> > hash (#) characters
-> {: solution}
-{: .challenge}
 
 ## Other ports of call
 
