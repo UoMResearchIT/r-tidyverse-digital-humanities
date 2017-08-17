@@ -17,7 +17,7 @@ source: Rmd
 
 
 
-We used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  As with `readr`, much of of the functionality of the `tidyverse` already exists in base R, or in other libraries.  What differentiates the tidyverse from a mixture of base R and ad-hoc libraries is that it its packages are designed to work well together.  They provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncrasies of base R.
+In the previous episode we used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  The tidyverse packages are designed to work well together; they provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncrasies of base R.
 
 If yuu are using a university PC the tidyverse should already be installed.  If not, it can be installed like any other R package:
 
@@ -62,9 +62,9 @@ lag():    dplyr, stats
 ~~~
 {: .output}
 
-There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required.  We won't cover most of these in the course. 
+This loads the most commonly used packages in the tidyverse; we used `readr` in the previous episode.  We will cover all of the other main packages, with the exception of `purrr` in this course. There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required; these aren't covered in this course. 
 
-Let's dive in and look at how we can use the tidyverse to analyse and plot data from the [gapminder project](https://www.gapminder.org/).   Download the data from the [setup page]({{ page.root }}/setup), and decompress the contents to your data directory.  Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+Let's dive in and look at how we can use the tidyverse to analyse and, in a couple of episodes' time,  plot data from the [gapminder project](https://www.gapminder.org/).   Download the data from the [setup page]({{ page.root }}/setup), and decompress the contents to your data directory.  Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
 As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1) we use the `read_csv()` function to load data from a comma separated file:
 
@@ -125,7 +125,7 @@ data by a certain variable(s), or calculating summary statistics.
 ## The `dplyr` package
 
 The  [`dplyr`](https://cran.r-project.org/web/packages/dplyr/dplyr.pdf)
-package is part of the tidyverse.  It provides a number of very useful functions for manipulating data frames
+package is part of the tidyverse.  It provides a number of very useful functions for manipulating tibbles (and their base-R cousin, the `data.frame`) 
 in a way that will reduce repetition, reduce the probability of making
 errors, and probably even save you some typing. 
 
@@ -160,7 +160,6 @@ The pipe operator `%>%` lets us pipe the output of one command into the next.   
 perform a complex series of operations in one go
 * It is easy to modify and reuse the pipeline
 * We don't have to make temporary tibbles as the analysis progresses
-* Although we don't cover it in this course, dplyr can interact with SQL databases; this can be very useful if we are working with data-sets that are too large to load in memory.
 
 > ## Pipelines and the shell
 >
@@ -173,7 +172,7 @@ perform a complex series of operations in one go
 > ## Keyboard shortcuts and getting help
 > 
 > The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use FIXME xxxx.
+> Windows / Linux will insert the pipe operator.  On the mac, use `cmd+shift+m`.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.
@@ -411,14 +410,41 @@ gapminder %>%
 {: .challenge}
 
 ## count() and n()
-**Not sure this is the best place for this- should perhaps be later**
 A very common operation is to count the number of observations for each
 group. The `dplyr` package comes with two related functions that help with this.
 
+
+If we need to use the number of observations in calculations, the `n()` function
+is useful. For instance, if we wanted to get the standard error of the life
+expectancy per continent:
+
+
+~~~
+gapminder %>%
+    filter(year == 2002) %>%	
+    group_by(continent) %>%
+    summarize(se_pop = sd(lifeExp)/sqrt(n()))
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 5 x 2
+  continent    se_pop
+      <chr>     <dbl>
+1    Africa 1.3294078
+2  Americas 0.9599411
+3      Asia 1.4578299
+4    Europe 0.5335146
+5   Oceania 0.6300000
+~~~
+{: .output}
+
+Although we could use the `group_by()`, `n()` and `summarize()` functions to calculate the number of observations in each group, `dplyr` provides the `count()` function which automatically groups the data, calculate the totals and then ungroups it. 
+
 For instance, if we wanted to check the number of countries included in the
-dataset for the year 2002, we can use the `count()` function. It takes the name
-of one or more columns that contain the groups we are interested in, and we can
-optionally sort the results in descending order by adding `sort=TRUE`:
+dataset for the year 2002, we can use:
 
 
 ~~~
@@ -441,47 +467,16 @@ gapminder %>%
 5   Oceania     2
 ~~~
 {: .output}
-
-If we need to use the number of observations in calculations, the `n()` function
-is useful. For instance, if we wanted to get the standard error of the life
-expectancy per continent:
+We can optionally sort the results in descending order by adding `sort=TRUE`:
 
 
-~~~
-gapminder %>%
-    group_by(continent) %>%
-    summarize(se_pop = sd(lifeExp)/sqrt(n()))
-~~~
-{: .r}
-
-
-
-~~~
-# A tibble: 5 x 2
-  continent    se_pop
-      <chr>     <dbl>
-1    Africa 0.3663016
-2  Americas 0.5395389
-3      Asia 0.5962151
-4    Europe 0.2863536
-5   Oceania 0.7747759
-~~~
-{: .output}
-
-## Using mutate()
-*Make this an exercise? - combining summary stats and mutate*
-
-We can also create new variables prior to (or even after) summarizing information using `mutate()`.
 
 ## Connect mutate with logical filtering: ifelse
-
-*Not sure about this example - would ideally use if_else, but cannot for 1st one
-since it returns NA for false.*
 
 When creating new variables, we can hook this with a logical condition. A simple combination of 
 `mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
-of the data frame will not change) or for updating values depending on this given condition.
+of the tibble will not change) or for updating values depending on this given condition.
 
 
 ~~~
