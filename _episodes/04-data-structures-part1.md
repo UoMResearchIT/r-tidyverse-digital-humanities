@@ -38,11 +38,13 @@ tabby,3.2,1
 >
 > Alternatively, you can create `data/feline-data.csv` using a text editor (Nano),
 > or within RStudio with the **File -> New File -> Text File** menu item.
+> (A copy of the file is also included in the [data download](https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip) for the course)
 {: .callout}
 
 
+R comes with a function, `read.csv()` which can be used to read comma separated files.  In this course we are teaching the tidyverse, which comes with its own, improved, function for reading csv files, `read_csv()`.   
 
-We can load this into R via the following:
+We can load the data into R by loading the `readr` library, which contains the `read_csv()` function, and then loading the data:
 
 
 ~~~
@@ -84,12 +86,9 @@ cats
 
 We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.  We will discuss data-types shortly.
 
-
-_R comes with a built in function `read.csv()`; this has several annoying default options, and can be slow for large data-sets.  Instead we use the `read_csv()` function, which is part of the `readr` package._
-
 > ## Miscellaneous Tips
 >
-> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimiters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then `read_fwf()` is they way to go.
+> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
 >
 > * Files can also be downloaded directly from the Internet into a local
 > folder of your choice onto your computer using the `download.file` function.
@@ -101,12 +100,14 @@ _R comes with a built in function `read.csv()`; this has several annoying defaul
 > ~~~
 > {: .r}
 >
-> * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read_csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
+> * Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read_csv`. No local copy of the csv file is first saved onto your computer, if you do this. For example,
 > 
 > ~~~
 > gapminder <- read_csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv")
 > ~~~
 > {: .r}
+>
+> Unless you *know* the data you download are not going to change, or disappear, it is better to save a local copy of the data to your `data/` directory, so that you can reproduce your analysis.
 >
 > * You can read directly from excel spreadsheets without
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
@@ -287,8 +288,7 @@ complicated our analyses become, all data in R is interpreted as one of these
 basic data types. This strictness has some really important consequences.
 
 A user has added details of another cat. This information is in the file
-`data/feline-data_v2.csv`.
-
+`data/feline-data_v2.csv`, included in the course data download.
 
 
 ~~~
@@ -368,9 +368,7 @@ data types.
 {: .callout}
 
 In order to successfully use our data in R, we need to understand what the basic
-data structures are, and how they behave. For now, let's remove that extra line
-from our cats data and reload it, while we investigate this behavior further:
-
+data structures are, and how they behave. For now, let's reload the original version of our cat data and reload it, while we investigate this behavior further:
 
 
 ~~~
@@ -1053,8 +1051,22 @@ b c d
 > so generates the sequence of numbers: `c(-1, 0, 1, 2, 3)`.
 >
 > The correct solution is to wrap that function call in brackets, so
-> that the `-` operator applies to the results:
+> that the `-` operator is applied to the sequence:
 >
+> 
+> ~~~
+> -(1:3)
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] -1 -2 -3
+> ~~~
+> {: .output}
+> 
+> 
 > 
 > ~~~
 > my_example[-(1:3)]
@@ -1637,8 +1649,7 @@ str(factor_ordering_example)
 ~~~
 {: .output}
 
-In this case, we've explicitly told R that "control" should represented by 1, and
-"case" by 2. 
+In the second example, we've explicitly told R that "control" should represented by 1, and "case" by 2. 
 
 > ## Challenge 2
 >
@@ -1653,7 +1664,7 @@ In this case, we've explicitly told R that "control" should represented by 1, an
 > > levels we get a warning indicating that the "controll" value has been set to NA.
 > > **For this reason it is good practice to explicitly tell R what the factor levels
 > > are; it is better to know that someting has gone wrong when it happens, rather than
-> > finding out about it in your results.**
+> > finding out about it later.**
 > {: .solution}
 {: .challenge}
     
@@ -1708,13 +1719,12 @@ cats <- read_csv("data/feline-data.csv",
 >
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
-> This is often not what you want.  This can be overridden by passing the option `stringsAsFactors = FALSE` 
-> to `read.csv()`.  
+> This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` > to `read.csv()`.  
 >
 > Base R can also make factors using the `factor()` function.
 > the main differences between the two approaches are:
 >
-> * `factor()` does not require us to pass `levels = NULL` if we want R to work out the levels automatically
+> * `factor()` will assign factor levels automatically; it does not require us to pass `levels = NULL`.
 > * The automatic levels generated by `factor()` will be alphabetical (rather than according to the order
 > that each level is encountered in `parse_factor()`)
 > * `factor()` does not warn us if we have data that doesn't match any of the levels we have specified
@@ -2043,8 +2053,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > > Levels: black calico tabby
 > > ~~~
 > > {: .output}
-> > This example uses the `$` character to address items by name. _coat_ is the
-> > first column of the data frame, again a _vector_ of type _factor_.
+> > This example uses the `$` character to return the _contents_ of columns by name.
 > > 
 > > 
 > > ~~~
@@ -2126,7 +2135,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > values in the first row.
 > >
 > > If we extract a subset of a tibble the results are returned as another tibble.
-> > This is one of the advantages of tibbles over base R's inbuilt data.frame type, 
+> > This is one of the advantages of tibbles over base R's inbuilt `data.frame` type, 
 > > which can return either a data frame or a vector depending on whether we select one
 > > or multiple columns of data. 
 > {: .solution}
