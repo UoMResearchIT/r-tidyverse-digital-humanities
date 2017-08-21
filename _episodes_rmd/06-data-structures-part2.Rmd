@@ -14,7 +14,6 @@ keypoints:
 - "Use `bind_rows()` to add a new row to a tibble or data frame."
 - "Remove rows from a data frame."
 - "Use `na.omit()` to remove rows from a tibble with `NA` values."
-- "Use `levels()` and `as.character()` to explore and manipulate factors"
 - "Use `str()`, `nrow()`, `ncol()`, `dim()`, `colnames()`, `rownames()`, `head()` and `typeof()` to understand structure of tibbles"
 - "Understand `length()` of a tibble"
 source: Rmd
@@ -29,9 +28,9 @@ library(dplyr)
 ```
 
 In this lesson, we'll learn a few more things about working with tibbles, using our cats example, 
-which we read in setting `coat` as a factor variable, and `likes_string` as a logical variable:
+which we will read in setting `coat` as a factor variable, and `likes_string` as a logical variable:
 
-```{r, echo = FALSE}
+```{r}
 cats <- read_csv("data/feline-data.csv", 
                  col_types = cols(coat = col_factor(levels = c("calico",
                                                                "black",
@@ -44,7 +43,7 @@ cats <- read_csv("data/feline-data.csv",
 ## Adding columns and rows to tibbles.
 
 We can add new rows and columns to tibbles using the `bind_rows()` and `bind_columns()` functions
-in the `dplyr` package.   They require that both arguments are tibbles, data frames or lists that could be made tibbles or data frames.  In practice this means that, if we are adding a row from a list, the list elements must have the same names as the columns in the tibble we are joining the list to.
+in the `dplyr` package.   They require that both arguments are tibbles, data frames, or lists that could be made tibbles or data frames.  In practice this means that, if we are adding a row from a list, the list elements must have the same names as the columns in the tibble we are joining the list to.
 
 Let's add a new column to our tibble giving the ages of the cats:
 
@@ -112,7 +111,7 @@ Alternatively, we can let R change a factor column to a character vector, and th
 > {: .solution}
 {: .discussion}
 
-We can also add additional rows to a tibble by defining a list with named elements (recall that each row of a tibble is a list).  This is demonstrated in the solution to challenge 1.
+We can also add additional rows to a tibble by defining a list with named elements (remember that each row of a tibble is a list).  This is demonstrated in the solution to challenge 1.
 
 
 
@@ -184,7 +183,7 @@ We could also drop rows using the `filter()` command in `dplyr`, as described in
 
 ## The gapminder data
 
-In [lesson 06]({ page.root}/06-dplyr) we loaded the gapminder data, using `read_csv()`.  Let's return to this explore tibbles in a little more depth.
+In [episode 5]({{ page.root }}/05-dplyr) we loaded the gapminder data, using `read_csv()`.  Let's return to this explore tibbles in a little more depth.
 
 ```{r}
 gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
@@ -273,13 +272,13 @@ into a script file so we can come back to it later.
 > > The contents of `script/load-gapminder.R`:
 > > ```{r eval = FALSE}
 > > library(tidyverse)
-> > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder-FiveYearData.csv", destfile = "data/gapminder-FiveYearData.csv")
 > > gapminder <- read_csv(file = "data/gapminder-FiveYearData.csv")
 > > ```
 > > To run the script and load the data into the `gapminder` variable:
 > > ```{r eval = FALSE}
 > > source(file = "scripts/load-gapminder.R")
 > > ```
+> > (or click the "source" button if using RStudio)
 > {: .solution}
 {: .challenge}
 
