@@ -25,7 +25,7 @@ The aim of this lesson is to provide an overview of the process of finding, load
 
 In addition to providing a convenient way of providing an a set of tools to perform a task, packages can also call code written in other languages.  In many packages much of the computationally intensive work is performed with code written in C or Fortran; this can provide a huge boost in execution speed compared to running native R code.
 
-There are several sources of packages in R:
+There are several sources of packages in R; the ones you are most likely to encounter are:
 
 ## CRAN
 
@@ -53,7 +53,7 @@ There are various ways of finding packages that might be useful in your research
 
 * Asking colleagues
 
-## Example; meta analysis of clinical trial data
+## Example: meta analysis of clinical trial data
 
 Meta-analysis is a statistical technique that lets us combine the results of similar experiments, to obtain a better estimate of the effect we are trying to observe.  It is widely used in many research fields, including physics and medicine.   Assume we've been given some data that we have to meta-analyse, and we know that we want to fit a model using the inverse-variance method (this is a relatively simple meta-analysis model) but we're not sure what the best package to use is.
 
@@ -96,6 +96,12 @@ Let's assume we're going to use the `metafor` package to conduct our analysis.
 
 ## Installing packages from CRAN
 
+Before we cover installing packages, we should consider *where* the packages get installed.  `R` can look for packages in multiple locations, which can be set, or examined with the `.libPaths()` function (note the "." before the function name).  `R` is typically installed so that a user-specific directory is first searched for packages, followed by a system-wide directory.
+
+By default, packages will be installed to the location that appears first in your `.libPaths()`.  This is the case on the University machines; packages you install will, by default, be placed on your `P:` drive.   The standard University image already has a number of packages pre-installed.   
+
+You can add a new path to the search using `.libpaths("path/to/directory")`.  If you are unable to install packages on your machine you should add a path you have write access to.  
+
 If a package is available on CRAN this is almost invariably the most straightforward way of installing it. The `metafor` package is available on CRAN, so we install it as follows:
 
 ```
@@ -104,6 +110,7 @@ install.packages("metafor")
 {: .r}
 
 We may be prompted to select a mirror to install the package from. You should ideally select a mirror that is close by.  The package will then be installed. By default, the package's dependencies will also be installed.
+
 
 > ## Installing multiple packages
 > 
@@ -123,15 +130,6 @@ We may be prompted to select a mirror to install the package from. You should id
 > which can be installed from CRAN.  We don't cover packages that are not on CRAN in this course.
 {: .callout}
 
-> ## Where R looks for and installs packages 
->  
-> R uses locations returned by the `.libPaths()` function to search for packages;  by default, packages
-> will be installed to the first path returned.
-> 
-> You can add a new path to the search using `.libpaths("path/to/directory")`.  If you are unable to
-> install packages on your machine you should add a path you have write access to.  
->
-{: .callout}
 
 ## Loading packages
 
@@ -158,17 +156,6 @@ You can obtain help on a loaded package using `help(packagename)`.    As discuss
 ## Package versions
 
 Many of the packages in R are frequently updated.  This does mean that code written for one version of a package may not work with another version of the package (or, potentially even worse, run but give a _different_ result).  The `sessionInfo()` command prints information about the system, and the names and versions of packages that have been loaded.  You should include the output of `sessionInfo()` somewhere in your research.  The [packrat package](https://rstudio.github.io/packrat/) provides a way of keeping specific versions of packages associated with each of your projects.
-
-
-> ## Challenge
-> 
-> Make a new directory, which we will use as a temporary library for this lesson. Add 
-> it to the library path. 
->
-> Look for a package (ideally on CRAN) that you think will be useful in your research, and install it to the library path.
-> Look at the help for the package, and try running any examples provided.
-> 
-{: .challenge}
 
 
 
