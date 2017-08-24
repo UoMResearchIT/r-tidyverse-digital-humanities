@@ -3,10 +3,12 @@ title: Creating Publication-Quality Graphics
 teaching: 60
 exercises: 20
 questions:
-- "How can I create publication-quality graphics in R?"
+- "How can I create and save publication-quality graphics in R?"
 objectives:
 - "To be able to use ggplot2 to generate publication quality graphics."
 - "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and coloring or panelling by groups."
+- "To understand how to save plots in a variety of formats"
+- "To be able to find extensions for ggplot2 to produce custom graphics"
 keypoints:
 - "Use `ggplot2` to create plots."
 - "Think about graphics in layers: aesthetics, geometry, statistics, scale transformation, and grouping."
@@ -497,15 +499,36 @@ gapminder %>%
 <img src="../fig/rmd-06-theme-1.png" title="plot of chunk theme" alt="plot of chunk theme" style="display: block; margin: auto;" />
 
 
-This is a taste of what you can do with `ggplot2`. RStudio provides a
-really useful [cheat sheet][cheat] of the different layers available, and more
+ RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
 extensive documentation is available on the [ggplot2 website][ggplot-doc].
-Finally, if you have no idea how to change something, a quick Google search will
-usually send you to a relevant question and answer on Stack Overflow with reusable
-code to modify!
 
 [cheat]: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 [ggplot-doc]: http://docs.ggplot2.org/current/
+
+## Saving plots
+
+Having produced a plot, we can save it, or copy it to the clipboard using the "Export" command at the top of RStudio's plot window.
+
+It's a better idea to save your plots as part of your scripts; this way if you modify your analysis code, you _know_ the plot will reflect the results of the code.  If you manually save the plot, you have to remember to do this after running the script.  
+
+> ## Reproducibile research
+> 
+> You still have to remember to update the figure in your report, thesis or paper manuscript. Although we don't have time to consider it in this course, we can actually take this one step further, and write our reports, presentations or even web pages in R.  This way the text, analysis and figures are all produced from the same source.  This is referred to as reproducible research.
+{: .callout }
+
+
+We can save the most recently produced ggplot using the `ggsave()` function:
+
+
+~~~
+ggsave("plots/myplot.png")
+ggsave("plots/myplot.pdf", width=20, height=20, units="cm")
+~~~
+{: .r}
+
+The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the
+resolution and size of the saved image.
+
 
 ## ggplot Extensions
 
@@ -532,7 +555,7 @@ Picking joint bandwidth of 0.128
 ~~~
 {: .output}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 
 

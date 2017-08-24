@@ -3,7 +3,7 @@ title: "Data Structures"
 teaching: 75
 exercises: 20
 questions:
-- "How can I read tabular data in R?"
+- "How can I read and write tabular data in R?"
 - "What are the basic data types in R?"
 - "How do I represent categorical information in R?"
 - "How do I determine the type, class and structure of an object?"
@@ -14,6 +14,7 @@ objectives:
 keypoints:
 - "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data.frame."
 - "Use `read_csv` to read tabular data into a tibble R."
+- "User `write_csv` to write tabular data to a comma separated value file."
 - "The basic data types in R are double, integer, complex, logical, and character."
 - "Use factors to represent categories in R. You should specify the levels of your factors."
 source: Rmd
@@ -2166,6 +2167,16 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 > {: .solution}
 {: .challenge}
 
+
+## Writing data in R
+
+We can save a tibble (or data frame) to a csv file, using `readr`'s `write_csv()` function.  For example, to save the cat data to `mycats.csv`:
+
+
+~~~
+write_csv(cats, "data/mycats.csv")
+~~~
+{: .r}
 
 ## Matrices
 
