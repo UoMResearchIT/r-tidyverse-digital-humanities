@@ -19,7 +19,7 @@ source: Rmd
 
 
 
-If we only had one data set to analyze, it would probably be faster to load the
+If we only had one data set to analyse, it would probably be faster to load the
 file into a spreadsheet and use that to plot simple statistics. However, the
 gapminder data is updated periodically, and we may want to pull in that new
 information later and re-run our analysis again. We may also obtain similar data
@@ -188,71 +188,308 @@ kelvin_to_celsius <- function(temp) {
 {: .challenge}
 
 
-We're going to define
-a function that calculates the Gross Domestic Product of a nation from the data
-available in our dataset:
+## Programming with dplyr
+
+Let's write a function that will filter our gapminder data by year *and* calculate the GDP of all the countries 
+that are returned.   First, let's think about how we'd do this *without* using a function.  We'll then put our 
+code in a function; this will let us easily repeat the calculation for other years, without re-writing the code.
+
+This saves us effort, but more importantly it means that the code for calculating the GDP only exists in a single place.  If we find we've used the wrong formula to calculate GDP we would only need to change it in a single place, rather than hunting down all the places we've calculated it.  This important idea is known as "Don't Repeat Yourself".
+
+We can filter and calculate the GDP as follows:
 
 
 ~~~
-# Takes a dataset and multiplies the population column
-# with the GDP per capita column.
-calcGDP <- function(dat) {
-  gdp <- dat$pop * dat$gdpPercap
-  return(gdp)
+gdpgapfiltered <- gapminder %>%
+    filter(year == 2007) %>% 
+    mutate(gdp = gdpPercap * pop)
+~~~
+{: .r}
+
+Note that we filter by year first, and _then_ calculate the GDP.  Although we could reverse the order of the `filter()` and `mutate()` functions, it is more efficient to filter the data and then calculate the GDP on the remaining data.
+
+Let's put this code in a function:
+
+
+~~~
+calcGDPandFilter <- function(dat, year){
+  
+  gdpgapfiltered <- dat %>%
+      filter(year == year) %>% 
+      mutate(gdp = gdpPercap * pop)
+  
+  return(gdpgapfiltered)
+  
 }
-~~~
-{: .r}
 
-We define `calcGDP` by assigning it to the output of `function`.
-The list of argument names are contained within parentheses.
-Next, the body of the function -- the statements executed when you
-call the function -- is contained within curly braces (`{}`).
-
-We've indented the statements in the body by two spaces. This makes
-the code easier to read but does not affect how it operates.
-
-When we call the function, the values we pass to it are assigned
-to the arguments, which become variables inside the body of the
-function.
-
-Inside the function, we use the `return` function to send back the
-result. This return function is optional: R will automatically
-return the results of whatever command is executed on the last line
-of the function.
-
-
-
-~~~
-head(calcGDP(gapminder))
+calcGDPandFilter(gapminder, 2007)
 ~~~
 {: .r}
 
 
 
 ~~~
-[1]  6567086330  7585448670  8758855797  9648014150  9678553274 11697659231
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap         gdp
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
 ~~~
 {: .output}
 
-That's not very informative. Let's add some more arguments so we can extract
-that per year and country.
+The function hasn't done what we'd expect; we've successfully passed in the gapminder data, via the `dat` parameter,
+but it looks like the `year` parameter has been ignored.
+
+Look at the line: 
+
+
+~~~
+    filter(year == year) %>% 
+~~~
+{: .r}
+
+We passed a value of `year` into the function when we called it.  R has no way of knowing we're referring to the function parameter's `year` rather than the tibble's `year` variable.     We run into this problem because `dplyr` uses what's known as "Non Standard Evaluation" (NSE); this means that the package doesn't follow R's usual rules about how parameters are evaluated.  
+
+NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
+
+We can use the `calcGDPandFilter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 2007 in this example).  We do this using the `!!` operator:
+
+
+~~~
+    filter(year == !!year) %>% 
+~~~
+{: .r}
+
+When the filter function is evaluated it will see:
 
 
 
 ~~~
-# Takes a dataset and multiplies the population column
-# with the GDP per capita column.
-calcGDP <- function(dat, year=NULL, country=NULL) {
-  if(!is.null(year)) {
-    dat <- dat %>% filter(.data$year %in% !!year) 
-  }
-  if (!is.null(country)) {
-    dat <- dat %>% filter(.data$country %in% !!country) 
-  }
-  gdp <- dat$pop * dat$gdpPercap
+    filter(year == 2007) %>% 
+~~~
+{: .r}
 
-  new <- bind_cols(dat, gdp = gdp)
-  return(new)
+
+
+~~~
+calcGDPandFilter <- function(dat, year){
+  
+gdpgapfiltered <- dat %>%
+    filter(year == !!year) %>% 
+    mutate(gdp = gdpPercap * pop)
+
+return(gdpgapfiltered)
+  
+}
+
+calcGDPandFilter(gapminder, 2007)
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 142 x 7
+       country  year       pop continent lifeExp  gdpPercap          gdp
+         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
+ 1 Afghanistan  2007  31889923      Asia  43.828   974.5803  31079291949
+ 2     Albania  2007   3600523    Europe  76.423  5937.0295  21376411360
+ 3     Algeria  2007  33333216    Africa  72.301  6223.3675 207444851958
+ 4      Angola  2007  12420476    Africa  42.731  4797.2313  59583895818
+ 5   Argentina  2007  40301927  Americas  75.320 12779.3796 515033625357
+ 6   Australia  2007  20434176   Oceania  81.235 34435.3674 703658358894
+ 7     Austria  2007   8199783    Europe  79.829 36126.4927 296229400691
+ 8     Bahrain  2007    708573      Asia  75.635 29796.0483  21112675360
+ 9  Bangladesh  2007 150448339      Asia  64.062  1391.2538 209311822134
+10     Belgium  2007  10392226    Europe  79.441 33692.6051 350141166520
+# ... with 132 more rows
+~~~
+{: .output}
+
+Our function now works as expected.  There is one small gotcha that remains; how does filter _know_ that the first `year` in ``` filter(year == !!year) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
+year variable? Surely this should give an error?
+
+
+~~~
+calcGDPandFilter(gapminder %>% select(-year), 2007)
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 1,704 x 6
+       country      pop continent lifeExp gdpPercap         gdp
+         <chr>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_.  This is the `calcGDPandFilter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
+
+~~~
+    filter(2007 == 2007) %>% 
+~~~
+{: .r}
+which is `TRUE`, so the filter won't do anything!
+
+We need a way of telling the function that the first `year` belongs to the data.  We can do this with the `.data` pronoun:
+
+
+~~~
+calcGDPandFilter <- function(dat, year){
+  
+gdpgapfiltered <- dat %>%
+    filter(.data$year == !!year) %>% 
+    mutate(gdp = .data$gdpPercap * .data$pop)
+
+return(gdpgapfiltered)
+  
+}
+
+calcGDPandFilter(gapminder, 2007)
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 142 x 7
+       country  year       pop continent lifeExp  gdpPercap          gdp
+         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
+ 1 Afghanistan  2007  31889923      Asia  43.828   974.5803  31079291949
+ 2     Albania  2007   3600523    Europe  76.423  5937.0295  21376411360
+ 3     Algeria  2007  33333216    Africa  72.301  6223.3675 207444851958
+ 4      Angola  2007  12420476    Africa  42.731  4797.2313  59583895818
+ 5   Argentina  2007  40301927  Americas  75.320 12779.3796 515033625357
+ 6   Australia  2007  20434176   Oceania  81.235 34435.3674 703658358894
+ 7     Austria  2007   8199783    Europe  79.829 36126.4927 296229400691
+ 8     Bahrain  2007    708573      Asia  75.635 29796.0483  21112675360
+ 9  Bangladesh  2007 150448339      Asia  64.062  1391.2538 209311822134
+10     Belgium  2007  10392226    Europe  79.441 33692.6051 350141166520
+# ... with 132 more rows
+~~~
+{: .output}
+
+
+
+~~~
+calcGDPandFilter(gapminder %>% select(-year), 2007)
+~~~
+{: .r}
+
+
+
+~~~
+Error in filter_impl(.data, quo): Evaluation error: Column `year`: not found in data.
+~~~
+{: .error}
+
+
+As you can see, we've also used the `.data` pronoun when calculating the GDP; if our tibble was missing either the `gdpPercap` or `pop` variables, R would search in the calling environment (i.e. the `calcGDPandFilter()` function).  As the variables aren't found there it would look in the `calcGDPandFilter()`'s calling environment, and so on.  If it finds variables matching these names, they would be used instead, giving an incorrect result; if they cannot be found we will get an error.  Using the `.data` pronoun makes our source of the data clear, and prevents this risk.
+
+
+> ## Challenge:  Filtering by country name and year
+>
+> Create a new function that will filter by country name *and* by year, and then calculate the GDP
+> You can assume that both name and year will be provided; we will cover how to check this is true
+> in the next section
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> >  calcGDPCountryYearFilter <- function(dat, year, country){
+> >  dat <- dat %>% filter(.data$year == !!year) %>% 
+> >        filter(.data$country == !!country) %>% 
+> >         mutate(gdp = .data$pop * .data$gdpPercap)
+> >         
+> >  return(dat)
+> > }
+> > calcGDPCountryYearFilter(gapminder, year=2007, country="United Kingdom")
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 1 x 7
+> >          country  year      pop continent lifeExp gdpPercap          gdp
+> >            <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+> > 1 United Kingdom  2007 60776238    Europe  79.425  33203.26 2.017969e+12
+> > ~~~
+> > {: .output}
+> > 
+> {: .solution}
+{: .challenge}
+
+
+## Making our function more flexible
+
+At the moment, the function we wrote in the challenge will calculate the GDP for a single country and year.  It would be more flexible and useful if we could calculate the GDP for:
+
+ * The whole dataset; (if we don't provide any years or countries)
+ * All the countries, filtered by one or more years; (if we only provide years)
+ * All the years, filtered by one or more countries; (if we only provide countries)
+ * A combination of one or more years and one or more countries. (if we provide both)
+
+> ## Discussion
+>
+> What happens if we try calling the `calcGDPCountryYearFilter()` function without `year` or `country` parameters?
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > calcGDPCountryYearFilter(gapminder)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error in (function (x) : argument "year" is missing, with no default
+> > ~~~
+> > {: .error}
+> >
+> {: .solution}
+{: .discussion}
+
+We can pass a default parameter for year and country; this means that if we call the function without specifying the parameter the default will be used instead.  By setting the defaults to `NULL`, and then testing whether each parameter is `NULL` we can call the appropriate parts of the function to filter by `year` and / or `country`:
+
+
+~~~
+calcGDP <- function(dat, year = NULL, country = NULL){
+  if (!is.null(year)) {
+    dat <- dat %>% filter(.data$year == !!year)
+  }
+  
+  if (!is.null(country)) {
+   dat <- dat %>% filter(.data$country == !!country) 
+  }
+  
+  dat <- dat %>% mutate(gdp = .data$pop * .data$gdpPercap)
+        
+  return(dat)
 }
 ~~~
 {: .r}
@@ -267,11 +504,11 @@ source("functions/functions-lesson.R")
 ~~~
 {: .r}
 
-Ok, so there's a lot going on in this function now. In plain English,
+OK, so there's a lot going on in this function now. In plain English,
 the function now subsets the provided data by year if the year argument isn't
 empty, then subsets the result by country if the country argument isn't empty.
 Then it calculates the GDP for whatever subset emerges from the previous two steps.
-The function then adds the GDP as a new column to the subsetted data and returns
+The function then adds the GDP as a new column to the sub-setted data and returns
 this as the final result.
 You can see that the output is much more informative than a vector of numbers.
 
@@ -345,44 +582,34 @@ calcGDP(gapminder, year=2007, country="Australia")
 ~~~
 {: .output}
 
-Let's walk through the body of the function:
 
-
-~~~
-calcGDP <- function(dat, year=NULL, country=NULL) {
-~~~
-{: .r}
-
-Here we've added two arguments, `year`, and `country`. We've set
-*default arguments* for both as `NULL` using the `=` operator
-in the function definition. This means that those arguments will
-take on those values unless the user specifies otherwise.
-
-
-~~~
-  if(!is.null(year)) {
-    dat <- dat[dat$year %in% year, ]
-  }
-  if (!is.null(country)) {
-    dat <- dat[dat$country %in% country,]
-  }
-~~~
-{: .r}
-
-Here, we check whether each additional argument is set to `null`,
-and whenever they're not `null` overwrite the dataset stored in `dat` with
-a subset given by the non-`null` argument.
-
-I did this so that our function is more flexible for later. We
-can ask it to calculate the GDP for:
-
- * The whole dataset;
- * A single year;
- * A single country;
- * A single combination of year and country.
-
-By using `%in%` instead, we can also give multiple years or countries
-to those arguments.
+> ## Challenge: Finishing our function
+> 
+> We said that we wanted to be able to handle one _or more_ years and countries
+> Modify the function to handle vectors of multiple countries (i.e. `c("Belgium", "Germany")) or years
+> 
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > calcGDP <- function(dat, year = NULL, country = NULL){
+> >   if (!is.null(year)) {
+> >    dat <- dat %>% filter(.data$year %in% !!year)
+> >   }
+> >   
+> >  if (!is.null(country)) {
+> >    dat <- dat %>% filter(.data$country %in% !!country) 
+> >  }
+> >   
+> >  dat <- dat %>% mutate(gdp = .data$pop * .data$gdpPercap)
+> >        
+> >  return(dat)
+> > }
+> > ~~~
+> > {: .r}
+> >
+> {: .solution}
+{: .challenge}
 
 > ## Tip: Pass by value
 >
@@ -406,19 +633,6 @@ to those arguments.
 > not modified in any way when executing a function.
 {: .callout}
 
-
-~~~
-  gdp <- dat$pop * dat$gdpPercap
-  new <- cbind(dat, gdp=gdp)
-  return(new)
-}
-~~~
-{: .r}
-
-Finally, we calculated the GDP on our new subset, and created a new
-data frame with that column added. This means when we call the function
-later we can see the context for the returned GDP values,
-which is much better than in our first attempt where we got a vector of numbers.
 
 > ## Challenge 3
 >
