@@ -223,7 +223,7 @@ of the function.
 
 
 ~~~
-calcGDP(head(gapminder))
+head(calcGDP(gapminder))
 ~~~
 {: .r}
 
@@ -238,19 +238,20 @@ That's not very informative. Let's add some more arguments so we can extract
 that per year and country.
 
 
+
 ~~~
 # Takes a dataset and multiplies the population column
 # with the GDP per capita column.
 calcGDP <- function(dat, year=NULL, country=NULL) {
   if(!is.null(year)) {
-    dat <- dat[dat$year %in% year, ]
+    dat <- dat %>% filter(.data$year %in% !!year) 
   }
   if (!is.null(country)) {
-    dat <- dat[dat$country %in% country,]
+    dat <- dat %>% filter(.data$country %in% !!country) 
   }
   gdp <- dat$pop * dat$gdpPercap
 
-  new <- cbind(dat, gdp=gdp)
+  new <- bind_cols(dat, gdp = gdp)
   return(new)
 }
 ~~~
@@ -285,13 +286,15 @@ head(calcGDP(gapminder, year=2007))
 
 
 ~~~
-      country year      pop continent lifeExp  gdpPercap          gdp
-1 Afghanistan 2007 31889923      Asia  43.828   974.5803  31079291949
-2     Albania 2007  3600523    Europe  76.423  5937.0295  21376411360
-3     Algeria 2007 33333216    Africa  72.301  6223.3675 207444851958
-4      Angola 2007 12420476    Africa  42.731  4797.2313  59583895818
-5   Argentina 2007 40301927  Americas  75.320 12779.3796 515033625357
-6   Australia 2007 20434176   Oceania  81.235 34435.3674 703658358894
+# A tibble: 6 x 7
+      country  year      pop continent lifeExp  gdpPercap          gdp
+        <chr> <int>    <dbl>     <chr>   <dbl>      <dbl>        <dbl>
+1 Afghanistan  2007 31889923      Asia  43.828   974.5803  31079291949
+2     Albania  2007  3600523    Europe  76.423  5937.0295  21376411360
+3     Algeria  2007 33333216    Africa  72.301  6223.3675 207444851958
+4      Angola  2007 12420476    Africa  42.731  4797.2313  59583895818
+5   Argentina  2007 40301927  Americas  75.320 12779.3796 515033625357
+6   Australia  2007 20434176   Oceania  81.235 34435.3674 703658358894
 ~~~
 {: .output}
 
@@ -306,19 +309,21 @@ calcGDP(gapminder, country="Australia")
 
 
 ~~~
-     country year      pop continent lifeExp gdpPercap          gdp
-1  Australia 1952  8691212   Oceania  69.120  10039.60  87256254102
-2  Australia 1957  9712569   Oceania  70.330  10949.65 106349227169
-3  Australia 1962 10794968   Oceania  70.930  12217.23 131884573002
-4  Australia 1967 11872264   Oceania  71.100  14526.12 172457986742
-5  Australia 1972 13177000   Oceania  71.930  16788.63 221223770658
-6  Australia 1977 14074100   Oceania  73.490  18334.20 258037329175
-7  Australia 1982 15184200   Oceania  74.740  19477.01 295742804309
-8  Australia 1987 16257249   Oceania  76.320  21888.89 355853119294
-9  Australia 1992 17481977   Oceania  77.560  23424.77 409511234952
-10 Australia 1997 18565243   Oceania  78.830  26997.94 501223252921
-11 Australia 2002 19546792   Oceania  80.370  30687.75 599847158654
-12 Australia 2007 20434176   Oceania  81.235  34435.37 703658358894
+# A tibble: 12 x 7
+     country  year      pop continent lifeExp gdpPercap          gdp
+       <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+ 1 Australia  1952  8691212   Oceania  69.120  10039.60  87256254102
+ 2 Australia  1957  9712569   Oceania  70.330  10949.65 106349227169
+ 3 Australia  1962 10794968   Oceania  70.930  12217.23 131884573002
+ 4 Australia  1967 11872264   Oceania  71.100  14526.12 172457986742
+ 5 Australia  1972 13177000   Oceania  71.930  16788.63 221223770658
+ 6 Australia  1977 14074100   Oceania  73.490  18334.20 258037329175
+ 7 Australia  1982 15184200   Oceania  74.740  19477.01 295742804309
+ 8 Australia  1987 16257249   Oceania  76.320  21888.89 355853119294
+ 9 Australia  1992 17481977   Oceania  77.560  23424.77 409511234952
+10 Australia  1997 18565243   Oceania  78.830  26997.94 501223252921
+11 Australia  2002 19546792   Oceania  80.370  30687.75 599847158654
+12 Australia  2007 20434176   Oceania  81.235  34435.37 703658358894
 ~~~
 {: .output}
 
@@ -333,8 +338,10 @@ calcGDP(gapminder, year=2007, country="Australia")
 
 
 ~~~
-    country year      pop continent lifeExp gdpPercap          gdp
-1 Australia 2007 20434176   Oceania  81.235  34435.37 703658358894
+# A tibble: 1 x 7
+    country  year      pop continent lifeExp gdpPercap          gdp
+      <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+1 Australia  2007 20434176   Oceania  81.235  34435.37 703658358894
 ~~~
 {: .output}
 
