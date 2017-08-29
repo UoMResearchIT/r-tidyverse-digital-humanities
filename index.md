@@ -4,12 +4,12 @@ root: .
 ---
 
 
-This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder), for the University of Manchester Course [R for data analyis](https://app.manchester.ac.uk/rrdata).  **The material is under heavy revision prior to the first presentation of the R course in October 2017, and may be in an inconsistent state**.
+This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder), for the University of Manchester Course [R for data analyis](https://app.manchester.ac.uk/rrdata).  
 
 The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
 
 
-The slide deck used in the course can be found [here](https://mawds.github.io/r-novice-gapminder/slides/).
+The slide deck used in this course can be found [here](https://mawds.github.io/r-novice-gapminder/slides/).
 
 
 The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many scientific disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach best practices for scientific computing.
@@ -17,10 +17,9 @@ The goal of this lesson is to teach novice programmers to use R for data analysi
 Note that this workshop will focus on teaching the fundamentals of the
 programming language R, and will not teach statistical analysis.
 
-A variety of third party packages are used throughout this workshop. These
-are not necessarily the best, nor are they comprehensive, but they are
-packages we find useful, and have been chosen primarily for their
-usability.
+The course focuses on using the [tidyverse](https://www.tidyverse.org) for data analysis, rather than base R.
+
+
 
 > ## Prerequisites
 >
