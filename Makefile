@@ -8,7 +8,7 @@ PARSER=bin/markdown_ast.rb
 DST=_site
 
 # Controls
-.PHONY : commands clean files
+.PHONY : commands clean files data
 .NOTPARALLEL:
 all : commands
 
@@ -133,6 +133,12 @@ slides: ${SLIDE_DST}
 _slides/%.html:	_slides_rmd/%.Rmd
 	@Rscript -e "rmarkdown::render('$<', output_dir='$(dir $@)')"
 	
+## data			 : Create the data zip file from episodes rmd data directory
+
+data: data/r-novice.zip
+
+data/r-novice.zip: $(shell find _episodes_rmd/data -type f)
+	@zip -j $@ $^
 
 #-------------------------------------------------------------------------------
 # Include extra commands if available.
