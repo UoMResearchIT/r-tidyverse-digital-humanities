@@ -515,12 +515,12 @@ my_example[c(-1, -5)]  # or my_example[-c(1,5)]
 > > x[-c(1,5)]
 > > ```
 > > ```{r}
-> > x[c("b", "c", "d")]
-> > ```
-> > ```{r}
 > > x[c(2,3,4)]
 > > ```
-> >
+> > ```{r}
+> > x[c("b", "c", "d")]
+> > ```
+> > (the last method of extracting these is covered in the section below)
 > {: .solution}
 {: .challenge}
 

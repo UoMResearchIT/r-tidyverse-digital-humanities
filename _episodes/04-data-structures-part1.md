@@ -1138,19 +1138,6 @@ b c d
 > > {: .output}
 > > 
 > > ~~~
-> > x[c("b", "c", "d")]
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   b   c   d 
-> > 6.2 7.1 4.8 
-> > ~~~
-> > {: .output}
-> > 
-> > ~~~
 > > x[c(2,3,4)]
 > > ~~~
 > > {: .r}
@@ -1162,7 +1149,20 @@ b c d
 > > 6.2 7.1 4.8 
 > > ~~~
 > > {: .output}
-> >
+> > 
+> > ~~~
+> > x[c("b", "c", "d")]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   b   c   d 
+> > 6.2 7.1 4.8 
+> > ~~~
+> > {: .output}
+> > (the last method of extracting these is covered in the section below)
 > {: .solution}
 {: .challenge}
 
