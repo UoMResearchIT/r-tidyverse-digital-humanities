@@ -58,10 +58,15 @@ One of the most powerful and useful aspects of RStudio is its project management
 functionality. We'll be using this today to create a self-contained, reproducible
 project.
 
-> ## Version control:
+> ## Version control
 > 
 > It is always a good idea to use version control with your projects.  
-> This makes it easy to undo changes to your code, scripts and documents and to collaborate with others.  We don't cover version control in this course, however [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT) (logon required). [Git](https://git-scm.com/) is a popular version control system, that integrates well with Rstudio.  Collaboration with others is easy when used in conjunction with [github](https://www.github.com).
+> This makes it easy to undo changes to your code, scripts and documents and to collaborate with others. 
+> We don't cover version control in this course, however [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT)
+> (logon required). [Git](https://git-scm.com/) is a popular version control system, 
+> that integrates well with Rstudio.  Collaboration with others is easy when used in 
+> conjunction with [github](https://www.github.com).
+{: .callout}
 
 > ## Challenge: Creating a self-contained project
 >
