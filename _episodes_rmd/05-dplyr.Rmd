@@ -123,7 +123,7 @@ perform a complex series of operations in one go
 > This saves typing and reduces the risk of error.
 > 
 > RStudio includes a helpful "cheat sheet", which summarises the main functionality
-> and syntax of `dplyr` and `tidyr` (covered in FIXME xxx lesson).  This can be accessed via the
+> and syntax of `dplyr` and the related package `tidyr`.  This can be accessed via the
 > help menu --> cheatsheets --> data manipulation with dplyr, tidyr 
 {: .callout}
 
