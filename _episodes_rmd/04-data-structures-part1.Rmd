@@ -190,7 +190,7 @@ double. The table that R loaded our cats data into is something called a
 structure* - that is, a structure which is built out of the basic
 data types.
 
-> # On tibbles
+> ## On tibbles
 > 
 > We used the `read_csv()` function, which is part of the `readr` package
 > to load the data.  This is similar to R's inbuilt `read.csv()`.  
@@ -202,7 +202,6 @@ data types.
 > You may find that some older functions don't work on tibbles.   A tibble
 > can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
 > a data frame to a tibble, use `as.tibble(mydataframe)`
->
 {: .callout}
 
 In order to successfully use our data in R, we need to understand what the basic
