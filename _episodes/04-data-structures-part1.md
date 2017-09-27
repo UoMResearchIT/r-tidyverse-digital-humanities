@@ -87,6 +87,14 @@ cats
 
 We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.  We will discuss data-types shortly.
 
+> ## Installing packages
+>
+> The university computers have the [tidyverse](https://www.tidyverse.org/) pre-installed on them.
+> If you are using your own PC it may not be installed.  We will cover installing packages in more detail
+> in [a later episode]({{ page.root }}/08-using-r-packages). For now, you can install the package by
+> typing `install.packages("tidyverse")`
+{: .callout}
+
 > ## Miscellaneous Tips
 >
 > * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
