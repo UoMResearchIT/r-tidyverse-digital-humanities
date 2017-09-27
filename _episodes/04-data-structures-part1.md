@@ -963,34 +963,19 @@ If we ask for a number outside of the vector, R will return missing values:
 
 
 ~~~
-x[6]
+my_example[6]
 ~~~
 {: .r}
 
 
 
 ~~~
- F 
-12 
+<NA> 
+  NA 
 ~~~
 {: .output}
 
 This is a vector of length one containing an `NA`, whose name is also `NA`.
-
-If we ask for the 0th element, we get an empty vector:
-
-
-~~~
-x[0]
-~~~
-{: .r}
-
-
-
-~~~
-named numeric(0)
-~~~
-{: .output}
 
 > ## Vector numbering in R starts at 1
 >
@@ -1022,7 +1007,7 @@ We can skip multiple elements:
 
 
 ~~~
-my_example[c(-1, -5)]  # or x[-c(1,5)]
+my_example[c(-1, -5)]  # or my_example[-c(1,5)]
 ~~~
 {: .r}
 
