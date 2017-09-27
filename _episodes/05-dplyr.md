@@ -19,14 +19,6 @@ source: Rmd
 
 In the previous episode we used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  The tidyverse packages are designed to work well together; they provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncrasies of base R.
 
-If yuu are using a university PC the tidyverse should already be installed.  If not, it can be installed like any other R package:
-
-
-~~~
-install.packages("tidyverse")
-~~~
-{: .r}
-
 We load the core libraries in the tidyverse with:
 
 
