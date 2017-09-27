@@ -541,14 +541,14 @@ into a script file so we can come back to it later.
 > ## Challenge 2
 >
 > Go to file -> new file -> R script, and write an R script
-> to load in the gapminder dataset. Put it in the `scripts/`
+> to load in the gapminder dataset. Put it in the `src/`
 > directory.
 >
 > Run the script using the `source` function, using the file path
 > as its argument (or by pressing the "source" button in RStudio).
 >
 > > ## Solution to Challenge 2
-> > The contents of `script/load-gapminder.R`:
+> > The contents of `src/load-gapminder.R`:
 > > 
 > > ~~~
 > > library(tidyverse)
@@ -558,7 +558,7 @@ into a script file so we can come back to it later.
 > > To run the script and load the data into the `gapminder` variable:
 > > 
 > > ~~~
-> > source(file = "scripts/load-gapminder.R")
+> > source(file = "src/load-gapminder.R")
 > > ~~~
 > > {: .r}
 > > (or click the "source" button if using RStudio)
