@@ -252,7 +252,7 @@ calc_GDP_and_filter <- function(dat, year){
   
 }
 
-calc_GDP_and_filter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 1997)
 ~~~
 {: .r}
 
@@ -291,7 +291,7 @@ We passed a value of `year` into the function when we called it.  R has no way o
 
 NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
 
-We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 2007 in this example).  We do this using the `!!` operator:
+We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `!!` operator:
 
 
 ~~~
@@ -304,7 +304,7 @@ When the filter function is evaluated it will see:
 
 
 ~~~
-    filter(year == 2007) %>% 
+    filter(year == 1997) %>% 
 ~~~
 {: .r}
 
@@ -321,7 +321,7 @@ return(gdpgapfiltered)
   
 }
 
-calc_GDP_and_filter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 1997)
 ~~~
 {: .r}
 
@@ -331,16 +331,16 @@ calc_GDP_and_filter(gapminder, 2007)
 # A tibble: 142 x 7
        country  year       pop continent lifeExp  gdpPercap          gdp
          <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
- 1 Afghanistan  2007  31889923      Asia  43.828   974.5803  31079291949
- 2     Albania  2007   3600523    Europe  76.423  5937.0295  21376411360
- 3     Algeria  2007  33333216    Africa  72.301  6223.3675 207444851958
- 4      Angola  2007  12420476    Africa  42.731  4797.2313  59583895818
- 5   Argentina  2007  40301927  Americas  75.320 12779.3796 515033625357
- 6   Australia  2007  20434176   Oceania  81.235 34435.3674 703658358894
- 7     Austria  2007   8199783    Europe  79.829 36126.4927 296229400691
- 8     Bahrain  2007    708573      Asia  75.635 29796.0483  21112675360
- 9  Bangladesh  2007 150448339      Asia  64.062  1391.2538 209311822134
-10     Belgium  2007  10392226    Europe  79.441 33692.6051 350141166520
+ 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
+ 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
+ 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
+ 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
+ 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
+ 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
+ 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
+ 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
+ 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
+10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
 # ... with 132 more rows
 ~~~
 {: .output}
@@ -350,7 +350,8 @@ year variable? Surely this should give an error?
 
 
 ~~~
-calc_GDP_and_filter(gapminder %>% select(-year), 2007)
+gap_noyear <- gapminder %>% select(-year)
+calc_GDP_and_filter(gap_noyear, 1997)
 ~~~
 {: .r}
 
@@ -377,7 +378,7 @@ calc_GDP_and_filter(gapminder %>% select(-year), 2007)
 As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_.  This is the `calc_GDP_and_filter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
 
 ~~~
-    filter(2007 == 2007) %>% 
+    filter(1997 == 1997) %>% 
 ~~~
 {: .r}
 which is `TRUE`, so the filter won't do anything!
@@ -396,7 +397,7 @@ return(gdpgapfiltered)
   
 }
 
-calc_GDP_and_filter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 1997)
 ~~~
 {: .r}
 
@@ -406,16 +407,16 @@ calc_GDP_and_filter(gapminder, 2007)
 # A tibble: 142 x 7
        country  year       pop continent lifeExp  gdpPercap          gdp
          <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
- 1 Afghanistan  2007  31889923      Asia  43.828   974.5803  31079291949
- 2     Albania  2007   3600523    Europe  76.423  5937.0295  21376411360
- 3     Algeria  2007  33333216    Africa  72.301  6223.3675 207444851958
- 4      Angola  2007  12420476    Africa  42.731  4797.2313  59583895818
- 5   Argentina  2007  40301927  Americas  75.320 12779.3796 515033625357
- 6   Australia  2007  20434176   Oceania  81.235 34435.3674 703658358894
- 7     Austria  2007   8199783    Europe  79.829 36126.4927 296229400691
- 8     Bahrain  2007    708573      Asia  75.635 29796.0483  21112675360
- 9  Bangladesh  2007 150448339      Asia  64.062  1391.2538 209311822134
-10     Belgium  2007  10392226    Europe  79.441 33692.6051 350141166520
+ 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
+ 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
+ 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
+ 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
+ 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
+ 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
+ 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
+ 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
+ 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
+10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
 # ... with 132 more rows
 ~~~
 {: .output}
@@ -423,7 +424,7 @@ calc_GDP_and_filter(gapminder, 2007)
 
 
 ~~~
-calc_GDP_and_filter(gapminder %>% select(-year), 2007)
+calc_GDP_and_filter(gap_noyear, 1997)
 ~~~
 {: .r}
 
@@ -530,7 +531,7 @@ If you've been writing these functions down into a separate R script
 
 
 ~~~
-source("functions/functions-lesson.R")
+source("src/functions-lesson.R")
 ~~~
 {: .r}
 
@@ -546,7 +547,7 @@ Let's take a look at what happens when we specify the year:
 
 
 ~~~
-head(calcGDP(gapminder, year=2007))
+head(calcGDP(gapminder, year = 1997))
 ~~~
 {: .r}
 
@@ -556,12 +557,12 @@ head(calcGDP(gapminder, year=2007))
 # A tibble: 6 x 7
       country  year      pop continent lifeExp  gdpPercap          gdp
         <chr> <int>    <dbl>     <chr>   <dbl>      <dbl>        <dbl>
-1 Afghanistan  2007 31889923      Asia  43.828   974.5803  31079291949
-2     Albania  2007  3600523    Europe  76.423  5937.0295  21376411360
-3     Algeria  2007 33333216    Africa  72.301  6223.3675 207444851958
-4      Angola  2007 12420476    Africa  42.731  4797.2313  59583895818
-5   Argentina  2007 40301927  Americas  75.320 12779.3796 515033625357
-6   Australia  2007 20434176   Oceania  81.235 34435.3674 703658358894
+1 Afghanistan  1997 22227415      Asia  41.763   635.3414  14121995875
+2     Albania  1997  3428038    Europe  72.950  3193.0546  10945912519
+3     Algeria  1997 29072015    Africa  69.152  4797.2951 139467033682
+4      Angola  1997  9875024    Africa  40.963  2277.1409  22486820881
+5   Argentina  1997 36203463  Americas  73.275 10967.2820 397053586287
+6   Australia  1997 18565243   Oceania  78.830 26997.9366 501223252921
 ~~~
 {: .output}
 
@@ -569,7 +570,7 @@ Or for a specific country:
 
 
 ~~~
-calcGDP(gapminder, country="Australia")
+calcGDP(gapminder, country = "Australia")
 ~~~
 {: .r}
 
@@ -598,7 +599,7 @@ Or both:
 
 
 ~~~
-calcGDP(gapminder, year=2007, country="Australia")
+calcGDP(gapminder, year = 1997, country = "Australia")
 ~~~
 {: .r}
 
@@ -608,7 +609,7 @@ calcGDP(gapminder, year=2007, country="Australia")
 # A tibble: 1 x 7
     country  year      pop continent lifeExp gdpPercap          gdp
       <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
-1 Australia  2007 20434176   Oceania  81.235  34435.37 703658358894
+1 Australia  1997 18565243   Oceania   78.83  26997.94 501223252921
 ~~~
 {: .output}
 
