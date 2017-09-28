@@ -242,7 +242,7 @@ Let's put this code in a function:
 
 
 ~~~
-calcGDPandFilter <- function(dat, year){
+calc_GDP_and_filter <- function(dat, year){
   
   gdpgapfiltered <- dat %>%
       filter(year == year) %>% 
@@ -252,7 +252,7 @@ calcGDPandFilter <- function(dat, year){
   
 }
 
-calcGDPandFilter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 2007)
 ~~~
 {: .r}
 
@@ -291,7 +291,7 @@ We passed a value of `year` into the function when we called it.  R has no way o
 
 NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
 
-We can use the `calcGDPandFilter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 2007 in this example).  We do this using the `!!` operator:
+We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 2007 in this example).  We do this using the `!!` operator:
 
 
 ~~~
@@ -311,7 +311,7 @@ When the filter function is evaluated it will see:
 
 
 ~~~
-calcGDPandFilter <- function(dat, year){
+calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
     filter(year == !!year) %>% 
@@ -321,7 +321,7 @@ return(gdpgapfiltered)
   
 }
 
-calcGDPandFilter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 2007)
 ~~~
 {: .r}
 
@@ -350,7 +350,7 @@ year variable? Surely this should give an error?
 
 
 ~~~
-calcGDPandFilter(gapminder %>% select(-year), 2007)
+calc_GDP_and_filter(gapminder %>% select(-year), 2007)
 ~~~
 {: .r}
 
@@ -374,7 +374,7 @@ calcGDPandFilter(gapminder %>% select(-year), 2007)
 ~~~
 {: .output}
 
-As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_.  This is the `calcGDPandFilter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
+As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_.  This is the `calc_GDP_and_filter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
 
 ~~~
     filter(2007 == 2007) %>% 
@@ -386,7 +386,7 @@ We need a way of telling the function that the first `year` "belongs" to the dat
 
 
 ~~~
-calcGDPandFilter <- function(dat, year){
+calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
     filter(.data$year == !!year) %>% 
@@ -396,7 +396,7 @@ return(gdpgapfiltered)
   
 }
 
-calcGDPandFilter(gapminder, 2007)
+calc_GDP_and_filter(gapminder, 2007)
 ~~~
 {: .r}
 
@@ -423,7 +423,7 @@ calcGDPandFilter(gapminder, 2007)
 
 
 ~~~
-calcGDPandFilter(gapminder %>% select(-year), 2007)
+calc_GDP_and_filter(gapminder %>% select(-year), 2007)
 ~~~
 {: .r}
 
@@ -435,7 +435,7 @@ Error in filter_impl(.data, quo): Evaluation error: Column `year`: not found in 
 {: .error}
 
 
-As you can see, we've also used the `.data` pronoun when calculating the GDP; if our tibble was missing either the `gdpPercap` or `pop` variables, R would search in the calling environment (i.e. the `calcGDPandFilter()` function).  As the variables aren't found there it would look in the `calcGDPandFilter()`'s calling environment, and so on.  If it finds variables matching these names, they would be used instead, giving an incorrect result; if they cannot be found we will get an error.  Using the `.data` pronoun makes our source of the data clear, and prevents this risk.
+As you can see, we've also used the `.data` pronoun when calculating the GDP; if our tibble was missing either the `gdpPercap` or `pop` variables, R would search in the calling environment (i.e. the `calc_GDP_and_filter()` function).  As the variables aren't found there it would look in the `calc_GDP_and_filter()`'s calling environment, and so on.  If it finds variables matching these names, they would be used instead, giving an incorrect result; if they cannot be found we will get an error.  Using the `.data` pronoun makes our source of the data clear, and prevents this risk.
 
 
 > ## Challenge:  Filtering by country name and year
