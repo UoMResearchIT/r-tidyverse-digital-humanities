@@ -44,7 +44,7 @@ several operations with a single command.
 
 ## Defining a function
 
-Let's open a new R script file in the `functions/` directory and call it functions-lesson.R.
+Let's create a new R script file in the `src/` directory and call it functions-lesson.R:
 
 
 ~~~
@@ -55,7 +55,37 @@ my_sum <- function(a, b) {
 ~~~
 {: .r}
 
-Let’s define a function fahr_to_kelvin that converts temperatures from Fahrenheit to Kelvin:
+We can use the function in the same way as any other functions we've used so far in this course:
+
+
+~~~
+my_sum(2,3)
+~~~
+{: .r}
+
+
+
+~~~
+[1] 5
+~~~
+{: .output}
+
+
+
+~~~
+my_sum(10,10)
+~~~
+{: .r}
+
+
+
+~~~
+[1] 20
+~~~
+{: .output}
+
+
+Now let’s define a function fahr_to_kelvin that converts temperatures from Fahrenheit to Kelvin:
 
 
 ~~~
@@ -352,7 +382,7 @@ As you can see, it doesn't; instead the `filter()` function will "fall through" 
 {: .r}
 which is `TRUE`, so the filter won't do anything!
 
-We need a way of telling the function that the first `year` belongs to the data.  We can do this with the `.data` pronoun:
+We need a way of telling the function that the first `year` "belongs" to the data.  We can do this with the `.data` pronoun:
 
 
 ~~~
