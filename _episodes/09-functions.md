@@ -291,11 +291,11 @@ We passed a value of `year` into the function when we called it.  R has no way o
 
 NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
 
-We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `!!` operator:
+We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `UQ()` ("unquote") function:
 
 
 ~~~
-    filter(year == !!year) %>% 
+    filter(year == UQ(year) ) %>% 
 ~~~
 {: .r}
 
@@ -314,7 +314,7 @@ When the filter function is evaluated it will see:
 calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
-    filter(year == !!year) %>% 
+    filter(year == UQ(year) ) %>% 
     mutate(gdp = gdpPercap * pop)
 
 return(gdpgapfiltered)
@@ -345,7 +345,55 @@ calc_GDP_and_filter(gapminder, 1997)
 ~~~
 {: .output}
 
-Our function now works as expected.  There is one small gotcha that remains; how does filter _know_ that the first `year` in ``` filter(year == !!year) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
+Our function now works as expected.
+
+> ## Another way of thinking about quoting
+> 
+> (This section is based on [programming with dplyr](http://dplyr.tidyverse.org/articles/programming.html))
+>
+> Consider the following code:
+>
+> 
+> ~~~
+> greet <- function(person){
+>   print("Hello person")
+> }
+> 
+> greet("David")
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] "Hello person"
+> ~~~
+> {: .output}
+> 
+> The `print` function has no way of knowing that `person` refers to the variable `person`, and isn't 
+> part of the string `person`.  To make the contents of the `person` variable visible to the function we
+> need to construct the string, using the `paste` function:
+>
+> 
+> ~~~
+> greet <- function(person){
+>   print(paste("Hello", person))
+> }
+> 
+> greet("David")
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] "Hello David"
+> ~~~
+> {: .output}
+> This means that the `person` variable is evaluated in an _unquoted_ environment, so its contents can be evaluated.
+{: .callout}
+
+There is one small gotcha that remains; how does filter _know_ that the first `year` in ``` filter(year == UQ(year) ) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
 year variable? Surely this should give an error?
 
 
@@ -390,7 +438,7 @@ We need a way of telling the function that the first `year` "belongs" to the dat
 calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
-    filter(.data$year == !!year) %>% 
+    filter(.data$year == UQ(year) ) %>% 
     mutate(gdp = .data$gdpPercap * .data$pop)
 
 return(gdpgapfiltered)
@@ -450,8 +498,8 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 > > 
 > > ~~~
 > >  calcGDPCountryYearFilter <- function(dat, year, country){
-> >  dat <- dat %>% filter(.data$year == !!year) %>% 
-> >        filter(.data$country == !!country) %>% 
+> >  dat <- dat %>% filter(.data$year == UQ(year) ) %>% 
+> >        filter(.data$country == UQ(country) ) %>% 
 > >         mutate(gdp = .data$pop * .data$gdpPercap)
 > >         
 > >  return(dat)
@@ -511,11 +559,11 @@ We can pass a default parameter for year and country; this means that if we call
 ~~~
 calcGDP <- function(dat, year = NULL, country = NULL){
   if (!is.null(year)) {
-    dat <- dat %>% filter(.data$year == !!year)
+    dat <- dat %>% filter(.data$year == UQ(year) )
   }
   
   if (!is.null(country)) {
-   dat <- dat %>% filter(.data$country == !!country) 
+   dat <- dat %>% filter(.data$country == UQ(country) )
   }
   
   dat <- dat %>% mutate(gdp = .data$pop * .data$gdpPercap)
@@ -625,11 +673,11 @@ calcGDP(gapminder, year = 1997, country = "Australia")
 > > ~~~
 > > calcGDP <- function(dat, year = NULL, country = NULL){
 > >   if (!is.null(year)) {
-> >    dat <- dat %>% filter(.data$year %in% !!year)
+> >    dat <- dat %>% filter(.data$year %in% UQ(year) )
 > >   }
 > >   
 > >  if (!is.null(country)) {
-> >    dat <- dat %>% filter(.data$country %in% !!country) 
+> >    dat <- dat %>% filter(.data$country %in% UQ(country) )
 > >  }
 > >   
 > >  dat <- dat %>% mutate(gdp = .data$pop * .data$gdpPercap)
