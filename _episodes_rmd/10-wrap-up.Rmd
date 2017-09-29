@@ -40,7 +40,9 @@ scripts, and store them in a separate file that you `source` when you open the R
 session in your project. This approach is nice because it leaves you with an
 uncluttered analysis script, and a repository of useful functions that can be
 loaded into any analysis script in your project. It also lets you group related
-functions together easily.
+functions together easily. It will also make it easier to 
+[write an R package](http://r-pkgs.had.co.nz/), if you decide to distribute your
+code more widely.
 
 ## Break down problem into bite size pieces
 
@@ -52,7 +54,9 @@ reach a point where you can code a solution, and build back up from there.
 
 ## Know that your code is doing the right thing
 
-Make sure to test your functions!
+Make sure to test your functions!  We haven't had time to cover testing in any depth
+in this course.  The [testthat](https://github.com/hadley/testthat) package makes
+testing your code much easier (and even claims to make it "fun").
 
 ## Don't repeat yourself
 
