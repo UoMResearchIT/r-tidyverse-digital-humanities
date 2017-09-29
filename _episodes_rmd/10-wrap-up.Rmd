@@ -71,3 +71,13 @@ for which a particular input always gives a particular output.
 ## Remember to be stylish
 
 Apply consistent style to your code.
+
+## Final points
+
+That concludes the course. We've only begun to scratch the surface of what you can do with R,
+but hopefully the course has taught you enough to begin using R for your data
+analysis work, and _how_ to find out more about using R.
+
+*Please* complete the course feedback survey.  The material for the course is modified
+in response to this; if anything was unclear, or we didn't cover anything you thought 
+would be useful please let us know.
