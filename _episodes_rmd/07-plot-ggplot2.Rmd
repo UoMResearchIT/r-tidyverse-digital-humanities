@@ -460,7 +460,7 @@ The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages tha
 
 As an example of how easy it can be to extend ggplot, we will use the `ggjoy` plot to produce a stacked density plot, to better visualise the previous figure:
 
-```{r}
+```{r, joyplot}
 library(ggjoy)
 
 gapminder %>% 
@@ -469,5 +469,4 @@ gapminder %>%
   scale_x_log10() + 
   geom_joy(alpha = 0.6) 
 ```
-
 

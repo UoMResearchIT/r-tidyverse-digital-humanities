@@ -559,6 +559,5 @@ Picking joint bandwidth of 0.128
 ~~~
 {: .output}
 
-<img src="../fig/rmd-07-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
-
+<img src="../fig/rmd-07-joyplot-1.png" title="plot of chunk joyplot" alt="plot of chunk joyplot" style="display: block; margin: auto;" />
 
