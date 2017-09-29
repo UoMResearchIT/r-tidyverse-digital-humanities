@@ -12,3 +12,4 @@ notes.md
 .Rproj.user
 .Rhistory
 .vscode
+*.swp
