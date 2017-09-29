@@ -1,7 +1,7 @@
 ---
 title: "Data Analysis Using R"
 author: "David Mawdsley"
-date: "17 October 2017"
+date: "3 October 2017"
 output: 
   revealjs::revealjs_presentation:
     center: false
@@ -11,10 +11,10 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+## Data Analysis Using R
 <style type="text/css">
 p { text-align: left; }
 </style>
-## Data Analysis Using R
 
 Initial tasks:
 
@@ -22,9 +22,8 @@ Initial tasks:
 2. Check you can load RStudio
 3. Open the course notes page at [https://mawds.github.io/r-novice-gapminder/](https://mawds.github.io/r-novice-gapminder/)
   * There is a link to this slideshow there
-4. Open the course's shared Etherpad at [https://etherpad.wikimedia.org/p/2017-10-03-UoMRcourse](https://etherpad.wikimedia.org/p/2017-10-03-UoMRcourse)
-4. There is no sign-in sheet.  Attendance is recorded via the [feedback form](https://goo.gl/forms/YZJ05PzX9tPFEtuV2)
-
+4. Open the course's shared Etherpad at [http://bit.ly/2x0k1zK](http://bit.ly/2x0k1zK)
+4. There is no sign-in sheet.  Attendance is recorded via the feedback form [http://bit.ly/2xP95Ef](http://bit.ly/2xP95Ef)
 
 ## Introduction
 
@@ -33,6 +32,14 @@ Initial tasks:
 * Teaching methods
 
 
+## Housekeeping
+
+* Fire exit
+* Toilets
+* Coffee breaks and lunch
+* Course timing
+* Feedback ([form](http://bit.ly/2xP95Ef) and verbal)
+
 ## Aims of the day
 
 * Introduction to R
@@ -40,7 +47,6 @@ Initial tasks:
   + Focus on using R for analysis rather than programming
 * Does not teach statistics
 * The aim is to teach you enough know how to find out more
-
 
 ## Research IT
 Described on the [IT Services website](http://www.itservices.manchester.ac.uk/research/)
@@ -55,27 +61,6 @@ Announcements given via the [Research IT blog](https://researchitnews.org/) and 
 
 Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
 
-## R user groups
-
-R user groups are a great way of finding out more about R.  
-
-* [University of Manchester R user group](https://rumgroup.github.io/Home/)
-    + Meets monthly
-    + [Email list](https://listserv.manchester.ac.uk/cgi-bin/wa?A0=RUM) for announcements, questions etc.
-    + Has tea, coffee and biscuits
-    + Separate beginners group
-* [ManchesterR](http://www.rmanchester.org/)
-    + City-wide group (not affiliated with the university)
-    + Meets quarterly 
-    + Typically 3-4 presentations; often a commercial focus.
-  
-
-## Housekeeping
-
-* Fire exit
-* Toilets
-* Course timing
-* Feedback ([form](https://goo.gl/forms/YZJ05PzX9tPFEtuV2) and verbal)
 
 ## Why learn R?
 
@@ -86,7 +71,22 @@ R user groups are a great way of finding out more about R.
     + Reproducible research with [Knitr](https://yihui.name/knitr/)
     + [Presentations](https://www.r-bloggers.com/creating-a-presentation-with-r/)
 * New packages appearing at an ever increasing rate.  
+    + This does mean there's (often) more than one way to do a task
 
+## R user groups
+
+R user groups are a great way of finding out more about R.  
+
+* [University of Manchester R user group](https://rumgroup.github.io/Home/)
+    + Meets monthly
+    + [Email list](https://listserv.manchester.ac.uk/cgi-bin/wa?A0=RUM) for announcements, questions etc.
+    + Has tea, coffee and biscuits
+    + Separate beginners' group
+* [ManchesterR](http://www.rmanchester.org/)
+    + City-wide group (not affiliated with the university)
+    + Meets quarterly 
+    + Typically 3-4 presentations; often a commercial focus.
+  
 ## Teaching methods
 
 * The course is based on the [Software Carpentry](https://software-carpentry.org) [R for reproducible scientific research](http://swcarpentry.github.io/r-novice-gapminder/) course
@@ -101,5 +101,5 @@ R user groups are a great way of finding out more about R.
 * Getting help
     + Helpers
     + The Post-its
-    + [Etherpad](https://etherpad.wikimedia.org/p/2017-10-03-UoMRcourse)
+    + [Etherpad](http://bit.ly/2x0k1zK)
 
