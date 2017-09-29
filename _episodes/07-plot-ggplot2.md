@@ -150,7 +150,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 > >
 > > 
 > > ~~~
-> > gapminder %>% ggplot(aes(x = year, y = lifeExp, color=continent)) +
+> > gapminder %>% ggplot(aes(x = year, y = lifeExp, color = continent)) +
 > >   geom_point()
 > > ~~~
 > > {: .r}
@@ -168,7 +168,7 @@ Instead, let's tell `ggplot` to visualize the data as a line plot:
 
 
 ~~~
-gapminder %>%  ggplot(aes(x=year, y=lifeExp, by=country, color=continent)) +
+gapminder %>%  ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
   geom_line()
 ~~~
 {: .r}
@@ -176,15 +176,15 @@ gapminder %>%  ggplot(aes(x=year, y=lifeExp, by=country, color=continent)) +
 <img src="../fig/rmd-07-lifeExp-line-1.png" title="plot of chunk lifeExp-line" alt="plot of chunk lifeExp-line" style="display: block; margin: auto;" />
 
 Instead of adding a `geom_point` layer, we've added a `geom_line` layer. We've
-added the **by** *aesthetic*, which tells `ggplot` to draw a line for each
-country.
+added the **group** *aesthetic*, which tells `ggplot` to draw a line for each
+country (try removing this to see the effect)
 
 But what if we want to visualize both lines and points on the plot? We can
 simply add another layer to the plot:
 
 
 ~~~
-gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country, color=continent)) +
+gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
   geom_line() + geom_point()
 ~~~
 {: .r}
@@ -197,8 +197,8 @@ demonstration:
 
 
 ~~~
-gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country)) +
-  geom_line(aes(color=continent)) + geom_point()
+gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
+  geom_line(aes(color = continent)) + geom_point()
 ~~~
 {: .r}
 
@@ -211,7 +211,7 @@ lines.
 
 > ## Tip: Setting an aesthetic to a value instead of a mapping
 >
-> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color=continent))`, ggplot will give a different colour to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color="blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the colour specification outside of the `aes()` function, like this: `geom_line(color="blue")`.
+> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color = continent))`, ggplot will give a different colour to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color = "blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the colour specification outside of the `aes()` function, like this: `geom_line(color = "blue")`.
 {: .callout}
 
 > ## Challenge 3
@@ -226,8 +226,8 @@ lines.
 > >
 > > 
 > > ~~~
-> > gapminder %>% ggplot(aes(x=year, y=lifeExp, by=country)) +
-> >  geom_point() + geom_line(aes(color=continent))
+> > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
+> >  geom_point() + geom_line(aes(color = continent))
 > > ~~~
 > > {: .r}
 > > 
@@ -245,7 +245,7 @@ demonstrate we'll go back to our first example:
 
 
 ~~~
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color=continent)) +
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color= continent)) +
   geom_point()
 ~~~
 {: .r}
@@ -298,7 +298,7 @@ We can make the line thicker by *setting* the **size** aesthetic in the
 
 ~~~
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method="lm", size=1.5)
+  geom_point() + scale_x_log10() + geom_smooth(method = "lm", size = 1.5)
 ~~~
 {: .r}
 
@@ -326,8 +326,8 @@ variables and their visual representation.
 > > 
 > > ~~~
 > > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-> >  geom_point(size=3, color="orange") + scale_x_log10() +
-> >  geom_smooth(method="lm", size=1.5)
+> >  geom_point(size = 3, color = "orange") + scale_x_log10() +
+> >  geom_smooth(method = "lm", size = 1.5)
 > > ~~~
 > > {: .r}
 > > 
@@ -352,8 +352,8 @@ variables and their visual representation.
 > >
 > >~~~
 > > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
-> > geom_point(size=3, shape=17) + scale_x_log10() +
-> > geom_smooth(method="lm", size=1.5)
+> > geom_point(size = 3, shape = 17) + scale_x_log10() +
+> > geom_smooth(method = "lm", size = 1.5)
 > >~~~
 > >{: .r}
 > >
@@ -522,7 +522,7 @@ We can save the most recently produced ggplot using the `ggsave()` function:
 
 ~~~
 ggsave("plots/myplot.png")
-ggsave("plots/myplot.pdf", width=20, height=20, units="cm")
+ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 ~~~
 {: .r}
 
