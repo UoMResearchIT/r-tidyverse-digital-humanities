@@ -188,6 +188,8 @@ symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
 
+
+
 ## Using filter()
 
 If we now wanted to move forward with the above, but only with European
@@ -200,6 +202,27 @@ year_country_gdp_euro <- gapminder %>%
     select(year,country,gdpPercap)
 ~~~
 {: .r}
+
+Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
+
+> ## Another way of thinking about pipes
+>
+> It might be useful to think of the statement
+> 
+> ~~~
+>  gapminder %>%
+>     filter(continent=="Europe") %>%
+>     select(year,country,gdpPercap)
+> ~~~
+> {: .r}
+>  as a sentence, which we can read as
+> "take the gapminder data *and then* `filter` it for records where continent == Europe
+> *and then* `select` the year, country and gdpPercap
+> 
+> We can think of the `filter()` and `select()` functions as verbs in the sentence; 
+> they do things to the data flowing through the pipeline
+>
+{: .callout}
 
 > ## Challenge 1
 >
