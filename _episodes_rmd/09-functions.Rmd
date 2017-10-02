@@ -136,26 +136,11 @@ fahr_to_kelvin(212)
 The real power of functions comes from mixing, matching and combining them
 into ever-larger chunks to get the effect we want.
 
-Let's define two functions that will convert temperature from Fahrenheit to
-Kelvin, and Kelvin to Celsius:
-
-```{r}
-fahr_to_kelvin <- function(temp) {
-  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
-  return(kelvin)
-}
-
-kelvin_to_celsius <- function(temp) {
-  celsius <- temp - 273.15
-  return(celsius)
-}
-```
-
 > ## Challenge 2
 >
 > Define the function to convert directly from Fahrenheit to Celsius,
-> by reusing the two functions above (or using your own functions if you prefer).
->
+> by using the `fahr_to_kelvin` function defined earlier, and the 
+> `kelvin_to_celsius` function you wrote in challenge 1. 
 >
 > > ## Solution to challenge 2
 > >
