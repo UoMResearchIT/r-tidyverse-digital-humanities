@@ -1,5 +1,5 @@
 ---
-title: "Data Analysis Using R"
+title: "Data Analysis Using R - Pilot"
 author: "David Mawdsley"
 date: "3 October 2017"
 output: 
@@ -99,7 +99,8 @@ R user groups are a great way of finding out more about R.
 * The course is _interactive_
     + These are the only slides
 * Getting help
-    + Helpers
-    + The Post-its
+    + The sticky notes 
     + [Etherpad](http://bit.ly/2x0k1zK)
+    + Course notes
+
 
