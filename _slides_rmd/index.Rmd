@@ -57,7 +57,7 @@ Announcements given via the [Research IT blog](https://researchitnews.org/) and 
 * Advice and guidance about research software
 * Access to specialist support and consultancy e.g. code reviews
 * Access to HPC systems - where you can run R.
-* [Full list of services on offer](http://www.itservices.manchester.ac.uk/our-services/research/)
+* [Full list of services on offer](http://www.itservices.manchester.ac.uk/research/services/)
 
 Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
 
