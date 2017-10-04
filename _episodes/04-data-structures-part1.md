@@ -1077,7 +1077,7 @@ b c d
 
 
 
-> ## Challenge 1
+> ## Challenge 2
 >
 > Given the following code:
 >
@@ -1108,7 +1108,7 @@ b c d
 >
 > After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
 >
-> > ## Solution to challenge 1
+> > ## Solution to challenge 2
 > >
 > > 
 > > ~~~
@@ -1482,7 +1482,7 @@ c d
 > vector are `TRUE`).
 {: .callout}
 
-> ## Challenge 2
+> ## Challenge 3
 >
 > Given the following code:
 >
@@ -1504,7 +1504,7 @@ c d
 >
 > Write a subsetting command to return the values in x that are greater than 4 and less than 7.
 >
-> > ## Solution to challenge 2
+> > ## Solution to challenge 3
 > >
 > > 
 > > ~~~
@@ -1644,13 +1644,13 @@ str(factor_ordering_example)
 
 In the second example, we've explicitly told R that "control" should represented by 1, and "case" by 2. 
 
-> ## Challenge 2
+> ## Challenge 4
 >
 > Try repeating the mydata example, but deliberately mis-spell one of the values
 > e.g. "controll".  What happens when you try to make a factor of the data?  Does it
 > make a difference whether you set the factor levels yourself, or let R set them?
 >
-> > ## Solution
+> > ## Solution to challenge 4
 > > 
 > > If we use `levels = NULL` the factor will be created without a warning (with 
 > > "controll" being assigned its own level).  If we explicitly specify the factor 
@@ -1981,7 +1981,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 ~~~
 {: .output}
 
-> ## Challenge 3
+> ## Challenge 5
 > There are several subtly different ways to call variables, observations and
 > elements from tibbles:
 >
@@ -1997,7 +1997,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 >
 > *Hint:* Use the functions `typeof()` and `str()` to examine what is returned in each case.
 >
-> > ## Solution to Challenge 3
+> > ## Solution to Challenge 5
 > > 
 > > ~~~
 > > cats[1]
@@ -2135,7 +2135,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 {: .challenge}
 
 
-> ## Challenge 4
+> ## Challenge 6
 >  Create a list of length two containing a character vector for each of the sections in this part of the workshop:
 >
 >  - Data types
@@ -2144,7 +2144,7 @@ Classes 'tbl_df', 'tbl' and 'data.frame':	1 obs. of  3 variables:
 >  Populate each character vector with the names of the data types and data
 >  structures we've seen so far.
 >
-> > ## Solution to Challenge 4
+> > ## Solution to Challenge 6
 > > 
 > > ~~~
 > > dataTypes <- c('double', 'complex', 'integer', 'character', 'logical')
