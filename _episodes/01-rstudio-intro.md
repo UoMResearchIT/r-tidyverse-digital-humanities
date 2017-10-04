@@ -51,8 +51,6 @@ If you are using your own computer, please ensure you have the latest version of
 
 ## Introduction to RStudio
 
-Welcome to the R portion of the Software Carpentry workshop.
-
 Throughout this lesson, we're going to teach you some of the fundamentals of
 the R language as well as some best practices for organizing code for
 scientific projects that will make your life easier.
@@ -61,8 +59,6 @@ We'll be using RStudio: a free, open source R integrated development
 environment. It provides a built in editor, works on all platforms (including
 on servers) and provides many advantages such as integration with version
 control and project management.
-
-
 
 **Basic layout**
 
@@ -507,7 +503,7 @@ The right hand side is *fully evaluated* before the assignment occurs.
 
 Variable names can contain letters, numbers, underscores and periods. They
 cannot start with a number nor contain spaces at all. Different people use
-different conventions for long variable names, these include
+different conventions for long variable names, these include:
 
   * periods.between.words
   * underscores\_between_words
@@ -578,7 +574,6 @@ x <- 1:5
 This is incredibly powerful; we will discuss this further in an
 upcoming lesson.
 
-
 ## Managing your environment
 
 There are a few useful commands you can use to interact with the R session.
@@ -641,19 +636,19 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
         if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
             ll != length(grep("]", pattern, fixed = TRUE))) {
             if (pattern == "[") {
-                pattern <- "\\\\["
-                warning("replaced regular expression pattern '[' by  '\\\\\\\\['")
+                pattern <- "\\["
+                warning("replaced regular expression pattern '[' by  '\\\\['")
             }
-            else if (length(grep("[^\\\\\\\\]\\\\[<-", pattern))) {
-                pattern <- sub("\\\\[<-", "\\\\\\\\\\\\[<-", pattern)
-                warning("replaced '[<-' by '\\\\\\\\[<-' in regular expression pattern")
+            else if (length(grep("[^\\\\]\\[<-", pattern))) {
+                pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
+                warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
             }
         }
         grep(pattern, all.names, value = TRUE)
     }
     else all.names
 }
-<bytecode: 0x3083208>
+<bytecode: 0x35a2580>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -711,7 +706,7 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/09-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
 
 > ## Challenge 1
 >
@@ -831,7 +826,6 @@ R packages extend the functionality of R.  Over 10,000 packages have been writte
 > > This will yield a boolean value of TRUE since 109.25 is greater than 102.
 > {: .solution}
 {: .challenge}
-
 
 > ## Challenge 4
 >
