@@ -491,7 +491,7 @@ gapminder %>%
     x = "GDP per capita (log scale)",              # x axis title
     y = "Density",   # y axis title
     title = "Figure 1",      # main title of figure
-    color = "Continent"      # title of legend
+    fill = "Continent"      # title of legend
   ) 
 ~~~
 {: .r}
