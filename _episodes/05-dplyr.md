@@ -128,7 +128,8 @@ We will cover:
 3. grouping observations with `group_by()`
 4. generating summary statistics using `summarize()`
 5. generating new variables using `mutate()`
-6. chaining operations together using pipes `%>%` 
+6. Sorting tibbles using `arrange()`
+7. chaining operations together using pipes `%>%` 
 
 ## Using select()
 
@@ -255,6 +256,67 @@ Note that the order of these operations matters; if we reversed the order of the
 > {: .solution}
 {: .challenge}
 
+## Sorting tibbles
+
+The `arrange()` function will sort a tibble by one or more of the variables in it:
+
+
+~~~
+gapminder %>%
+  filter(continent == "Europe", year == 2007) %>% 
+  arrange(pop)
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 30 x 6
+                  country  year     pop continent lifeExp gdpPercap
+                    <chr> <int>   <dbl>     <chr>   <dbl>     <dbl>
+ 1                Iceland  2007  301931    Europe  81.757 36180.789
+ 2             Montenegro  2007  684736    Europe  74.543  9253.896
+ 3               Slovenia  2007 2009245    Europe  77.926 25768.258
+ 4                Albania  2007 3600523    Europe  76.423  5937.030
+ 5                Ireland  2007 4109086    Europe  78.885 40675.996
+ 6                Croatia  2007 4493312    Europe  75.748 14619.223
+ 7 Bosnia and Herzegovina  2007 4552198    Europe  74.852  7446.299
+ 8                 Norway  2007 4627926    Europe  80.196 49357.190
+ 9                Finland  2007 5238460    Europe  79.313 33207.084
+10        Slovak Republic  2007 5447502    Europe  74.663 18678.314
+# ... with 20 more rows
+~~~
+{: .output}
+We can use the `desc()` function to sort a variable in reverse order:
+
+
+~~~
+gapminder %>%
+  filter(continent == "Europe", year == 2007) %>% 
+  arrange(desc(pop))
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 30 x 6
+          country  year      pop continent lifeExp gdpPercap
+            <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
+ 1        Germany  2007 82400996    Europe  79.406 32170.374
+ 2         Turkey  2007 71158647    Europe  71.777  8458.276
+ 3         France  2007 61083916    Europe  80.657 30470.017
+ 4 United Kingdom  2007 60776238    Europe  79.425 33203.261
+ 5          Italy  2007 58147733    Europe  80.546 28569.720
+ 6          Spain  2007 40448191    Europe  80.941 28821.064
+ 7         Poland  2007 38518241    Europe  75.563 15389.925
+ 8        Romania  2007 22276056    Europe  72.476 10808.476
+ 9    Netherlands  2007 16570613    Europe  79.762 36797.933
+10         Greece  2007 10706290    Europe  79.483 27538.412
+# ... with 20 more rows
+~~~
+{: .output}
+
 ## Generating new variables
 
 The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we _derive_ from existing variables in the data-frame. 
@@ -271,14 +333,14 @@ gapminder_totalgdp <- gapminder %>%
 > ## Challenge 2
 > 
 > Create a tibble containing each country in Europe, its life expectancy in 2007
-> and the rank of the country's life expectancy. Can you reverse the ranking order
-> so that the country with the longest life expectancy gets the lowest rank?
+> and the rank of the country's life expectancy. 
 >
-> (It is not necessary to sort the countries by rank - we will sorting tibbles
-> shortly)
-> 
-> Hint: First filter and then mutate the data.  The cheat-sheet contains useful
-> functions you can use when you make new variables.
+> Hint: First filter and then use mutate to create a new variable with the rank in it.  The cheat-sheet contains useful
+> functions you can use when you make new variables (the cheet-sheets can be found in the help menu in RStudio)
+>
+> Can you reverse the ranking order
+> so that the country with the longest life expectancy gets the lowest rank?
+> Hint: This is similar to sorting in reverse order
 >
 > > ## Solution to challenge 2
 > > 
@@ -332,6 +394,10 @@ gapminder_totalgdp <- gapminder %>%
 > > 
 > > To reverse the order of the ranking, use the `desc` function, i.e.
 > > `mutate(rank = min_rank(desc(lifeExp)))`
+> > 
+> > There are several functions for calculating ranks; you may have used, e.g. `dense_rank()`
+> > The functions handle ties differently.  The help file for `dplyr`'s ranking functions
+> > explains the differences, and can be accessed with `?ranking`
 > {: .solution}
 {: .challenge}
 

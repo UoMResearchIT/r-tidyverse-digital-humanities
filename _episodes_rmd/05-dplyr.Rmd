@@ -83,7 +83,8 @@ We will cover:
 3. grouping observations with `group_by()`
 4. generating summary statistics using `summarize()`
 5. generating new variables using `mutate()`
-6. chaining operations together using pipes `%>%` 
+6. Sorting tibbles using `arrange()`
+7. chaining operations together using pipes `%>%` 
 
 ## Using select()
 
@@ -193,6 +194,23 @@ Note that the order of these operations matters; if we reversed the order of the
 > {: .solution}
 {: .challenge}
 
+## Sorting tibbles
+
+The `arrange()` function will sort a tibble by one or more of the variables in it:
+
+```{r}
+gapminder %>%
+  filter(continent == "Europe", year == 2007) %>% 
+  arrange(pop)
+```
+We can use the `desc()` function to sort a variable in reverse order:
+
+```{r}
+gapminder %>%
+  filter(continent == "Europe", year == 2007) %>% 
+  arrange(desc(pop))
+```
+
 ## Generating new variables
 
 The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we _derive_ from existing variables in the data-frame. 
@@ -208,14 +226,14 @@ gapminder_totalgdp <- gapminder %>%
 > ## Challenge 2
 > 
 > Create a tibble containing each country in Europe, its life expectancy in 2007
-> and the rank of the country's life expectancy. Can you reverse the ranking order
-> so that the country with the longest life expectancy gets the lowest rank?
+> and the rank of the country's life expectancy. 
 >
-> (It is not necessary to sort the countries by rank - we will sorting tibbles
-> shortly)
-> 
-> Hint: First filter and then mutate the data.  The cheat-sheet contains useful
-> functions you can use when you make new variables.
+> Hint: First filter and then use mutate to create a new variable with the rank in it.  The cheat-sheet contains useful
+> functions you can use when you make new variables (the cheet-sheets can be found in the help menu in RStudio)
+>
+> Can you reverse the ranking order
+> so that the country with the longest life expectancy gets the lowest rank?
+> Hint: This is similar to sorting in reverse order
 >
 > > ## Solution to challenge 2
 > > ```{r}
@@ -228,6 +246,10 @@ gapminder_totalgdp <- gapminder %>%
 > > 
 > > To reverse the order of the ranking, use the `desc` function, i.e.
 > > `mutate(rank = min_rank(desc(lifeExp)))`
+> > 
+> > There are several functions for calculating ranks; you may have used, e.g. `dense_rank()`
+> > The functions handle ties differently.  The help file for `dplyr`'s ranking functions
+> > explains the differences, and can be accessed with `?ranking`
 > {: .solution}
 {: .challenge}
 
