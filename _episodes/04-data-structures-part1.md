@@ -1076,96 +1076,6 @@ b c d
 {: .callout}
 
 
-
-> ## Challenge 2
->
-> Given the following code:
->
-> 
-> ~~~
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-> names(x) <- c('a', 'b', 'c', 'd', 'e')
-> print(x)
-> ~~~
-> {: .r}
-> 
-> 
-> 
-> ~~~
->   a   b   c   d   e 
-> 5.4 6.2 7.1 4.8 7.5 
-> ~~~
-> {: .output}
->
-> Come up with at least 3 different commands that will produce the following output:
->
-> 
-> ~~~
->   b   c   d 
-> 6.2 7.1 4.8 
-> ~~~
-> {: .output}
->
-> After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
->
-> > ## Solution to challenge 2
-> >
-> > 
-> > ~~~
-> > x[2:4]
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   b   c   d 
-> > 6.2 7.1 4.8 
-> > ~~~
-> > {: .output}
-> > 
-> > ~~~
-> > x[-c(1,5)]
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   b   c   d 
-> > 6.2 7.1 4.8 
-> > ~~~
-> > {: .output}
-> > 
-> > ~~~
-> > x[c(2,3,4)]
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   b   c   d 
-> > 6.2 7.1 4.8 
-> > ~~~
-> > {: .output}
-> > 
-> > ~~~
-> > x[c("b", "c", "d")]
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   b   c   d 
-> > 6.2 7.1 4.8 
-> > ~~~
-> > {: .output}
-> > (the last method of extracting these is covered in the section below)
-> {: .solution}
-{: .challenge}
-
 ## Subsetting by name
 
 We can extract elements by using their name, instead of index:
@@ -1397,6 +1307,95 @@ not a multiple of shorter object length
 
 This difference between `==` and `%in%` is important to remember,
 because it can introduce hard to find and subtle bugs!
+
+
+> ## Challenge 2
+>
+> Given the following code:
+>
+> 
+> ~~~
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> names(x) <- c('a', 'b', 'c', 'd', 'e')
+> print(x)
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+>   a   b   c   d   e 
+> 5.4 6.2 7.1 4.8 7.5 
+> ~~~
+> {: .output}
+>
+> Come up with at least 3 different commands that will produce the following output:
+>
+> 
+> ~~~
+>   b   c   d 
+> 6.2 7.1 4.8 
+> ~~~
+> {: .output}
+>
+> After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
+>
+> > ## Solution to challenge 2
+> >
+> > 
+> > ~~~
+> > x[2:4]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   b   c   d 
+> > 6.2 7.1 4.8 
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[-c(1,5)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   b   c   d 
+> > 6.2 7.1 4.8 
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[c(2,3,4)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   b   c   d 
+> > 6.2 7.1 4.8 
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[c("b", "c", "d")]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   b   c   d 
+> > 6.2 7.1 4.8 
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 ## Subsetting through other logical operations
 

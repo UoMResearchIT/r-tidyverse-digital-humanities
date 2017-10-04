@@ -487,43 +487,6 @@ my_example[c(-1, -5)]  # or my_example[-c(1,5)]
 {: .callout}
 
 
-
-> ## Challenge 2
->
-> Given the following code:
->
-> ```{r}
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
-> names(x) <- c('a', 'b', 'c', 'd', 'e')
-> print(x)
-> ```
->
-> Come up with at least 3 different commands that will produce the following output:
->
-> ```{r, echo=FALSE}
-> x[2:4]
-> ```
->
-> After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
->
-> > ## Solution to challenge 2
-> >
-> > ```{r}
-> > x[2:4]
-> > ```
-> > ```{r}
-> > x[-c(1,5)]
-> > ```
-> > ```{r}
-> > x[c(2,3,4)]
-> > ```
-> > ```{r}
-> > x[c("b", "c", "d")]
-> > ```
-> > (the last method of extracting these is covered in the section below)
-> {: .solution}
-{: .challenge}
-
 ## Subsetting by name
 
 We can extract elements by using their name, instead of index:
@@ -630,6 +593,42 @@ names(my_example) == c('a', 'c', 'e')
 
 This difference between `==` and `%in%` is important to remember,
 because it can introduce hard to find and subtle bugs!
+
+
+> ## Challenge 2
+>
+> Given the following code:
+>
+> ```{r}
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> names(x) <- c('a', 'b', 'c', 'd', 'e')
+> print(x)
+> ```
+>
+> Come up with at least 3 different commands that will produce the following output:
+>
+> ```{r, echo=FALSE}
+> x[2:4]
+> ```
+>
+> After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
+>
+> > ## Solution to challenge 2
+> >
+> > ```{r}
+> > x[2:4]
+> > ```
+> > ```{r}
+> > x[-c(1,5)]
+> > ```
+> > ```{r}
+> > x[c(2,3,4)]
+> > ```
+> > ```{r}
+> > x[c("b", "c", "d")]
+> > ```
+> {: .solution}
+{: .challenge}
 
 ## Subsetting through other logical operations
 
