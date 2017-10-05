@@ -524,10 +524,49 @@ But this is much less common among R users.  The most important thing is to
 where it is less confusing to use `<-` than `=`, and it is the most common
 symbol used in the community. So the recommendation is to use `<-`.
 
+We aren't limited to storing numbers in variables:
+
+
+~~~
+sentence <- "the cat sat on the mat"
+~~~
+{: .r}
+
+But the type of data that is stored in a variable affects what we can do with it:
+
+
+~~~
+x + 1
+~~~
+{: .r}
+
+
+
+~~~
+[1] 1.025
+~~~
+{: .output}
+
+
+
+~~~
+sentence + 1
+~~~
+{: .r}
+
+
+
+~~~
+Error in sentence + 1: non-numeric argument to binary operator
+~~~
+{: .error}
+
+We will discuss the important concept of _data types_ in the next episode.
+
 ## Vectorization
 
 One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. For example
+variables and functions can have vectors as values. For example:
 
 
 ~~~
@@ -571,8 +610,118 @@ x <- 1:5
 ~~~
 {: .output}
 
-This is incredibly powerful; we will discuss this further in an
-upcoming lesson.
+The examples above use the `:` operator, which is used to generate a sequences of
+increasing or decreasing numbers:
+
+
+~~~
+2:10
+~~~
+{: .r}
+
+
+
+~~~
+[1]  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+
+
+~~~
+10:2
+~~~
+{: .r}
+
+
+
+~~~
+[1] 10  9  8  7  6  5  4  3  2
+~~~
+{: .output}
+
+
+
+~~~
+-5:6
+~~~
+{: .r}
+
+
+
+~~~
+ [1] -5 -4 -3 -2 -1  0  1  2  3  4  5  6
+~~~
+{: .output}
+
+
+
+~~~
+6:-3
+~~~
+{: .r}
+
+
+
+~~~
+ [1]  6  5  4  3  2  1  0 -1 -2 -3
+~~~
+{: .output}
+
+The result of the : operator is a _vector_; this is a 1 dimensional array of values.  We can assign a vector to a
+variable:
+
+
+~~~
+x <- 5:10
+~~~
+{: .r}
+
+We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
+
+
+~~~
+c(2, 4, -1)
+~~~
+{: .r}
+
+
+
+~~~
+[1]  2  4 -1
+~~~
+{: .output}
+
+
+
+~~~
+c(x, 2, 2, 3)
+~~~
+{: .r}
+
+
+
+~~~
+[1]  5  6  7  8  9 10  2  2  3
+~~~
+{: .output}
+
+Vectors aren't limited to storing numbers:
+
+
+~~~
+c("a", "b", "c", "def")
+~~~
+{: .r}
+
+
+
+~~~
+[1] "a"   "b"   "c"   "def"
+~~~
+{: .output}
+
+FIXME - Include subsetting vectors here?  This is (potentially) a long section.  
 
 ## Managing your environment
 
@@ -591,7 +740,7 @@ ls()
 
 ~~~
 [1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
-[5] "src_rmd"       "x"            
+[5] "sentence"      "src_rmd"       "x"            
 ~~~
 {: .output}
 
@@ -648,7 +797,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x35a2580>
+<bytecode: 0x24c1580>
 <environment: namespace:base>
 ~~~
 {: .output}
