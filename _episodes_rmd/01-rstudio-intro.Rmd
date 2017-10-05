@@ -370,6 +370,8 @@ We aren't limited to storing numbers in variables:
 sentence <- "the cat sat on the mat"
 ```
 
+Note that we need to put strings of characters inside quotes.  
+
 But the type of data that is stored in a variable affects what we can do with it:
 
 ```{r}
@@ -488,6 +490,11 @@ rm(list <- ls())
 > how to fix a problem.
 >
 {: .callout}
+
+## Comments
+
+If we include the "#" symbol in a command in R, everything following it will be ignored.  This
+lets us enter comments into our code.  
 
 ## R packages
 

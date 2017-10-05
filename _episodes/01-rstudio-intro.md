@@ -532,6 +532,8 @@ sentence <- "the cat sat on the mat"
 ~~~
 {: .r}
 
+Note that we need to put strings of characters inside quotes.  
+
 But the type of data that is stored in a variable affects what we can do with it:
 
 
@@ -797,7 +799,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x24c1580>
+<bytecode: 0x1e8b580>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -852,6 +854,11 @@ Error in rm(list <- ls()): ... must contain names or character strings
 > how to fix a problem.
 >
 {: .callout}
+
+## Comments
+
+If we include the "#" symbol in a command in R, everything following it will be ignored.  This
+lets us enter comments into our code.  
 
 ## R packages
 
