@@ -158,19 +158,6 @@ When we loaded the `feline-data_v2.csv` file, `read_csv()` converted the value "
 
 
 
-> ## On tibbles
-> 
-> We used the `read_csv()` function, which is part of the `readr` package
-> to load the data.  This is similar to R's inbuilt `read.csv()`.  
-> R's standard data structure for tabular data is the `data.frame`.  In
-> contrast, `read_csv()` creates a `tibble` (also referred to, for historic
-> reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
-> and can, for the most part, be treated like a `data.frame`
-> 
-> You may find that some older functions don't work on tibbles.   A tibble
-> can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
-> a data frame to a tibble, use `as.tibble(mydataframe)`
-{: .callout}
 
 
 ## Categorical data
@@ -257,18 +244,33 @@ We can save a tibble (or data frame) to a csv file, using `readr`'s `write_csv()
 write_csv(cats, "data/mycats.csv")
 ```
 
+## Matrices
+
+We can also define matrices in R.  We don't cover this in this course, since we are focussing
+on data-analysis, rather than maths and algorithms.   For details of the matrix class, you can refer to the [original Software Carpentry version of these notes](http://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1/#matrices).
+
 
 > ## Differences with base R
 > 
 > In this lesson we've taught you how to read files and make factors using the functionality in the
-> `readr` package.  This section highlights some of the differences between the `readr` functions and
-> their base R equivalents, in case you are reviewing code that uses them.
+> `readr` package, which is part of the tidyverse.  
+> This section highlights some of the differences between the tidyverse and its equivalent
+> functionality in base R.
 >
+> R's standard data structure for tabular data is the `data.frame`.  In
+> contrast, `read_csv()` creates a `tibble` (also referred to, for historic
+> reasons, as a `tbl_df`).  This extends the functionality of  a `data.frame`,
+> and can, for the most part, be treated like a `data.frame`
+> 
+> You may find that some older functions don't work on tibbles.   A tibble
+> can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
+> a data frame to a tibble, use `as.tibble(mydataframe)`
+> 
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
 > This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` > to `read.csv()`.  
 >
-> Base R can also make factors using the `factor()` function.
+> We used `parse_factor()` to define factors.  The base R equivalent is the `factor()` function.
 > the main differences between the two approaches are:
 >
 > * `factor()` will assign factor levels automatically; it does not require us to pass `levels = NULL`.
@@ -278,12 +280,6 @@ write_csv(cats, "data/mycats.csv")
 > 
 > It is chiefly for the final reason that we recommend using `parse_factor()` instead of `factor()`.  You
 > should be aware that the default ordering of factor levels differs between `factor()` and `parse_factor()`
-> though, as we mentioned, it's better practice to explicitly set factor levels anyway.
 {: .callout}
 
-
-## Matrices
-
-We can also define matrices in R.  We don't cover this in this course, since we are focussing
-on data-analysis, rather than maths and algorithms.   For details of the matrix class, you can refer to the [original Software Carpentry version of these notes](http://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1/#matrices).
 
