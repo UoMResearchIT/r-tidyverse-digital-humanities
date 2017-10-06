@@ -95,21 +95,18 @@ FIXME demonstrate autocomplete / popup help in Rstudio by this point
 > strings in a way that is usually more useful than `read.csv()`
 {: .callout}
 
-We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
-
-
-> ## Miscellaneous Tips
+> ## Loading other types of data
 >
 > * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
 > * You can read directly from excel spreadsheets without
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
 
-
+We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
 
 ## Data types
 
-When we loaded the data, you may have noticed a message about the column specification of the imported data. Every piece of data in R is stored as either `double`, `integer`, `complex`, `logical` and `character`.   `integer` variables can only store whole numbers; `double` variables can store floating point numbers (i.e. with a decimal part), `complex` variables can store complex numbers (i.e. of the form `1+2i`), `logical` variables can store `TRUE` or `FALSE`.  `character` variables can store strings of characters.
+Every piece of data in R is stored as either `double`, `integer`, `complex`, `logical` and `character`.   `integer` variables can only store whole numbers; `double` variables can store floating point numbers (i.e. with a decimal part), `complex` variables can store complex numbers (i.e. of the form `1+2i`), `logical` variables can store `TRUE` or `FALSE`.  `character` variables can store strings of characters.
 
 When we read the data into
 r using `read_csv()` it tries to work out what data type each variable is, which it does by looking at the data contained in the first 1000 rows of the data file.   We can see from the displayed message that read_csv() has treated the `coat` variable as a character variable, the `weight` variable as a floating point number and `likes_string` as an integer variable.
@@ -187,42 +184,161 @@ We don't *have* to specify a column type for each variable; the `cols()` functio
 > You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  *You should copy the generated code to your script, so that you can reproduce your analysis*. FIXME - introduce history window by this point
 {: .callout}
 
+## Exploring tibbles
+
+We can "unpick" the contents of a tibble in several ways.  We can return a vector containing the values
+of a variable using the `$`:
+
+
+~~~
+cats$weight
+~~~
+{: .r}
+
+
+
+~~~
+[1] 2.1 5.0 3.2
+~~~
+{: .output}
+
+We can also use the subsetting operator `[]` directly on tibbles.  In contrast to a vector, a tibble
+is two dimensional.   We pass two arguments to the `[]` operator; the first indicates the row(s) we 
+require and the second indicates the columns.  So to return rows 1 and 2, and columns 2 and 3 we can use:
+
+
+~~~
+cats[1:2,2:3]
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 2 x 2
+  weight likes_string
+   <dbl>        <lgl>
+1    2.1         TRUE
+2    5.0        FALSE
+~~~
+{: .output}
+
+If we leave in index blank, it acts as a wildcard and matches all of the rows or columns:
+
+
+~~~
+cats[1,]
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 1 x 3
+    coat weight likes_string
+   <chr>  <dbl>        <lgl>
+1 calico    2.1         TRUE
+~~~
+{: .output}
+
+
+
+~~~
+cats[,1]
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 3 x 1
+    coat
+   <chr>
+1 calico
+2  black
+3  tabby
+~~~
+{: .output}
+
+Subsetting a tibble returns another tibble; using `$` to extract a variable returns a vector:
+
+
+~~~
+cats$coat
+~~~
+{: .r}
+
+
+
+~~~
+[1] "calico" "black"  "tabby" 
+~~~
+{: .output}
+
+
+
+~~~
+cats[,1]
+~~~
+{: .r}
+
+
+
+~~~
+# A tibble: 3 x 1
+    coat
+   <chr>
+1 calico
+2  black
+3  tabby
+~~~
+{: .output}
+
+
 
 ## Categorical data
 
 Another important data structure is called a *factor*. Factors usually look like
 character data, but are used to represent categorical information.
 
-Let's define a vector of animals:
+Let's work with the coat colours of the cats in our dataset
 
 
 ~~~
-animals <- c("cat", "dog", "cow", "elephant", "snake", "cat", "cat")
-~~~
-{: .r}
-
-And a vector of valid animals:
-
-
-~~~
-animalNames <- c("elephant", "snake", "cat", "dog", "cow")
-~~~
-{: .r}
-
-We can convert our character vector of animals into a factor using the `parse_factor()` function:
-
-
-~~~
-animalFactor <- parse_factor(animals, levels = animalNames)
-animalFactor
+catCoats <- cats$coat
+catCoats
 ~~~
 {: .r}
 
 
 
 ~~~
-[1] cat      dog      cow      elephant snake    cat      cat     
-Levels: elephant snake cat dog cow
+[1] "calico" "black"  "tabby" 
+~~~
+{: .output}
+
+Let's assume that only specific values of coat colour are allowed:
+
+
+~~~
+validCoatColours <- c("white", "black", "calico", "tabby")
+~~~
+{: .r}
+
+We can convert our character vector of coat colours into a factor using the `parse_factor()` function:
+
+
+~~~
+coatFactor <- parse_factor(catCoats, levels = validCoatColours)
+coatFactor 
+~~~
+{: .r}
+
+
+
+~~~
+[1] calico black  tabby 
+Levels: white black calico tabby
 ~~~
 {: .output}
 
@@ -234,14 +350,14 @@ Defining variables as factors also helps us to ensure data integrity.   Consider
 
 
 ~~~
-animals2 <- c("cat", "d0g", "cow", "elephant", "snake", "cat", "cat") # a "d0g"??
+catCoats2 <- c("calic0", "black", "tabby")
 ~~~
 {: .r}
 
 If we try to convert this to a factor it won't work:
 
 ~~~
-parse_factor(animals2, levels = animalNames)
+parse_factor(catCoats2, levels = validCoatColours)
 ~~~
 {: .r}
 
@@ -249,20 +365,20 @@ parse_factor(animals2, levels = animalNames)
 
 ~~~
 Warning: 1 parsing failure.
-row # A tibble: 1 x 4 col     row   col           expected actual expected   <int> <int>              <chr>  <chr> actual 1     2    NA value in level set    d0g
+row # A tibble: 1 x 4 col     row   col           expected actual expected   <int> <int>              <chr>  <chr> actual 1     1    NA value in level set calic0
 ~~~
 {: .error}
 
 
 
 ~~~
-[1] cat      <NA>     cow      elephant snake    cat      cat     
+[1] <NA>  black tabby
 attr(,"problems")
 # A tibble: 1 x 4
     row   col           expected actual
   <int> <int>              <chr>  <chr>
-1     2    NA value in level set    d0g
-Levels: elephant snake cat dog cow
+1     1    NA value in level set calic0
+Levels: white black calico tabby
 ~~~
 {: .output}
 
@@ -302,7 +418,7 @@ take this idea a step further, and define `coat` as a factor when we load the da
 > >{: .output}
 > >  You may have noticed while reading the help file for `col_factor()` and `parse_factor()` that we can pass
 the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  In general this
-is a bad idea, since invalid data (such as "d0g" in the example above) will get their own factor level.
+is a bad idea, since invalid data (such as "calic0" in the example above) will get their own factor level.
 > {: .solution}
 {: .challenge}
 
@@ -314,7 +430,6 @@ is a bad idea, since invalid data (such as "d0g" in the example above) will get 
 > makes this easy.  Note that `forcats` isn't loaded by default, so you will
 > need to use `library("forcats")` before using it.
 {: .callout}
-
 
 ## Writing data in R
 
@@ -347,6 +462,11 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > You may find that some older functions don't work on tibbles.   A tibble
 > can be converted to a dataframe using `as.data.frame(mytibble)`.  To convert
 > a data frame to a tibble, use `as.tibble(mydataframe)`
+> 
+> Tibbles behave more consistently than data frames when subsetting with `[]`; 
+> this will always return another tibble.  This isn't the case when working with 
+> data.frames.  You can find out more about the differences  between data.frames and 
+> tibbles by typing `vignette("tibble")`.
 > 
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
