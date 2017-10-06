@@ -290,33 +290,3 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 If we include the "#" symbol in a command in R, everything following it will be ignored.  This
 lets us enter comments into our code.  
-
-> ## Challenge 6
->
-> Clean up your working environment by deleting the mass and age
-> variables.
->
-> > ## Solution to challenge 6
-> >
-> > We can use the `rm` command to accomplish this task
-> > 
-> > ~~~
-> > rm(age, mass)
-> > ~~~
-> > {: .r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning in rm(age, mass): object 'age' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning in rm(age, mass): object 'mass' not found
-> > ~~~
-> > {: .error}
-> {: .solution}
-{: .challenge}

@@ -250,17 +250,3 @@ rm(list <- ls())
 
 If we include the "#" symbol in a command in R, everything following it will be ignored.  This
 lets us enter comments into our code.  
-
-> ## Challenge 6
->
-> Clean up your working environment by deleting the mass and age
-> variables.
->
-> > ## Solution to challenge 6
-> >
-> > We can use the `rm` command to accomplish this task
-> > ```{r ch4-sol}
-> > rm(age, mass)
-> > ```
-> {: .solution}
-{: .challenge}
