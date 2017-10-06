@@ -19,7 +19,97 @@ source: Rmd
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
+
+We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt, or by selecting the "Packages" tab in RStudio.
+
+In this course we will be using packages in the  [tidyverse](https://www.tidyverse.org) to perform the bulk of our plotting and data analysis.   Although we could do most of the tasks without using extra packages, the tidyverse makes it quicker and easier to perform common data analysis tasks.  The tidyverse packages are already installed on the university teaching machines.
+
+## Finding and installing new packages
+
+There are several sources of packages in R; the ones you are most likely to encounter are:
+
+## CRAN
+
+[CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 10,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.   
+
+## Bioconductor
+
+[Bioconductor](https://www.bioconductor.org/) is a more specialised repository, which contains packages for bioinformatics.  Common workflows are provided, and the packages are more thoroughly quality assured.   Because of its more specialised nature we don't focus on Bioconductor in this course.
+
+## Github / personal websites
+
+Some authors distribute packages via [Github](https://www.github.com) or their own personal web-pages.  These packages may not have undergone any form of quality assurance.   Note that many packages have their own website, but the package itself is distributed via CRAN. 
+
+## Finding packages to help with your research
+
+There are various ways of finding packages that might be useful in your research:
+
+* The [CRAN task view](https://cran.r-project.org/web/views/) provides an overview of the packages available for various research fields and methodologies.   
+
+* Journal articles should cite the R packages they used in their analysis. 
+
+* [The Journal of Statistical Software](https://www.jstatsoft.org/index) contains peer-reviewed articles for R packages (and other statistical software)
+
+* [The R Journal](https://journal.r-project.org/) contains articles about new packages in R.
+
+## Installing packages
+
+If a package is available on [CRAN](https://cran.r-project.org), you can install it by typing:
+
+
+~~~
+install.packages("packagename")
+~~~
+{: .r}
+
+This will automatically install any packages that the package you are installing depends on.
+
+Installing a package doesn't make the functions included in it available to you; to do this you must use the `library()` function.  As we will be using the tidyverse later in the course, let's load that now:
+
+
+~~~
+library("tidyverse")
+~~~
+{: .r}
+
+
+
+~~~
+Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+~~~
+{: .output}
+
+
+
+~~~
+Conflicts with tidy packages ----------------------------------------------
+~~~
+{: .output}
+
+
+
+~~~
+filter(): dplyr, stats
+lag():    dplyr, stats
+~~~
+{: .output}
+
+> ## Conflicting names
+>
+> You may get a warning message when loading a package that a function is "masked".  This
+> happens when a function name has already been "claimed" by a package that's already 
+> loaded.  The most recently loaded function wins. 
+> 
+> If you want to use the function from the other package, use `packagename::function()`.
+> 
+{: .callout}
+
 
 ## Reading Help files
 
@@ -87,6 +177,11 @@ If you're not sure what package a function is in, or how it's specifically spell
 {: .r}
 
 
+> ## Citing R and R packages
+> If you use R in your work you should cite it, and the packages you use. The `citation()` command will return the appropriate citation for R itself.  `citation(packagename)` will provide the citation for `packagename`. 
+>
+{: .callout}
+
 ## When your code doesn't work: seeking help from your peers
 
 If you're having trouble using a function, 9 times out of 10,
@@ -107,14 +202,18 @@ Will dump the data you're working with into a format so that it can
 be copy and pasted by anyone else into their R session.
 
 
+## Package versions
+
+Many of the packages in R are frequently updated.  This does mean that code written for one version of a package may not work with another version of the package (or, potentially even worse, run but give a _different_ result).  The `sessionInfo()` command prints information about the system, and the names and versions of packages that have been loaded.  You should include the output of `sessionInfo()` somewhere in your research.  The [packrat package](https://rstudio.github.io/packrat/) provides a way of keeping specific versions of packages associated with each of your projects. 
+
+
+
+
 ~~~
 sessionInfo()
 ~~~
 {: .r}
 
-Will print out your current version of R, as well as any packages you
-have loaded. This can be useful for others to help reproduce and debug
-your issue.
 
 ## Other ports of call
 
