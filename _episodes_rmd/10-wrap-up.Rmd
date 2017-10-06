@@ -1,5 +1,5 @@
 ---
-title: Writing Good Software
+title: "Writing Good Software"
 teaching: 15
 exercises: 0
 questions:
@@ -14,6 +14,11 @@ keypoints:
 - "Be consistent in naming, indentation, and other aspects of style."
 source: Rmd
 ---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("10-")
+```
 
 ## Make code readable
 
@@ -57,6 +62,18 @@ Make sure to test your functions!  We haven't had time to cover testing in any d
 in this course.  The [testthat](https://github.com/hadley/testthat) package makes
 testing your code much easier (and even claims to make it "fun").
 
+Another approach
+is to test assumptions in your code, and print an error if they are untrue.  For example,
+if the inbuilt constant `letters` had been redefined to use the [Italien alphabet](https://en.wikipedia.org/wiki/Italian_orthography), which consists of 21 letters:
+
+```{r, error=TRUE}
+letters <- letters[!(letters %in% c("j","k","x","y"))]
+
+if (length(letters) != 26) {
+  stop("Letters is not the expected length.")
+}
+```
+
 ## Don't repeat yourself
 
 Functions enable easy reuse within a project. If you see blocks of similar
@@ -77,6 +94,6 @@ That concludes the course. We've only begun to scratch the surface of what you c
 but hopefully the course has taught you enough to begin using R for your data
 analysis work, and _how_ to find out more about using R.
 
-*Please* complete the course feedback survey.  The material for the course is modified
+*Please* complete the [course feedback survey](http://bit.ly/2xP95Ef).  The material for the course is modified
 in response to this; if anything was unclear, or we didn't cover anything you thought 
 would be useful please let us know.
