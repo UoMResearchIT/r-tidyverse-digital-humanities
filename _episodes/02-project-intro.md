@@ -4,6 +4,7 @@ teaching: 20
 exercises: 10
 questions:
 - "How can I manage my projects in R?"
+- "How can I manage my environment within an R session"
 objectives:
 - To be able to create self-contained projects in RStudio
 keypoints:
@@ -11,6 +12,8 @@ keypoints:
 - "Treat raw data as read-only."
 - "Treat generated output as disposable."
 - "Separate function definition and application."
+- "Use rm() to delete objects"
+- "User rm(list=ls()) to delete all (non hidden objects)"
 source: Rmd
 ---
 
@@ -174,3 +177,146 @@ Now we have a good directory structure we will now place/save the data file in t
 >
 {: .challenge}
 
+
+## Managing your environment
+
+In this section we will discuss ways of keeping your environment tidy.
+
+`ls` will list all of the variables and functions stored in the global environment
+(your working R session):
+
+
+~~~
+ls()
+~~~
+{: .r}
+
+
+
+~~~
+[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+[5] "src_rmd"      
+~~~
+{: .output}
+
+Information on the objects in your environment is also available from the environment panel in RStudio.
+
+> ## Tip: hidden objects
+>
+> Like in the shell, `ls` will hide any variables or functions starting
+> with a "." by default. To list all objects, type `ls(all.names=TRUE)`
+> instead
+>
+{: .callout}
+
+Note here that we didn't given any arguments to `ls`, but we still
+needed to give the parentheses to tell R to call the function.
+
+You can use `rm` to delete objects you no longer need. To delete `x`:
+
+
+~~~
+x <- 5
+x
+~~~
+{: .r}
+
+
+
+~~~
+[1] 5
+~~~
+{: .output}
+
+
+
+~~~
+rm(x)
+x
+~~~
+{: .r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'x' not found
+~~~
+{: .error}
+
+If you have lots of things in your environment and want to delete all of them,
+you can pass the results of `ls` to the `rm` function:
+
+
+~~~
+rm(list = ls())
+~~~
+{: .r}
+
+In this case we've combined the two. Like the order of operations, anything
+inside the innermost parentheses is evaluated first, and so on.
+
+In this case we've specified that the results of `ls` should be used for the
+`list` argument in `rm`. When assigning values to arguments by name, you *must*
+use the `=` operator, and not `<-`
+
+If instead we use `<-`, there will be unintended side effects, or you may get an error message:
+
+
+~~~
+rm(list <- ls())
+~~~
+{: .r}
+
+
+
+~~~
+Error in rm(list <- ls()): ... must contain names or character strings
+~~~
+{: .error}
+
+> ## Tip: Warnings vs. Errors
+>
+> Pay attention when R does something unexpected! Errors, like above,
+> are thrown when R cannot proceed with a calculation. Warnings on the
+> other hand usually mean that the function has run, but it probably
+> hasn't worked as expected.
+>
+> In both cases, the message that R prints out usually give you clues
+> how to fix a problem.
+>
+{: .callout}
+
+## Comments
+
+If we include the "#" symbol in a command in R, everything following it will be ignored.  This
+lets us enter comments into our code.  
+
+> ## Challenge 6
+>
+> Clean up your working environment by deleting the mass and age
+> variables.
+>
+> > ## Solution to challenge 6
+> >
+> > We can use the `rm` command to accomplish this task
+> > 
+> > ~~~
+> > rm(age, mass)
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'age' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'mass' not found
+> > ~~~
+> > {: .error}
+> {: .solution}
+{: .challenge}
