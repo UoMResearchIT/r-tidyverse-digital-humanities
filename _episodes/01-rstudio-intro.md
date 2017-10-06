@@ -14,10 +14,13 @@ objectives:
 - "Manage a workspace in an interactive R session"
 - "Use mathematical and comparison operators"
 - "Call functions"
+- "Understand the concept of a vector"
+- "Understand how to extract elements from a vector"
 keypoints:
 - "Use RStudio to write and run R programs."
 - "R has the usual arithmetic operators and mathematical functions."
 - "Use `<-` to assign values to variables."
+- "Use the [] operator to extract elements from a vector"
 - "Use `ls()` to list the variables in a program."
 - "Use `rm()` to delete objects in a program."
 source: Rmd
@@ -565,305 +568,6 @@ Error in sentence + 1: non-numeric argument to binary operator
 
 We will discuss the important concept of _data types_ in the next episode.
 
-## Vectorization
-
-One final thing to be aware of is that R is *vectorized*, meaning that
-variables and functions can have vectors as values. For example:
-
-
-~~~
-1:5
-~~~
-{: .r}
-
-
-
-~~~
-[1] 1 2 3 4 5
-~~~
-{: .output}
-
-
-
-~~~
-2^(1:5)
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  4  8 16 32
-~~~
-{: .output}
-
-
-
-~~~
-x <- 1:5
-2^x
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  4  8 16 32
-~~~
-{: .output}
-
-The examples above use the `:` operator, which is used to generate a sequences of
-increasing or decreasing numbers:
-
-
-~~~
-2:10
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-
-
-~~~
-10:2
-~~~
-{: .r}
-
-
-
-~~~
-[1] 10  9  8  7  6  5  4  3  2
-~~~
-{: .output}
-
-
-
-~~~
--5:6
-~~~
-{: .r}
-
-
-
-~~~
- [1] -5 -4 -3 -2 -1  0  1  2  3  4  5  6
-~~~
-{: .output}
-
-
-
-~~~
-6:-3
-~~~
-{: .r}
-
-
-
-~~~
- [1]  6  5  4  3  2  1  0 -1 -2 -3
-~~~
-{: .output}
-
-The result of the : operator is a _vector_; this is a 1 dimensional array of values.  We can assign a vector to a
-variable:
-
-
-~~~
-x <- 5:10
-~~~
-{: .r}
-
-We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
-
-
-~~~
-c(2, 4, -1)
-~~~
-{: .r}
-
-
-
-~~~
-[1]  2  4 -1
-~~~
-{: .output}
-
-
-
-~~~
-c(x, 2, 2, 3)
-~~~
-{: .r}
-
-
-
-~~~
-[1]  5  6  7  8  9 10  2  2  3
-~~~
-{: .output}
-
-Vectors aren't limited to storing numbers:
-
-
-~~~
-c("a", "b", "c", "def")
-~~~
-{: .r}
-
-
-
-~~~
-[1] "a"   "b"   "c"   "def"
-~~~
-{: .output}
-
-FIXME - Include subsetting vectors here?  This is (potentially) a long section.  
-
-## Managing your environment
-
-There are a few useful commands you can use to interact with the R session.
-
-`ls` will list all of the variables and functions stored in the global environment
-(your working R session):
-
-
-~~~
-ls()
-~~~
-{: .r}
-
-
-
-~~~
-[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
-[5] "sentence"      "src_rmd"       "x"            
-~~~
-{: .output}
-
-> ## Tip: hidden objects
->
-> Like in the shell, `ls` will hide any variables or functions starting
-> with a "." by default. To list all objects, type `ls(all.names=TRUE)`
-> instead
->
-{: .callout}
-
-Note here that we didn't given any arguments to `ls`, but we still
-needed to give the parentheses to tell R to call the function.
-
-If we type `ls` by itself, R will print out the source code for that function!
-
-
-~~~
-ls
-~~~
-{: .r}
-
-
-
-~~~
-function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
-    pattern, sorted = TRUE) 
-{
-    if (!missing(name)) {
-        pos <- tryCatch(name, error = function(e) e)
-        if (inherits(pos, "error")) {
-            name <- substitute(name)
-            if (!is.character(name)) 
-                name <- deparse(name)
-            warning(gettextf("%s converted to character string", 
-                sQuote(name)), domain = NA)
-            pos <- name
-        }
-    }
-    all.names <- .Internal(ls(envir, all.names, sorted))
-    if (!missing(pattern)) {
-        if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
-            ll != length(grep("]", pattern, fixed = TRUE))) {
-            if (pattern == "[") {
-                pattern <- "\\["
-                warning("replaced regular expression pattern '[' by  '\\\\['")
-            }
-            else if (length(grep("[^\\\\]\\[<-", pattern))) {
-                pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
-                warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
-            }
-        }
-        grep(pattern, all.names, value = TRUE)
-    }
-    else all.names
-}
-<bytecode: 0x1e8b580>
-<environment: namespace:base>
-~~~
-{: .output}
-
-You can use `rm` to delete objects you no longer need:
-
-
-~~~
-rm(x)
-~~~
-{: .r}
-
-If you have lots of things in your environment and want to delete all of them,
-you can pass the results of `ls` to the `rm` function:
-
-
-~~~
-rm(list = ls())
-~~~
-{: .r}
-
-In this case we've combined the two. Like the order of operations, anything
-inside the innermost parentheses is evaluated first, and so on.
-
-In this case we've specified that the results of `ls` should be used for the
-`list` argument in `rm`. When assigning values to arguments by name, you *must*
-use the `=` operator!!
-
-If instead we use `<-`, there will be unintended side effects, or you may get an error message:
-
-
-~~~
-rm(list <- ls())
-~~~
-{: .r}
-
-
-
-~~~
-Error in rm(list <- ls()): ... must contain names or character strings
-~~~
-{: .error}
-
-> ## Tip: Warnings vs. Errors
->
-> Pay attention when R does something unexpected! Errors, like above,
-> are thrown when R cannot proceed with a calculation. Warnings on the
-> other hand usually mean that the function has run, but it probably
-> hasn't worked as expected.
->
-> In both cases, the message that R prints out usually give you clues
-> how to fix a problem.
->
-{: .callout}
-
-## Comments
-
-If we include the "#" symbol in a command in R, everything following it will be ignored.  This
-lets us enter comments into our code.  
-
-## R packages
-
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
-
 > ## Challenge 1
 >
 > Which of the following are valid R variable names?
@@ -983,12 +687,874 @@ R packages extend the functionality of R.  Over 10,000 packages have been writte
 > {: .solution}
 {: .challenge}
 
+## Vectorization
+
+As well as dealing with single values, we can work with vectors of values.  
+There are various ways of creating vectors; the ":" operator will generate sequences of
+consecutive values:
+
+
+~~~
+1:5
+~~~
+{: .r}
+
+
+
+~~~
+[1] 1 2 3 4 5
+~~~
+{: .output}
+
+
+
+~~~
+-3:3
+~~~
+{: .r}
+
+
+
+~~~
+[1] -3 -2 -1  0  1  2  3
+~~~
+{: .output}
+
+
+
+~~~
+5:1
+~~~
+{: .r}
+
+
+
+~~~
+[1] 5 4 3 2 1
+~~~
+{: .output}
+
+The result of the : operator is a _vector_; this is a 1 dimensional array of values.
+We can apply functions to all the elements of a vector:
+
+
+~~~
+(1:5) * 2
+~~~
+{: .r}
+
+
+
+~~~
+[1]  2  4  6  8 10
+~~~
+{: .output}
+
+
+
+~~~
+2^(1:5)
+~~~
+{: .r}
+
+
+
+~~~
+[1]  2  4  8 16 32
+~~~
+{: .output}
+
+We can assign a vector to a variable:
+
+
+~~~
+x <- 5:10
+~~~
+{: .r}
+
+We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
+
+
+~~~
+c(2, 4, -1)
+~~~
+{: .r}
+
+
+
+~~~
+[1]  2  4 -1
+~~~
+{: .output}
+
+
+
+~~~
+c(x, 2, 2, 3)
+~~~
+{: .r}
+
+
+
+~~~
+[1]  5  6  7  8  9 10  2  2  3
+~~~
+{: .output}
+
+Vectors aren't limited to storing numbers:
+
+
+~~~
+c("a", "b", "c", "def")
+~~~
+{: .r}
+
+
+
+~~~
+[1] "a"   "b"   "c"   "def"
+~~~
+{: .output}
+
+R comes with a few built in vectors containing useful sequences:
+
+~~~
+LETTERS
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q"
+[18] "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
+~~~
+{: .output}
+
+
+
+~~~
+letters
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q"
+[18] "r" "s" "t" "u" "v" "w" "x" "y" "z"
+~~~
+{: .output}
+
+
+
+~~~
+month.abb
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov"
+[12] "Dec"
+~~~
+{: .output}
+
+
+
+~~~
+month.name
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "January"   "February"  "March"     "April"     "May"      
+ [6] "June"      "July"      "August"    "September" "October"  
+[11] "November"  "December" 
+~~~
+{: .output}
+
+
+
+~~~
+pi
+~~~
+{: .r}
+
+
+
+~~~
+[1] 3.141593
+~~~
+{: .output}
+
+
+## Vector lengths
+
+We can calculate how many elements a vector contains using the `length()` function:
+
+
+~~~
+length(x)
+~~~
+{: .r}
+
+
+
+~~~
+[1] 6
+~~~
+{: .output}
+
+
+
+~~~
+length(letters)
+~~~
+{: .r}
+
+
+
+~~~
+[1] 26
+~~~
+{: .output}
+
+
+## Subsetting vectors
+
+Having defined a vector, it's often useful to _extract_ parts of a vector.   We do this with the
+`[]` operator.  Using the built in `month.name` vector:
+
+
+~~~
+month.name[2]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "February"
+~~~
+{: .output}
+
+
+
+~~~
+month.name[2:4]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "February" "March"    "April"   
+~~~
+{: .output}
+
+Let's unpick the second example; `2:4` generates the sequence 2,3,4.   This gets passed to the 
+extract operator `[]`.   We can also generate this sequence using the `c()` function:
+
+
+~~~
+month.name[c(2,3,4)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "February" "March"    "April"   
+~~~
+{: .output}
+
+> ## Vector numbering in R starts at 1
+>
+> In many programming languages (C and python, for example), the first
+> element of a vector has an index of 0. In R, the first element is 1.
+{: .callout}
+
+We can pass the extract operator a vector of indices that we wish to extract:
+
+~~~
+month.name[c(1,2,3)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "January"  "February" "March"   
+~~~
+{: .output}
+
+
+
+~~~
+month.name[c(11,12)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "November" "December"
+~~~
+{: .output}
+
+Values are returned in the order that we specify the indices.  We can extract the same element more 
+than once:
+
+
+~~~
+month.name[4:2]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "April"    "March"    "February"
+~~~
+{: .output}
+
+
+
+~~~
+month.name[c(1,1,2,3,4)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "January"  "January"  "February" "March"    "April"   
+~~~
+{: .output}
+
 > ## Challenge 4
+> 
+> Return a vector containing the letters of the alphabet in reverse order
+>
+> > ## Solution to challenge 4
+> > We can extract the elements in reverse order by generating the sequence
+> > 26, 25, ... 1 using the `:` operator:
+> >
+> > 
+> > ~~~
+> > letters[length(letters):1]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> >  [1] "z" "y" "x" "w" "v" "u" "t" "s" "r" "q" "p" "o" "n" "m" "l" "k" "j"
+> > [18] "i" "h" "g" "f" "e" "d" "c" "b" "a"
+> > ~~~
+> > {: .output}
+> > 
+> > Why didn't we just use `letters[26:1]`?  By hard-coding the length of the
+> > variable into our code, we're making an assumption that `letters` will always
+> > be length 26.  Although this is probably a safe assumption in English, other
+> > languages may have more (or fewer) letters in their alphabet.   It is good
+> > practice to avoid hard-coding information about your data into your scripts.
+> > We will talk about testing assumptions at the very end of the course FIXME - do this!
+> {: .solution}
+{: .challenge}
+
+
+If we try and extract an element that doesn't exist in the vector, the missing values are NA:
+
+
+~~~
+month.name[10:13]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "October"  "November" "December" NA        
+~~~
+{: .output}
+
+## Missing data
+
+`NA` is a special value, that is used to represent "not available", or "missing".  If we perform computations which include `NA`, the result is usually `NA`:
+
+
+~~~
+1 + NA
+~~~
+{: .r}
+
+
+
+~~~
+[1] NA
+~~~
+{: .output}
+
+## Skipping and removing elements
+
+If we use a negative number as the index of a vector, R will return
+every element *except* for the one specified:
+
+
+~~~
+month.name[-2]
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "January"   "March"     "April"     "May"       "June"     
+ [6] "July"      "August"    "September" "October"   "November" 
+[11] "December" 
+~~~
+{: .output}
+
+We can skip multiple elements:
+
+
+~~~
+month.name[c(-1, -5)]  # or month.name[-c(1,5)]
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "February"  "March"     "April"     "June"      "July"     
+ [6] "August"    "September" "October"   "November"  "December" 
+~~~
+{: .output}
+
+> ## R's results prompt
+> 
+> We saw that R returns results prefixed with a `[1]`.  This is the index of the first 
+> element of the results vector on that line of results.  This is useful if we're returning 
+> vectors that are too long to fit on a single row.
+>
+{: .callout}
+
+> ## Tip: Order of operations
+>
+> A common error occurs when trying to skip
+> slices of a vector. Most people first try to negate a
+> sequence like so:
+>
+> 
+> ~~~
+> month.name[-1:3]
+> ~~~
+> {: .r}
+>
+> This gives a somewhat cryptic error:
+>
+> 
+> ~~~
+> Error in month.name[-1:3]: only 0's may be mixed with negative subscripts
+> ~~~
+> {: .error}
+>
+> But remember the order of operations. `:` is really a function, so
+> what happens is it takes its first argument as -1, and second as 3,
+> so generates the sequence of numbers: `-1, 0, 1, 2, 3`.
+>
+> The correct solution is to wrap that function call in brackets, so
+> that the `-` operator is applied to the sequence:
+>
+> 
+> ~~~
+> -(1:3)
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] -1 -2 -3
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> month.name[-(1:3)]
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] "April"     "May"       "June"      "July"      "August"    "September"
+> [7] "October"   "November"  "December" 
+> ~~~
+> {: .output}
+{: .callout}
+
+## Subsettting with logical vectors 
+
+As well as providing a list of indices we want to keep (or delete, if we prefix them with `-`), we 
+can pass a _logical vector_ to R indicating the indices we wish to select:
+
+
+~~~
+month.name[c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "January" "March"   "April"  
+~~~
+{: .output}
+
+What happens if we supply a logical vector that is shorter than the vector we're extracting the elements from?
+
+
+~~~
+month.name[c(TRUE,FALSE)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "January"   "March"     "May"       "July"      "September" "November" 
+~~~
+{: .output}
+
+This illustrates the idea of _vector recycling_; the `[]` extract operator recycles the subsetting vector:
+
+
+~~~
+month.name[c(TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE)]
+~~~
+{: .r}
+
+
+
+~~~
+[1] "January"   "March"     "May"       "July"      "September" "November" 
+~~~
+{: .output}
+
+The idea of selecting elements of a vector using a logical subsetting vector may seem a bit esoteric, and a lot more
+typing than just selecting the elements you want by index.  It becomes really useful when we write code to generate
+the logical vector:
+
+
+~~~
+my_vector <- c(0.01, 0.69, 0.51, 0.39, 0.81, 0.93, 0.49, 0.34, 0.84, 0.16)
+my_vector > 0.5
+~~~
+{: .r}
+
+
+
+~~~
+ [1] FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+my_vector[my_vector > 0.5]
+~~~
+{: .r}
+
+
+
+~~~
+[1] 0.69 0.51 0.81 0.93 0.84
+~~~
+{: .output}
+
+> ## Tip: Combining logical conditions
+>
+> There are many situations in which you will wish to combine multiple logical
+> criteria. For example, we might want to find all the elements that are 
+> between two values. Several operations for combining logical vectors exist in R:
+>
+>  * `&`, the "logical AND" operator: returns `TRUE` if both the left and right
+>    are `TRUE`.
+>  * `|`, the "logical OR" operator: returns `TRUE`, if either the left or right
+>    (or both) are `TRUE`.
+>
+> The recycling rule applies with both of these, so `TRUE & c(TRUE, FALSE, TRUE)`
+> will compare the first `TRUE` on the left of the `&` sign with each of the
+> three conditions on the right.
+>
+> You may sometimes see `&&` and `||` instead of `&` and `|`. These operators
+> do not use the recycling rule: they only look at the first element of each
+> vector and ignore the remaining elements. The longer operators are mainly used
+> in programming, rather than data analysis.
+>
+>  * `!`, the "logical NOT" operator: converts `TRUE` to `FALSE` and `FALSE` to
+>    `TRUE`. It can negate a single logical condition (e.g. `!TRUE` becomes
+>    `FALSE`), or a whole vector of conditions(e.g. `!c(TRUE, FALSE)` becomes
+>    `c(FALSE, TRUE)`).
+>
+> Additionally, you can compare the elements within a single vector using the
+> `all` function (which returns `TRUE` if every element of the vector is `TRUE`)
+> and the `any` function (which returns `TRUE` if one or more elements of the
+> vector are `TRUE`).
+{: .callout}
+
+
+> ## Challenge 5
+>
+> Given the following code:
+>
+> 
+> ~~~
+> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> print(x)
+> ~~~
+> {: .r}
+> 
+> 
+> 
+> ~~~
+> [1] 5.4 6.2 7.1 4.8 7.5
+> ~~~
+> {: .output}
+>
+> Come up with at least 3 different commands that will produce the following output:
+>
+> 
+> ~~~
+> [1] 6.2 7.1 4.8
+> ~~~
+> {: .output}
+>
+> After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
+>
+> > ## Solution to challenge 5
+> >
+> > 
+> > ~~~
+> > x[2:4]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 4.8
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[-c(1,5)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 4.8
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[c(2,3,4)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 4.8
+> > ~~~
+> > {: .output}
+> > 
+> > ~~~
+> > x[c(FALSE, TRUE, TRUE, TRUE, FALSE)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 4.8
+> > ~~~
+> > {: .output}
+> >
+> > (We can use vector recycling to make the last example slightly shorter:
+> > 
+> > ~~~
+> > x[c(FALSE, TRUE, TRUE, TRUE)]
+> > ~~~
+> > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 4.8
+> > ~~~
+> > {: .output}
+> > The first element of the logical vector will be recycled)
+> {: .solution}
+{: .challenge}
+
+
+## Managing your environment
+
+There are a few useful commands you can use to interact with the R session.
+
+`ls` will list all of the variables and functions stored in the global environment
+(your working R session):
+
+
+~~~
+ls()
+~~~
+{: .r}
+
+
+
+~~~
+ [1] "age"           "args"          "dest_md"       "mass"         
+ [5] "missing_pkgs"  "my_vector"     "required_pkgs" "sentence"     
+ [9] "src_rmd"       "x"            
+~~~
+{: .output}
+
+> ## Tip: hidden objects
+>
+> Like in the shell, `ls` will hide any variables or functions starting
+> with a "." by default. To list all objects, type `ls(all.names=TRUE)`
+> instead
+>
+{: .callout}
+
+Note here that we didn't given any arguments to `ls`, but we still
+needed to give the parentheses to tell R to call the function.
+
+If we type `ls` by itself, R will print out the source code for that function!
+
+
+~~~
+ls
+~~~
+{: .r}
+
+
+
+~~~
+function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
+    pattern, sorted = TRUE) 
+{
+    if (!missing(name)) {
+        pos <- tryCatch(name, error = function(e) e)
+        if (inherits(pos, "error")) {
+            name <- substitute(name)
+            if (!is.character(name)) 
+                name <- deparse(name)
+            warning(gettextf("%s converted to character string", 
+                sQuote(name)), domain = NA)
+            pos <- name
+        }
+    }
+    all.names <- .Internal(ls(envir, all.names, sorted))
+    if (!missing(pattern)) {
+        if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
+            ll != length(grep("]", pattern, fixed = TRUE))) {
+            if (pattern == "[") {
+                pattern <- "\\["
+                warning("replaced regular expression pattern '[' by  '\\\\['")
+            }
+            else if (length(grep("[^\\\\]\\[<-", pattern))) {
+                pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
+                warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
+            }
+        }
+        grep(pattern, all.names, value = TRUE)
+    }
+    else all.names
+}
+<bytecode: 0x366d580>
+<environment: namespace:base>
+~~~
+{: .output}
+
+You can use `rm` to delete objects you no longer need:
+
+
+~~~
+rm(x)
+~~~
+{: .r}
+
+If you have lots of things in your environment and want to delete all of them,
+you can pass the results of `ls` to the `rm` function:
+
+
+~~~
+rm(list = ls())
+~~~
+{: .r}
+
+In this case we've combined the two. Like the order of operations, anything
+inside the innermost parentheses is evaluated first, and so on.
+
+In this case we've specified that the results of `ls` should be used for the
+`list` argument in `rm`. When assigning values to arguments by name, you *must*
+use the `=` operator!!
+
+If instead we use `<-`, there will be unintended side effects, or you may get an error message:
+
+
+~~~
+rm(list <- ls())
+~~~
+{: .r}
+
+
+
+~~~
+Error in rm(list <- ls()): ... must contain names or character strings
+~~~
+{: .error}
+
+> ## Tip: Warnings vs. Errors
+>
+> Pay attention when R does something unexpected! Errors, like above,
+> are thrown when R cannot proceed with a calculation. Warnings on the
+> other hand usually mean that the function has run, but it probably
+> hasn't worked as expected.
+>
+> In both cases, the message that R prints out usually give you clues
+> how to fix a problem.
+>
+{: .callout}
+
+## Comments
+
+If we include the "#" symbol in a command in R, everything following it will be ignored.  This
+lets us enter comments into our code.  
+
+## R packages
+
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
+
+> ## Challenge 6
 >
 > Clean up your working environment by deleting the mass and age
 > variables.
 >
-> > ## Solution to challenge 4
+> > ## Solution to challenge 6
 > >
 > > We can use the `rm` command to accomplish this task
 > > 
@@ -996,5 +1562,19 @@ R packages extend the functionality of R.  Over 10,000 packages have been writte
 > > rm(age, mass)
 > > ~~~
 > > {: .r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'age' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning in rm(age, mass): object 'mass' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}

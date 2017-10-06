@@ -187,26 +187,6 @@ We don't *have* to specify a column type for each variable; the `cols()` functio
 > You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  *You should copy the generated code to your script, so that you can reproduce your analysis*. FIXME - introduce history window by this point
 {: .callout}
 
-## Missing data
-
-When we loaded the `feline-data_v2.csv` file, `read_csv()` converted the value "2.3 or 2.4" to `NA`.  This is a special value, that is used to represent "not available", or "missing".  If we perform computations which include `NA`, the result is usually `NA`:
-
-
-~~~
-1 + NA
-~~~
-{: .r}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-
 
 ## Categorical data
 
