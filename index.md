@@ -12,10 +12,10 @@ The original lesson includes tuition on using [git](https://git-scm.com/) for so
 The slide deck used in this course can be found [here](https://mawds.github.io/r-novice-gapminder/slides/).
 
 
-The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many scientific disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach best practices for scientific computing.
+The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many scientific disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach good practices for scientific computing.
 
 Note that this workshop will focus on teaching the fundamentals of the
-programming language R, and will not teach statistical analysis.
+programming language R for data analyis, and does not teach statistical techniques such as regression.
 
 The course focuses on using the [tidyverse](https://www.tidyverse.org) for data analysis, rather than base R.
 
