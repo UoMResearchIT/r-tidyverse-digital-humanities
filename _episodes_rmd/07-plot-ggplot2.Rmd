@@ -458,15 +458,15 @@ The _theme_ of a plot affects the background, axes etc.  The [ggplot2 themes pac
 
 The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages that can extend its capabilities. If you have a specialised plotting need (for example plotting ROC curves, survival data, or time series) there are packages that will allow you to make these plots with minimal effort. [The top 50 ggplot2 visualisations page](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) provides examples (with full code) of almost any type of graph you might want to make. 
 
-As an example of how easy it can be to extend ggplot, we will use the `ggjoy` plot to produce a stacked density plot, to better visualise the previous figure:
+As an example of how easy it can be to extend ggplot, we will use the `ggridges` plot to produce a stacked density plot, to better visualise the previous figure:
 
-```{r, joyplot}
-library(ggjoy)
+```{r, ridgesplot}
+library(ggridges)
 
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
   scale_x_log10() + 
-  geom_joy(alpha = 0.6) 
+  geom_density_ridges(alpha = 0.6) 
 ```
 
