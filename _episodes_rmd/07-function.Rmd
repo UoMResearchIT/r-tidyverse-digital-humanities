@@ -20,7 +20,7 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 library(tidyverse)
-knitr_fig_path("09-")
+knitr_fig_path("07-")
 # Silently load in the data so the rest of the lesson works
 gapminder <- read_csv("data/gapminder-FiveYearData.csv")
 ```
