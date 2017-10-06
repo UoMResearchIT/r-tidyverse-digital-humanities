@@ -483,5 +483,3 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > It is chiefly for the final reason that we recommend using `parse_factor()` instead of `factor()`.  You
 > should be aware that the default ordering of factor levels differs between `factor()` and `parse_factor()`
 {: .callout}
-
-
