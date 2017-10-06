@@ -1,18 +1,25 @@
 ---
-title: "Seeking Help"
+title: "R Packages and Seeking Help"
 teaching: 10
 exercises: 10
 questions:
+- "How do I use packages in R?"
 - "How can I get help in R?"
 objectives:
+- "To be able to install packages, and load them into your R session"
 - "To be able read R help files for functions and special operators."
 - "To be able to seek help from your peers."
 keypoints:
+- "Use `install.packages()` to install a package from CRAN"
 - "Use `help()` to get online help in R."
 source: Rmd
 ---
 
 
+
+## R packages
+
+R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
 
 ## Reading Help files
 

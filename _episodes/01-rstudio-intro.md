@@ -566,7 +566,8 @@ Error in sentence + 1: non-numeric argument to binary operator
 ~~~
 {: .error}
 
-We will discuss the important concept of _data types_ in the next episode.
+We will discuss the important concept of _data types_ in the next episode.  
+
 
 > ## Challenge 1
 >
@@ -1100,6 +1101,33 @@ month.name[10:13]
 ~~~
 {: .output}
 
+This raises an interesting point; how do we test if a value is `NA`?  This doesn't work:
+
+
+~~~
+x <- NA
+x == NA
+~~~
+{: .r}
+
+
+
+~~~
+[1] NA
+~~~
+{: .output}
+
+## Handling special values
+
+There are a number of special functions you can use to handle missing data, and other special values:
+
+ * `is.na` will return all positions in a vector, matrix, or data.frame
+   containing `NA`.
+ * likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
+ * `is.finite` will return all positions in a vector, matrix, or data.frame
+   that do not contain `NA`, `NaN` or `Inf`.
+ * `na.omit` will filter out all missing values from a vector
+
 ## Skipping and removing elements
 
 If we use a negative number as the index of a vector, R will return
@@ -1409,6 +1437,25 @@ my_vector[my_vector > 0.5]
 {: .challenge}
 
 
+## Data types
+
+One thing you may have noticed is that all the data in a vector has been the same type; all the elements have had the same type (i.e. they have all been numbers, all been character, or all been logical (`TRUE`/`FALSE`)).  This is an important property of vectors; the type of data the vector holds is a property of the vector, not of each element.  Let's look at what happens if we try to create a vector of numeric and character data:
+
+
+~~~
+c(1, 2, "three", "four", 5)
+~~~
+{: .r}
+
+
+
+~~~
+[1] "1"     "2"     "three" "four"  "5"    
+~~~
+{: .output}
+
+We see that R has coerced the elements containing digits to strings, so that all the elements have the same type.  
+
 ## Managing your environment
 
 There are a few useful commands you can use to interact with the R session.
@@ -1484,7 +1531,7 @@ function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE,
     }
     else all.names
 }
-<bytecode: 0x366d580>
+<bytecode: 0x288a580>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -1544,10 +1591,6 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 If we include the "#" symbol in a command in R, everything following it will be ignored.  This
 lets us enter comments into our code.  
-
-## R packages
-
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution).   We'll cover installing and using packages in more detail in a [later lesson]({{ page.root }}/08-using-r-packages/). The teaching machines at the University have a number of additional packages installed by default.  We can see the packages installed on an R installation via the "packages" tab in Rstudio, or by typing `installed.packages()` at the prompt.
 
 > ## Challenge 6
 >
