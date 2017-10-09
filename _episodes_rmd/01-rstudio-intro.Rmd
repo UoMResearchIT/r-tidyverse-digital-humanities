@@ -19,7 +19,7 @@ keypoints:
 - "Use RStudio to write and run R programs."
 - "R has the usual arithmetic operators and mathematical functions."
 - "Use `<-` to assign values to variables."
-- "Use the [] operator to extract elements from a vector"
+- "Use the `[]` operator to extract elements from a vector"
 source: Rmd
 ---
 
@@ -83,10 +83,10 @@ in the top left.
 There are two main ways one can work within RStudio.
 
 1. Test and play within the interactive R console then copy code into
-a .R file to run later.
+a `.R` file to run later.
    *  This works well when doing small tests and initially starting off.
    *  It quickly becomes laborious
-2. Start writing in an .R file and use RStudio's command / short cut
+2. Start writing in an `.R` file and use RStudio's command / short cut
 to push current line, selected lines or modified lines to the
 interactive R console.
    * This is a great way to start; all your code is saved for later
@@ -116,7 +116,7 @@ file. This console in RStudio is the same as the one you would get if
 you typed in `R` in your command-line environment.
 
 The first thing you will see in the R interactive session is a bunch
-of information, followed by a ">" and a blinking cursor. It operates
+of information, followed by a `>` and a blinking cursor. It operates
 on the idea of a "Read, evaluate, print loop": you type in commands,
 R tries to execute them, and then returns a result.
 
@@ -128,7 +128,7 @@ The simplest thing you could do with R is do arithmetic:
 1 + 100
 ```
 
-And R will print out the answer, with a preceding "[1]". Don't worry about this
+And R will print out the answer, with a preceding `[1]`. Don't worry about this
 for now, we'll explain that later. For now think of it as indicating output.
 
 Like bash, if you type in an incomplete command, R will wait for you to
@@ -144,14 +144,14 @@ complete it:
 ~~~
 {: .output}
 
-Any time you hit return and the R session shows a "+" instead of a ">", it
+Any time you hit return and the R session shows a `+` instead of a `>`, it
 means it's waiting for you to complete the command. If you want to cancel
-a command you can simply hit "Esc" and RStudio will give you back the ">"
+a command you can simply hit `Esc` and RStudio will give you back the `>`
 prompt.
 
 > ## Tip: Cancelling commands
 >
-> If you're using R from the commandline instead of from within RStudio,
+> If you're using R from the command line instead of from within RStudio,
 > you need to use `Ctrl+C` instead of `Esc` to cancel the command. This
 > applies to Mac users as well!
 >
@@ -219,7 +219,7 @@ You can write numbers in scientific notation too:
 
 R has many built in mathematical functions. To call a function,
 we simply type its name, followed by  open and closing parentheses.
-Anything we type inside the parentheses is called the function's
+Anything we type inside the parentheses are called the function's
 arguments:
 
 ```{r}
@@ -498,7 +498,7 @@ We will discuss the important concept of _data types_ in the next episode.
 ## Vectorization
 
 As well as dealing with single values, we can work with vectors of values.  
-There are various ways of creating vectors; the ":" operator will generate sequences of
+There are various ways of creating vectors; the `:` operator will generate sequences of
 consecutive values:
 
 ```{r}
@@ -508,7 +508,7 @@ consecutive values:
 5:1
 ```
 
-The result of the : operator is a _vector_; this is a 1 dimensional array of values.
+The result of the `:` operator is a _vector_; this is a 1 dimensional array of values.
 We can apply functions to all the elements of a vector:
 
 ```{r}
@@ -614,7 +614,7 @@ month.name[c(1,1,2,3,4)]
 {: .challenge}
 
 
-If we try and extract an element that doesn't exist in the vector, the missing values are NA:
+If we try and extract an element that doesn't exist in the vector, the missing values are `NA`:
 
 ```{r}
 month.name[10:13]
