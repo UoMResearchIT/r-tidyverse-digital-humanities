@@ -605,6 +605,15 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > {: .solution}
 {: .challenge}
 
+
+> ## Equivalent functions in base R
+>
+> In this course we've taught the tidyverse.  You are likely come accross
+> code written others in base R.  You can find a guide to some base R functions
+> and their tidyverse equivalents [here](http://www.significantdigits.org/2017/10/switching-from-base-r-to-tidyverse/),
+> which may be useful when reading their code.
+>
+{: .callout}
 ## Other great resources
 
 * [R for Data Science](http://r4ds.had.co.nz/)
