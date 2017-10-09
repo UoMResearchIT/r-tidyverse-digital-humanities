@@ -588,7 +588,7 @@ month.name[c(1,1,2,3,4)]
 > > be length 26.  Although this is probably a safe assumption in English, other
 > > languages may have more (or fewer) letters in their alphabet.   It is good
 > > practice to avoid hard-coding information about your data into your scripts.
-> > We will talk about testing assumptions at the very end of the course FIXME - do this!
+> > We will talk about testing assumptions at the very end of the course.
 > {: .solution}
 {: .challenge}
 
