@@ -340,6 +340,18 @@ the command and how it works, scrolling to the bottom of the
 help page will usually show a collection of code examples which
 illustrate command usage. We'll go through an example later.
 
+## The history tab
+
+RStudio keeps a log of the command you've entered.  This makes it 
+easier to go back and edit a command if you've made a mistake in it.
+There are several ways of accessing the command history:
+
+1. In the console window, the up and down arrows will take you 
+through the command history. (The command can then be edited using the
+left and right arrow keys)
+2. The history tab in the top right of RStudio contains the command history.  One
+or more lines from this can be selected.  These can then be copied to the console, or to
+your R script by pressing the appropriate button.
 
 
 ## Comparing things
