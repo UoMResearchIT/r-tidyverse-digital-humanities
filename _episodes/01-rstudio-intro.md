@@ -326,14 +326,15 @@ exp(0.5) # e^(1/2)
 
 Don't worry about trying to remember every function in R. You
 can simply look them up on Google, or if you can remember the
-start of the function's name, press tab.  This will show a list of
+start of the function's name, type the start of it, then press the `tab` key.
+This will show a list of
 functions whose name matches what you've typed so far; this is known
-as tab completion, and can save a lot of typing (and reduce the risk
+as `tab completion`, and can save a lot of typing (and reduce the risk
 of typing errors).  Tab completion works in R (i.e. running it out
 of RStudio), and in RStudio. In RStudio this feature is even more useful; a
 extract of the function's help file will be shown alongside the function name.
 
-This is one advantage that RStudio has over R on its own, it
+This is one advantage that RStudio has over R on its own: it
 has auto-completion abilities that allow you to more easily
 look up functions, their arguments, and the values that they
 take.
@@ -526,15 +527,17 @@ x <- x + 1 #notice how RStudio updates its description of x on the top right tab
 The right hand side of the assignment can be any valid R expression.
 The right hand side is *fully evaluated* before the assignment occurs.
 
-Variable names can contain letters, numbers, underscores and periods. They
-cannot start with a number nor contain spaces at all. Different people use
-different conventions for long variable names, these include:
-
-  * periods.between.words
-  * underscores\_between_words
-  * camelCaseToSeparateWords
-
-What you use is up to you, but **be consistent**.
+> ## Legal variable names
+> Variable names can contain letters, numbers, underscores and periods.
+> They cannot start with a number nor contain spaces at all.
+> Different people use different conventions for long variable names, these include:
+>
+>  * periods.between.words
+> * underscores\_between_words
+>  * camelCaseToSeparateWords
+>
+> What you use is up to you, but **be consistent**.
+{: .callout}
 
 It is also possible to use the `=` operator for assignment:
 
