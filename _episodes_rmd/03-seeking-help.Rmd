@@ -50,6 +50,8 @@ There are various ways of finding packages that might be useful in your research
 
 * The [CRAN task view](https://cran.r-project.org/web/views/) provides an overview of the packages available for various research fields and methodologies.   
 
+* [rOpenSci](https://ropensci.org/) provides packages for performing open and reproducible science.  Most of these are available from CRAN or Bioconductor.  
+
 * Journal articles should cite the R packages they used in their analysis. 
 
 * [The Journal of Statistical Software](https://www.jstatsoft.org/index) contains peer-reviewed articles for R packages (and other statistical software)
