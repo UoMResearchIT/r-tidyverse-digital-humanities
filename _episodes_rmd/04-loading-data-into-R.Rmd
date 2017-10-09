@@ -65,7 +65,6 @@ cats
 
 When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 "tibble". A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
 
-FIXME demonstrate autocomplete / popup help in Rstudio by this point
 
 > ## read_csv() vs read.csv()
 >

@@ -318,9 +318,16 @@ exp(0.5) # e^(1/2)
 ~~~
 {: .output}
 
+## Remembering function names and arguments
+
 Don't worry about trying to remember every function in R. You
 can simply look them up on Google, or if you can remember the
-start of the function's name, use the tab completion in RStudio.
+start of the function's name, press tab.  This will show a list of
+functions whose name matches what you've typed so far; this is known
+as tab completion, and can save a lot of typing (and reduce the risk
+of typing errors).  Tab completion works in R (i.e. running it out
+of RStudio), and in RStudio. In RStudio this feature is even more useful; a
+extract of the function's help file will be shown alongside the function name.
 
 This is one advantage that RStudio has over R on its own, it
 has auto-completion abilities that allow you to more easily
@@ -332,6 +339,8 @@ for that command. As well as providing a detailed description of
 the command and how it works, scrolling to the bottom of the
 help page will usually show a collection of code examples which
 illustrate command usage. We'll go through an example later.
+
+
 
 ## Comparing things
 
