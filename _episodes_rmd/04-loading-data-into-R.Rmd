@@ -77,7 +77,7 @@ When we enter `cats` by itself on the command line, it will print the contents o
 
 > ## Loading other types of data
 >
-> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimeters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
+> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimiters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
 > * You can read directly from excel spreadsheets without
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
@@ -216,7 +216,7 @@ If we try to convert this to a factor it won't work:
 parse_factor(catCoats2, levels = validCoatColours)
 ```
 
-Remember that we specifcied the column types when we loaded the data using `read_csv()`; we can 
+Remember that we specified the column types when we loaded the data using `read_csv()`; we can 
 take this idea a step further, and define `coat` as a factor when we load the data.
 
 > ## Challenge 1

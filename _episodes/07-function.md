@@ -376,7 +376,7 @@ Our function now works as expected.
 > This means that the `person` variable is evaluated in an _unquoted_ environment, so its contents can be evaluated.
 {: .callout}
 
-There is one small gotcha that remains; how does filter _know_ that the first `year` in ``` filter(year == UQ(year) ) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
+There is one small issue that remains; how does filter _know_ that the first `year` in ``` filter(year == UQ(year) ) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
 year variable? Surely this should give an error?
 
 
