@@ -89,6 +89,7 @@ in the top left.
 
 ![RStudio layout with .R file open](../fig/01-rstudio-script.png)
 
+We can make a new script by choosing `File`, `New File`, `R Script` from the menu, or by pressing `ctrl+shift+N`.  Scripts let us store R code.  You should make sure that all the code you use for an analysis is stored in a script; this makes the process you followed clear, and will let you, or others, recreate your analyses.   
 
 ## Work flow within RStudio
 There are two main ways one can work within RStudio.
