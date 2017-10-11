@@ -32,19 +32,19 @@ In this course we will be using packages in the  [tidyverse](https://www.tidyver
 
 There are several sources of packages in R; the ones you are most likely to encounter are:
 
-## CRAN
+### CRAN
 
 [CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 10,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.   
 
-## Bioconductor
+### Bioconductor
 
 [Bioconductor](https://www.bioconductor.org/) is a more specialised repository, which contains packages for bioinformatics.  Common workflows are provided, and the packages are more thoroughly quality assured.   Because of its more specialised nature we don't focus on Bioconductor in this course.
 
-## Github / personal websites
+### Github / personal websites
 
 Some authors distribute packages via [Github](https://www.github.com) or their own personal web-pages.  These packages may not have undergone any form of quality assurance.   Note that many packages have their own website, but the package itself is distributed via CRAN. 
 
-## Finding packages to help with your research
+### Finding packages to help with your research
 
 There are various ways of finding packages that might be useful in your research:
 
@@ -58,7 +58,7 @@ There are various ways of finding packages that might be useful in your research
 
 * [The R Journal](https://journal.r-project.org/) contains articles about new packages in R.
 
-## Installing packages
+### Installing packages
 
 If a package is available on [CRAN](https://cran.r-project.org), you can install it by typing:
 
@@ -83,7 +83,6 @@ library("tidyverse")
 > If you want to use the function from the other package, use `packagename::function()`.
 > 
 {: .callout}
-
 
 ## Reading Help files
 
@@ -143,8 +142,6 @@ If you're not sure what package a function is in, or how it's specifically spell
 ```{r, eval=FALSE}
 ??function_name
 ```
-
-
 > ## Citing R and R packages
 > If you use R in your work you should cite it, and the packages you use. The `citation()` command will return the appropriate citation for R itself.  `citation(packagename)` will provide the citation for `packagename`. 
 >
