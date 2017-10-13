@@ -12,8 +12,8 @@ keypoints:
 - "Treat raw data as read-only."
 - "Treat generated output as disposable."
 - "Separate function definition and application."
-- "Use rm() to delete objects"
-- "User rm(list=ls()) to delete all (non hidden objects)"
+- "Use `rm()` to delete objects"
+- "User `rm(list=ls())` to delete all (non hidden objects)"
 source: Rmd
 ---
 
@@ -204,7 +204,7 @@ Information on the objects in your environment is also available from the enviro
 > ## Tip: hidden objects
 >
 > Like in the shell, `ls` will hide any variables or functions starting
-> with a "." by default. To list all objects, type `ls(all.names=TRUE)`
+> with a `.` by default. To list all objects, type `ls(all.names=TRUE)`
 > instead
 >
 {: .callout}
@@ -288,5 +288,5 @@ Error in rm(list <- ls()): ... must contain names or character strings
 
 ## Comments
 
-If we include the "#" symbol in a command in R, everything following it will be ignored.  This
+If we include the `#` symbol in a command in R, everything following it will be ignored.  This
 lets us enter comments into our code.  

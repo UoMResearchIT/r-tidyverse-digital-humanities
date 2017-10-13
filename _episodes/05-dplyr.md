@@ -83,7 +83,7 @@ cols(
 
 As we discussed in [lesson 4]({{ page.root }}/04-data-structures-part1/), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
 
-For example, if we wanted to load `pop` as a character string, we would use:
+For example, if we wanted to load the `pop` column as a character string, we would use:
 
 
 ~~~
@@ -110,9 +110,9 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 
 ## Manipulating data frames
 
-Manipulation of data frames means many things to many researchers, we often
-select certain observations (rows) or variables (columns), we often group the
-data by a certain variable(s), or calculating summary statistics. 
+Manipulation of data frames means many things to many researchers. We often
+select only certain observations (rows) or variables (columns). We often group the
+data by a certain variable(s), or calculate summary statistics.
 
 ## The `dplyr` package
 
@@ -131,7 +131,7 @@ We will cover:
 6. Sorting tibbles using `arrange()`
 7. chaining operations together using pipes `%>%` 
 
-## Using select()
+## Using `select()`
 
 If, for example, we wanted to move forward with only a few of the variables in
 our data frame we use the `select()` function. This will keep only the
@@ -158,7 +158,7 @@ perform a complex series of operations in one go
 >
 > If you're familiar with the Unix shell, you may already have used pipes to
 > pass the output from one command to the next.  The concept is the same, except
-> we use the `|` character rather than R's pipe operator `%>%`
+> the shell uses the `|` character rather than R's pipe operator `%>%`
 {: .callout}
 
 
@@ -191,7 +191,7 @@ gets that from the previous pipe.
 
 
 
-## Using filter()
+## Using `filter()`
 
 If we now wanted to move forward with the above, but only with European
 countries, we can combine `select` and `filter`
@@ -490,7 +490,7 @@ gapminder %>%
 > {: .solution}
 {: .challenge}
 
-## count() and n()
+## `count()` and `n()`
 A very common operation is to count the number of observations for each
 group. The `dplyr` package comes with two related functions that help with this.
 
@@ -552,7 +552,7 @@ We can optionally sort the results in descending order by adding `sort=TRUE`:
 
 
 
-## Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: `ifelse()`
 
 When creating new variables, we can hook this with a logical condition. A simple combination of 
 `mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.

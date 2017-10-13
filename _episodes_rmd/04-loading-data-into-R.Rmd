@@ -10,10 +10,10 @@ objectives:
 - "To be aware of the different types of data."
 - "To begin exploring `tibbles`"
 keypoints:
-- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R `data.frame`."
+- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data frame."
 - "Use `read_csv` to read tabular data into a tibble R."
 - "User `write_csv` to write tabular data to a comma separated value file."
-- "Use `factors` to represent categorical data in R. You should specify the levels of your factors."
+- "Use factors to represent categorical data in R. You should specify the levels of your factors."
 source: Rmd
 ---
 
