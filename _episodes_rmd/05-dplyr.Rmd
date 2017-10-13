@@ -86,7 +86,7 @@ We will cover:
 6. Sorting tibbles using `arrange()`
 7. chaining operations together using pipes `%>%` 
 
-## Using select()
+## Using `select()`
 
 If, for example, we wanted to move forward with only a few of the variables in
 our data frame we use the `select()` function. This will keep only the
@@ -142,7 +142,7 @@ gets that from the previous pipe.
 
 
 
-## Using filter()
+## Using `filter()`
 
 If we now wanted to move forward with the above, but only with European
 countries, we can combine `select` and `filter`
@@ -291,7 +291,7 @@ gapminder %>%
 > {: .solution}
 {: .challenge}
 
-## count() and n()
+## `count()` and `n()`
 A very common operation is to count the number of observations for each
 group. The `dplyr` package comes with two related functions that help with this.
 
@@ -321,7 +321,7 @@ We can optionally sort the results in descending order by adding `sort=TRUE`:
 
 
 
-## Connect mutate with logical filtering: ifelse
+## Connect mutate with logical filtering: `ifelse()`
 
 When creating new variables, we can hook this with a logical condition. A simple combination of 
 `mutate()` and `ifelse()` facilitates filtering right where it is needed: in the moment of creating something new.

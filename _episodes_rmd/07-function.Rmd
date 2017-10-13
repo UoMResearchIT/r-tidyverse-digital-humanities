@@ -67,7 +67,7 @@ my_sum(10,10)
 ```
 
 
-Now let’s define a function fahr_to_kelvin that converts temperatures from Fahrenheit to Kelvin:
+Now let’s define a function `fahr_to_kelvin` that converts temperatures from Fahrenheit to Kelvin:
 
 ```{r}
 fahr_to_kelvin <- function(temp) {

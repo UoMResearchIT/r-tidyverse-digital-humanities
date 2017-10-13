@@ -8,12 +8,12 @@ questions:
 - "How do I represent categorical information in R?"
 objectives:
 - "To be aware of the different types of data."
-- "To begin exploring tibbles"
+- "To begin exploring `tibbles`"
 keypoints:
-- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data.frame."
+- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R `data.frame`."
 - "Use `read_csv` to read tabular data into a tibble R."
 - "User `write_csv` to write tabular data to a comma separated value file."
-- "Use factors to represent categorical data in R. You should specify the levels of your factors."
+- "Use `factors` to represent categorical data in R. You should specify the levels of your factors."
 source: Rmd
 ---
 
@@ -89,7 +89,7 @@ We see that the `read_csv()` table reports a "column specification".  This shows
 Every piece of data in R is stored as either `double`, `integer`, `complex`, `logical` and `character`.   `integer` variables can only store whole numbers; `double` variables can store floating point numbers (i.e. with a decimal part), `complex` variables can store complex numbers (i.e. of the form `1+2i`), `logical` variables can store `TRUE` or `FALSE`.  `character` variables can store strings of characters.
 
 When we read the data into
-r using `read_csv()` it tries to work out what data type each variable is, which it does by looking at the data contained in the first 1000 rows of the data file.   We can see from the displayed message that read_csv() has treated the `coat` variable as a character variable, the `weight` variable as a floating point number and `likes_string` as an integer variable.
+R using `read_csv()` it tries to work out what data type each variable is, which it does by looking at the data contained in the first 1000 rows of the data file.   We can see from the displayed message that `read_csv()` has treated the `coat` variable as a character variable, the `weight` variable as a floating point number and `likes_string` as an integer variable.
 
 This is almost correct; `likes_string` is, however a logical (or boolean) value - the cat either likes string (which is represented in the data file as a `1`, or doesn't (represented by `0`)).  We can specify how we would like `read_csv()` to treat the data in each variable using the `col_types` option; let's tell `read_csv()` to treat `likes_string` as a logical variable:
 
@@ -178,7 +178,7 @@ cats[,1]
 
 ## Categorical data
 
-Another important data structure is called a *factor*. Factors usually look like
+Another important data structure is called a `factor`. Factors usually look like
 character data, but are used to represent categorical information.
 
 Let's work with the coat colours of the cats in our dataset
@@ -203,7 +203,7 @@ coatFactor
 
 You might be wondering what the point of defining a factor is.  If we're fitting, e.g. a linear regression with
 a categorical variable we would need to generate indicator variables for it.   By defining our data as categorical,
-R will take care of this for us.   The factor levels will be defined in the order we specify in the vector we pass as the `levels` argument to parse_factor; so the baseline treatment would usually be specified as the first level.
+R will take care of this for us.   The factor levels will be defined in the order we specify in the vector we pass as the `levels` argument to `parse_factor`; so the baseline treatment would usually be specified as the first level.
 
 Defining variables as factors also helps us to ensure data integrity.   Consider the vector below:
 
