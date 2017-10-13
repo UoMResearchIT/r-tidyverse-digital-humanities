@@ -8,12 +8,12 @@ questions:
 - "How do I represent categorical information in R?"
 objectives:
 - "To be aware of the different types of data."
-- "To begin exploring tibbles"
+- "To begin exploring `tibbles`"
 keypoints:
-- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data.frame."
+- "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R `data.frame`."
 - "Use `read_csv` to read tabular data into a tibble R."
 - "User `write_csv` to write tabular data to a comma separated value file."
-- "Use factors to represent categorical data in R. You should specify the levels of your factors."
+- "Use `factors` to represent categorical data in R. You should specify the levels of your factors."
 source: Rmd
 ---
 
@@ -60,10 +60,13 @@ the read_csv() function to import the data, which we store in the variable named
 ```{r}
 library(readr)
 cats <- read_csv(file = "data/feline-data.csv")
+```
+We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
+
+```{r}
 cats
 ```
-
-When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 "tibble". A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
+When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 `tibble`. A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
 
 
 > ## read_csv() vs read.csv()
@@ -82,14 +85,18 @@ When we enter `cats` by itself on the command line, it will print the contents o
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
 
-We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
 
 ## Data types
 
-Every piece of data in R is stored as either `double`, `integer`, `complex`, `logical` and `character`.   `integer` variables can only store whole numbers; `double` variables can store floating point numbers (i.e. with a decimal part), `complex` variables can store complex numbers (i.e. of the form `1+2i`), `logical` variables can store `TRUE` or `FALSE`.  `character` variables can store strings of characters.
+Every piece of data in R is stored as either `double`, `integer`, `complex`, `logical` or `character`.
+- `integer` variables can only store whole numbers
+- `double` variables can store floating point numbers (i.e. with a decimal part)
+- `complex` variables can store complex numbers (i.e. of the form `1+2i`)
+- `logical` variables can store `TRUE` or `FALSE`
+- `character` variables can store strings of characters.
 
 When we read the data into
-r using `read_csv()` it tries to work out what data type each variable is, which it does by looking at the data contained in the first 1000 rows of the data file.   We can see from the displayed message that read_csv() has treated the `coat` variable as a character variable, the `weight` variable as a floating point number and `likes_string` as an integer variable.
+R using `read_csv()` it tries to work out what data type each variable is, which it does by looking at the data contained in the first 1000 rows of the data file.   We can see from the displayed message that `read_csv()` has treated the `coat` variable as a character variable, the `weight` variable as a floating point number and `likes_string` as an integer variable.
 
 This is almost correct; `likes_string` is, however a logical (or boolean) value - the cat either likes string (which is represented in the data file as a `1`, or doesn't (represented by `0`)).  We can specify how we would like `read_csv()` to treat the data in each variable using the `col_types` option; let's tell `read_csv()` to treat `likes_string` as a logical variable:
 
@@ -145,7 +152,7 @@ We don't *have* to specify a column type for each variable; the `cols()` functio
 ## Exploring tibbles
 
 We can "unpick" the contents of a tibble in several ways.  We can return a vector containing the values
-of a variable using the `$`:
+of a variable using the dollar symbol, `$`:
 
 ```{r}
 cats$weight
@@ -160,7 +167,7 @@ require and the second indicates the columns.  So to return rows 1 and 2, and co
 cats[1:2,2:3]
 ```
 
-If we leave in index blank, it acts as a wildcard and matches all of the rows or columns:
+If we leave an index blank, this acts as a wildcard and matches all of the rows or columns:
 
 ```{r}
 cats[1,]
@@ -178,7 +185,7 @@ cats[,1]
 
 ## Categorical data
 
-Another important data structure is called a *factor*. Factors usually look like
+Another important data structure is called a `factor`. Factors usually look like
 character data, but are used to represent categorical information.
 
 Let's work with the coat colours of the cats in our dataset
@@ -203,7 +210,7 @@ coatFactor
 
 You might be wondering what the point of defining a factor is.  If we're fitting, e.g. a linear regression with
 a categorical variable we would need to generate indicator variables for it.   By defining our data as categorical,
-R will take care of this for us.   The factor levels will be defined in the order we specify in the vector we pass as the `levels` argument to parse_factor; so the baseline treatment would usually be specified as the first level.
+R will take care of this for us.   The factor levels will be defined in the order we specify in the vector we pass as the `levels` argument to `parse_factor`; so the baseline treatment would usually be specified as the first level.
 
 Defining variables as factors also helps us to ensure data integrity.   Consider the vector below:
 
@@ -291,7 +298,7 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` > to `read.csv()`.  
 >
 > We used `parse_factor()` to define factors.  The base R equivalent is the `factor()` function.
-> the main differences between the two approaches are:
+> The main differences between the two approaches are:
 >
 > * `factor()` will assign factor levels automatically; it does not require us to pass `levels = NULL`.
 > * The automatic levels generated by `factor()` will be alphabetical (rather than according to the order

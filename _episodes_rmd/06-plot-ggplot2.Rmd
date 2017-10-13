@@ -8,7 +8,7 @@ objectives:
 - "To be able to use ggplot2 to generate publication quality graphics."
 - "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and coloring or panelling by groups."
 - "To understand how to save plots in a variety of formats"
-- "To be able to find extensions for ggplot2 to produce custom graphics"
+- "To be able to find extensions for `ggplot2` to produce custom graphics"
 keypoints:
 - "Use `ggplot2` to create plots."
 - "Think about graphics in layers: aesthetics, geometry, statistics, scale transformation, and grouping."
@@ -317,7 +317,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 ```
 
 The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
-(~). This tells R to draw a panel for each unique value in the country column
+`~`. This tells R to draw a panel for each unique value in the country column
 of the gapminder dataset.
 
 > ## Challenge 5
