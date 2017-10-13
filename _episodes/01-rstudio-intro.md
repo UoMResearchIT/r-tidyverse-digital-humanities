@@ -81,65 +81,10 @@ When you first open RStudio, you will be greeted by three panels:
 
 ![RStudio layout](../fig/01-rstudio.png)
 
-Once you open files, such as R scripts, an editor panel will also open
-in the top left.
-
-![RStudio layout with .R file open](../fig/01-rstudio-script.png)
-
-We can make a new script by choosing `File`, `New File`, `R Script` from the menu, or by pressing `ctrl+shift+N`.  Scripts let us store R code.  You should make sure that all the code you use for an analysis is stored in a script; this makes the process you followed clear, and will let you, or others, recreate your analyses.   
-
-## Work flow within RStudio
-There are two main ways one can work within RStudio.
-
-1. Test and play within the interactive R console then copy code into
-a `.R` file to run later.
-   *  This works well when doing small tests and initially starting off.
-   *  It quickly becomes laborious
-2. Start writing in an `.R` file and use RStudio's command / short cut
-to push current line, selected lines or modified lines to the
-interactive R console.
-   * This is a great way to start; all your code is saved for later
-   * You will be able to run the file you create from within RStudio
-   or using R's `source()`  function.
-
-> ## Tip: Running segments of your code
->
-> RStudio offers you great flexibility in running code from within the editor
-> window. There are buttons, menu choices, and keyboard shortcuts. To run the
-> current line, you can
-> 1. click on the `Run` button above the editor panel, or 
-> 2. select "Run Lines" from the "Code" menu, or 
-> 3. hit Ctrl-Enter in Windows
-> or Linux or Command-Enter on OS X. (This shortcut can also be seen by hovering
-> the mouse over the button).
->
-> To run a block of code, select it and then `Run`.
-> If you have modified a line of code within a block of code you have just run,
-> there is no need to reselect the section and `Run`, you can use the next button
-> along, `Re-run the previous region`. This will run the previous code block
-> including the modifications you have made.
-{: .callout}
-
-> ## The history tab
->
-> RStudio keeps a log of the command you've entered.  This makes it 
-easier to go back and edit a command if you've made a mistake in it.
-There are several ways of accessing the command history:
->
-> 1. In the console window, the up and down arrows will take you 
-through the command history. (The command can then be edited using the
-left and right arrow keys)
-> 2. The history tab in the top right of RStudio contains the command history.  One
-or more lines from this can be selected.  These can then be copied to the console, or to
-your R script by pressing the appropriate button.
-{: .callout}
-
 ## Introduction to R
 
 Much of your time in R will be spent in the R interactive
-console. This is where you will run all of your code, and can be a
-useful environment to try out ideas before adding them to an R script
-file. This console in RStudio is the same as the one you would get if
+console. This console in RStudio is the same as the one you would get if
 you typed in `R` in your command-line environment.
 
 The first thing you will see in the R interactive session is a bunch
@@ -371,6 +316,64 @@ the command and how it works, scrolling to the bottom of the
 help page will usually show a collection of code examples which
 illustrate command usage. We'll go through an example later.
 
+
+## Work flow within RStudio
+
+We have been using R in an interactive way.  This is fine for trying things out,
+but it isn't a good way of working when we start doing more complex analyses.
+Fortunately R lets us put commands into scripts.  These have a `.R` extension. 
+
+We can make a new script by choosing `File`, `New File`, `R Script` from the menu, or by pressing `Ctrl+Shift+N`.  Scripts let us store R code.  You should make sure that all the code you use for an analysis is stored in a script; this makes the process you followed clear, and will let you, or others, recreate your analyses.   
+
+There are two main ways one can work with scripts within RStudio.
+
+1. Test and play within the interactive R console then copy code into
+a `.R` file to run later.
+   *  This works well when doing small tests and initially starting off.
+   *  It quickly becomes laborious
+2. Start writing in an `.R` file and use RStudio's command / short cut
+to push current line, selected lines or modified lines to the
+interactive R console.
+   * All your code is saved for later
+   * You will be able to run the file you create from within RStudio
+   or using R's `source()`  function.
+
+Once you open files, such as R scripts, an editor panel will also open
+in the top left.
+
+![RStudio layout with .R file open](../fig/01-rstudio-script.png)
+
+> ## Tip: Running segments of your code
+>
+> RStudio offers you great flexibility in running code from within the editor
+> window. There are buttons, menu choices, and keyboard shortcuts. To run the
+> current line, you can
+> 1. click on the `Run` button above the editor panel, or 
+> 2. select "Run Lines" from the "Code" menu, or 
+> 3. hit Ctrl-Enter in Windows
+> or Linux or Command-Enter on OS X. (This shortcut can also be seen by hovering
+> the mouse over the button).
+>
+> To run a block of code, select it and then `Run`.
+> If you have modified a line of code within a block of code you have just run,
+> there is no need to reselect the section and `Run`, you can use the next button
+> along, `Re-run the previous region`. This will run the previous code block
+> including the modifications you have made.
+{: .callout}
+
+> ## The history tab
+>
+> RStudio keeps a log of the command you've entered.  This makes it 
+easier to go back and edit a command if you've made a mistake in it.
+There are several ways of accessing the command history:
+>
+> 1. In the console window, the up and down arrows will take you 
+through the command history. (The command can then be edited using the
+left and right arrow keys)
+> 2. The history tab in the top right of RStudio contains the command history.  One
+or more lines from this can be selected.  These can then be copied to the console, or to
+your R script by pressing the appropriate button.
+{: .callout}
 
 
 ## Comparing things
@@ -1493,5 +1496,5 @@ c(1, 2, "three", "four", 5)
 ~~~
 {: .output}
 
-We see that R has coerced the elements containing digits to strings, so that all the elements have the same type.  
+We see that R has coerced the elements containing digits to strings, so that all the elements have the same type.  We will talk more about data types in a later episode.
 
