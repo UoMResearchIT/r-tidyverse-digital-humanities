@@ -40,7 +40,7 @@ gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
 
 As we discussed in [lesson 4]({{ page.root }}/04-data-structures-part1/), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
 
-For example, if we wanted to load `pop` as a character string, we would use:
+For example, if we wanted to load the `pop` column as a character string, we would use:
 
 ```{r}
 gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv", 
@@ -65,9 +65,9 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 
 ## Manipulating data frames
 
-Manipulation of data frames means many things to many researchers, we often
-select certain observations (rows) or variables (columns), we often group the
-data by a certain variable(s), or calculating summary statistics. 
+Manipulation of data frames means many things to many researchers. We often
+select only certain observations (rows) or variables (columns). We often group the
+data by a certain variable(s), or calculate summary statistics.
 
 ## The `dplyr` package
 
@@ -111,7 +111,7 @@ perform a complex series of operations in one go
 >
 > If you're familiar with the Unix shell, you may already have used pipes to
 > pass the output from one command to the next.  The concept is the same, except
-> we use the `|` character rather than R's pipe operator `%>%`
+> the shell uses the `|` character rather than R's pipe operator `%>%`
 {: .callout}
 
 
