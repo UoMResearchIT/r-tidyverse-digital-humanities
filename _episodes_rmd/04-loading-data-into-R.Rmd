@@ -60,10 +60,13 @@ the read_csv() function to import the data, which we store in the variable named
 ```{r}
 library(readr)
 cats <- read_csv(file = "data/feline-data.csv")
+```
+We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
+
+```{r}
 cats
 ```
-
-When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 "tibble". A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
+When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 `tibble`. A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
 
 
 > ## read_csv() vs read.csv()
@@ -82,7 +85,6 @@ When we enter `cats` by itself on the command line, it will print the contents o
 > converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
 {: .callout}
 
-We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
 
 ## Data types
 
