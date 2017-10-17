@@ -124,7 +124,9 @@ perform a complex series of operations in one go
 > 
 > RStudio includes a helpful "cheat sheet", which summarises the main functionality
 > and syntax of `dplyr` and the related package `tidyr`.  This can be accessed via the
-> help menu --> cheatsheets --> data manipulation with dplyr, tidyr 
+> help menu --> cheatsheets --> data manipulation with dplyr, tidyr. 
+> (In RStudio 1.1 this has been replaced with the cheat sheet "data transformation with dplyr".)
+>
 {: .callout}
 
 Let's rewrite the previous command using the pipe operator:
