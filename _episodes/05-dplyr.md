@@ -143,7 +143,6 @@ year_country_gdp <- select(gapminder,year,country,gdpPercap)
 ~~~
 {: .r}
 
-![](../fig/13-dplyr-fig1.png)
 
 ## Using pipes and dplyr
 
