@@ -467,43 +467,6 @@ calcGDP(gapminder, year = 1997, country = "Australia")
 {: .challenge}
 
 
-> ## Challenge 4
->
-> The `paste` function can be used to combine text together, e.g:
->
-> ```{r}
-> best_practice <- c("Write", "programs", "for", "people", "not", "computers")
-> paste(best_practice, collapse=" ")
-> ```
->
->  Write a function called `fence` that takes two vectors as arguments, called
-> `text` and `wrapper`, and prints out the text wrapped with the `wrapper`:
->
-> ```{r, eval=FALSE}
-> fence(text=best_practice, wrapper="***")
-> ```
->
-> *Note:* the `paste` function has an argument called `sep`, which specifies the
-> separator between text. The default is a space: " ". The default for `paste0`
-> is no space "".
->
-> > ## Solution to challenge 4
-> >
-> >  Write a function called `fence` that takes two vectors as arguments, called
-> > `text` and `wrapper`, and prints out the text wrapped with the `wrapper`:
-> >
-> > ```{r}
-> > fence <- function(text, wrapper){
-> >   text <- c(wrapper, text, wrapper)
-> >   result <- paste(text, collapse = " ")
-> >   return(result)
-> > }
-> > best_practice <- c("Write", "programs", "for", "people", "not", "computers")
-> > fence(text=best_practice, wrapper="***")
-> > ```
-> {: .solution}
-{: .challenge}
-
 > ## Tip
 >
 > R has some unique aspects that can be exploited when performing
@@ -513,6 +476,10 @@ calcGDP(gapminder, year = 1997, country = "Australia")
 > [R Language Manual][man] or this [chapter][] from
 > [Advanced R Programming][adv-r] by Hadley Wickham. For context, R uses the
 > terminology "environments" instead of frames.
+>
+> The "programming with dplyr" vignette is highly recommended if you are
+> writing functions for dplyr.  This can be accessed by typing `vignette("programming", package="dplyr")`
+>  
 {: .callout}
 
 [man]: http://cran.r-project.org/doc/manuals/r-release/R-lang.html#Environment-objects
