@@ -473,8 +473,8 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 > ## Challenge:  Filtering by country name and year
 >
 > Create a new function that will filter by country name *and* by year, and then calculate the GDP
-> You can assume that both name and year will be provided; we will cover how to check this is true
-> in the next section
+> You can assume that both name and year will be provided as arguments to the function;
+> we will cover how to check this is true in the next section.
 >
 > > ## Solution
 > >
@@ -703,7 +703,7 @@ calcGDP(gapminder, year = 1997, country = "Australia")
 >
 > > ## Solution to challenge 3
 > >
-> > GDP for New Zealand in 1987: 65050008703
+> > GDP for New Zealand in 1987: 63050008703 
 > >
 > > GDP for New Zealand in 1952: 21058193787
 > {: .solution}
