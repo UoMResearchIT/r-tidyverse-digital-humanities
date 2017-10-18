@@ -352,14 +352,17 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 ```
 
 
-> ## Advanced Challenge
+> ## Challenge 4
 >
-> Calculate the average life expectancy in 2002 of 2 randomly selected countries
-> for each continent. Then arrange the continent names in reverse order.
-> **Hint:** Use the `dplyr` functions `arrange()` and `sample_n()`, they have
-> similar syntax to other dplyr functions.
+> Select two countries at random from each continent.  For each continent, calculate the 
+> average life expectancy of the two countries.   Then arrange the continent names in reverse order.
+> 
+> Hint: The `dplyr` function `sample_n()` can be used to select a sample of rows.  
 >
-> > ## Solution to Advanced Challenge
+> The final tibble should contain the columns `continent` and the average life expectancy. You do
+> *not* need to include the countries that were selected in it.
+>
+> > ## Solution to Challenge 4
 > >```{r}
 > >lifeExp_2countries_bycontinents <- gapminder %>%
 > >    filter(year==2002) %>%
@@ -368,6 +371,15 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 > >    arrange(desc(mean_lifeExp))
 > >```
+> >
+> > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
+> > same answer as last time?
+> > 
+> > As we're sampling the rows at random we expect to get a different answer from our neighbour, and each time
+> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`.  By default
+> > R generates a seed when one is first requried using the process ID of R and the current time (i.e. essentially at
+> > random. If you are using random numbers in your work you should set the seed at the start of your analysis
+> > so that your results are reproducible.
 > {: .solution}
 {: .challenge}
 
