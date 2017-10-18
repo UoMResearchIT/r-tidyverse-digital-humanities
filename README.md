@@ -1,11 +1,23 @@
 R for Reproducible Scientific Analysis
 ======================================
 
-An introduction to R for non-programmers using the [Gapminder][gapminder] data.
-Please see <https://swcarpentry.github.io/r-novice-gapminder> for a rendered version of this material,
+An introduction to R for non-programmers using the [Gapminder][gapminder] data and the tidyverse.
+
+This course is based on the [Software Carpentry](https://software-carpentry.org/) course, and has been abridged and modified. The most substantive changes are:
+
+* The Tidyverse is taught (the differences between, e.g. `data.frames` and `tibbles` is included in the notes - though this is mainly for reference).
+* Lists are not taught
+* The episode on `tidyr` has been removed, in the interests of time.
+* Git isn't covered (although version control is mentioned, and the learners are signposted to the Research IT's git course)
+
+A rendered version of the course notes can be found at <https://mawds.github.io/r-novice-gapminder/>.
+
+A rendered version of the original Software Carpentry lesson can be found at: <https://swcarpentry.github.io/r-novice-gapminder>,
 [the lesson template documentation][lesson-example]
 for instructions on formatting, building, and submitting material,
 or run `make` in this directory for a list of helpful commands.
+
+The remainder of this README is from the original Software Carpentry version of the lesson:
 
 The goal of this lesson is to teach novice programmers to write modular code
 and best practices for using R for data analysis. R is commonly used in many
