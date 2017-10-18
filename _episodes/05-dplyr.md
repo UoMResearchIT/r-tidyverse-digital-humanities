@@ -337,7 +337,7 @@ gapminder_totalgdp <- gapminder %>%
 > and the rank of the country's life expectancy. 
 >
 > Hint: First filter and then use mutate to create a new variable with the rank in it.  The cheat-sheet contains useful
-> functions you can use when you make new variables (the cheet-sheets can be found in the help menu in RStudio)
+> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio)
 >
 > Can you reverse the ranking order
 > so that the country with the longest life expectancy gets the lowest rank?
