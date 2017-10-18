@@ -176,8 +176,8 @@ Note that the order of these operations matters; if we reversed the order of the
 > ## Challenge 1
 >
 > Write a single command (which can span multiple lines and includes pipes) that
-> will produce a dataframe that has the African values for `lifeExp`, `country`
-> and `year`, but not for other Continents.  How many rows does your data frame
+> will produce a dataframe that has the values of `lifeExp`, `country`
+> and `year`, for the countries in Africa, but not for other Continents.  How many rows does your data frame
 > have?
 >
 > > ## Solution to Challenge 1
