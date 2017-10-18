@@ -207,6 +207,17 @@ year_country_gdp_euro <- gapminder %>%
 
 Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
 
+What about if we wanted to match more than one item?  To do this we use the `%in%` operator:
+
+
+~~~
+gapminder_benelux <- gapminder %>% 
+  filter(country %in% c("Belgium", "Netherlands", "France"))
+~~~
+{: .r}
+
+
+
 > ## Another way of thinking about pipes
 >
 > It might be useful to think of the statement
