@@ -163,7 +163,7 @@ one to store the analysis scripts.
 Now we have a good directory structure we will now place/save the data file in the `data/` directory.
 
 > ## Challenge 1
-> Copy the files `gapminder-FiveYearData.csv`, and `feline-data_v2.csv` files from the [zip file you downloaded](https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  Also create a `src/` and `results/` folder within your project.
+> Copy the files `gapminder-FiveYearData.csv`, and `feline-data_v2.csv` files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  Also create a `src/` and `results/` folder within your project.
 > We will use these data later in the course.
 >
 > Note that you cannot drag and drop files from Windows Explorer

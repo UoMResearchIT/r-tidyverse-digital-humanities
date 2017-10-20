@@ -34,7 +34,7 @@ cats <- cats_orig
 One of R's most powerful features is its ability to deal with tabular data -
 such as you may already have in a spreadsheet or a CSV file. 
 
-The [course data](https://github.com/mawds/r-novice-gapminder/raw/gh-pages/data/r-novice.zip) contains a .csv file
+The [course data]({{ page.root }}/data/r-novice.zip) contains a .csv file
 called `feline-data.csv`, which you copied to the `data/` folder when we discussed managing projects in RStudio.
 
 ```{r, eval=FALSE}
