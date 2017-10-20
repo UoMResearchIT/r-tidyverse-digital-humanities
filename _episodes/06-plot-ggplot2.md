@@ -11,7 +11,8 @@ objectives:
 - "To be able to find extensions for `ggplot2` to produce custom graphics"
 keypoints:
 - "Use `ggplot2` to create plots."
-- "Think about graphics in layers: aesthetics, geometry, statistics, scale transformation, and grouping."
+- "We can feed the output of a `dplyr` pipe into `ggplot2` to pre-process data"
+- "Plots are built up using layers: aesthetics, geometry, statistics, scale transformation, and grouping."
 source: Rmd
 ---
 
