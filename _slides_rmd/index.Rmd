@@ -20,7 +20,7 @@ Initial tasks:
 
 1. Log into a PC (or have your laptop ready to use)
 2. Check you can load RStudio
-3. Open the course notes page at [https://mawds.github.io/r-novice-gapminder/](https://mawds.github.io/r-novice-gapminder/)
+3. Open the course notes page at [https://UoMResearchIT.github.io/r-tidyverse-intro/](https://UoMResearchIT.github.io/r-tidyverse-intro/)
   * There is a link to this slideshow there
 4. Open the course's shared Etherpad at [http://bit.ly/2yMy48D](http://bit.ly/2yMy48D)
 4. There is no sign-in sheet.  Attendance is recorded via the feedback form [http://bit.ly/2xP95Ef](http://bit.ly/2xP95Ef)
