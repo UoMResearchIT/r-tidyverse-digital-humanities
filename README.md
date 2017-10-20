@@ -1,4 +1,4 @@
-R for Reproducible Scientific Analysis
+R for Data Analysis 
 ======================================
 
 An introduction to R for non-programmers using the [Gapminder][gapminder] data and the tidyverse.
@@ -10,7 +10,7 @@ This course is based on the [Software Carpentry](https://software-carpentry.org/
 * The episode on `tidyr` has been removed, in the interests of time.
 * Git isn't covered (although version control is mentioned, and the learners are signposted to the Research IT's git course)
 
-A rendered version of the course notes can be found at <https://mawds.github.io/r-novice-gapminder/>.
+A rendered version of the course notes can be found at <https://UoMResearchIT.github.io/r-tidyverse-intro/>.
 
 A rendered version of the original Software Carpentry lesson can be found at: <https://swcarpentry.github.io/r-novice-gapminder>,
 [the lesson template documentation][lesson-example]
