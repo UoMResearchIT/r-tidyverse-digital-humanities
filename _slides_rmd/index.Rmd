@@ -1,7 +1,6 @@
 ---
 title: "Data Analysis Using R"
 author: "David Mawdsley"
-date: "17 October 2017"
 output: 
   revealjs::revealjs_presentation:
     center: false
