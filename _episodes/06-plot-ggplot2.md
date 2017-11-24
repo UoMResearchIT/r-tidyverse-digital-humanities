@@ -498,7 +498,7 @@ gapminder %>%
   scale_x_log10() + 
   geom_density(alpha = 0.6) +
   labs(
-    x = "GDP per capita (log scale)",              # x axis title
+    x = "GDP per capita (log scale)", # x axis title
     y = "Density",   # y axis title
     title = "Figure 1",      # main title of figure
     fill = "Continent"      # title of legend
@@ -532,12 +532,12 @@ We can save the most recently produced ggplot using the `ggsave()` function:
 
 ~~~
 ggsave("plots/myplot.png")
+# Can also set the size of plot
 ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 ~~~
 {: .language-r}
 
-The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the
-resolution and size of the saved image.
+The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the resolution and size of the saved image.
 
 
 ## ggplot themes and extensions
