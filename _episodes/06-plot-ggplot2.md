@@ -32,7 +32,7 @@ package, and the [ggplot2][ggplot2] package.
 
 Today we'll be learning about the ggplot2 package, because
 it is the most effective for creating publication quality
-graphics.  It is also part of the tidyverse, which we introduced in [episode 4]({{ page.root }}/05-dplyr).
+graphics.  It is also part of the tidyverse, which we introduced in [episode 5]({{ page.root }}/05-dplyr).
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
@@ -52,7 +52,7 @@ library("tidyverse")
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-vs-gdpPercap-scatter-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter" alt="plot of chunk lifeExp-vs-gdpPercap-scatter" style="display: block; margin: auto;" />
 
@@ -75,7 +75,7 @@ By itself, the call to `ggplot` isn't enough to draw a figure:
 ~~~
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
@@ -89,7 +89,7 @@ tells `ggplot` we want to visually represent the relationship between **x** and
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-vs-gdpPercap-scatter2-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter2" alt="plot of chunk lifeExp-vs-gdpPercap-scatter2" style="display: block; margin: auto;" />
 
@@ -104,7 +104,7 @@ We can repeat the above plot, using a pipe, as follows:
 ~~~
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` symbol.
@@ -125,7 +125,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 > > ~~~
 > > gapminder %>%  ggplot(aes(x = year, y = lifeExp)) + geom_point()
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch1-sol-1.png" title="plot of chunk ch1-sol" alt="plot of chunk ch1-sol" style="display: block; margin: auto;" />
 > >
@@ -154,7 +154,7 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 > > gapminder %>% ggplot(aes(x = year, y = lifeExp, color = continent)) +
 > >   geom_point()
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch2-sol-1.png" title="plot of chunk ch2-sol" alt="plot of chunk ch2-sol" style="display: block; margin: auto;" />
 > >
@@ -172,7 +172,7 @@ Instead, let's tell `ggplot` to visualize the data as a line plot:
 gapminder %>%  ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
   geom_line()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-line-1.png" title="plot of chunk lifeExp-line" alt="plot of chunk lifeExp-line" style="display: block; margin: auto;" />
 
@@ -188,7 +188,7 @@ simply add another layer to the plot:
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
   geom_line() + geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-line-point-1.png" title="plot of chunk lifeExp-line-point" alt="plot of chunk lifeExp-line-point" style="display: block; margin: auto;" />
 
@@ -201,7 +201,7 @@ demonstration:
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
   geom_line(aes(color = continent)) + geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-layer-example-1-1.png" title="plot of chunk lifeExp-layer-example-1" alt="plot of chunk lifeExp-layer-example-1" style="display: block; margin: auto;" />
 
@@ -230,7 +230,7 @@ lines.
 > > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 > >  geom_point() + geom_line(aes(color = continent))
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch3-sol-1.png" title="plot of chunk ch3-sol" alt="plot of chunk ch3-sol" style="display: block; margin: auto;" />
 > >
@@ -249,7 +249,7 @@ demonstrate we'll go back to our first example:
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color= continent)) +
   geom_point()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lifeExp-vs-gdpPercap-scatter3-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter3" alt="plot of chunk lifeExp-vs-gdpPercap-scatter3" style="display: block; margin: auto;" />
 
@@ -265,7 +265,7 @@ a large amount of data which is very clustered.
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point(alpha = 0.5) + scale_x_log10()
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-axis-scale-1.png" title="plot of chunk axis-scale" alt="plot of chunk axis-scale" style="display: block; margin: auto;" />
 
@@ -289,7 +289,7 @@ We can fit a simple relationship to the data by adding another layer,
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10() + geom_smooth(method = "lm")
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lm-fit-1.png" title="plot of chunk lm-fit" alt="plot of chunk lm-fit" style="display: block; margin: auto;" />
 
@@ -301,7 +301,7 @@ We can make the line thicker by *setting* the **size** aesthetic in the
 gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point() + scale_x_log10() + geom_smooth(method = "lm", size = 1.5)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-lm-fit2-1.png" title="plot of chunk lm-fit2" alt="plot of chunk lm-fit2" style="display: block; margin: auto;" />
 
@@ -330,7 +330,7 @@ variables and their visual representation.
 > >  geom_point(size = 3, color = "orange") + scale_x_log10() +
 > >  geom_smooth(method = "lm", size = 1.5)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch4a-sol-1.png" title="plot of chunk ch4a-sol" alt="plot of chunk ch4a-sol" style="display: block; margin: auto;" />
 > {: .solution}
@@ -356,7 +356,7 @@ variables and their visual representation.
 > > geom_point(size = 3, shape = 17) + scale_x_log10() +
 > > geom_smooth(method = "lm", size = 1.5)
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > ><img src="../fig/rmd-06-ch4b-sol-1.png" title="plot of chunk ch4b-sol" alt="plot of chunk ch4b-sol" style="display: block; margin: auto;" />
 > {: .solution}
@@ -375,7 +375,7 @@ by adding a layer of **facet** panels.
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
   geom_line() + facet_wrap( ~ continent)
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
@@ -399,7 +399,7 @@ of the gapminder dataset.
 > >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
 > >  geom_line() + facet_wrap( ~ continent)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > >
 > > This will produce a plot that only shows (part of) the legend.
 > > we can hide the legend using `guides(colour = "none")`
@@ -409,7 +409,7 @@ of the gapminder dataset.
 > >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
 > >  geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
 > {: .solution}
@@ -438,7 +438,7 @@ of the gapminder dataset.
 > >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
 > >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
 > {: .solution}
@@ -461,7 +461,7 @@ gapminder %>%
   scale_x_log10() + 
   geom_density(alpha = 0.6) 
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
@@ -495,7 +495,7 @@ gapminder %>%
     fill = "Continent"      # title of legend
   ) 
 ~~~
-{: .r}
+{: .language-r}
 
 <img src="../fig/rmd-06-theme-1.png" title="plot of chunk theme" alt="plot of chunk theme" style="display: block; margin: auto;" />
 
@@ -525,7 +525,7 @@ We can save the most recently produced ggplot using the `ggsave()` function:
 ggsave("plots/myplot.png")
 ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 ~~~
-{: .r}
+{: .language-r}
 
 The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the
 resolution and size of the saved image.
@@ -551,7 +551,7 @@ gapminder %>%
   scale_x_log10() + 
   geom_density_ridges(alpha = 0.6) 
 ~~~
-{: .r}
+{: .language-r}
 
 
 
