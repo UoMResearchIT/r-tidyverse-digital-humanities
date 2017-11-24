@@ -19,7 +19,7 @@ source: Rmd
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
+R packages extend the functionality of R.  Over 11,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
 
 We can see the packages installed on an R installation via the "packages" tab in RStudio, or by typing `installed.packages()` at the prompt, or by selecting the "Packages" tab in RStudio.
 
@@ -63,7 +63,7 @@ If a package is available on [CRAN](https://cran.r-project.org), you can install
 ~~~
 install.packages("packagename")
 ~~~
-{: .r}
+{: .language-r}
 
 This will automatically install any packages that the package you are installing depends on.
 
@@ -73,32 +73,31 @@ Installing a package doesn't make the functions included in it available to you;
 ~~~
 library("tidyverse")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
 ~~~
-Loading tidyverse: ggplot2
-Loading tidyverse: tibble
-Loading tidyverse: tidyr
-Loading tidyverse: readr
-Loading tidyverse: purrr
-Loading tidyverse: dplyr
+── Attaching packages ────────────────────────────────── tidyverse 1.2.0 ──
 ~~~
 {: .output}
 
 
 
 ~~~
-Conflicts with tidy packages ----------------------------------------------
+✔ ggplot2 2.2.1     ✔ readr   1.1.1
+✔ tibble  1.3.4     ✔ purrr   0.2.4
+✔ tidyr   0.7.2     ✔ dplyr   0.7.4
+✔ ggplot2 2.2.1     ✔ forcats 0.2.0
 ~~~
 {: .output}
 
 
 
 ~~~
-filter(): dplyr, stats
-lag():    dplyr, stats
+── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
 ~~~
 {: .output}
 
@@ -123,7 +122,7 @@ namespace (your interactive R session):
 ?function_name
 help(function_name)
 ~~~
-{: .r}
+{: .language-r}
 
 This will load up a help page in RStudio (or by launching a web browser, or  as plain text if you are using R without RStudio).
 
@@ -155,7 +154,7 @@ To seek help on special operators, use quotes:
 ~~~
 ?"<-"
 ~~~
-{: .r}
+{: .language-r}
 
 ## Getting help on packages
 
@@ -175,7 +174,7 @@ If you're not sure what package a function is in, or how it's specifically spell
 ~~~
 ??function_name
 ~~~
-{: .r}
+{: .language-r}
 > ## Citing R and R packages
 > If you use R in your work you should cite it, and the packages you use. The `citation()` command will return the appropriate citation for R itself.  `citation(packagename)` will provide the citation for `packagename`. 
 >
@@ -195,7 +194,7 @@ help you ask a question from your peers:
 ~~~
 ?dput
 ~~~
-{: .r}
+{: .language-r}
 
 Will dump the data you're working with into a format so that it can
 be copy and pasted by anyone else into their R session.
@@ -211,7 +210,7 @@ Many of the packages in R are frequently updated.  This does mean that code writ
 ~~~
 sessionInfo()
 ~~~
-{: .r}
+{: .language-r}
 
 
 ## Other ports of call
