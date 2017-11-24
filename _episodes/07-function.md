@@ -203,6 +203,12 @@ into ever-larger chunks to get the effect we want.
 
 ## Programming with dplyr
 
+A lot of the "cleverness" of the tidyverse comes from how it handles the values we pass to its functions.
+This lets us write code in a very expressive way (for example, the idea of treating the dplyr
+pipelines as a sentence consisting of a series of verbs, with the `%>%` operator being read as "and then".   Unfortunately this comes at a price when we come to use `dplyr` in our own functions.  The `dplyr` functions use what is known as Non Standard Evaluation; this means that they don't evaluate their parameters in the standard way that the examples in this episode have used so far.  This is probably the most complicted concept we will cover today, so pleae don't worry if you don't "get" it at first attempt. 
+
+We'll illustrate this by way of an example.
+
 Let's write a function that will filter our gapminder data by year *and* calculate the GDP of all the countries 
 that are returned.   First, let's think about how we'd do this *without* using a function.  We'll then put our 
 code in a function; this will let us easily repeat the calculation for other years, without re-writing the code.
@@ -221,7 +227,9 @@ gdpgapfiltered <- gapminder %>%
 
 Note that we filter by year first, and _then_ calculate the GDP.  Although we could reverse the order of the `filter()` and `mutate()` functions, it is more efficient to filter the data and then calculate the GDP on the remaining data.
 
-Let's put this code in a function:
+Let's put this code in a function; note that we change the input data to be the parameter we pass when we call
+the function, and our hard-coded year to be the year parameter (it's _really_ easy to forget to make these changes
+when you start making functions from existing code):
 
 
 ~~~
@@ -272,9 +280,59 @@ Look at the line:
 
 We passed a value of `year` into the function when we called it.  R has no way of knowing we're referring to the function parameter's `year` rather than the tibble's `year` variable.     We run into this problem because `dplyr` uses what's known as "Non Standard Evaluation" (NSE); this means that the package doesn't follow R's usual rules about how parameters are evaluated.  
 
-NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
+NSE is usually really useful; when we've written things like `gapminder %>% select(year, country)` we've made use of non standard evaluation.  This is much more intuitive than the base R equivalent, where we'd have to write something like `gapminder[, names(gapminder) %in% c("year", "country")]`. Non standard evaluation lets the `select()` function work out that we're referring to variable names in the tibble.  Unfortunately this simplicity comes at a price when we come to write functions.  It means we need a way of telling R whether we're referring to a variable in the tibble, or a parameter we've passed via the function.
 
-We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`).   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `UQ()` ("unquote") function:
+If we're  using standard evaluation, then we see the value of the year parameter.  For example, let's put
+a `print()` statement in our function:
+
+
+
+~~~
+calc_GDP_and_filter <- function(dat, year){
+  # For debugging
+  print(year)
+  
+  gdpgapfiltered <- dat %>%
+      filter(year == year) %>% 
+      mutate(gdp = gdpPercap * pop)
+  
+  return(gdpgapfiltered)
+  
+}
+
+calc_GDP_and_filter(gapminder, 1997)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1997
+~~~
+{: .output}
+
+
+
+~~~
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap         gdp
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+
+We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`), or another function that uses non standard evaluation.   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `UQ()` ("unquote") function:
 
 
 ~~~
@@ -406,13 +464,15 @@ calc_GDP_and_filter(gap_noyear, 1997)
 ~~~
 {: .output}
 
-As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_.  This is the `calc_GDP_and_filter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
+As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_,  This is the `calc_GDP_and_filter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
+
 
 ~~~
     filter(1997 == 1997) %>% 
 ~~~
 {: .language-r}
-which is `TRUE`, so the filter won't do anything!
+
+which is always `TRUE`, so the filter won't do anything!
 
 We need a way of telling the function that the first `year` "belongs" to the data.  We can do this with the `.data` pronoun:
 
@@ -468,7 +528,6 @@ Error in filter_impl(.data, quo): Evaluation error: Column `year`: not found in 
 
 
 As you can see, we've also used the `.data` pronoun when calculating the GDP; if our tibble was missing either the `gdpPercap` or `pop` variables, R would search in the calling environment (i.e. the `calc_GDP_and_filter()` function).  As the variables aren't found there it would look in the `calc_GDP_and_filter()`'s calling environment, and so on.  If it finds variables matching these names, they would be used instead, giving an incorrect result; if they cannot be found we will get an error.  Using the `.data` pronoun makes our source of the data clear, and prevents this risk.
-
 
 > ## Challenge:  Filtering by country name and year
 >
@@ -533,6 +592,7 @@ At the moment, the function we wrote in the challenge will calculate the GDP for
 > > ~~~
 > > {: .error}
 > >
+> > R requires that we provide an argument to each of the parameters. 
 > {: .solution}
 {: .discussion}
 
