@@ -100,7 +100,7 @@ The simplest thing you could do with R is do arithmetic:
 ~~~
 1 + 100
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -159,7 +159,7 @@ From highest to lowest precedence:
 ~~~
 3 + 5 * 2
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -176,7 +176,7 @@ intend.
 ~~~
 (3 + 5) * 2
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -194,7 +194,7 @@ Remember that others may later read your code.
 3 + 5 * 2 ^ 2       # clear, if you remember the rules
 3 + 5 * (2 ^ 2)     # if you forget some rules, this might help
 ~~~
-{: .r}
+{: .language-r}
 
 
 The text after each line of code is called a
@@ -207,7 +207,7 @@ Really small or large numbers get a scientific notation:
 ~~~
 2/10000
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -225,7 +225,7 @@ You can write numbers in scientific notation too:
 ~~~
 5e3  # Note the lack of minus here
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -245,7 +245,7 @@ arguments:
 ~~~
 sin(1)  # trigonometry functions
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -258,7 +258,7 @@ sin(1)  # trigonometry functions
 ~~~
 log(1)  # natural logarithm
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -271,7 +271,7 @@ log(1)  # natural logarithm
 ~~~
 log10(10) # base-10 logarithm
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -284,7 +284,7 @@ log10(10) # base-10 logarithm
 ~~~
 exp(0.5) # e^(1/2)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -384,7 +384,7 @@ We can also do comparison in R:
 ~~~
 1 == 1  # equality (note two equals signs, read as "is equal to")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -397,7 +397,7 @@ We can also do comparison in R:
 ~~~
 1 != 2  # inequality (read as "is not equal to")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -410,7 +410,7 @@ We can also do comparison in R:
 ~~~
 1 < 2  # less than
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -423,7 +423,7 @@ We can also do comparison in R:
 ~~~
 1 <= 1  # less than or equal to
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -436,7 +436,7 @@ We can also do comparison in R:
 ~~~
 1 > 0  # greater than
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -449,7 +449,7 @@ We can also do comparison in R:
 ~~~
 1 >= -9 # greater than or equal to
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -486,7 +486,7 @@ We can store values in variables using the assignment operator `<-`, like this:
 ~~~
 x <- 1/40
 ~~~
-{: .r}
+{: .language-r}
 
 Notice that assignment does not print a value. Instead, we stored it for later
 in something called a **variable**. `x` now contains the **value** `0.025`:
@@ -495,7 +495,7 @@ in something called a **variable**. `x` now contains the **value** `0.025`:
 ~~~
 x
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -514,7 +514,7 @@ have appeared. Our variable `x` can be used in place of a number in any calculat
 ~~~
 log(x)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -529,7 +529,7 @@ Notice also that variables can be reassigned:
 ~~~
 x <- 100
 ~~~
-{: .r}
+{: .language-r}
 
 `x` used to contain the value 0.025 and and now it has the value 100.
 
@@ -539,7 +539,7 @@ Assignment values can contain the variable being assigned to:
 ~~~
 x <- x + 1 #notice how RStudio updates its description of x on the top right tab
 ~~~
-{: .r}
+{: .language-r}
 
 The right hand side of the assignment can be any valid R expression.
 The right hand side is *fully evaluated* before the assignment occurs.
@@ -562,7 +562,7 @@ It is also possible to use the `=` operator for assignment:
 ~~~
 x = 1/40
 ~~~
-{: .r}
+{: .language-r}
 
 But this is much less common among R users.  The most important thing is to
 **be consistent** with the operator you use. There are occasionally places
@@ -575,7 +575,7 @@ We aren't limited to storing numbers in variables:
 ~~~
 sentence <- "the cat sat on the mat"
 ~~~
-{: .r}
+{: .language-r}
 
 Note that we need to put strings of characters inside quotes.  
 
@@ -585,7 +585,7 @@ But the type of data that is stored in a variable affects what we can do with it
 ~~~
 x + 1
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -599,7 +599,7 @@ x + 1
 ~~~
 sentence + 1
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -625,7 +625,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > 2widths
 > celsius2kelvin
 > ~~~
-> {: .r}
+> {: .language-r}
 >
 > > ## Solution to challenge 1
 > >
@@ -637,14 +637,14 @@ We will discuss the important concept of _data types_ in the next episode.
 > > MaxLength
 > > celsius2kelvin
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > >
 > > The following creates a hidden variable:
 > > 
 > > ~~~
 > > .mass
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > >
 > > The following will not be able to be used to create a variable
 > > 
@@ -653,7 +653,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > > min-length
 > > 2widths
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -669,7 +669,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > mass <- mass * 2.3
 > age <- age - 20
 > ~~~
-> {: .r}
+> {: .language-r}
 >
 > > ## Solution to challenge 2
 > >
@@ -677,21 +677,21 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ~~~
 > > mass <- 47.5
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > This will give a value of 47.5 for the variable mass
 > >
 > > 
 > > ~~~
 > > age <- 122
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > This will give a value of 122 for the variable age
 > >
 > > 
 > > ~~~
 > > mass <- mass * 2.3
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > This will multiply the existing value of 47.5 by 2.3 to give a new value of
 > > 109.25 to the variable mass.
 > >
@@ -699,7 +699,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ~~~
 > > age <- age - 20
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > This will subtract 20 from the existing value of 122 to give a new value
 > > of 102 to the variable age.
 > {: .solution}
@@ -718,7 +718,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ~~~
 > > mass > age
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -740,7 +740,7 @@ consecutive values:
 ~~~
 1:5
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -754,7 +754,7 @@ consecutive values:
 ~~~
 -3:3
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -768,7 +768,7 @@ consecutive values:
 ~~~
 5:1
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -784,7 +784,7 @@ We can apply functions to all the elements of a vector:
 ~~~
 (1:5) * 2
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -798,7 +798,7 @@ We can apply functions to all the elements of a vector:
 ~~~
 2^(1:5)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -813,7 +813,7 @@ We can assign a vector to a variable:
 ~~~
 x <- 5:10
 ~~~
-{: .r}
+{: .language-r}
 
 We can also create vectors "by hand" using the `c()` function; this tersely named function is used to _combine_ values into a vector; these values can, themselves, be vectors:
 
@@ -821,7 +821,7 @@ We can also create vectors "by hand" using the `c()` function; this tersely name
 ~~~
 c(2, 4, -1)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -835,7 +835,7 @@ c(2, 4, -1)
 ~~~
 c(x, 2, 2, 3)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -850,7 +850,7 @@ Vectors aren't limited to storing numbers:
 ~~~
 c("a", "b", "c", "def")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -864,7 +864,7 @@ R comes with a few built in vectors containing useful sequences:
 ~~~
 LETTERS
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -879,7 +879,7 @@ LETTERS
 ~~~
 letters
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -894,7 +894,7 @@ letters
 ~~~
 month.abb
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -909,7 +909,7 @@ month.abb
 ~~~
 month.name
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -925,7 +925,7 @@ month.name
 ~~~
 pi
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -943,7 +943,7 @@ We can calculate how many elements a vector contains using the `length()` functi
 ~~~
 length(x)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -957,7 +957,7 @@ length(x)
 ~~~
 length(letters)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -976,7 +976,7 @@ Having defined a vector, it's often useful to _extract_ parts of a vector.   We 
 ~~~
 month.name[2]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -990,7 +990,7 @@ month.name[2]
 ~~~
 month.name[2:4]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1006,7 +1006,7 @@ extract operator `[]`.   We can also generate this sequence using the `c()` func
 ~~~
 month.name[c(2,3,4)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1026,7 +1026,7 @@ We can pass the extract operator a vector of indices that we wish to extract:
 ~~~
 month.name[c(1,2,3)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1040,7 +1040,7 @@ month.name[c(1,2,3)]
 ~~~
 month.name[c(11,12)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1056,7 +1056,7 @@ than once:
 ~~~
 month.name[4:2]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1070,7 +1070,7 @@ month.name[4:2]
 ~~~
 month.name[c(1,1,2,3,4)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1091,7 +1091,7 @@ month.name[c(1,1,2,3,4)]
 > > ~~~
 > > letters[length(letters):1]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1117,7 +1117,7 @@ If we try and extract an element that doesn't exist in the vector, the missing v
 ~~~
 month.name[10:13]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1134,7 +1134,7 @@ month.name[10:13]
 ~~~
 1 + NA
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1150,7 +1150,7 @@ This raises an interesting point; how do we test if a value is `NA`?  This doesn
 x <- NA
 x == NA
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1179,7 +1179,7 @@ every element *except* for the one specified:
 ~~~
 month.name[-2]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1196,7 +1196,7 @@ We can skip multiple elements:
 ~~~
 month.name[c(-1, -5)]  # or month.name[-c(1,5)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1224,7 +1224,7 @@ month.name[c(-1, -5)]  # or month.name[-c(1,5)]
 > ~~~
 > month.name[-1:3]
 > ~~~
-> {: .r}
+> {: .language-r}
 >
 > This gives a somewhat cryptic error:
 >
@@ -1245,7 +1245,7 @@ month.name[c(-1, -5)]  # or month.name[-c(1,5)]
 > ~~~
 > -(1:3)
 > ~~~
-> {: .r}
+> {: .language-r}
 > 
 > 
 > 
@@ -1259,7 +1259,7 @@ month.name[c(-1, -5)]  # or month.name[-c(1,5)]
 > ~~~
 > month.name[-(1:3)]
 > ~~~
-> {: .r}
+> {: .language-r}
 > 
 > 
 > 
@@ -1279,7 +1279,7 @@ can pass a _logical vector_ to R indicating the indices we wish to select:
 ~~~
 month.name[c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1294,7 +1294,7 @@ What happens if we supply a logical vector that is shorter than the vector we're
 ~~~
 month.name[c(TRUE,FALSE)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1309,7 +1309,7 @@ This illustrates the idea of _vector recycling_; the `[]` extract operator recyc
 ~~~
 month.name[c(TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE)]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1327,7 +1327,7 @@ the logical vector:
 my_vector <- c(0.01, 0.69, 0.51, 0.39, 0.81, 0.93, 0.49, 0.34, 0.84, 0.16)
 my_vector > 0.5
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1341,7 +1341,7 @@ my_vector > 0.5
 ~~~
 my_vector[my_vector > 0.5]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -1391,7 +1391,7 @@ my_vector[my_vector > 0.5]
 > x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
 > print(x)
 > ~~~
-> {: .r}
+> {: .language-r}
 > 
 > 
 > 
@@ -1416,7 +1416,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > x[2:4]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1428,7 +1428,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > x[-c(1,5)]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1440,7 +1440,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > x[c(2,3,4)]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1452,7 +1452,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > x[c(FALSE, TRUE, TRUE, TRUE, FALSE)]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1466,7 +1466,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > x[c(FALSE, TRUE, TRUE, TRUE)]
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -1487,7 +1487,7 @@ One thing you may have noticed is that all the data in a vector has been the sam
 ~~~
 c(1, 2, "three", "four", 5)
 ~~~
-{: .r}
+{: .language-r}
 
 
 

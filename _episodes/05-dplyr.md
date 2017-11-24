@@ -25,32 +25,31 @@ We load the core libraries in the tidyverse with:
 ~~~
 library("tidyverse")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
 ~~~
-Loading tidyverse: ggplot2
-Loading tidyverse: tibble
-Loading tidyverse: tidyr
-Loading tidyverse: readr
-Loading tidyverse: purrr
-Loading tidyverse: dplyr
+── Attaching packages ────────────────────────────────── tidyverse 1.2.0 ──
 ~~~
 {: .output}
 
 
 
 ~~~
-Conflicts with tidy packages ----------------------------------------------
+✔ ggplot2 2.2.1     ✔ readr   1.1.1
+✔ tibble  1.3.4     ✔ purrr   0.2.4
+✔ tidyr   0.7.2     ✔ dplyr   0.7.4
+✔ ggplot2 2.2.1     ✔ forcats 0.2.0
 ~~~
 {: .output}
 
 
 
 ~~~
-filter(): dplyr, stats
-lag():    dplyr, stats
+── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
 ~~~
 {: .output}
 
@@ -64,7 +63,7 @@ As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1
 ~~~
 gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -97,7 +96,7 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
                                gdpPercap = col_double()
 ) )
 ~~~
-{: .r}
+{: .language-r}
 
 > ## Setting column types
 > 
@@ -141,7 +140,7 @@ variables you select.
 ~~~
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 
 ## Using pipes and dplyr
@@ -163,8 +162,8 @@ perform a complex series of operations in one go
 
 > ## Keyboard shortcuts and getting help
 > 
-> The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use `cmd+shift+m`.
+> The pipe operator can be tedious to type.  In Rstudio pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd> under
+> Windows / Linux will insert the pipe operator.  On the mac, use <kbd>&#8984;</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd>.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.
@@ -182,7 +181,7 @@ Let's rewrite the previous command using the pipe operator:
 ~~~
 year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 To help you understand why we wrote that in that way, let's walk through it step
 by step. First we summon the gapminder data frame and pass it on, using the pipe
@@ -203,7 +202,7 @@ year_country_gdp_euro <- gapminder %>%
     filter(continent=="Europe") %>%
     select(year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
 
@@ -214,7 +213,35 @@ What about if we wanted to match more than one item?  To do this we use the `%in
 gapminder_benelux <- gapminder %>% 
   filter(country %in% c("Belgium", "Netherlands", "France"))
 ~~~
-{: .r}
+{: .language-r}
+
+> ## Splitting your commands over multiple lines
+> 
+> It's generally a good idea to put one command per line when
+> writing your analyses.  This makes them easier to read.   When
+> doing this, it's important that the `%>%` goes at the _end_ of the
+> line, as in the example above.  If we put it at the beginning of a line, e.g.:
+> 
+> 
+> ~~~
+> gapminder_benelux <- gapminder 
+> %>% filter(country %in% c("Belgium", "Netherlands", "France"))
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error: <text>:2:1: unexpected SPECIAL
+> 1: gapminder_benelux <- gapminder 
+> 2: %>%
+>    ^
+> ~~~
+> {: .error}
+> 
+> the first line makes a valid R command.  R will then treat the next line 
+> as a new command, which won't work.
+{: .callout}
 
 
 
@@ -227,13 +254,13 @@ gapminder_benelux <- gapminder %>%
 >     filter(continent=="Europe") %>%
 >     select(year,country,gdpPercap)
 > ~~~
-> {: .r}
+> {: .language-r}
 >  as a sentence, which we can read as
 > "take the gapminder data *and then* `filter` it for records where continent == Europe
 > *and then* `select` the year, country and gdpPercap
 > 
 > We can think of the `filter()` and `select()` functions as verbs in the sentence; 
-> they do things to the data flowing through the pipeline
+> they do things to the data flowing through the pipeline.
 >
 {: .callout}
 
@@ -252,7 +279,7 @@ gapminder_benelux <- gapminder %>%
 > >                            select(year,country,lifeExp)
 > > nrow(year_country_lifeExp_Africa)
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > >
 > >
@@ -278,7 +305,7 @@ gapminder %>%
   filter(continent == "Europe", year == 2007) %>% 
   arrange(pop)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -307,7 +334,7 @@ gapminder %>%
   filter(continent == "Europe", year == 2007) %>% 
   arrange(desc(pop))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -340,7 +367,7 @@ As an example, the gapminder data contains the population of each country, and i
 gapminder_totalgdp <- gapminder %>% 
   mutate(gdp = gdpPercap * pop)
 ~~~
-{: .r}
+{: .language-r}
 
 > ## Challenge 2
 > 
@@ -363,7 +390,7 @@ gapminder_totalgdp <- gapminder %>%
 > >   mutate(rank = min_rank(lifeExp))
 > > print(europeLifeExp, n=100)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -426,7 +453,7 @@ gapminder %>%
   filter(year == 2007) %>% 
   summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -448,7 +475,7 @@ gapminder %>%
   group_by(continent) %>% 
   summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -466,7 +493,7 @@ gapminder %>%
 
 > ## Challenge 3
 >
-> Calculate the average life expectancy in each continent, for each year.
+> For each combination of continent and year, calculate the average life expectancy.
 >
 > > ## Solution to Challenge 3
 > >
@@ -477,7 +504,7 @@ gapminder %>%
 > >   summarise(mean_lifeExp = mean(lifeExp))
 > > print(lifeExp_bycontinentyear)
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > >
 > >
@@ -518,7 +545,7 @@ gapminder %>%
     group_by(continent) %>%
     summarize(se_pop = sd(lifeExp)/sqrt(n()))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -545,7 +572,7 @@ gapminder %>%
     filter(year == 2002) %>%
     count(continent, sort = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -593,7 +620,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
     summarize(mean_gdpPercap = mean(gdpPercap),
               mean_gdpPercap_expected = mean(gdp_futureExpectation))
 ~~~
-{: .r}
+{: .language-r}
 
 
 > ## Challenge 4
@@ -609,23 +636,40 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > > ## Solution to Challenge 4
 > >
 > >~~~
+> >set.seed(171124)
 > >lifeExp_2countries_bycontinents <- gapminder %>%
 > >    filter(year==2002) %>%
 > >    group_by(continent) %>%
 > >    sample_n(2) %>%
 > >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 > >    arrange(desc(mean_lifeExp))
+> >lifeExp_2countries_bycontinents 
 > >~~~
-> >{: .r}
+> >{: .language-r}
+> >
+> >
+> >
+> >~~~
+> ># A tibble: 5 x 2
+> >  continent mean_lifeExp
+> >      <chr>        <dbl>
+> >1   Oceania      79.7400
+> >2    Europe      77.2100
+> >3  Americas      74.1675
+> >4    Africa      58.9130
+> >5      Asia      55.3465
+> >~~~
+> >{: .output}
 > >
 > > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
 > > same answer as last time?
 > > 
 > > As we're sampling the rows at random we expect to get a different answer from our neighbour, and each time
-> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`.  By default
+> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`, as shown in the example above.
+> > By default
 > > R generates a seed when one is first requried using the process ID of R and the current time (i.e. essentially at
-> > random. If you are using random numbers in your work you should set the seed at the start of your analysis
-> > so that your results are reproducible.
+> > random). If you are using random numbers in your work you should set the seed at the start of your analysis
+> > so that your results are reproducible. 
 > {: .solution}
 {: .challenge}
 

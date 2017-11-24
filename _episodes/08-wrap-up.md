@@ -73,7 +73,7 @@ if (length(letters) != 26) {
   stop("Letters is not the expected length.")
 }
 ~~~
-{: .r}
+{: .language-r}
 
 
 

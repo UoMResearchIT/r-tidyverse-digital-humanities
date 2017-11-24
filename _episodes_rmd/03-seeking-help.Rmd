@@ -22,7 +22,7 @@ knitr_fig_path("03-")
 
 ## R packages
 
-R packages extend the functionality of R.  Over 10,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
+R packages extend the functionality of R.  Over 11,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
 
 We can see the packages installed on an R installation via the "packages" tab in RStudio, or by typing `installed.packages()` at the prompt, or by selecting the "Packages" tab in RStudio.
 
@@ -34,7 +34,7 @@ There are several sources of packages in R; the ones you are most likely to enco
 
 ### CRAN
 
-[CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 10,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.   
+[CRAN](https://cran.r-project.org) is the main repository of packages for R.  All the packages have undergone basic quality assurance when they were submitted.  There are over 11,000 packages in the archive; there is a lot of overlap between some packages.  Working out _what_ the most appropriate package to use isn't always straightforward.   
 
 ### Bioconductor
 
@@ -135,6 +135,27 @@ Without any arguments, `vignette()` will list all vignettes for all installed pa
 If a package doesn't have any vignettes, you can usually find help by typing
 `help("package-name")`, or `package?package-name`.
 
+> ## Challenge: Vignettes
+> 
+> Vignettes are often useful tutorials.   We will be using the `dplyr` package
+> later in this course, to manipulate tables of data.   List the vignettes availabile 
+> in the package.   You might want to take a look at these now, or later when 
+> we cover `dplyr`
+> 
+> > ## Solution
+> > 
+> > ```{r, eval=FALSE}
+> > vignette(package="dplyr")
+> > ```
+> > Shows that there are several vignettes included in the package.  The `dplyr` vignette
+> > looks like it might be useful later.  We can view this with:
+> > 
+> > ```{r, eval=FALSE}
+> > vignette(package="dplyr", "dplyr")
+> ```
+> {: .solution}
+{: .challenge}
+
 ## When you kind of remember the function
 
 If you're not sure what package a function is in, or how it's specifically spelled you can do a fuzzy search:
@@ -178,6 +199,9 @@ sessionInfo()
 
 ## Other ports of call
 
-* [Quick R](http://www.statmethods.net/)
+Note that some of these resources use base R, rather than the tidyverse approach taught
+in this course.  
+
 * [RStudio cheat sheets](http://www.rstudio.com/resources/cheatsheets/)
+* [Quick R](http://www.statmethods.net/)
 * [Cookbook for R](http://www.cookbook-r.com/)

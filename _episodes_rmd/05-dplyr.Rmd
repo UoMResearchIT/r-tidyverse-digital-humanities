@@ -116,8 +116,8 @@ perform a complex series of operations in one go
 
 > ## Keyboard shortcuts and getting help
 > 
-> The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use `cmd+shift+m`.
+> The pipe operator can be tedious to type.  In Rstudio pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd> under
+> Windows / Linux will insert the pipe operator.  On the mac, use <kbd>&#8984;</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd>.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.
@@ -163,6 +163,22 @@ gapminder_benelux <- gapminder %>%
   filter(country %in% c("Belgium", "Netherlands", "France"))
 ```
 
+> ## Splitting your commands over multiple lines
+> 
+> It's generally a good idea to put one command per line when
+> writing your analyses.  This makes them easier to read.   When
+> doing this, it's important that the `%>%` goes at the _end_ of the
+> line, as in the example above.  If we put it at the beginning of a line, e.g.:
+> 
+> ```{r}
+> gapminder_benelux <- gapminder 
+> %>% filter(country %in% c("Belgium", "Netherlands", "France"))
+> ```
+> 
+> the first line makes a valid R command.  R will then treat the next line 
+> as a new command, which won't work.
+{: .callout}
+
 
 
 > ## Another way of thinking about pipes
@@ -178,7 +194,7 @@ gapminder_benelux <- gapminder %>%
 > *and then* `select` the year, country and gdpPercap
 > 
 > We can think of the `filter()` and `select()` functions as verbs in the sentence; 
-> they do things to the data flowing through the pipeline
+> they do things to the data flowing through the pipeline.
 >
 {: .callout}
 
@@ -288,7 +304,7 @@ gapminder %>%
 
 > ## Challenge 3
 >
-> Calculate the average life expectancy in each continent, for each year.
+> For each combination of continent and year, calculate the average life expectancy.
 >
 > > ## Solution to Challenge 3
 > >
@@ -373,22 +389,25 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 >
 > > ## Solution to Challenge 4
 > >```{r}
+> >set.seed(171124)
 > >lifeExp_2countries_bycontinents <- gapminder %>%
 > >    filter(year==2002) %>%
 > >    group_by(continent) %>%
 > >    sample_n(2) %>%
 > >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 > >    arrange(desc(mean_lifeExp))
+> >lifeExp_2countries_bycontinents 
 > >```
 > >
 > > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
 > > same answer as last time?
 > > 
 > > As we're sampling the rows at random we expect to get a different answer from our neighbour, and each time
-> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`.  By default
+> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`, as shown in the example above.
+> > By default
 > > R generates a seed when one is first requried using the process ID of R and the current time (i.e. essentially at
-> > random. If you are using random numbers in your work you should set the seed at the start of your analysis
-> > so that your results are reproducible.
+> > random). If you are using random numbers in your work you should set the seed at the start of your analysis
+> > so that your results are reproducible. 
 > {: .solution}
 {: .challenge}
 

@@ -181,7 +181,14 @@ cats$coat
 cats[,1]
 ```
 
-
+> ## Tibbles vs data frames
+> 
+> Tibbles are used to represent tabular data in the tidyverse.  In contrast, base R
+> uses data frames to represent tabular data. One of the differences between these 
+> two types of obbject is *what* is returned when you extract a subset of rows/columns.
+> In contrast to a tibble, taking a subset of a data frame doesn't always return
+> another data frame. For more details see the callout at the end of this episode.
+{: .callout}
 
 ## Categorical data
 
