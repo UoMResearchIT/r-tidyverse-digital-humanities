@@ -163,7 +163,7 @@ one to store the analysis scripts.
 Now we have a good directory structure we will now place/save the data file in the `data/` directory.
 
 > ## Challenge 1
-> Copy the files `gapminder-FiveYearData.csv`, and `feline-data_v2.csv` files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  Also create a `src/` and `results/` folder within your project.
+> Copy the files `gapminder-FiveYearData.csv`, `feline-data.csv`,  and `feline-data_v2.csv` files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  Also create a `src/` and `results/` folder within your project.
 > We will use these data later in the course.
 >
 > Note that you cannot drag and drop files from Windows Explorer
@@ -189,7 +189,7 @@ In this section we will discuss ways of keeping your environment tidy.
 ~~~
 ls()
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -219,7 +219,7 @@ You can use `rm` to delete objects you no longer need. To delete `x`:
 x <- 5
 x
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -234,7 +234,7 @@ x
 rm(x)
 x
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -250,7 +250,7 @@ you can pass the results of `ls` to the `rm` function:
 ~~~
 rm(list = ls())
 ~~~
-{: .r}
+{: .language-r}
 
 In this case we've combined the two. Like the order of operations, anything
 inside the innermost parentheses is evaluated first, and so on.
@@ -265,7 +265,7 @@ If instead we use `<-`, there will be unintended side effects, or you may get an
 ~~~
 rm(list <- ls())
 ~~~
-{: .r}
+{: .language-r}
 
 
 
