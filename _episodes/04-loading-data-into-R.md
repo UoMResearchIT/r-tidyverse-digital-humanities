@@ -32,7 +32,7 @@ calico,2.1,1
 black,5.0,0
 tabby,3.2,1
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -47,7 +47,7 @@ the read_csv() function to import the data, which we store in the variable named
 library(readr)
 cats <- read_csv(file = "data/feline-data.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -66,7 +66,7 @@ We see that the `read_csv()` table reports a "column specification".  This shows
 ~~~
 cats
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -121,7 +121,7 @@ cats <- read_csv("data/feline-data.csv", col_types = cols(
   likes_string = col_logical()
 ) )
 ~~~
-{: .r}
+{: .language-r}
 
 That's a lot of typing!  Fortunately, we don't have to type everything by hand.  The `cols()` function above may look familiar; if we load a file using `read_csv()` without specifying the `col_types` option, it will print out the `cols()` function it has generated during the import process.  We can copy and paste this into our script, and modify it as required.   
 
@@ -134,7 +134,7 @@ A user has added details of another cat. This information is in the file
 ~~~
 file.show("data/feline-data_v2.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 
 ~~~
@@ -144,7 +144,7 @@ black,5.0,0
 tabby,3.2,1
 tabby,2.3 or 2.4,1
 ~~~
-{: .r}
+{: .language-r}
 
 Let's load this in, using the `read_csv()` command we have just written:
 
@@ -156,7 +156,7 @@ cats2 <- read_csv("data/feline-data_v2.csv", col_types = cols(
   likes_string = col_logical()
 ) )
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -193,7 +193,7 @@ of a variable using the dollar symbol, `$`:
 ~~~
 cats$weight
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -210,7 +210,7 @@ require and the second indicates the columns.  So to return rows 1 and 2, and co
 ~~~
 cats[1:2,2:3]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -229,7 +229,7 @@ If we leave an index blank, this acts as a wildcard and matches all of the rows 
 ~~~
 cats[1,]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -246,7 +246,7 @@ cats[1,]
 ~~~
 cats[,1]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -266,7 +266,7 @@ Subsetting a tibble returns another tibble; using `$` to extract a variable retu
 ~~~
 cats$coat
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -280,7 +280,7 @@ cats$coat
 ~~~
 cats[,1]
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -294,7 +294,14 @@ cats[,1]
 ~~~
 {: .output}
 
-
+> ## Tibbles vs data frames
+> 
+> Tibbles are used to represent tabular data in the tidyverse.  In contrast, base R
+> uses data frames to represent tabular data. One of the differences between these 
+> two types of obbject is *what* is returned when you extract a subset of rows/columns.
+> In contrast to a tibble, taking a subset of a data frame doesn't always return
+> another data frame. For more details see the callout at the end of this episode.
+{: .callout}
 
 ## Categorical data
 
@@ -308,7 +315,7 @@ Let's work with the coat colours of the cats in our dataset
 catCoats <- cats$coat
 catCoats
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -323,7 +330,7 @@ Let's assume that only specific values of coat colour are allowed:
 ~~~
 validCoatColours <- c("white", "black", "calico", "tabby")
 ~~~
-{: .r}
+{: .language-r}
 
 We can convert our character vector of coat colours into a factor using the `parse_factor()` function:
 
@@ -332,7 +339,7 @@ We can convert our character vector of coat colours into a factor using the `par
 coatFactor <- parse_factor(catCoats, levels = validCoatColours)
 coatFactor 
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -352,14 +359,14 @@ Defining variables as factors also helps us to ensure data integrity.   Consider
 ~~~
 catCoats2 <- c("calic0", "black", "tabby")
 ~~~
-{: .r}
+{: .language-r}
 
 If we try to convert this to a factor it won't work:
 
 ~~~
 parse_factor(catCoats2, levels = validCoatColours)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -403,7 +410,7 @@ take this idea a step further, and define `coat` as a factor when we load the da
 > > ) )
 > > cats
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > >
 > >
@@ -439,7 +446,7 @@ We can save a tibble (or data frame) to a csv file, using `readr`'s `write_csv()
 ~~~
 write_csv(cats, "data/mycats.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 ## Matrices
 
