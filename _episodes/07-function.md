@@ -53,7 +53,7 @@ my_sum <- function(a, b) {
   return(the_sum)
 }
 ~~~
-{: .r}
+{: .language-r}
 
 We can use the function in the same way as any other functions we've used so far in this course:
 
@@ -61,7 +61,7 @@ We can use the function in the same way as any other functions we've used so far
 ~~~
 my_sum(2,3)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -75,7 +75,7 @@ my_sum(2,3)
 ~~~
 my_sum(10,10)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -94,7 +94,7 @@ fahr_to_kelvin <- function(temp) {
   return(kelvin)
 }
 ~~~
-{: .r}
+{: .language-r}
 
 We define `fahr_to_kelvin` by assigning it to the output of `function`.  The
 list of argument names are contained within parentheses.  Next, the
@@ -125,7 +125,7 @@ Calling our own function is no different from calling any other function:
 # freezing point of water
 fahr_to_kelvin(32)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -139,7 +139,7 @@ fahr_to_kelvin(32)
 # boiling point of water
 fahr_to_kelvin(212)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -167,7 +167,7 @@ fahr_to_kelvin(212)
 > >  return(celsius)
 > > }
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -196,7 +196,7 @@ into ever-larger chunks to get the effect we want.
 > >   return(result)
 > > }
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -217,7 +217,7 @@ gdpgapfiltered <- gapminder %>%
     filter(year == 2007) %>% 
     mutate(gdp = gdpPercap * pop)
 ~~~
-{: .r}
+{: .language-r}
 
 Note that we filter by year first, and _then_ calculate the GDP.  Although we could reverse the order of the `filter()` and `mutate()` functions, it is more efficient to filter the data and then calculate the GDP on the remaining data.
 
@@ -237,7 +237,7 @@ calc_GDP_and_filter <- function(dat, year){
 
 calc_GDP_and_filter(gapminder, 1997)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -268,7 +268,7 @@ Look at the line:
 ~~~
     filter(year == year) %>% 
 ~~~
-{: .r}
+{: .language-r}
 
 We passed a value of `year` into the function when we called it.  R has no way of knowing we're referring to the function parameter's `year` rather than the tibble's `year` variable.     We run into this problem because `dplyr` uses what's known as "Non Standard Evaluation" (NSE); this means that the package doesn't follow R's usual rules about how parameters are evaluated.  
 
@@ -280,7 +280,7 @@ We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable i
 ~~~
     filter(year == UQ(year) ) %>% 
 ~~~
-{: .r}
+{: .language-r}
 
 When the filter function is evaluated it will see:
 
@@ -289,7 +289,7 @@ When the filter function is evaluated it will see:
 ~~~
     filter(year == 1997) %>% 
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -306,7 +306,7 @@ return(gdpgapfiltered)
 
 calc_GDP_and_filter(gapminder, 1997)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -344,7 +344,7 @@ Our function now works as expected.
 > 
 > greet("David")
 > ~~~
-> {: .r}
+> {: .language-r}
 > 
 > 
 > 
@@ -365,7 +365,7 @@ Our function now works as expected.
 > 
 > greet("David")
 > ~~~
-> {: .r}
+> {: .language-r}
 > 
 > 
 > 
@@ -384,7 +384,7 @@ year variable? Surely this should give an error?
 gap_noyear <- gapminder %>% select(-year)
 calc_GDP_and_filter(gap_noyear, 1997)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -411,7 +411,7 @@ As you can see, it doesn't; instead the `filter()` function will "fall through" 
 ~~~
     filter(1997 == 1997) %>% 
 ~~~
-{: .r}
+{: .language-r}
 which is `TRUE`, so the filter won't do anything!
 
 We need a way of telling the function that the first `year` "belongs" to the data.  We can do this with the `.data` pronoun:
@@ -430,7 +430,7 @@ return(gdpgapfiltered)
 
 calc_GDP_and_filter(gapminder, 1997)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -457,7 +457,7 @@ calc_GDP_and_filter(gapminder, 1997)
 ~~~
 calc_GDP_and_filter(gap_noyear, 1997)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -489,7 +489,7 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 > > }
 > > calcGDPCountryYearFilter(gapminder, year=2007, country="United Kingdom")
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -524,7 +524,7 @@ At the moment, the function we wrote in the challenge will calculate the GDP for
 > > ~~~
 > > calcGDPCountryYearFilter(gapminder)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -554,7 +554,7 @@ calcGDP <- function(dat, year = NULL, country = NULL){
   return(dat)
 }
 ~~~
-{: .r}
+{: .language-r}
 
 If you've been writing these functions down into a separate R script
 (a good idea!), you can load in the functions into our R session by using the
@@ -564,7 +564,7 @@ If you've been writing these functions down into a separate R script
 ~~~
 source("src/functions-lesson.R")
 ~~~
-{: .r}
+{: .language-r}
 
 OK, so there's a lot going on in this function now. In plain English,
 the function now subsets the provided data by year if the year argument isn't
@@ -580,7 +580,7 @@ Let's take a look at what happens when we specify the year:
 ~~~
 head(calcGDP(gapminder, year = 1997))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -603,7 +603,7 @@ Or for a specific country:
 ~~~
 calcGDP(gapminder, country = "Australia")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -632,7 +632,7 @@ Or both:
 ~~~
 calcGDP(gapminder, year = 1997, country = "Australia")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -668,7 +668,7 @@ calcGDP(gapminder, year = 1997, country = "Australia")
 > >  return(dat)
 > > }
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > >
 > {: .solution}
 {: .challenge}
