@@ -240,6 +240,9 @@ sessionInfo()
 
 ## Other ports of call
 
-* [Quick R](http://www.statmethods.net/)
+Note that some of these resources use base R, rather than the tidyverse approach taught
+in this course.  
+
 * [RStudio cheat sheets](http://www.rstudio.com/resources/cheatsheets/)
+* [Quick R](http://www.statmethods.net/)
 * [Cookbook for R](http://www.cookbook-r.com/)
