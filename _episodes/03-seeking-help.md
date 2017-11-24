@@ -166,6 +166,31 @@ Without any arguments, `vignette()` will list all vignettes for all installed pa
 If a package doesn't have any vignettes, you can usually find help by typing
 `help("package-name")`, or `package?package-name`.
 
+> ## Challenge: Vignettes
+> 
+> Vignettes are often useful tutorials.   We will be using the `dplyr` package
+> later in this course, to manipulate tables of data.   List the vignettes availabile 
+> in the package.   You might want to take a look at these now, or later when 
+> we cover `dplyr`
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > vignette(package="dplyr")
+> > ~~~
+> > {: .language-r}
+> > Shows that there are several vignettes included in the package.  The `dplyr` vignette
+> > looks like it might be useful later.  We can view this with:
+> > 
+> > 
+> > ~~~
+> > vignette(package="dplyr", "dplyr")
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
+
 ## When you kind of remember the function
 
 If you're not sure what package a function is in, or how it's specifically spelled you can do a fuzzy search:
