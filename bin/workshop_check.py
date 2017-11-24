@@ -21,7 +21,7 @@ URL_PATTERN = r'https?://.+'
 CARPENTRIES = ("dc", "swc")
 DEFAULT_CONTACT_EMAIL = 'admin@software-carpentry.org'
 
-USAGE = 'Usage: "check-workshop path/to/root/directory"'
+USAGE = 'Usage: "workshop_check.py path/to/root/directory"'
 
 # Country and language codes.  Note that codes mean different things: 'ar'
 # is 'Arabic' as a language but 'Argentina' as a country.
@@ -205,13 +205,20 @@ def check_helpers(helpers):
 @look_for_fixme
 def check_email(email):
     """
-    'contact' must be a valid email address consisting of characters,
-    an '@', and more characters.  It should not be the default contact
-    email address 'admin@software-carpentry.org'.
+    'email' must be a comma-separated list of valid email addresses.
+    The list may be empty. A valid email address consists of characters,
+    an '@', and more characters.  It should not contain the default contact
     """
 
-    return bool(re.match(EMAIL_PATTERN, email)) and \
-           (email != DEFAULT_CONTACT_EMAIL)
+    # YAML automatically loads list-like strings as lists.
+    if (isinstance(emails, list) and len(emails) >= 0):
+        for email in emails:
+            if ((not bool(re.match(EMAIL_PATTERN, email))) or (email == DEFAULT_CONTACT_EMAIL)):
+                return False
+    else:
+        return False
+  
+    return True
 
 
 def check_eventbrite(eventbrite):
@@ -286,8 +293,9 @@ HANDLERS = {
                    'helper list isn\'t a valid list of format ' +
                    '["First helper", "Second helper",..]'),
 
-    'contact':    (True, check_email,
-                   'contact email invalid or still set to ' +
+    'email':    (True, check_emails,
+                   'contact email list isn\'t a valid list of format ' +
+                   '["me@example.org", "you@example.org",..] or contains incorrectly formatted email addresses or ' +
                    '"{0}".'.format(DEFAULT_CONTACT_EMAIL)),
 
     'eventbrite': (False, check_eventbrite, 'Eventbrite key appears invalid'),
