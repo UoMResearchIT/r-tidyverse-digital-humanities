@@ -116,8 +116,8 @@ perform a complex series of operations in one go
 
 > ## Keyboard shortcuts and getting help
 > 
-> The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use `cmd+shift+m`.
+> The pipe operator can be tedious to type.  In Rstudio pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd> under
+> Windows / Linux will insert the pipe operator.  On the mac, use <kbd>&#8984;</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd>.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.

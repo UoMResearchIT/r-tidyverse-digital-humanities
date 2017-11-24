@@ -25,32 +25,31 @@ We load the core libraries in the tidyverse with:
 ~~~
 library("tidyverse")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
 ~~~
-Loading tidyverse: ggplot2
-Loading tidyverse: tibble
-Loading tidyverse: tidyr
-Loading tidyverse: readr
-Loading tidyverse: purrr
-Loading tidyverse: dplyr
+── Attaching packages ────────────────────────────────── tidyverse 1.2.0 ──
 ~~~
 {: .output}
 
 
 
 ~~~
-Conflicts with tidy packages ----------------------------------------------
+✔ ggplot2 2.2.1     ✔ readr   1.1.1
+✔ tibble  1.3.4     ✔ purrr   0.2.4
+✔ tidyr   0.7.2     ✔ dplyr   0.7.4
+✔ ggplot2 2.2.1     ✔ forcats 0.2.0
 ~~~
 {: .output}
 
 
 
 ~~~
-filter(): dplyr, stats
-lag():    dplyr, stats
+── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
 ~~~
 {: .output}
 
@@ -64,7 +63,7 @@ As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1
 ~~~
 gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -97,7 +96,7 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
                                gdpPercap = col_double()
 ) )
 ~~~
-{: .r}
+{: .language-r}
 
 > ## Setting column types
 > 
@@ -141,7 +140,7 @@ variables you select.
 ~~~
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 
 ## Using pipes and dplyr
@@ -163,8 +162,8 @@ perform a complex series of operations in one go
 
 > ## Keyboard shortcuts and getting help
 > 
-> The pipe operator can be tedious to type.  In Rstudio pressing `ctrl+shift+m` under
-> Windows / Linux will insert the pipe operator.  On the mac, use `cmd+shift+m`.
+> The pipe operator can be tedious to type.  In Rstudio pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd> under
+> Windows / Linux will insert the pipe operator.  On the mac, use <kbd>&#8984;</kbd> + <kbd>Shift</kbd>+<kbd>M</kbd>.
 >
 > We can use tab completion to complete variable names when entering commands.
 > This saves typing and reduces the risk of error.
@@ -182,7 +181,7 @@ Let's rewrite the previous command using the pipe operator:
 ~~~
 year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 To help you understand why we wrote that in that way, let's walk through it step
 by step. First we summon the gapminder data frame and pass it on, using the pipe
@@ -203,7 +202,7 @@ year_country_gdp_euro <- gapminder %>%
     filter(continent=="Europe") %>%
     select(year,country,gdpPercap)
 ~~~
-{: .r}
+{: .language-r}
 
 Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
 
@@ -214,7 +213,7 @@ What about if we wanted to match more than one item?  To do this we use the `%in
 gapminder_benelux <- gapminder %>% 
   filter(country %in% c("Belgium", "Netherlands", "France"))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -227,7 +226,7 @@ gapminder_benelux <- gapminder %>%
 >     filter(continent=="Europe") %>%
 >     select(year,country,gdpPercap)
 > ~~~
-> {: .r}
+> {: .language-r}
 >  as a sentence, which we can read as
 > "take the gapminder data *and then* `filter` it for records where continent == Europe
 > *and then* `select` the year, country and gdpPercap
@@ -252,7 +251,7 @@ gapminder_benelux <- gapminder %>%
 > >                            select(year,country,lifeExp)
 > > nrow(year_country_lifeExp_Africa)
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > >
 > >
@@ -278,7 +277,7 @@ gapminder %>%
   filter(continent == "Europe", year == 2007) %>% 
   arrange(pop)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -307,7 +306,7 @@ gapminder %>%
   filter(continent == "Europe", year == 2007) %>% 
   arrange(desc(pop))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -340,7 +339,7 @@ As an example, the gapminder data contains the population of each country, and i
 gapminder_totalgdp <- gapminder %>% 
   mutate(gdp = gdpPercap * pop)
 ~~~
-{: .r}
+{: .language-r}
 
 > ## Challenge 2
 > 
@@ -363,7 +362,7 @@ gapminder_totalgdp <- gapminder %>%
 > >   mutate(rank = min_rank(lifeExp))
 > > print(europeLifeExp, n=100)
 > > ~~~
-> > {: .r}
+> > {: .language-r}
 > > 
 > > 
 > > 
@@ -426,7 +425,7 @@ gapminder %>%
   filter(year == 2007) %>% 
   summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -448,7 +447,7 @@ gapminder %>%
   group_by(continent) %>% 
   summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -477,7 +476,7 @@ gapminder %>%
 > >   summarise(mean_lifeExp = mean(lifeExp))
 > > print(lifeExp_bycontinentyear)
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > >
 > >
@@ -518,7 +517,7 @@ gapminder %>%
     group_by(continent) %>%
     summarize(se_pop = sd(lifeExp)/sqrt(n()))
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -545,7 +544,7 @@ gapminder %>%
     filter(year == 2002) %>%
     count(continent, sort = TRUE)
 ~~~
-{: .r}
+{: .language-r}
 
 
 
@@ -593,7 +592,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
     summarize(mean_gdpPercap = mean(gdpPercap),
               mean_gdpPercap_expected = mean(gdp_futureExpectation))
 ~~~
-{: .r}
+{: .language-r}
 
 
 > ## Challenge 4
@@ -616,7 +615,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 > >    arrange(desc(mean_lifeExp))
 > >~~~
-> >{: .r}
+> >{: .language-r}
 > >
 > > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
 > > same answer as last time?
