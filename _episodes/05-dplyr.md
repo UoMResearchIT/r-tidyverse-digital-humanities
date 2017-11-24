@@ -636,23 +636,40 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > > ## Solution to Challenge 4
 > >
 > >~~~
+> >set.seed(171124)
 > >lifeExp_2countries_bycontinents <- gapminder %>%
 > >    filter(year==2002) %>%
 > >    group_by(continent) %>%
 > >    sample_n(2) %>%
 > >    summarize(mean_lifeExp=mean(lifeExp)) %>%
 > >    arrange(desc(mean_lifeExp))
+> >lifeExp_2countries_bycontinents 
 > >~~~
 > >{: .language-r}
+> >
+> >
+> >
+> >~~~
+> ># A tibble: 5 x 2
+> >  continent mean_lifeExp
+> >      <chr>        <dbl>
+> >1   Oceania      79.7400
+> >2    Europe      77.2100
+> >3  Americas      74.1675
+> >4    Africa      58.9130
+> >5      Asia      55.3465
+> >~~~
+> >{: .output}
 > >
 > > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
 > > same answer as last time?
 > > 
 > > As we're sampling the rows at random we expect to get a different answer from our neighbour, and each time
-> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`.  By default
+> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`, as shown in the example above.
+> > By default
 > > R generates a seed when one is first requried using the process ID of R and the current time (i.e. essentially at
-> > random. If you are using random numbers in your work you should set the seed at the start of your analysis
-> > so that your results are reproducible.
+> > random). If you are using random numbers in your work you should set the seed at the start of your analysis
+> > so that your results are reproducible. 
 > {: .solution}
 {: .challenge}
 
