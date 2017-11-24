@@ -333,7 +333,7 @@ of the gapminder dataset.
 > > ## Solution to challenge 5
 > > We can colour each country's line using the `colour` aesthetic:
 > > 
-> > ```{r withLegend, eval = FALSE}
+> > ```{r withLegend}
 > >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
 > >  geom_line() + facet_wrap( ~ continent)
 > > ```
@@ -351,22 +351,24 @@ of the gapminder dataset.
 
 > ## Challenge 6
 >
-> Create a density plot of GDP per capita, filled by continent.
+> `geom_density()` lets us create a kernel density plot; this is a smoothed version of a histogram (which we
+can create with `geom_histogram()`.  Create a density plot of GDP per capita, filled by continent. You 
+> may find making the density estimates partially transparent produces a clearer graph.
 >
 > Advanced:
 >
->  - Transform the x axis to better visualise the data spread.
->  - Add a facet layer to panel the density plots by year.
+>  - Log transform the x axis to better visualise the data spread.
+>  - Add a facet layer produce a separate density plot for each year.
 >
 > > ## Solution to challenge 6
 > >
-> > Create a density plot of GDP per capita, filled by continent.
-> >
-> > Advanced:
-> >  - Transform the x axis to better visualise the data spread.
-> >  - Add a facet layer to panel the density plots by year.
-> >
 > > ```{r ch5-sol}
+> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
+> >  geom_density(alpha = 0.6) 
+> > ```
+> > We can make this clearer by applying a log transform to the x axis, and facetting by year:
+> > 
+> > ```{r ch5-sol-adv}
 > >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
 > >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
 > > ```

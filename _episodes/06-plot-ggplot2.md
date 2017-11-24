@@ -401,6 +401,8 @@ of the gapminder dataset.
 > >  geom_line() + facet_wrap( ~ continent)
 > > ~~~
 > > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-withLegend-1.png" title="plot of chunk withLegend" alt="plot of chunk withLegend" style="display: block; margin: auto;" />
 > >
 > > This will produce a plot that only shows (part of) the legend.
 > > we can hide the legend using `guides(colour = "none")`
@@ -419,21 +421,27 @@ of the gapminder dataset.
 
 > ## Challenge 6
 >
-> Create a density plot of GDP per capita, filled by continent.
+> `geom_density()` lets us create a kernel density plot; this is a smoothed version of a histogram (which we
+can create with `geom_histogram()`.  Create a density plot of GDP per capita, filled by continent. You 
+> may find making the density estimates partially transparent produces a clearer graph.
 >
 > Advanced:
 >
->  - Transform the x axis to better visualise the data spread.
->  - Add a facet layer to panel the density plots by year.
+>  - Log transform the x axis to better visualise the data spread.
+>  - Add a facet layer produce a separate density plot for each year.
 >
 > > ## Solution to challenge 6
 > >
-> > Create a density plot of GDP per capita, filled by continent.
-> >
-> > Advanced:
-> >  - Transform the x axis to better visualise the data spread.
-> >  - Add a facet layer to panel the density plots by year.
-> >
+> > 
+> > ~~~
+> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
+> >  geom_density(alpha = 0.6) 
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
+> > We can make this clearer by applying a log transform to the x axis, and facetting by year:
+> > 
 > > 
 > > ~~~
 > >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
@@ -441,7 +449,7 @@ of the gapminder dataset.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-ch5-sol-adv-1.png" title="plot of chunk ch5-sol-adv" alt="plot of chunk ch5-sol-adv" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
