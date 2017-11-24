@@ -278,7 +278,8 @@ x-axis.
 
 > ## Tip Reminder: Setting an aesthetic to a value instead of a mapping
 >
-> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we can give a different transparency to each continent with `geom_point(aes(alpha = continent))`.
+> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we can give a different transparency to each continent with `geom_point(aes(alpha = continent))` (although in this example, this isn't 
+> very useful as a visualisation technique.
 {: .callout}
 
 We can fit a simple relationship to the data by adding another layer,
