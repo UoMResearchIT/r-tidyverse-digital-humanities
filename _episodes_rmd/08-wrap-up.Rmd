@@ -105,4 +105,4 @@ There are a huge number of resources for using and learning R online.  Links to 
 
 *Please* complete the [course feedback survey](http://bit.ly/2xP95Ef).  The material for the course is modified
 in response to this; if anything was unclear, or we didn't cover anything you thought 
-would be useful please let us know.
+would be useful please let us know.  We also use the feedback survey to complete the course register!
