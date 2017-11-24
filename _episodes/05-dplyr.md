@@ -215,6 +215,34 @@ gapminder_benelux <- gapminder %>%
 ~~~
 {: .language-r}
 
+> ## Splitting your commands over multiple lines
+> 
+> It's generally a good idea to put one command per line when
+> writing your analyses.  This makes them easier to read.   When
+> doing this, it's important that the `%>%` goes at the _end_ of the
+> line, as in the example above.  If we put it at the beginning of a line, e.g.:
+> 
+> 
+> ~~~
+> gapminder_benelux <- gapminder 
+> %>% filter(country %in% c("Belgium", "Netherlands", "France"))
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error: <text>:2:1: unexpected SPECIAL
+> 1: gapminder_benelux <- gapminder 
+> 2: %>%
+>    ^
+> ~~~
+> {: .error}
+> 
+> the first line makes a valid R command.  R will then treat the next line 
+> as a new command, which won't work.
+{: .callout}
+
 
 
 > ## Another way of thinking about pipes
@@ -232,7 +260,7 @@ gapminder_benelux <- gapminder %>%
 > *and then* `select` the year, country and gdpPercap
 > 
 > We can think of the `filter()` and `select()` functions as verbs in the sentence; 
-> they do things to the data flowing through the pipeline
+> they do things to the data flowing through the pipeline.
 >
 {: .callout}
 
