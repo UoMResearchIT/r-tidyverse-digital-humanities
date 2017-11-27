@@ -10,9 +10,8 @@ In this notebook we load and examine the Gapminder data.
 
 Firstly, we load the required libraries and data:
 
-```{r setup, echo=FALSE, messages=FALSE}
-
-library(readr)
+```{r setup}
+library(tidyverse)
 ```
 Then we load the data
 
@@ -23,13 +22,13 @@ gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
                         year = col_integer(),
                         pop = col_double(),
                         continent = col_character(),
-                        lifeExp = col_double(),
+                       lifeExp = col_double(),
                         gdpPercap = col_double()
                       ))
 ```
 
 Let's take a look at the data:
 
-```{r}
-gapminder
+```{r printdata}
+print(gapminder)
 ```

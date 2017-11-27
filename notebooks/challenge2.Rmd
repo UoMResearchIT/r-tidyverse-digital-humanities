@@ -9,9 +9,8 @@ output:
 In this notebook we load and examine the Gapminder data.
 
 
-```{r setup, echo=FALSE, messages=FALSE}
-
-library(readr)
+```{r setup, include=FALSE}
+library(tidyverse)
 ```
 
 ```{r loaddata, echo=FALSE}

@@ -1,0 +1,65 @@
+---
+title: "Challenge 3"
+author: "David Mawdsley"
+params:
+  comparator: "United Kingdom"
+  year: 2002
+output:
+  html_notebook: default
+---
+
+
+In this notebook we load and examine the Gapminder data.
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+```{r loaddata, echo=FALSE}
+# By putting the loading code in a separate chunk, we can still see any 
+# messages that may be printed when it loads.  This is useful, since
+# messages here could indicate a problem.
+gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
+                      col_types = cols(
+                        country = col_character(),
+                        year = col_integer(),
+                        pop = col_double(),
+                        continent = col_character(),
+                        lifeExp = col_double(),
+                        gdpPercap = col_double()
+                      ))
+```
+
+Let's take a look at the data:
+
+```{r, echo=FALSE}
+print(gapminder)
+```
+
+Life expectancy has, in general, increased over time, although this masks stark falls in some countries:
+
+```{r, echo=FALSE}
+ggplot(data = gapminder, aes(x = year, y = lifeExp, colour = continent, group = country)) +
+  geom_line()
+```
+
+
+```{r calclongevity, echo=FALSE}
+
+gapminderSorted <- gapminder %>% filter(year == params$year) %>% 
+  arrange(desc(lifeExp))
+
+longevityAge <- gapminderSorted$lifeExp[1]
+longevityCountry <- gapminderSorted$country[1]
+
+gapminderComparator <- gapminder %>% filter(country == params$comparator, year == params$year)
+
+longevityComparator <- gapminderComparator$lifeExp
+
+```
+
+In `r params$year`, citizens of `r longevityCountry` had the longest average life expectancy in the world, at `r longevityAge`.  By comparison, in `r params$comparator`, the average life expectancy was `r longevityComparator`
+
+
+
