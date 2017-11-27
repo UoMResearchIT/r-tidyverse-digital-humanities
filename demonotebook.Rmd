@@ -1,0 +1,47 @@
+---
+title: "Analysis of gapminder data"
+author: "David Mawdsley"
+output:
+  word_document: default
+  pdf_document: default
+  html_notebook: default
+---
+
+In this notebook we will explore the gapminder data.
+
+First we'll read in the data:
+
+```{r}
+library(readr)
+library(ggplot2)
+library(dplyr)
+setwd("_episodes_rmd/")
+gapminder <- read_csv("./data/gapminder-FiveYearData.csv", 
+                      col_types = cols(
+  country = col_character(),
+  year = col_integer(),
+  pop = col_double(),
+  continent = col_character(),
+  lifeExp = col_double(),
+  gdpPercap = col_double()
+)
+            )
+```
+
+Let's investigate how life expectancy varies per continent:
+
+```{r}
+gapminder %>% 
+  filter(year == 1997) %>% 
+  group_by(continent, year) %>% 
+  summarise(medianLifeExp=median(lifeExp))
+```
+
+And let's plot a graph:
+
+```{r}
+gapminder %>% filter(continent %in% c("Europe", "Americas")) %>% 
+  ggplot(aes(x=year, y=gdpPercap, colour=country)) +
+           geom_line() + facet_wrap( ~ continent) + guides(colour="none")
+```
+

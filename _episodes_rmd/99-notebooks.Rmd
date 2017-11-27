@@ -1,0 +1,60 @@
+---
+title: "Combining your code with text"
+teaching: 15
+exercises: 0
+questions:
+- "How can I organise my work using a notebook"
+objectives:
+- "To understand the RMarkdown syntax"
+- "To understand how to create and use a notebook"
+- "To understand how to use Knitr to write reports"
+
+keypoints:
+- "Document what and why, not how."
+source: Rmd
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("99-")
+```
+
+## Introduction
+
+So far today we've written scripts to load, analyze and plot data.   We've also discussed how to save data and plots.  It can often be useful to combine our analysis and a written explaination of what we've done.    This is different from commenting our code (which we shoudld be doing anyway); instead we're talking about writing up our analyis while doing it.
+
+## Jupyter / Python notebooks 
+This is a similar idea to a [Jupyter notebook](http://jupyter.org/), but is integrated within RStudio.
+{:.callout}
+
+Let's get started by making a new notebook.  From the `File` menu, choose `New file` and then `Rnotebook`.   A new window will open containing an example notebook.
+This produces an example notebook:
+
+FIXME Include screenshot
+
+
+The notebook includes "chunks" of text, and chunks of R code.   The start and end of an R code region is marked with xxxxx.  Before we go any further, save the notebook using `File`, `Save`. 
+
+Lets preview the notebook.  As the example notebook by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.   You should find that a new window pops up containing the results of running the R code chunks in the notebook.   
+
+We can also run the notebook interactively within RStudio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   
+
+We can use notebooks to talk the reader through our analysis process. The reader may be someone else, or our future self.
+
+
+Let's modify the example notebook to start using our own data.
+
+Demo:
+
+* printing a table
+* printing a graph
+* hiding the code
+* hiding messages
+* Markdown formatting - cheatsheet
+* Different output formats
+
+
+
+
+
+
