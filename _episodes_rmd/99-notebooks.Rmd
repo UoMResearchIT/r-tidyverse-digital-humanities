@@ -81,12 +81,6 @@ which will display as "The cos of 0 is 1".
 {: .callout}
 
 
-<pre>
-## This is not a heading
-This is not *bold*
-</pre>
-
-
 
 ## Controlling how our R code is run
 
