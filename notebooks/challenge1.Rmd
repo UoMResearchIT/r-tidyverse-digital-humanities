@@ -1,0 +1,34 @@
+---
+title: "Challenge 1"
+author: "David Mawdsley"
+output:
+  html_notebook
+---
+
+
+In this notebook we load and examine the Gapminder data.
+
+Firstly, we load the required libraries and data:
+
+```{r setup}
+library(tidyverse)
+```
+Then we load the data
+
+```{r loaddata}
+gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
+                      col_types = cols(
+                        country = col_character(),
+                        year = col_integer(),
+                        pop = col_double(),
+                        continent = col_character(),
+                       lifeExp = col_double(),
+                        gdpPercap = col_double()
+                      ))
+```
+
+Let's take a look at the data:
+
+```{r printdata}
+print(gapminder)
+```

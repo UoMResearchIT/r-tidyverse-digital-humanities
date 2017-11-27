@@ -39,6 +39,8 @@ include comments that tell you *why* you're solving a problem, and *what* proble
 that is. The *how* can come after that: it's an implementation detail you ideally
 shouldn't have to worry about.
 
+R Notebooks make it easier to keep your code and analysis together.
+
 ## Keep your code modular
 
 Our recommendation is that you should separate your functions from your analysis
@@ -60,8 +62,8 @@ reach a point where you can code a solution, and build back up from there.
 
 ## Know that your code is doing the right thing
 
-Make sure to test your functions!  We haven't had time to cover testing in any depth
-in this course.  The [testthat](https://github.com/hadley/testthat) package makes
+Make sure to test your functions!  We haven't had time to cover testing in 
+this course.  The [testthat](https://github.com/hadley/testthat) package makes
 testing your code much easier (and even claims to make it "fun").
 
 Another approach

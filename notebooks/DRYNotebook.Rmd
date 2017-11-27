@@ -1,0 +1,48 @@
+---
+title: "Analysis of gapminder data"
+author: "David Mawdsley"
+output:
+  html_notebook
+params:
+  year: 2002
+---
+
+
+```{r setup, message=FALSE, echo=FALSE}
+library(readr)
+```
+
+```{r loaddata, echo=FALSE}
+gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
+                      col_types = cols(
+                        country = col_character(),
+                        year = col_integer(),
+                        pop = col_double(),
+                        continent = col_character(),
+                        lifeExp = col_double(),
+                        gdpPercap = col_double()
+                      ))
+```
+
+We can look at the mean and median life expectancy for the countries in each contient for 2007:
+
+```{r}
+gapminder %>%
+  filter(year == 2007) %>% 
+  group_by(continent) %>% 
+  summarise(meanexp = mean(lifeExp), medexp = median(lifeExp))
+```
+
+## A better approach
+
+What if we wanted to look at a different year?  "2007" appears in two places in the notebook; in the text and in the code. We could easily forget to change one of them if we're interested in a different year. This is where we use parameters, which we define in the header of the document.
+
+We can look at the the mean and median life expectancy for the countries in each continent for `r params$year`:
+
+
+```{r}
+gapminder %>%
+  filter(year == params$year) %>% 
+  group_by(continent) %>% 
+  summarise(meanexp = mean(lifeExp), medexp = median(lifeExp))
+```
