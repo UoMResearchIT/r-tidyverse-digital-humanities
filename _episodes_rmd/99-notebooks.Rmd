@@ -21,28 +21,31 @@ knitr_fig_path("99-")
 
 ## Introduction
 
-So far today we've written scripts to load, analyze and plot data.   We've also discussed how to save data and plots.  It can often be useful to combine our analysis and a written explaination of what we've done.    This is different from commenting our code (which we shoudld be doing anyway); instead we're talking about writing up our analyis while doing it.
+So far today we've written scripts to load, analyze and plot data.   We've also discussed how to save data and plots.  It can often be useful to combine our analysis and a written explaination of what we've done.    This is different from commenting our code (which we should be doing anyway); instead we're talking about writing up our analyis while doing it.
 
 ## Jupyter / Python notebooks 
 This is a similar idea to a [Jupyter notebook](http://jupyter.org/), but is integrated within RStudio.
 {:.callout}
 
-Let's get started by making a new notebook.  From the `File` menu, choose `New file` and then `Rnotebook`.   A new window will open containing an example notebook.
-This produces an example notebook:
-
-FIXME Include screenshot
+Let's get started by making a new notebook.  From the `File` menu, choose `New file` and then `Rnotebook`.   A new window will open containing an example notebook:
 
 
-The notebook includes "chunks" of text, and chunks of R code.   The start and end of an R code region is marked with xxxxx.  Before we go any further, save the notebook using `File`, `Save`. 
+![example notebook figure](../fig/99-notebook.png)
 
-Lets preview the notebook.  As the example notebook by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.   You should find that a new window pops up containing the results of running the R code chunks in the notebook.   
+The notebook includes "chunks" of text, and chunks of R code.
 
-We can also run the notebook interactively within RStudio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   
+The start of an R code region is marked with &#96; &#96; &#96; &#123; &#114; &#125; The end of an code region is marked with &#96; &#96; &#96;  These are a little awkward to type; pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> will insert a new chunk of R code into your document.
 
-We can use notebooks to talk the reader through our analysis process. The reader may be someone else, or our future self.
+Before we go any further, save the notebook using `File`, `Save`.  We need to do this so that we can preview and build the notebook.  
+
+Lets preview the notebook.  We can do this by clicking "Build Notebook", or by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.   You should find that a new window pops up containing the results of running the R code chunks in the notebook.   
+
+We can also run the notebook interactively within RStudio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   This will execute each chunk of code within RStudio and show us the results of each chunk within the document. This makes it easier to interactively edit our code, look at the results of our analysis, and edit our text within the same environment.
+
+As an example of this, let's use the gapminder data, and some of the ideas introduced earlier to
+run, and document, and analysis of the data:
 
 
-Let's modify the example notebook to start using our own data.
 
 Demo:
 
@@ -55,7 +58,7 @@ Demo:
 
 ## Formatting our text
 
-We can format our notebook using _markdown_.  For example, to make some text bold, we use:
+We can format our notebook using _markdown_.  For example, to make some text italic, we use:
 
 <pre>
 _This text is italic._ This text isn't
@@ -83,6 +86,8 @@ which will display as "The cos of 0 is 1".
 
 
 ## Controlling how our R code is run
+
+By default we see both the R code we've executed, and all the messages and warnings that were printed as a result of the code.  We can control what is printed, and run by passing options to our R code chunks:
 
 
 
