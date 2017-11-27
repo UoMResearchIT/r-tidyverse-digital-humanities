@@ -14,10 +14,7 @@ keypoints:
 source: Rmd
 ---
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("99-")
-```
+
 
 ## Introduction
 
