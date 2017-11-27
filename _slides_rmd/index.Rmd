@@ -102,4 +102,6 @@ R user groups are a great way of finding out more about R.
     + [Etherpad](http://bit.ly/2yMy48D)
     + Course notes
 
+##  Let's get started
 
+https://uomresearchit.github.io/r-tidyverse-intro/
