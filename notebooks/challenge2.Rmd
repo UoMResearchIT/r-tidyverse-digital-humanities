@@ -1,0 +1,36 @@
+---
+title: "Challenge 2"
+author: "David Mawdsley"
+output:
+  html_notebook
+---
+
+
+In this notebook we load and examine the Gapminder data.
+
+
+```{r setup, echo=FALSE, messages=FALSE}
+
+library(readr)
+```
+
+```{r loaddata, echo=FALSE}
+# By putting the loading code in a separate chunk, we can still see any 
+# messages that may be printed when it loads.  This is useful, since
+# messages here could indicate a problem.
+gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
+                      col_types = cols(
+                        country = col_character(),
+                        year = col_integer(),
+                        pop = col_double(),
+                        continent = col_character(),
+                        lifeExp = col_double(),
+                        gdpPercap = col_double()
+                      ))
+```
+
+Let's take a look at the data:
+
+```{r, echo=FALSE}
+print(gapminder)
+```
