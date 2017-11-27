@@ -78,26 +78,27 @@ library("tidyverse")
 
 
 ~~~
-── Attaching packages ────────────────────────────────── tidyverse 1.2.0 ──
+Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
 ~~~
 {: .output}
 
 
 
 ~~~
-✔ ggplot2 2.2.1     ✔ readr   1.1.1
-✔ tibble  1.3.4     ✔ purrr   0.2.4
-✔ tidyr   0.7.2     ✔ dplyr   0.7.4
-✔ ggplot2 2.2.1     ✔ forcats 0.2.0
+Conflicts with tidy packages ----------------------------------------------
 ~~~
 {: .output}
 
 
 
 ~~~
-── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
+filter(): dplyr, stats
+lag():    dplyr, stats
 ~~~
 {: .output}
 

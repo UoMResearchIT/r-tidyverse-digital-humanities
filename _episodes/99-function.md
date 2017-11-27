@@ -1,5 +1,5 @@
 ---
-title: Functions Explained
+title: Functions Explained (self study)
 teaching: 45
 exercises: 15
 questions:
@@ -17,13 +17,9 @@ keypoints:
 source: Rmd
 ---
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-library(tidyverse)
-knitr_fig_path("07-")
-# Silently load in the data so the rest of the lesson works
-gapminder <- read_csv("data/gapminder-FiveYearData.csv")
-```
+
+
+_This episode will form part of the forthcoming "Programming in R" course.  It is included in this course for self study._
 
 If we only had one data set to analyse, it would probably be faster to load the
 file into a spreadsheet and use that to plot simple statistics. However, the
@@ -31,7 +27,7 @@ gapminder data is updated periodically, and we may want to pull in that new
 information later and re-run our analysis again. We may also obtain similar data
 from a different source in the future.
 
-In this lesson, we'll learn how to write a function so that we can repeat
+In this episode, we'll learn how to write a function so that we can repeat
 several operations with a single command.
 
 > ## What is a function?
@@ -52,29 +48,55 @@ several operations with a single command.
 
 Let's create a new R script file in the `src/` directory and call it functions-lesson.R:
 
-```{r}
+
+~~~
 my_sum <- function(a, b) {
   the_sum <- a + b
   return(the_sum)
 }
-```
+~~~
+{: .language-r}
 
 We can use the function in the same way as any other functions we've used so far in this course:
 
-```{r}
+
+~~~
 my_sum(2,3)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 5
+~~~
+{: .output}
+
+
+
+~~~
 my_sum(10,10)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 20
+~~~
+{: .output}
 
 
 Now let’s define a function `fahr_to_kelvin` that converts temperatures from Fahrenheit to Kelvin:
 
-```{r}
+
+~~~
 fahr_to_kelvin <- function(temp) {
   kelvin <- ((temp - 32) * (5 / 9)) + 273.15
   return(kelvin)
 }
-```
+~~~
+{: .language-r}
 
 We define `fahr_to_kelvin` by assigning it to the output of `function`.  The
 list of argument names are contained within parentheses.  Next, the
@@ -100,15 +122,33 @@ to whoever asked for it.
 Let's try running our function.
 Calling our own function is no different from calling any other function:
 
-```{r}
+
+~~~
 # freezing point of water
 fahr_to_kelvin(32)
-```
+~~~
+{: .language-r}
 
-```{r}
+
+
+~~~
+[1] 273.15
+~~~
+{: .output}
+
+
+~~~
 # boiling point of water
 fahr_to_kelvin(212)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 373.15
+~~~
+{: .output}
 
 > ## Challenge 1
 >
@@ -122,12 +162,14 @@ fahr_to_kelvin(212)
 > > Write a function called `kelvin_to_celsius` that takes a temperature in Kelvin
 > > and returns that temperature in Celsius
 > >
-> > ```{r}
+> > 
+> > ~~~
 > > kelvin_to_celsius <- function(temp) {
 > >  celsius <- temp - 273.15
 > >  return(celsius)
 > > }
-> > ```
+> > ~~~
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -148,13 +190,15 @@ into ever-larger chunks to get the effect we want.
 > > by reusing these two functions above
 > >
 > >
-> > ```{r}
+> > 
+> > ~~~
 > > fahr_to_celsius <- function(temp) {
 > >   temp_k <- fahr_to_kelvin(temp)
 > >   result <- kelvin_to_celsius(temp_k)
 > >   return(result)
 > > }
-> > ```
+> > ~~~
+> > {: .language-r}
 > {: .solution}
 {: .challenge}
 
@@ -175,9 +219,11 @@ into ever-larger chunks to get the effect we want.
 If you've been writing these functions down into a separate R script , you can load in the functions into our R session by using the
 `source` function:
 
-```{r, eval=FALSE}
+
+~~~
 source("src/functions-lesson.R")
-```
+~~~
+{: .language-r}
 
 It is a good idea to separate your analyis code and the functions it calls into separate files.  You 
 can then `source()` your functions file at the start of your analyis script.
@@ -202,12 +248,13 @@ This saves us effort, but more importantly it means that the code for calculatin
 
 We can filter and calculate the GDP as follows:
 
-```{r}
+
+~~~
 gdpgapfiltered <- gapminder %>%
     filter(year == 2007) %>% 
     mutate(gdp = gdpPercap * pop)
-
-```
+~~~
+{: .language-r}
 
 Note that we filter by year first, and _then_ calculate the GDP.  Although we could reverse the order of the `filter()` and `mutate()` functions, it is more efficient to filter the data and then calculate the GDP on the remaining data.
 
@@ -215,7 +262,8 @@ Let's put this code in a function; note that we change the input data to be the 
 the function, and our hard-coded year to be the year parameter (it's _really_ easy to forget to make these changes
 when you start making functions from existing code):
 
-```{r}
+
+~~~
 calc_GDP_and_filter <- function(dat, year){
   
   gdpgapfiltered <- dat %>%
@@ -227,17 +275,39 @@ calc_GDP_and_filter <- function(dat, year){
 }
 
 calc_GDP_and_filter(gapminder, 1997)
+~~~
+{: .language-r}
 
-```
+
+
+~~~
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap         gdp
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
+~~~
+{: .output}
 
 The function hasn't done what we'd expect; we've successfully passed in the gapminder data, via the `dat` parameter,
 but it looks like the `year` parameter has been ignored.
 
 Look at the line: 
 
-```{r, eval=FALSE}
+
+~~~
     filter(year == year) %>% 
-```
+~~~
+{: .language-r}
 
 We passed a value of `year` into the function when we called it.  R has no way of knowing we're referring to the function parameter's `year` rather than the tibble's `year` variable.     We run into this problem because of dplyr's "Non Standard Evaluation" (NSE); this means that the functions don't follow R's usual rules about how parameters are evaluated.  
 
@@ -247,7 +317,8 @@ If we're  using standard evaluation, then we see the value of the year parameter
 a `print()` statement in our function:
 
 
-```{r}
+
+~~~
 calc_GDP_and_filter <- function(dat, year){
   # For debugging
   print(year)
@@ -261,26 +332,58 @@ calc_GDP_and_filter <- function(dat, year){
 }
 
 calc_GDP_and_filter(gapminder, 1997)
+~~~
+{: .language-r}
 
-```
+
+
+~~~
+[1] 1997
+~~~
+{: .output}
+
+
+
+~~~
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap         gdp
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
+~~~
+{: .output}
 
 
 We can use the `calc_GDP_and_filter`'s `year` parameter like a normal variable in our function _except_ when we're using it as part of a parameter to a `dplyr` verb (e.g. `filter`), or another function that uses non standard evaluation.   We need to _unquote_ the `year` parameter so that the `dplyr` function can see its contents (i.e. 1997 in this example).  We do this using the `UQ()` ("unquote") function:
 
-```{r, eval=FALSE}
+
+~~~
     filter(year == UQ(year) ) %>% 
-```
+~~~
+{: .language-r}
 
 When the filter function is evaluated it will see:
 
 
-```{r, eval=FALSE}
+
+~~~
     filter(year == 1997) %>% 
-```
+~~~
+{: .language-r}
 
 Modifying our function, we have:
 
-```{r}
+
+~~~
 calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
@@ -292,9 +395,28 @@ return(gdpgapfiltered)
 }
 
 calc_GDP_and_filter(gapminder, 1997)
-                 
+~~~
+{: .language-r}
 
-```
+
+
+~~~
+# A tibble: 142 x 7
+       country  year       pop continent lifeExp  gdpPercap          gdp
+         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
+ 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
+ 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
+ 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
+ 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
+ 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
+ 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
+ 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
+ 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
+ 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
+10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
+# ... with 132 more rows
+~~~
+{: .output}
 
 Our function now works as expected.
 
@@ -304,47 +426,90 @@ Our function now works as expected.
 >
 > Consider the following code:
 >
-> ```{r}
+> 
+> ~~~
 > greet <- function(person){
 >   print("Hello person")
 > }
 > 
 > greet("David")
-> ```
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "Hello person"
+> ~~~
+> {: .output}
 > 
 > The `print` function has no way of knowing that `person` refers to the variable `person`, and isn't 
 > part of the string `person`.  To make the contents of the `person` variable visible to the function we
 > need to construct the string, using the `paste` function:
 >
-> ```{r}
+> 
+> ~~~
 > greet <- function(person){
 >   print(paste("Hello", person))
 > }
 > 
 > greet("David")
-> ```
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "Hello David"
+> ~~~
+> {: .output}
 > This means that the `person` variable is evaluated in an _unquoted_ environment, so its contents can be evaluated.
 {: .callout}
 
 There is one small issue that remains; how does filter _know_ that the first `year` in ``` filter(year == UQ(year) ) %>%  ``` refers to the `year` variable in the tibble?  What happens if we delete the 
 year variable? Surely this should give an error?
 
-```{r}
+
+~~~
 gap_noyear <- gapminder %>% select(-year)
 calc_GDP_and_filter(gap_noyear, 1997)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 1,704 x 6
+       country      pop continent lifeExp gdpPercap         gdp
+         <chr>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
+ 1 Afghanistan  8425333      Asia  28.801  779.4453  6567086330
+ 2 Afghanistan  9240934      Asia  30.332  820.8530  7585448670
+ 3 Afghanistan 10267083      Asia  31.997  853.1007  8758855797
+ 4 Afghanistan 11537966      Asia  34.020  836.1971  9648014150
+ 5 Afghanistan 13079460      Asia  36.088  739.9811  9678553274
+ 6 Afghanistan 14880372      Asia  38.438  786.1134 11697659231
+ 7 Afghanistan 12881816      Asia  39.854  978.0114 12598563401
+ 8 Afghanistan 13867957      Asia  40.822  852.3959 11820990309
+ 9 Afghanistan 16317921      Asia  41.674  649.3414 10595901589
+10 Afghanistan 22227415      Asia  41.763  635.3414 14121995875
+# ... with 1,694 more rows
+~~~
+{: .output}
 
 As you can see, it doesn't; instead the `filter()` function will "fall through" to look for the `year` variable in `filter()`'s _calling environment_,  This is the `calc_GDP_and_filter()` environment, which does have a `year` variable.  Since this is a standard R variable, it will be implicitly unquoted, so `filter()` will see:
 
-```{r, eval=FALSE}
+
+~~~
     filter(1997 == 1997) %>% 
-```
+~~~
+{: .language-r}
 
 which is always `TRUE`, so the filter won't do anything!
 
 We need a way of telling the function that the first `year` "belongs" to the data.  We can do this with the `.data` pronoun:
 
-```{r}
+
+~~~
 calc_GDP_and_filter <- function(dat, year){
   
 gdpgapfiltered <- dat %>%
@@ -356,9 +521,42 @@ return(gdpgapfiltered)
 }
 
 calc_GDP_and_filter(gapminder, 1997)
-calc_GDP_and_filter(gap_noyear, 1997)
+~~~
+{: .language-r}
 
-```                 
+
+
+~~~
+# A tibble: 142 x 7
+       country  year       pop continent lifeExp  gdpPercap          gdp
+         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
+ 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
+ 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
+ 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
+ 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
+ 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
+ 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
+ 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
+ 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
+ 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
+10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
+# ... with 132 more rows
+~~~
+{: .output}
+
+
+
+~~~
+calc_GDP_and_filter(gap_noyear, 1997)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in filter_impl(.data, quo): Evaluation error: Column `year`: not found in data.
+~~~
+{: .error}
 
 
 As you can see, we've also used the `.data` pronoun when calculating the GDP; if our tibble was missing either the `gdpPercap` or `pop` variables, R would search in the calling environment (i.e. the `calc_GDP_and_filter()` function).  As the variables aren't found there it would look in the `calc_GDP_and_filter()`'s calling environment, and so on.  If it finds variables matching these names, they would be used instead, giving an incorrect result; if they cannot be found we will get an error.  Using the `.data` pronoun makes our source of the data clear, and prevents this risk.
@@ -369,7 +567,8 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 >
 > > ## Solution
 > >
-> > ```{r}
+> > 
+> > ~~~
 > >  calcGDPCountryYearFilter <- function(dat, year, country){
 > >  dat <- dat %>% filter(.data$year == UQ(year) ) %>% 
 > >        filter(.data$country == UQ(country) ) %>% 
@@ -378,7 +577,18 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 > >  return(dat)
 > > }
 > > calcGDPCountryYearFilter(gapminder, year=2007, country="United Kingdom")
-> > ```
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 1 x 7
+> >          country  year      pop continent lifeExp gdpPercap          gdp
+> >            <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+> > 1 United Kingdom  2007 60776238    Europe  79.425  33203.26 2.017969e+12
+> > ~~~
+> > {: .output}
 > > 
 > {: .solution}
 {: .challenge}
