@@ -29,12 +29,17 @@ This is a similar idea to a [Jupyter notebook](http://jupyter.org/), but is inte
 
 Let's get started by making a new notebook.  From the `File` menu, choose `New file` and then `Rnotebook`.   A new window will open containing an example notebook:
 
-
 ![example notebook figure](../fig/99-notebook.png)
 
 The notebook includes "chunks" of text, and chunks of R code.
 
-The start of an R code region is marked with &#96; &#96; &#96; &#123; &#114; &#125; The end of an code region is marked with &#96; &#96; &#96;  These are a little awkward to type; pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> will insert a new chunk of R code into your document.
+The start of an R code region is marked with &#96; &#96; &#96; &#123; &#114; &#125; The end of an code region is marked with &#96; &#96; &#96;  These are a little awkward to type; pressing <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd> will insert a new chunk of R code into your document.  You can (and should) label your chunks of R code:
+
+ &#96; &#96; &#96; &#123; &#114; mychunk &#125; 
+
+This makes it easier to jump between chunks within your document, using the selector box a the lower left of the edit window.
+
+The header at the start of the notebook (between the "---"s) contains metadata which tells R how to process the notebook.  This can be edited by hand (for example to change the "title:" field), or to add an "author: " field.  RStudio may also modify it, for example, if you change the output format of the document.
 
 Before we go any further, save the notebook using `File`, `Save`.  We need to do this so that we can preview and build the notebook.  
 
@@ -43,18 +48,58 @@ Lets preview the notebook.  We can do this by clicking "Build Notebook", or by p
 We can also run the notebook interactively within RStudio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   This will execute each chunk of code within RStudio and show us the results of each chunk within the document. This makes it easier to interactively edit our code, look at the results of our analysis, and edit our text within the same environment.
 
 As an example of this, let's use the gapminder data, and some of the ideas introduced earlier to
-run, and document, and analysis of the data:
+run, and document, and analysis of the data.
+
+## Challenge 1
+
+Modify the example notebook to load the gapminder data into your working environment, and to print an extract of it in the notebook (using `print(gapminder)` will do this).
+
+It is a good idea to make a separate chunk called "setup" to load your libraries and clear your working environment.  You can re-use the code you used to load the gapminder data earlier today.  
+
+## Solution
+
+Because these lessons are built from RMarkdown documents, it is difficult to show the markdown
+itself within them.  The solution to this challenge can be found [here]({{ page.root }}/notebooks/challenge1.Rmd)
+
+{: .solution}
+{: .challenge}
+
+At the moment all the code and data we've written are shown in the document.  This can be excessive.  For example, we may get diagnostic messages which we don't anticipate being of interest to the reader.  We can hide the R code in a chunk as follows: 
+
+ &#96; &#96; &#96; &#123; &#114; mychunk echo=FALSE &#125; 
+
+We can hide messages printed to the screen (such as the ones when we load the tidyverse) with:
+
+ &#96; &#96; &#96; &#123; &#114; mychunk messages=FALSE &#125; 
+ 
+Options can be combined by separating them with commas:
+
+ &#96; &#96; &#96; &#123; &#114; mychunk echo=FALSE, messages=FALSE &#125; 
+
+## Challenge 2
+
+Hide the output and any messages when you load your data and libraries. Hide the command needed to preview the gapminder data.
+
+## Solution
+
+The solution can be found [here]({{ page.root }}/notebooks/challenge2.Rmd)
+
+{: .solution}
+{: .challenge}
 
 
+How much of the "behind the scenes" work you show in a notebook is up to you, and will depend on the intended audience.   If you hide all the code, you can produce something which looks very much like a regular scientific paper.  The benefit of writing a paper like this is that your analysis and write up are in the same place.   If your analysis (or data) change, the paper will be updated automatically.   By keeping the underlying RMarkdown file it is possible for you, or others to work out exactly how each figure in you work was produced.
 
-Demo:
+We can also display R output "inline" (i.e. so it appears as normal text within a paragraph):  For example:
+<pre>
+The sine of 0 is `r sin(0)`
+</pre>
 
-* printing a table
-* printing a graph
-* hiding the code
-* hiding messages
-* Markdown formatting - cheatsheet
-* Different output formats
+Will display as:
+
+The sine of 0 is `r sin(0)`
+
+
 
 ## Formatting our text
 
@@ -69,7 +114,17 @@ _This text is italic._ This text isn't
 
 RStudio has a quick reference quide to common markdown formatting codes. This can be found under "Help", "Markdown quick reference".  There is also a more comprehensive cheat sheet under the help menu, and an even more comprehensive reference guide.
 
-## Controling how our code and graphs are displayed
+LaTeX equations can be included in the your notebook as follows:
+
+<pre>
+$$a=\pi r^2$$
+</pre>
+
+Which will appear as:
+
+$$a=\pi r^2$$
+
+
 
 
 
@@ -85,15 +140,19 @@ which will display as "The cos of 0 is 1".
 
 
 
-## Controlling how our R code is run
-
-By default we see both the R code we've executed, and all the messages and warnings that were printed as a result of the code.  We can control what is printed, and run by passing options to our R code chunks:
-
-
-
 ##  Doing more with Markdown
 
 In this episode we've looked at how to make notebooks, and how to compile these into Word, PDF and HTML files.   We can use a similar approach to produce other types of outputs.  For example, _all_ of this course was written in RStudio.  The slides I used to introduce the course at the start were written as a RMarkdown document.  Each episode of this course is written as an RMarkdown doucment (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying RMarkdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory.  
 
 The [RMarkdown gallery](http://rmarkdown.rstudio.com/gallery.html) contains examples of the many different types of document you can produce (some of these may require a newer version of RStudio than the one installed on the PC clusters).
+
+
+Demo:
+
+* printing a table
+* printing a graph
+* hiding the code
+* hiding messages
+* Markdown formatting - cheatsheet
+* Different output formats
 
