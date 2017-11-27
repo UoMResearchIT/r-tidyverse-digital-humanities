@@ -86,3 +86,12 @@ This is not *bold*
 
 
 ## Controlling how our R code is run
+
+
+
+##  Doing more with Markdown
+
+In this episode we've looked at how to make notebooks, and how to compile these into Word, PDF and HTML files.   We can use a similar approach to produce other types of outputs.  For example, _all_ of this course was written in RStudio.  The slides I used to introduce the course at the start were written as a RMarkdown document.  Each episode of this course is written as an RMarkdown doucment (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying RMarkdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory.  
+
+The [RMarkdown gallery](http://rmarkdown.rstudio.com/gallery.html) contains examples of the many different types of document you can produce (some of these may require a newer version of RStudio than the one installed on the PC clusters).
+
