@@ -55,7 +55,7 @@ As an example of using notebooks, let's use the gapminder data, and some of the 
 > > ## Solution
 > > 
 > > Because these lessons are built from R Markdown documents, it is difficult to show the markdown
-> > itself within them.  The solution to this challenge can be found [here]({{ page.root }}/notebooks/challenge1.Rmd)
+> > itself within them.  The solution to this challenge can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge1.Rmd)
 > > 
 > {: .solution}
 {: .challenge}
@@ -99,7 +99,7 @@ You would typically include this in your setup chunk, and use `include=FALSE` so
 > 
 > > ## Solution
 > > 
-> > The solution can be found [here]({{ page.root }}/notebooks/challenge2.Rmd)
+> > The solution can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge2.Rmd)
 > {: .solution}
 {: .challenge}
 
@@ -178,7 +178,7 @@ Take a look at the [DRYNotebook.Rmd]({{ page.root}}/notebooks/DRYNotebook.Rmd). 
 > 
 > > ## Solution
 > > 
-> > The solution can be found [here]({{ page.root }}/notebooks/challenge3.Rmd)
+> > The solution can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge3.Rmd)
 > > 
 > {: .solution}
 {: .challenge}
