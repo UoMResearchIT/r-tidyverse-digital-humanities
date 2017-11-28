@@ -5,7 +5,7 @@ params:
   comparator: "United Kingdom"
   year: 2002
 output:
-  html_notebook: default
+  html_notebook
 ---
 
 
