@@ -154,7 +154,7 @@ Writing up our work in notebooks is a really useful way of explaining our analys
 
 There are two ways of doing this; we can define our parameters in a code chunk, and refer to the variables, or define a [parameter in the header of the document](http://rmarkdown.rstudio.com/developer_parameterized_reports.html).
 
-Take a look at the [DRYNotebook.Rmd]({{ page.root}}/notebooks/DRYNotebook.Rmd).  In this, we define the year we're interested in as a parameter, and always refer to the parameter rather than hard-coding a year into various places in the text and code.  
+Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/mawds/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd).  In this, we define the year we're interested in as a parameter, and always refer to the parameter rather than hard-coding a year into various places in the text and code.  
 
 
 > ## Challenge 3
