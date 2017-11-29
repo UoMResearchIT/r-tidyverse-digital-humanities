@@ -24,7 +24,7 @@ gapminder <- read_csv("../data/gapminder-FiveYearData.csv",
                       ))
 ```
 
-We can look at the mean and median life expectancy for the countries in each contient for 2007:
+We can look at the mean and median life expectancy for the countries in each continent for 2007:
 
 ```{r}
 gapminder %>%
