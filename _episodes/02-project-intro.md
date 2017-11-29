@@ -232,6 +232,7 @@ x
 
 ~~~
 rm(x)
+# x has now been deleted; so trying to access it will give an error
 x
 ~~~
 {: .language-r}
