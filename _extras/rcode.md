@@ -19,7 +19,7 @@ permalink: /rcode/
         var article_here = document.getElementById(this.episode);
         var parser = new DOMParser();
         var htmlDoc = parser.parseFromString(this.responseText,"text/html");
-        var htmlDocBlockquote = htmlDoc.getElementsByClassName("r");
+        var htmlDocBlockquote = htmlDoc.getElementsByClassName("language-r");
 	      for(j=0; j < htmlDocBlockquote.length; j++) {
 		      article_here.innerHTML += htmlDocBlockquote[j].outerHTML;
         	}
