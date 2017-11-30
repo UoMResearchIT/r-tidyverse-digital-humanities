@@ -42,6 +42,7 @@ permalink: /challenge/
 Create anchor for each one of the episodes.
 {% endcomment %}
 {% for episode in site.episodes %}
+<h2>{{ episode.title}}</h2>
 <article id="{{ episode.url }}"></article>
 {% endfor %}
 
