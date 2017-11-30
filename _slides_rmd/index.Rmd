@@ -21,7 +21,6 @@ Initial tasks:
 2. Check you can load RStudio
 3. Open the course notes page at [https://UoMResearchIT.github.io/r-tidyverse-intro/](https://UoMResearchIT.github.io/r-tidyverse-intro/)
   * There is a link to this slideshow there
-4. Open the course's shared Etherpad at [http://bit.ly/2yMy48D](http://bit.ly/2yMy48D)
 4. There is no sign-in sheet.  Attendance is recorded via the feedback form [http://bit.ly/2xP95Ef](http://bit.ly/2xP95Ef)
 
 ## Introduction
@@ -99,8 +98,10 @@ R user groups are a great way of finding out more about R.
     + These are the only slides
 * Getting help
     + The sticky notes 
-    + [Etherpad](http://bit.ly/2yMy48D)
-    + Course notes
+* Course notes
+    + Try to type-along without the notes
+    + All the code is in the notes (Extras menu); you can cut and paste this into RStudio.
+    + The slides will remain online after the course.
 
 ##  Let's get started
 
