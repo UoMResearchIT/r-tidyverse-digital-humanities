@@ -94,10 +94,28 @@ variables you select.
 
 ```{r}
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
+print(year_country_gdp)
 ```
 
+Select will select _columns_ of data.  What if we want to select rows that meet certain criteria?  
+
+## Using `filter()`
+
+The `filter()` function is used to select rows of data.  For example, to select only countries in 
+Europe:
+
+```{r}
+gapminder_Europe <- filter(gapminder, continent=="Europe") 
+print(gapminder_Europe)
+```
+
+Only rows of the data where the condition (i.e. `continent=="Europe") is `TRUE` are kept.
 
 ## Using pipes and dplyr
+
+We've now seen how to choose certain columns of data (using `select()`) and certain rows of data (using `filter()`).  In an analysis we often want to do both of these things (and many other things, like calculating summary statistics, which we'll come to shortly).    How do we combine these?
+
+There are several ways of doing this; the method we will lean about today is using _pipes_.  
 
 The pipe operator `%>%` lets us pipe the output of one command into the next.   This allows us to build up a data-processing pipeline.  This approach has several advantages:
 
@@ -129,10 +147,11 @@ perform a complex series of operations in one go
 >
 {: .callout}
 
-Let's rewrite the previous command using the pipe operator:
+Let's rewrite the select command example using the pipe operator:
 
 ```{r}
 year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
+print(year_country_gdp)
 ```
 
 To help you understand why we wrote that in that way, let's walk through it step
@@ -141,20 +160,17 @@ symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
 
+What if we wanted to combine this with the filter example? I.e. we want to select year, country and GDP per capita, but only for countries in Europe?  We can join these two operations using a pipe; feeding the output of one command directly into the next:
 
-
-## Using `filter()`
-
-If we now wanted to move forward with the above, but only with European
-countries, we can combine `select` and `filter`
 
 ```{r}
 year_country_gdp_euro <- gapminder %>%
-    filter(continent=="Europe") %>%
+    filter(continent == "Europe") %>%
     select(year,country,gdpPercap)
+print(year_country_gdp_euro)
 ```
 
-Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
+Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.  
 
 What about if we wanted to match more than one item?  To do this we use the `%in%` operator:
 
@@ -162,6 +178,24 @@ What about if we wanted to match more than one item?  To do this we use the `%in
 gapminder_benelux <- gapminder %>% 
   filter(country %in% c("Belgium", "Netherlands", "France"))
 ```
+
+
+> ## Another way of thinking about pipes
+>
+> It might be useful to think of the statement
+> ```{r, eval=FALSE}
+>  gapminder %>%
+>     filter(continent=="Europe") %>%
+>     select(year,country,gdpPercap)
+> ```
+>  as a sentence, which we can read as
+> "take the gapminder data *and then* `filter` records where continent == Europe
+> *and then* `select` the year, country and gdpPercap
+> 
+> We can think of the `filter()` and `select()` functions as verbs in the sentence; 
+> they do things to the data flowing through the pipeline.  
+>
+{: .callout}
 
 > ## Splitting your commands over multiple lines
 > 
@@ -179,24 +213,6 @@ gapminder_benelux <- gapminder %>%
 > as a new command, which won't work.
 {: .callout}
 
-
-
-> ## Another way of thinking about pipes
->
-> It might be useful to think of the statement
-> ```{r, eval=FALSE}
->  gapminder %>%
->     filter(continent=="Europe") %>%
->     select(year,country,gdpPercap)
-> ```
->  as a sentence, which we can read as
-> "take the gapminder data *and then* `filter` it for records where continent == Europe
-> *and then* `select` the year, country and gdpPercap
-> 
-> We can think of the `filter()` and `select()` functions as verbs in the sentence; 
-> they do things to the data flowing through the pipeline.
->
-{: .callout}
 
 > ## Challenge 1
 >
@@ -219,6 +235,7 @@ gapminder_benelux <- gapminder %>%
 > > continent since we would have removed it in the previous step.
 > {: .solution}
 {: .challenge}
+
 
 ## Sorting tibbles
 

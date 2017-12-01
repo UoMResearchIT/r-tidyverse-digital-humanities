@@ -140,11 +140,71 @@ variables you select.
 
 ~~~
 year_country_gdp <- select(gapminder,year,country,gdpPercap)
+print(year_country_gdp)
 ~~~
 {: .language-r}
 
 
+
+~~~
+# A tibble: 1,704 x 3
+    year     country gdpPercap
+   <int>       <chr>     <dbl>
+ 1  1952 Afghanistan  779.4453
+ 2  1957 Afghanistan  820.8530
+ 3  1962 Afghanistan  853.1007
+ 4  1967 Afghanistan  836.1971
+ 5  1972 Afghanistan  739.9811
+ 6  1977 Afghanistan  786.1134
+ 7  1982 Afghanistan  978.0114
+ 8  1987 Afghanistan  852.3959
+ 9  1992 Afghanistan  649.3414
+10  1997 Afghanistan  635.3414
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+Select will select _columns_ of data.  What if we want to select rows that meet certain criteria?  
+
+## Using `filter()`
+
+The `filter()` function is used to select rows of data.  For example, to select only countries in 
+Europe:
+
+
+~~~
+gapminder_Europe <- filter(gapminder, continent=="Europe") 
+print(gapminder_Europe)
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 360 x 6
+   country  year     pop continent lifeExp gdpPercap
+     <chr> <int>   <dbl>     <chr>   <dbl>     <dbl>
+ 1 Albania  1952 1282697    Europe  55.230  1601.056
+ 2 Albania  1957 1476505    Europe  59.280  1942.284
+ 3 Albania  1962 1728137    Europe  64.820  2312.889
+ 4 Albania  1967 1984060    Europe  66.220  2760.197
+ 5 Albania  1972 2263554    Europe  67.690  3313.422
+ 6 Albania  1977 2509048    Europe  68.930  3533.004
+ 7 Albania  1982 2780097    Europe  70.420  3630.881
+ 8 Albania  1987 3075321    Europe  72.000  3738.933
+ 9 Albania  1992 3326498    Europe  71.581  2497.438
+10 Albania  1997 3428038    Europe  72.950  3193.055
+# ... with 350 more rows
+~~~
+{: .output}
+
+Only rows of the data where the condition (i.e. `continent=="Europe") is `TRUE` are kept.
+
 ## Using pipes and dplyr
+
+We've now seen how to choose certain columns of data (using `select()`) and certain rows of data (using `filter()`).  In an analysis we often want to do both of these things (and many other things, like calculating summary statistics, which we'll come to shortly).    How do we combine these?
+
+There are several ways of doing this; the method we will lean about today is using _pipes_.  
 
 The pipe operator `%>%` lets us pipe the output of one command into the next.   This allows us to build up a data-processing pipeline.  This approach has several advantages:
 
@@ -176,13 +236,34 @@ perform a complex series of operations in one go
 >
 {: .callout}
 
-Let's rewrite the previous command using the pipe operator:
+Let's rewrite the select command example using the pipe operator:
 
 
 ~~~
 year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
+print(year_country_gdp)
 ~~~
 {: .language-r}
+
+
+
+~~~
+# A tibble: 1,704 x 3
+    year     country gdpPercap
+   <int>       <chr>     <dbl>
+ 1  1952 Afghanistan  779.4453
+ 2  1957 Afghanistan  820.8530
+ 3  1962 Afghanistan  853.1007
+ 4  1967 Afghanistan  836.1971
+ 5  1972 Afghanistan  739.9811
+ 6  1977 Afghanistan  786.1134
+ 7  1982 Afghanistan  978.0114
+ 8  1987 Afghanistan  852.3959
+ 9  1992 Afghanistan  649.3414
+10  1997 Afghanistan  635.3414
+# ... with 1,694 more rows
+~~~
+{: .output}
 
 To help you understand why we wrote that in that way, let's walk through it step
 by step. First we summon the gapminder data frame and pass it on, using the pipe
@@ -190,22 +271,39 @@ symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
 
+What if we wanted to combine this with the filter example? I.e. we want to select year, country and GDP per capita, but only for countries in Europe?  We can join these two operations using a pipe; feeding the output of one command directly into the next:
 
-
-## Using `filter()`
-
-If we now wanted to move forward with the above, but only with European
-countries, we can combine `select` and `filter`
 
 
 ~~~
 year_country_gdp_euro <- gapminder %>%
-    filter(continent=="Europe") %>%
+    filter(continent == "Europe") %>%
     select(year,country,gdpPercap)
+print(year_country_gdp_euro)
 ~~~
 {: .language-r}
 
-Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.
+
+
+~~~
+# A tibble: 360 x 3
+    year country gdpPercap
+   <int>   <chr>     <dbl>
+ 1  1952 Albania  1601.056
+ 2  1957 Albania  1942.284
+ 3  1962 Albania  2312.889
+ 4  1967 Albania  2760.197
+ 5  1972 Albania  3313.422
+ 6  1977 Albania  3533.004
+ 7  1982 Albania  3630.881
+ 8  1987 Albania  3738.933
+ 9  1992 Albania  2497.438
+10  1997 Albania  3193.055
+# ... with 350 more rows
+~~~
+{: .output}
+
+Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.  
 
 What about if we wanted to match more than one item?  To do this we use the `%in%` operator:
 
@@ -215,6 +313,26 @@ gapminder_benelux <- gapminder %>%
   filter(country %in% c("Belgium", "Netherlands", "France"))
 ~~~
 {: .language-r}
+
+
+> ## Another way of thinking about pipes
+>
+> It might be useful to think of the statement
+> 
+> ~~~
+>  gapminder %>%
+>     filter(continent=="Europe") %>%
+>     select(year,country,gdpPercap)
+> ~~~
+> {: .language-r}
+>  as a sentence, which we can read as
+> "take the gapminder data *and then* `filter` records where continent == Europe
+> *and then* `select` the year, country and gdpPercap
+> 
+> We can think of the `filter()` and `select()` functions as verbs in the sentence; 
+> they do things to the data flowing through the pipeline.  
+>
+{: .callout}
 
 > ## Splitting your commands over multiple lines
 > 
@@ -244,26 +362,6 @@ gapminder_benelux <- gapminder %>%
 > as a new command, which won't work.
 {: .callout}
 
-
-
-> ## Another way of thinking about pipes
->
-> It might be useful to think of the statement
-> 
-> ~~~
->  gapminder %>%
->     filter(continent=="Europe") %>%
->     select(year,country,gdpPercap)
-> ~~~
-> {: .language-r}
->  as a sentence, which we can read as
-> "take the gapminder data *and then* `filter` it for records where continent == Europe
-> *and then* `select` the year, country and gdpPercap
-> 
-> We can think of the `filter()` and `select()` functions as verbs in the sentence; 
-> they do things to the data flowing through the pipeline.
->
-{: .callout}
 
 > ## Challenge 1
 >
