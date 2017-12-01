@@ -394,6 +394,7 @@ gapminder_benelux <- gapminder %>%
 > {: .solution}
 {: .challenge}
 
+
 ## Sorting tibbles
 
 The `arrange()` function will sort a tibble by one or more of the variables in it:
