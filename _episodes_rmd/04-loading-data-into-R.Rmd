@@ -80,9 +80,16 @@ When we enter `cats` by itself on the command line, it will print the contents o
 
 > ## Loading other types of data
 >
-> * Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimiters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
-> * You can read directly from excel spreadsheets without
-> converting them to plain text first by using the [readxl](http://readxl.tidyverse.org) package, which is part of the tidyverse (although not loaded by default).
+> Another type of file you might encounter are tab-separated value files (.tsv); these can be read with the `read_tsv()` function in the `readr` package.  To read files with other delimiters, use the `read_delim()` function. If files are fixed width format (i.e. the variable is defined by its position on the line), then use the `read_fwf()` function.
+>
+>  The tidyverse comes with several packages for loading data in other formats.  These include:
+> * [readxl](http://readxl.tidyverse.org) for reading data from Excel spreadsheets
+> * [haven](http://haven.tidyverse.org/) for reading SAS, SPSS and Stata data files
+> * [xml2](http://xml2.tidyverse.org/) for reading xml data
+> 
+> These aren't loaded by default (when we use `library("tidyverse")`), so they will need to be loaded
+> separately, e.g. `library("readxl")`, etc.  There are also tidyverse packages for getting data via 
+> web APIs, or by "scraping" websites.  
 {: .callout}
 
 
