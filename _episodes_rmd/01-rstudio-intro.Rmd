@@ -430,7 +430,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > ## Challenge 1
 >
 > Which of the following are valid R variable names?
-> ```{r, eval=FALSE}
+> ```
 > min_height
 > max.height
 > _age
@@ -444,7 +444,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ## Solution to challenge 1
 > >
 > > The following can be used as R variables:
-> > ```{r ch1pt1-sol, eval=FALSE}
+> > ```
 > > min_height
 > > max.height
 > > MaxLength
@@ -452,12 +452,12 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ```
 > >
 > > The following creates a hidden variable:
-> > ```{r ch1pt2-sol, eval=FALSE}
+> > ```
 > > .mass
 > > ```
 > >
 > > The following will not be able to be used to create a variable
-> > ```{r ch1pt3-sol, eval=FALSE}
+> > ```
 > > _age
 > > min-length
 > > 2widths
