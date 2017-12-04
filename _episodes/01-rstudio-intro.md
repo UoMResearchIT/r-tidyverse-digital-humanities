@@ -614,8 +614,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > ## Challenge 1
 >
 > Which of the following are valid R variable names?
-> 
-> ~~~
+> ```
 > min_height
 > max.height
 > _age
@@ -624,36 +623,29 @@ We will discuss the important concept of _data types_ in the next episode.
 > min-length
 > 2widths
 > celsius2kelvin
-> ~~~
-> {: .language-r}
+> ```
 >
 > > ## Solution to challenge 1
 > >
 > > The following can be used as R variables:
-> > 
-> > ~~~
+> > ```
 > > min_height
 > > max.height
 > > MaxLength
 > > celsius2kelvin
-> > ~~~
-> > {: .language-r}
+> > ```
 > >
 > > The following creates a hidden variable:
-> > 
-> > ~~~
+> > ```
 > > .mass
-> > ~~~
-> > {: .language-r}
+> > ```
 > >
 > > The following will not be able to be used to create a variable
-> > 
-> > ~~~
+> > ```
 > > _age
 > > min-length
 > > 2widths
-> > ~~~
-> > {: .language-r}
+> > ```
 > {: .solution}
 {: .challenge}
 
