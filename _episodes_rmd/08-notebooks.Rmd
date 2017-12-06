@@ -1,7 +1,7 @@
 ---
 title: "Combining your code with text"
-teaching: 15
-exercises: 0
+teaching: 30
+exercises: 15
 questions:
 - "How can I organise my work using Rmarkdown documents?"
 objectives:
@@ -10,7 +10,7 @@ objectives:
 - "To understand how to use Knitr to write reports"
 
 keypoints:
-- "Document what and why, not how."
+- "Notebooks let us combine R code and text explaining our analysis"
 source: Rmd
 ---
 
@@ -108,7 +108,7 @@ How much of the "behind the scenes" work you show in a notebook is up to you, an
 
 We can also display R output "inline" (i.e. so it appears as normal text within a paragraph):  For example:
 <pre>
-The sine of 0 is `r sin(0)`
+The sine of 0 is &#96;r sin(0)&#96;
 </pre>
 
 Will display as:
@@ -128,7 +128,7 @@ _This text is italic._ This text isn't
 
 R Studio has a quick reference guide to common markdown formatting codes. This can be found under "Help", "Markdown quick reference".  There is also a more comprehensive cheat sheet under the help menu, and an even more comprehensive reference guide.
 
-LaTeX equations can be included in the your notebook as follows:
+[LaTeX equations](https://en.wikibooks.org/wiki/LaTeX/Mathematics) can be included in the your notebook as follows:
 
 <pre>
 $$a=\pi r^2$$
@@ -138,6 +138,7 @@ Which will appear as:
 
 $$a=\pi r^2$$
 
+You can insert an equation within a line of text by enclosing the LaTeX code within single dollars.
 
 > ## More complicated formatting
 > 
@@ -184,7 +185,7 @@ Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/mawds/r-t
 
 ##  Doing more with Markdown
 
-In this episode we've looked at how to make notebooks, and how to compile these into Word, PDF and HTML files.   We can use a similar approach to produce other types of outputs.  For example, _all_ of this course was written in R Studio.  The slides I used to introduce the course at the start were written as a R Markdown document.  Each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory.  
+In this episode we've looked at how to make notebooks, and how to compile these into Word, PDF and HTML files.   We can use a similar approach to produce other types of outputs.  For example, _all_ of this course was written in R Studio.  The slides I used to introduce the course at the start were written as a R Markdown document.  Each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory; having selected an episode you will need to click the "raw" button to see the markdown itself.  
 
 The [RMarkdown gallery](http://rmarkdown.rstudio.com/gallery.html) contains examples of the many different types of document you can produce (some of these may require a newer version of R Studio than the one installed on the PC clusters).
 
