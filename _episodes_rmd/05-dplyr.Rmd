@@ -63,9 +63,9 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 > of your data changes.
 {: .callout}
 
-## Manipulating data frames
+## Manipulating tibbles 
 
-Manipulation of data frames means many things to many researchers. We often
+Manipulation of tibbles means many things to many researchers. We often
 select only certain observations (rows) or variables (columns). We often group the
 data by a certain variable(s), or calculate summary statistics.
 
@@ -89,7 +89,7 @@ We will cover:
 ## Using `select()`
 
 If, for example, we wanted to move forward with only a few of the variables in
-our data frame we use the `select()` function. This will keep only the
+our tibble we use the `select()` function. This will keep only the
 variables you select.
 
 ```{r}
@@ -155,7 +155,7 @@ print(year_country_gdp)
 ```
 
 To help you understand why we wrote that in that way, let's walk through it step
-by step. First we summon the gapminder data frame and pass it on, using the pipe
+by step. First we summon the gapminder tibble and pass it on, using the pipe
 symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
@@ -217,8 +217,8 @@ gapminder_benelux <- gapminder %>%
 > ## Challenge 1
 >
 > Write a single command (which can span multiple lines and includes pipes) that
-> will produce a dataframe that has the values of `lifeExp`, `country`
-> and `year`, for the countries in Africa, but not for other Continents.  How many rows does your data frame
+> will produce a tibble that has the values of `lifeExp`, `country`
+> and `year`, for the countries in Africa, but not for other Continents.  How many rows does your tibble  
 > have?
 >
 > > ## Solution to Challenge 1
@@ -228,8 +228,8 @@ gapminder_benelux <- gapminder %>%
 > >                            select(year,country,lifeExp)
 > > nrow(year_country_lifeExp_Africa)
 > > ```
-> > As with last time, first we pass the gapminder dataframe to the `filter()`
-> > function, then we pass the filtered version of the gapminder dataframe to the
+> > As with last time, first we pass the gapminder tibble to the `filter()`
+> > function, then we pass the filtered version of the gapminder tibble  to the
 > > `select()` function. **Note:** The order of operations is very important in this
 > > case. If we used 'select' first, filter would not be able to find the variable
 > > continent since we would have removed it in the previous step.
