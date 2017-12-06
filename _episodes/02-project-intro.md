@@ -75,8 +75,15 @@ project.
 > 1. Click the "File" menu button, then "New Project".
 > 2. Click "New Directory".
 > 3. Click "Empty Project".
-> 4. Type in the name of the directory to store your project, e.g. "my_project".
-> 5. Click the "Create Project" button.
+> 4. Type in the name of the directory to store your project, e.g. "my_project". You should avoid using spaces and "."s in the project name.
+> 5. If you are using a teaching cluster machine, choose "Browse" and select `C:\work`.  
+> 6. Click the "Create Project" button.
+{: .challenge}
+
+> ## Project locations
+> 
+> We suggest you save your project in `c:\work` in case network access to the `P:` drive is lost during the course.  You should copy your project folder to the `P:` drive at the end of the day.
+> 
 {: .challenge}
 
 Now when we start R in this project directory, or open this project with RStudio,
