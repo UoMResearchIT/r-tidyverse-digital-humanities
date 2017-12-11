@@ -32,7 +32,7 @@ package, and the [ggplot2][ggplot2] package.
 
 Today we'll be learning about the ggplot2 package, because
 it is the most effective for creating publication quality
-graphics.  It is also part of the tidyverse, which we introduced in [episode 5]({{ page.root }}/05-dplyr).
+graphics.  It is also part of the tidyverse.
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
@@ -48,7 +48,6 @@ Let's start off with an example, using our gapminder data:
 
 
 ~~~
-library("tidyverse")
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ~~~
@@ -107,12 +106,14 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
 {: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
-Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` symbol.
+Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` symbol.  It may help to remember that we **add** layers to our plot.
 
 > ## Challenge 1
 >
 > Modify the example so that the figure shows how life expectancy has
-> changed over time.
+> changed over time.  Note that using points to show this data isn't the 
+> most effective way of presenting it; we will look at other ways of showing
+> the data shortly.
 >
 > Hint: the gapminder dataset has a column called "year", which should appear
 > on the x-axis.
@@ -165,7 +166,21 @@ Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` 
 ## Layers
 
 Using a scatter-plot probably isn't the best for visualizing change over time.
-Instead, let's tell `ggplot` to visualize the data as a line plot:
+Instead, let's tell `ggplot` to visualize the data as a line plot.  If we replace `geom_point()` with
+`geom_line()`, we obtain:
+
+
+~~~
+gapminder %>%  ggplot(aes(x = year, y = lifeExp, colour = continent )) + geom_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-badline-1.png" title="plot of chunk badline" alt="plot of chunk badline" style="display: block; margin: auto;" />
+
+This probably isn't what you were expecting.   We need to modify the aesthetic to tell 
+ggplot that each country's data should be a separate line.   By default, `geom_point()` 
+joins all our observations together, sorting them in order of the variable we're plotting
+on the x axis.   To generate a separate line for each country, we use the `group` option:
 
 
 ~~~
@@ -176,12 +191,9 @@ gapminder %>%  ggplot(aes(x = year, y = lifeExp, group = country, color = contin
 
 <img src="../fig/rmd-06-lifeExp-line-1.png" title="plot of chunk lifeExp-line" alt="plot of chunk lifeExp-line" style="display: block; margin: auto;" />
 
-Instead of adding a `geom_point` layer, we've added a `geom_line` layer. We've
-added the **group** *aesthetic*, which tells `ggplot` to draw a line for each
-country (try removing this to see the effect)
 
 But what if we want to visualize both lines and points on the plot? We can
-simply add another layer to the plot:
+add another layer to the plot:
 
 
 ~~~
@@ -192,52 +204,69 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country, color = contine
 
 <img src="../fig/rmd-06-lifeExp-line-point-1.png" title="plot of chunk lifeExp-line-point" alt="plot of chunk lifeExp-line-point" style="display: block; margin: auto;" />
 
-It's important to note that each layer is drawn on top of the previous layer. In
-this example, the points have been drawn *on top of* the lines. Here's a
-demonstration:
+At the moment the aesthetic we defined applies to all of the plot layers; both the points
+and the lines are coloured according to their continent. We can apply an aesthetic to certain layers
+the plot by supplying them with their own aesthetic.  For example, if we remove the `color` option, we aren't
+mapping any aspect of the data to the colour proprerty of any part of the graph - all the points and lines have the same
+colour:
+
 
 
 ~~~
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line(aes(color = continent)) + geom_point()
+  geom_line() + geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-layer-example-1-1.png" title="plot of chunk lifeExp-layer-example-1" alt="plot of chunk lifeExp-layer-example-1" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-lifeExp-line-point2-1.png" title="plot of chunk lifeExp-line-point2" alt="plot of chunk lifeExp-line-point2" style="display: block; margin: auto;" />
 
-In this example, the *aesthetic* mapping of **color** has been moved from the
-global plot options in `ggplot` to the `geom_line` layer so it no longer applies
-to the points. Now we can clearly see that the points are drawn on top of the
-lines.
+If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
+is overriden by the new aesthetic.  The points' colours are unchanged:
 
-> ## Tip: Setting an aesthetic to a value instead of a mapping
+~~~
+gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
+  geom_line(aes(colour=continent)) + geom_point()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-lifeExp-line-point3-1.png" title="plot of chunk lifeExp-line-point3" alt="plot of chunk lifeExp-line-point3" style="display: block; margin: auto;" />
+
+What if we want to print our points in a colour other than the default black?  Aesthetics map
+data to a property of the graph.  If we want to change the colour of all our points, we are not using 
+the data to specify the colour, so we specify the colour directly in the geom:
+
+
+~~~
+gapminder %>% 
+  ggplot(aes(x = year, y = lifeExp, group = country)) +
+  geom_line(aes(colour = continent)) +
+  geom_point(colour = "red")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-lifeExp-line-point4-1.png" title="plot of chunk lifeExp-line-point4" alt="plot of chunk lifeExp-line-point4" style="display: block; margin: auto;" />
+
+It's important to note that each layer is drawn on top of the previous layer. In
+this example, the points have been drawn *on top of* the lines. If we swap the order
+of our `geom_line()` and `geom_point()`, the points appear **behind** the lines:
+
+
+~~~
+gapminder %>% 
+  ggplot(aes(x = year, y = lifeExp, group = country)) +
+  geom_point(colour = "red") + 
+  geom_line(aes(colour = continent)) 
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-lifeExp-point-line-1.png" title="plot of chunk lifeExp-point-line" alt="plot of chunk lifeExp-point-line" style="display: block; margin: auto;" />
+
+
+> ## Tip: Transparency
 >
-> So far, we've seen how to use an aesthetic (such as **color**) as a *mapping* to a variable in the data. For example, when we use `geom_line(aes(color = continent))`, ggplot will give a different colour to each continent. But what if we want to change the colour of all lines to blue? You may think that `geom_line(aes(color = "blue"))` should work, but it doesn't. Since we don't want to create a mapping to a specific variable, we simply move the colour specification outside of the `aes()` function, like this: `geom_line(color = "blue")`.
+> If you have a lot of data or many layers, it can be useful to make some (semi)-transparent.
+> You can do this by setting the `alpha` property to a value between 0 (fully transparent), and 1 (fully opaque).
 {: .callout}
-
-> ## Challenge 3
->
-> Switch the order of the point and line layers from the previous example. What
-> happened?
->
-> > ## Solution to challenge 3
-> >
-> > Switch the order of the point and line layers from the previous example. What
-> > happened?
-> >
-> > 
-> > ~~~
-> > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-> >  geom_point() + geom_line(aes(color = continent))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-ch3-sol-1.png" title="plot of chunk ch3-sol" alt="plot of chunk ch3-sol" style="display: block; margin: auto;" />
-> >
-> > The lines now get drawn over the points.
-> >
-> {: .solution}
-{: .challenge}
 
 ## Transformations and statistics
 
@@ -311,14 +340,14 @@ aesthetic by passing it as an argument to `geom_smooth`. Previously in the
 lesson we've used the `aes` function to define a *mapping* between data
 variables and their visual representation.
 
-> ## Challenge 4a
+> ## Challenge 3
 >
 > Modify the color and size of the points on the point layer in the previous
 > example.
 >
 > Hint: do not use the `aes` function.
 >
-> > ## Solution to challenge 4a
+> > ## Solution to challenge 3
 > >
 > > Modify the color and size of the points on the point layer in the previous
 > > example.
@@ -338,13 +367,13 @@ variables and their visual representation.
 {: .challenge}
 
 
-> ## Challenge 4b
+> ## Challenge 4
 >
 > Modify your solution to Challenge 4a so that the
 > points are now a different shape and are colored by continent with new
 > trendlines.  Hint: The color argument can be used inside the aesthetic.
 >
-> > ## Solution to challenge 4b
+> > ## Solution to challenge 4
 > >
 > > Modify Challenge 4 so that the points are now a different shape and are
 > > colored by continent with new trendlines.
