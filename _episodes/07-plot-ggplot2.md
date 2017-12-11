@@ -268,6 +268,25 @@ gapminder %>%
 > You can do this by setting the `alpha` property to a value between 0 (fully transparent), and 1 (fully opaque).
 {: .callout}
 
+## Multi-panel figures
+
+There's still a lot going on in this graph.  It may clearer if we plotted a separate graph
+for each continent. We can split the plot into  multiple panels by adding a layer of **facet** panels: 
+
+
+~~~
+gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
+  geom_line() + facet_wrap( ~ continent)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
+The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
+`~`. This tells R to draw a panel for each unique value in the continent column.  We have removed
+`colour=continent` from the aesthetic since colouring each line by continent conveys no additional
+information.
+
 ## Transformations and statistics
 
 Ggplot also makes it easy to overlay statistical models over the data. To
@@ -392,26 +411,6 @@ variables and their visual representation.
 > {: .solution}
 {: .challenge}
 
-
-## Multi-panel figures
-
-Earlier we visualized the change in life expectancy over time across all
-countries in one plot. Alternatively, we can split this out over multiple panels
-by adding a layer of **facet** panels. 
-
-
-
-~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line() + facet_wrap( ~ continent)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
-
-The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
-`~`. This tells R to draw a panel for each unique value in the country column
-of the gapminder dataset.
 
 > ## Challenge 5
 > 
