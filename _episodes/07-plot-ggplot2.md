@@ -311,12 +311,12 @@ information.
 
 ## Transformations 
 
-Ggplot also makes it easy to overlay statistical models over the data. To
+Ggplot also makes it easy to transform axes, to better show our data.  To
 demonstrate we'll go back to our first example:
 
 
 ~~~
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color= continent)) +
+gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ~~~
 {: .language-r}
@@ -326,7 +326,7 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color= continent)) +
 Currently it's hard to see the relationship between the points due to some strong
 outliers in GDP per capita. We can change the scale of units on the x axis using
 the *scale* functions. These control the mapping between the data values and
-visual values of an aesthetic. We can also modify the transparency of the
+visual values of an aesthetic. We also modify the transparency of the
 points, using the *alpha* function, which is especially helpful when you have
 a large amount of data which is very clustered.
 
@@ -358,7 +358,7 @@ x-axis.
 > 
 > Modify the plot so that each country has its own colour.   Although we would 
 > usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; hide the legend.
+> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
 > 
 > 
 > > ## Solution to challenge 5
@@ -386,6 +386,7 @@ x-axis.
 > > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
+
 
 
 > ## Challenge 6
