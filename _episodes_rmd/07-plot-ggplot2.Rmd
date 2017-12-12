@@ -240,7 +240,25 @@ The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
-## Transformations and statistics
+> ## Challenge 3
+> 
+> Modify the figure so that each line is semi-transparent, and thicker.
+> 
+> Hint: There is a cheatsheet for `ggplot2` included with Rstudio, which lists the aesthetics commonly
+> used with each geom
+> 
+> > ## Solution
+> > 
+> > ```{r}
+> > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
+> >   geom_line(alpha=0.2, size=2) + facet_wrap( ~ continent)
+> > ```
+> > 
+> {: .solution}
+{: .challenge}
+
+
+## Transformations 
 
 Ggplot also makes it easy to overlay statistical models over the data. To
 demonstrate we'll go back to our first example:
@@ -271,74 +289,10 @@ x-axis.
 
 > ## Tip Reminder: Setting an aesthetic to a value instead of a mapping
 >
-> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we can give a different transparency to each continent with `geom_point(aes(alpha = continent))` (although in this example, this isn't 
+> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we could give a different transparency to each continent with `geom_point(aes(alpha = continent))` (although in this example, this isn't 
 > very useful as a visualisation technique.
 {: .callout}
 
-We can fit a simple relationship to the data by adding another layer,
-`geom_smooth`:
-
-```{r lm-fit}
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method = "lm")
-```
-
-We can make the line thicker by *setting* the **size** aesthetic in the
-`geom_smooth` layer:
-
-```{r lm-fit2}
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point() + scale_x_log10() + geom_smooth(method = "lm", size = 1.5)
-```
-
-There are two ways an *aesthetic* can be specified. Here we *set* the **size**
-aesthetic by passing it as an argument to `geom_smooth`. Previously in the
-lesson we've used the `aes` function to define a *mapping* between data
-variables and their visual representation.
-
-> ## Challenge 3
->
-> Modify the color and size of the points on the point layer in the previous
-> example.
->
-> Hint: do not use the `aes` function.
->
-> > ## Solution to challenge 3
-> >
-> > Modify the color and size of the points on the point layer in the previous
-> > example.
-> >
-> > Hint: do not use the `aes` function.
-> >
-> > ```{r ch4a-sol}
-> > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-> >  geom_point(size = 3, color = "orange") + scale_x_log10() +
-> >  geom_smooth(method = "lm", size = 1.5)
-> > ```
-> {: .solution}
-{: .challenge}
-
-
-> ## Challenge 4
->
-> Modify your solution to Challenge 4a so that the
-> points are now a different shape and are colored by continent with new
-> trendlines.  Hint: The color argument can be used inside the aesthetic.
->
-> > ## Solution to challenge 4
-> >
-> > Modify Challenge 4 so that the points are now a different shape and are
-> > colored by continent with new trendlines.
-> >
-> > Hint: The color argument can be used inside the aesthetic.
-> >
-> >```{r ch4b-sol}
-> > gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp, color = continent)) +
-> > geom_point(size = 3, shape = 17) + scale_x_log10() +
-> > geom_smooth(method = "lm", size = 1.5)
-> > ```
-> {: .solution}
-{: .challenge}
 
 
 > ## Challenge 5
@@ -347,7 +301,6 @@ variables and their visual representation.
 > usually use a legend when plotting multiple series, you will find that this takes
 > up all of the plotting space; hide the legend.
 > 
-> Hint: There is a cheatsheet for `ggplot2` included with Rstudio
 > 
 > > ## Solution to challenge 5
 > > We can colour each country's line using the `colour` aesthetic:
