@@ -61,7 +61,7 @@ workshop-check :
 
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
-RMD_PP = $(patsubst _episodes_rmd/%.Rmd,_episodes_rmd,%.tmp,$(RMD_SRC))
+RMD_PP = $(patsubst _episodes_rmd/%.Rmd,_episodes_rmd/%.tmp,$(RMD_SRC))
 RMD_DST = $(patsubst _episodes_rmd/%.tmp,_episodes/%.md,$(RMD_PP))
 
 # RMarkdown slides
@@ -98,7 +98,8 @@ _episodes/%.md: _episodes_rmd/%.tmp
 	@bin/knit_lessons.sh $< $@ 
 	#
 # Format challenges and solutions
-${RMD_PP} : ${RMD_SRC}
+# Without manually blockquoting them
+_episodes_rmd/%.tmp : _episodes_rmd/%.Rmd
 	bin/format_challenge.py $< $@
 
 ## lesson-check     : validate lesson Markdown.
