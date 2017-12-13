@@ -27,22 +27,9 @@ def markblock(inlist, blocktype,  startmarker=r'^##'):
     linessinceblock = 0
     inblock = False
     for i,l in enumerate(outlist):
-#        print(l)
-        if re.search(blocktype, l):
-            print("*** Found " + blocktype)
-            print("**** " + outlist[i+1])
-            if not(re.search(r"^>", outlist[i+1])):
-                print("*** Not already indented")
+        if re.search(blocktype, l) and \
+            not(re.search(r"^>", outlist[i+1])):
                 inblock = True
-            else:
-                print("*** Already indented")
-
-
-       
-        if linessinceblock == 1:
-            if blocktype == "^{: .challenge}" and re.search("^> ",l):
-                print "*** Found  formatted"
-                print(l)
 
         if linessinceblock >= 1 :
             outlist[i] = "> " + l
@@ -51,7 +38,6 @@ def markblock(inlist, blocktype,  startmarker=r'^##'):
             linessinceblock = linessinceblock + 1
 
         if re.search(startmarker, l) :
-            print("*** Found startmarker")
             inblock = False
             linessinceblock = 0
 
