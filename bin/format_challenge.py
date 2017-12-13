@@ -19,18 +19,6 @@ lesson = infile.readlines()
 lesson = lesson[::-1]
 
 
-def needsformatting(inline, blocktype):
-    """ Check if a block is already formatted
-    solutions should be at level 2,
-    challenged at level 0
-
-    Return True if the line needs formatting """
-
-    
-
-
-    return True
-
 def markblock(inlist, blocktype,  startmarker=r'^##'):
     """ "> "ise a block of text from startmarker to endmarker """
     outlist = inlist[:] 
@@ -38,37 +26,42 @@ def markblock(inlist, blocktype,  startmarker=r'^##'):
     # We need to check if the next line is already "> "ed
     linessinceblock = 0
     inblock = False
-    alreadyformatted = False
     for i,l in enumerate(outlist):
-        print(l)
+#        print(l)
         if re.search(blocktype, l):
             print("*** Found " + blocktype)
-            inblock = True
+            print("**** " + outlist[i+1])
+            if not(re.search(r"^>", outlist[i+1])):
+                print("*** Not already indented")
+                inblock = True
+            else:
+                print("*** Already indented")
+
+
        
         if linessinceblock == 1:
             if blocktype == "^{: .challenge}" and re.search("^> ",l):
                 print "*** Found  formatted"
-                alreadyformatted = True
+                print(l)
 
-        if linessinceblock >= 1 and not(alreadyformatted):
+        if linessinceblock >= 1 :
             outlist[i] = "> " + l
 
         if inblock:
             linessinceblock = linessinceblock + 1
 
-        if re.search(startmarker, l) and not(inblock):
+        if re.search(startmarker, l) :
             print("*** Found startmarker")
             inblock = False
-            alreadyformatted = False
             linessinceblock = 0
 
     return outlist
 
         
 # Run function on {: .solution}
-lesson = markblock(lesson, "^{: .solution}")
+lesson = markblock(lesson, r"^\{: \.solution\}")
 # Run function on {: .challenge}
-lesson = markblock(lesson, "^{: .challenge}")
+lesson = markblock(lesson, r"^\{: \.challenge\}")
 
 lesson = lesson[::-1]
 # Output file
