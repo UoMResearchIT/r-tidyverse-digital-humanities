@@ -1,17 +1,24 @@
 #! /usr/bin/env python
-""" Generate challenge and solution environments """
+""" Generate challenge and solution environments 
+
+This script will generate the blockquote environments
+for challenges and solutions.
+
+"""
 
 import sys
 import re
 
-if len(sys.argv) > 1:
-    print "Reading files"
+if len(sys.argv) == 1:
+    print ("Using stdin")
+    infile = sys.stdin
+    outfile = sys.stdout
+elif len(sys.argv) == 3:
+    print ("Reading files")
     infile = open(sys.argv[1])
     outfile = open(sys.argv[2], "w")
 else:
-    print "Using stdin"
-    infile = sys.stdin
-    outfile = sys.stdout
+    print("Must supply input *and* output files, or use STDIN/OUT")
 
 # Read in file
 lesson = infile.readlines()
