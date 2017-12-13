@@ -61,7 +61,8 @@ workshop-check :
 
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
-RMD_DST = $(patsubst _episodes_rmd/%.Rmd,_episodes/%.md,$(RMD_SRC))
+RMD_PP = $(patsubst _episodes_rmd/%.Rmd,_episodes_rmd,%.tmp,$(RMD_SRC))
+RMD_DST = $(patsubst _episodes_rmd/%.tmp,_episodes/%.md,$(RMD_PP))
 
 # RMarkdown slides
 SLIDE_SRC = $(wildcard _slides_rmd/*.Rmd)
@@ -93,8 +94,12 @@ lesson-md : ${RMD_DST}
 lesson-watchrmd:
 	@bin/watchRmd.sh &	
 
-_episodes/%.md: _episodes_rmd/%.Rmd
+_episodes/%.md: _episodes_rmd/%.tmp
 	@bin/knit_lessons.sh $< $@ 
+	#
+# Format challenges and solutions
+${RMD_PP} : ${RMD_SRC}
+	bin/format_challenge.py $< $@
 
 ## lesson-check     : validate lesson Markdown.
 lesson-check :
