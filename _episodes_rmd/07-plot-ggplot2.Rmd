@@ -240,9 +240,22 @@ The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
+`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and gdp, we could facet this by continent and/or year:
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3)  + 
+  facet_grid( ~ continent)
+
+gapminder %>% 
+  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
+  facet_grid(continent ~ year)
+```
+
+
 > ## Challenge 3
 > 
-> Modify the figure so that each line is semi-transparent, and thicker.
+> Modify the figure so that one continent per row is shown, each line is semi-transparent, and thicker.
 > 
 > Hint: There is a cheatsheet for `ggplot2` included with Rstudio, which lists the aesthetics commonly
 > used with each geom
@@ -251,7 +264,7 @@ information.
 > > 
 > > ```{r}
 > > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-> >   geom_line(alpha=0.2, size=2) + facet_wrap( ~ continent)
+> >   geom_line(alpha=0.2, size=2) + facet_grid(continent ~ .)
 > > ```
 > > 
 > {: .solution}
@@ -470,7 +483,7 @@ As an example of how easy it can be to extend ggplot, we will use the `ggridges`
 
 ```{r, ridgesplot}
 library(ggridges)
-
+  facet_grid(continent ~
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +

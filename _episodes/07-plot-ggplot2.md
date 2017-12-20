@@ -287,9 +287,31 @@ The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
+`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and gdp, we could facet this by continent and/or year:
+
+
+~~~
+gapminder %>% 
+  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3)  + 
+  facet_grid( ~ continent)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+
+~~~
+gapminder %>% 
+  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
+  facet_grid(continent ~ year)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-5-2.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+
+
 > ## Challenge 3
 > 
-> Modify the figure so that each line is semi-transparent, and thicker.
+> Modify the figure so that one continent per row is shown, each line is semi-transparent, and thicker.
 > 
 > Hint: There is a cheatsheet for `ggplot2` included with Rstudio, which lists the aesthetics commonly
 > used with each geom
@@ -299,11 +321,11 @@ information.
 > > 
 > > ~~~
 > > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-> >   geom_line(alpha=0.2, size=2) + facet_wrap( ~ continent)
+> >   geom_line(alpha=0.2, size=2) + facet_grid(continent ~ .)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 > > 
 > {: .solution}
 {: .challenge}
@@ -401,7 +423,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -417,7 +439,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -430,7 +452,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 
 > ## Challenge 6
@@ -485,7 +507,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 
 
@@ -566,7 +588,7 @@ As an example of how easy it can be to extend ggplot, we will use the `ggridges`
 
 ~~~
 library(ggridges)
-
+  facet_grid(continent ~
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
@@ -578,9 +600,10 @@ gapminder %>%
 
 
 ~~~
-Picking joint bandwidth of 0.128
+Error: <text>:8:0: unexpected end of input
+6:   scale_x_log10() + 
+7:   geom_density_ridges(alpha = 0.6) 
+  ^
 ~~~
-{: .output}
-
-<img src="../fig/rmd-06-ridgesplot-1.png" title="plot of chunk ridgesplot" alt="plot of chunk ridgesplot" style="display: block; margin: auto;" />
+{: .error}
 
