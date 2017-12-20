@@ -376,14 +376,14 @@ x-axis.
 
 
 
-> ## Challenge 5
+> ## Challenge 4
 > 
 > Modify the plot so that each country has its own colour.   Although we would 
 > usually use a legend when plotting multiple series, you will find that this takes
 > up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
 > 
 > 
-> > ## Solution to challenge 5
+> > ## Solution to challenge 4
 > > We can colour each country's line using the `colour` aesthetic:
 > > 
 > > 
@@ -455,7 +455,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 
-> ## Challenge 6
+> ## Challenge 5
 >
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
@@ -465,7 +465,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >  - Log transform the x axis to better visualise the data spread.
 >  - Add a facet layer produce a separate density plot for each year.
 >
-> > ## Solution to challenge 6
+> > ## Solution to challenge 5
 > >
 > > 
 > > ~~~
