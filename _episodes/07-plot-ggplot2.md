@@ -180,7 +180,7 @@ gapminder %>%  ggplot(aes(x = year, y = lifeExp, colour = continent )) + geom_li
 This probably isn't what you were expecting.   We need to modify the aesthetic to tell 
 ggplot that each country's data should be a separate line.   By default, `geom_point()` 
 joins all our observations together, sorting them in order of the variable we're plotting
-on the x axis.   To generate a separate line for each country, we use the `group` option:
+on the x axis.   To generate a separate line for each country, we use the `group` aesthetic:
 
 
 ~~~
