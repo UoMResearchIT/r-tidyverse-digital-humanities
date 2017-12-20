@@ -459,6 +459,8 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
+> As there are only 2 countries in Oceania, a density plot isn't going to be useful for
+> this contient, so don't plot the data for it.
 >
 > Advanced:
 >
@@ -469,7 +471,9 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 > >
 > > 
 > > ~~~
-> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
+> >  gapminder %>%  
+> >  filter(continent != "Oceania") %>% 
+> >  ggplot(aes(x = gdpPercap, fill = continent)) +
 > >  geom_density(alpha = 0.6) 
 > > ~~~
 > > {: .language-r}
@@ -479,7 +483,9 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 > > 
 > > 
 > > ~~~
-> >  gapminder %>%  ggplot(aes(x = gdpPercap, fill = continent)) +
+> >  gapminder %>%  
+> >  filter(continent != "Oceania") %>% 
+> >  ggplot(aes(x = gdpPercap, fill = continent)) +
 > >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
 > > ~~~
 > > {: .language-r}
