@@ -2,7 +2,24 @@
 """ Generate challenge and solution environments 
 
 This script will generate the blockquote environments
-for challenges and solutions.
+for challenges and solutions.  The start of each challenge/solution should 
+be maked with a level two heading.  The end of the challenge/solution should
+be marked with the appropriate challenge/solution blockquote end. For example
+
+Here's some lesson
+
+## Challenge title
+
+What's the answer to life the universe and everything?
+
+## Solution title
+
+42
+
+{: .solution}
+{: .challenge}
+
+This script will apply markdown blockquotes ">" as required
 
 """
 
