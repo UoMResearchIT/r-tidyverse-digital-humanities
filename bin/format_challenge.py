@@ -70,9 +70,12 @@ lesson = lesson[::-1]
 
 
 # Run function on {: .solution}
+# This must be run first as it ends up a 2nd level blockquote
 lesson = markblock(lesson, r"^\{: \.solution\}")
-# Run function on {: .challenge}
+# Ordering of remaining blockquotes is arbitary - they are all 
+# level 1
 lesson = markblock(lesson, r"^\{: \.challenge\}")
+lesson = markblock(lesson, r"^\{: \.callout\}")
 
 # Put lines back in the correct order
 lesson = lesson[::-1]
