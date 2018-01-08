@@ -13,3 +13,5 @@ notes.md
 .Rhistory
 .vscode
 *.swp
+_episodes_pp/*.Rmd
+
