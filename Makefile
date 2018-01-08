@@ -98,8 +98,13 @@ lesson-md : ${RMD_DST}
 lesson-watchrmd:
 	@bin/watchRmd.sh &	
 
-_episodes/%.md: _episodes_rmd/%.Rmd
+_episodes/%.md: _episodes_rmd/%.tmp
 	@bin/knit_lessons.sh $< $@ 
+	#
+# Format challenges and solutions
+# Without manually blockquoting them
+_episodes_rmd/%.tmp : _episodes_rmd/%.Rmd
+	bin/format_challenge.py $< $@
 
 # Use of .NOTPARALLEL makes rule execute only once
 ${RMD_DST} : ${RMD_PP}
