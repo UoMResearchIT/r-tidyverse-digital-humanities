@@ -487,9 +487,15 @@ The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages tha
 
 As an example of how easy it can be to extend ggplot, we will use the `ggridges` plot to produce a stacked density plot, to better visualise the previous figure:
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+if (!require("ggridges", quietly = TRUE)) {
+  install.packages("ggridges")
+  library("ggridges")
+}
+```
+
 ```{r, ridgesplot}
 library(ggridges)
-  facet_grid(continent ~
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
