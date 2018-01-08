@@ -6,6 +6,10 @@ MAKEFILES=Makefile $(wildcard *.mk)
 JEKYLL=jekyll
 PARSER=bin/markdown_ast.rb
 DST=_site
+# Command to run an Rscript
+# Set this to Rscript -e if you don't want to build 
+# in Dockerised environment
+RSCRIPT=docker run --rm --user "$$UID" -v "$$PWD":"$$PWD"  -w="$$PWD" -ti rg11  Rscript -e
 
 # Controls
 .PHONY : commands clean files data
@@ -61,7 +65,8 @@ workshop-check :
 
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
-RMD_DST = $(patsubst _episodes_rmd/%.Rmd,_episodes/%.md,$(RMD_SRC))
+RMD_PP = $(patsubst _episodes_rmd/%.Rmd,_episodes_rmd,%.tmp,$(RMD_SRC))
+RMD_DST = $(patsubst _episodes_rmd/%.tmp,_episodes/%.md,$(RMD_PP))
 
 # RMarkdown slides
 SLIDE_SRC = $(wildcard _slides_rmd/*.Rmd)
@@ -95,6 +100,14 @@ lesson-watchrmd:
 
 _episodes/%.md: _episodes_rmd/%.Rmd
 	@bin/knit_lessons.sh $< $@ 
+
+# Use of .NOTPARALLEL makes rule execute only once
+${RMD_DST} : ${RMD_PP}
+	@bin/knit_lessons.sh ${RMD_PP}
+
+# Format challenges and solutions
+${RMD_PP} : ${RMD_SRC}
+	bin/format_challenge.py $< $@
 
 ## lesson-check     : validate lesson Markdown.
 lesson-check :
