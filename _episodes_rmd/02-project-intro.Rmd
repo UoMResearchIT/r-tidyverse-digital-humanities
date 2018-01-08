@@ -254,6 +254,14 @@ rm(list <- ls())
 >
 {: .callout}
 
+## Starting a new session 
+
+Removing all the objects in our environment isn't quite the same as starting a fresh session of R.  Packages that we have previously loaded will remain loaded, and hidden variables (which are those that start with a ".") won't be deleted (unless we use `ls(all.names = TRUE)`).
+
+Before running our analysis script it is a good idea to restart your R session.  This way we *know* that we have loaded all the packages we need, and don't use any variables we've defined outside of the script, because the script will fail.  You can start a fresh session of R from within RStudio by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F10</kbd>, or choosing "Restart R" from the "Session" menu.
+
+
+
 ## Comments
 
 If we include the `#` symbol in a command in R, everything following it will be ignored.  This

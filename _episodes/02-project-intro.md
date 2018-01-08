@@ -201,8 +201,8 @@ ls()
 
 
 ~~~
-[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
-[5] "src_rmd"      
+[1] "fix_fig_path"   "hook_error"     "hook_in"        "hook_out"      
+[5] "knitr_fig_path"
 ~~~
 {: .output}
 
@@ -293,6 +293,14 @@ Error in rm(list <- ls()): ... must contain names or character strings
 > how to fix a problem.
 >
 {: .callout}
+
+## Starting a new session 
+
+Removing all the objects in our environment isn't quite the same as starting a fresh session of R.  Packages that we have previously loaded will remain loaded, and hidden variables (which are those that start with a ".") won't be deleted (unless we use `ls(all.names = TRUE)`).
+
+Before running our analysis script it is a good idea to restart your R session.  This way we *know* that we have loaded all the packages we need, and don't use any variables we've defined outside of the script, because the script will fail.  You can start a fresh session of R from within RStudio by pressing <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F10</kbd>, or choosing "Restart R" from the "Session" menu.
+
+
 
 ## Comments
 
