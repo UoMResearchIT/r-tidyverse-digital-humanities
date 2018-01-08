@@ -65,7 +65,7 @@ workshop-check :
 
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
-RMD_PP = $(patsubst _episodes_rmd/*.Rmd,_episodes_pp/,$(RMD_SRC))
+RMD_PP = $(subst _episodes_rmd/,_episodes_pp/,$(RMD_SRC))
 RMD_DST = $(patsubst _episodes_pp/%.Rmd,_episodes/%.md,$(RMD_PP))
 
 # RMarkdown slides
@@ -99,8 +99,9 @@ lesson-watchrmd:
 	@bin/watchRmd.sh &	
 
 _episodes/%.md: _episodes_pp/%.Rmd
-	@bin/knit_lessons.sh $< $@ 
-	#
+#	@bin/knit_lessons.sh $< $@ 
+	${RSCRIPT} 'knitr::knit("$<", "$@")'
+	
 # Format challenges and solutions
 # Without manually blockquoting them
 _episodes_pp/%.Rmd : _episodes_rmd/%.Rmd
