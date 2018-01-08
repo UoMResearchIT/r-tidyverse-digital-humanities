@@ -201,8 +201,8 @@ ls()
 
 
 ~~~
-[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
-[5] "src_rmd"      
+[1] "fix_fig_path"   "hook_error"     "hook_in"        "hook_out"      
+[5] "knitr_fig_path"
 ~~~
 {: .output}
 
