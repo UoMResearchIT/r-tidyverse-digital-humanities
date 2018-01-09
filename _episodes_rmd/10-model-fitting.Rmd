@@ -1,0 +1,74 @@
+---
+title: Model fitting in R
+teaching: 60
+exercises: 20
+questions:
+- "How do I fit statistical models in R?"
+- "How do these fit in with the tidyverse way of working?"
+objectives:
+- "To be able to find extensions for `ggplot2` to produce custom graphics"
+keypoints:
+- "FIXME"
+source: Rmd
+---
+
+
+
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("10-")
+# Silently load in the data so the rest of the lesson works
+library(tidyverse)
+gapminder <- read_csv("data/gapminder-FiveYearData.csv")
+```
+```{r}
+gapminder_europe <-  gapminder %>%
+  filter(continent == "Europe")
+  
+```
+
+
+
+```{r}
+
+united_kingdom <- gapminder_europe %>% 
+  filter(country == "United Kingdom") 
+
+
+```
+
+
+```{r}
+uk_model <- lm(gdpPercap ~ year, data = united_kingdom)
+```
+
+
+
+```{r}
+library(modelr)
+
+united_kingdom %>%  modelr::add_predictions(uk_model) %>% 
+  add_residuals(uk_model) %>% 
+  ggplot(aes(x=year, y=pred)) + geom_line() + geom_point(aes(y=gdpPercap))
+
+```
+
+## Categorical variables
+
+```{r}
+gdpmodel <- lm(gdpPercap  ~ year + country, data = gapminder_europe)
+gdpmodel_interactions <- lm(gdpPercap  ~ year * country, data = gapminder_europe)
+```
+
+
+```{r}
+gapminder_europe %>% 
+  add_predictions(gdpmodel, var = "additive") %>% 
+  add_predictions(gdpmodel_interactions, var = "interaction") %>% 
+  ggplot(aes(x = year, y=gdpPercap, group = country,)) + 
+  geom_point(size = 0.2) + geom_line(aes(y=additive), colour = "blue") +
+  geom_line(aes(y=interaction), colour = "red") +
+  facet_wrap(~country)
+```
+
