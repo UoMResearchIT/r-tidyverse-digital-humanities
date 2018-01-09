@@ -68,7 +68,7 @@ Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
     + Interactive apps [Shiny](https://shiny.rstudio.com/)
     + Reproducible research with [Knitr](https://yihui.name/knitr/)
     + [Presentations](https://www.r-bloggers.com/creating-a-presentation-with-r/)
-* Over 11,000 packages  
+* Over 12,000 packages  
     + This does mean there's (often) more than one way to do a task
 
 ## R user groups
