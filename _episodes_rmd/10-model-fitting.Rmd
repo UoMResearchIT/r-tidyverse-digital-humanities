@@ -75,6 +75,35 @@ The `summary()` function will give us more details about the model.
 summary(ukgdp_model)
 ```
 
+## Challenge 1: Modelling life expectancy
+
+Using the `gapminder_uk` data, plot life-expectancy as a function of year.  Assuming it is reasonable to fit a linear model to the data, do so.   How much does the model suggest life expectancy increases per year?
+
+## Solution
+
+We can plot life expectancy as a function of year as follows:
+
+```{r}
+gapminder_uk %>% ggplot(aes(x=year, y=lifeExp)) + geom_point()
+```
+
+It looks like life expectancy has been increasing approximately linearly with time, so fitting a linear model is probably reasonable.  We can do this with:
+
+```{r}
+uk_lifeExp_model <- lm(lifeExp ~ year, data=gapminder_uk)
+```
+
+The `summary()` function will display information on the model:
+
+```{r}
+summary(uk_lifeExp_model)
+```
+According to the model, life expectancy is increasing by 0.186 years per year.  
+
+{: .solution}
+{: .challenge}
+
+
 ## Model predictions
 
 Let's compare the predictions of our model to the actual data.   We can do this using the `add_predictions()` function in `modelr`.  `modelr` is part of the tidyverse, but isn't loaded by default.

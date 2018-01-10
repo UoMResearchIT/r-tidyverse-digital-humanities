@@ -130,6 +130,67 @@ F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
 ~~~
 {: .output}
 
+> ## Challenge 1: Modelling life expectancy
+> 
+> Using the `gapminder_uk` data, plot life-expectancy as a function of year.  Assuming it is reasonable to fit a linear model to the data, do so.   How much does the model suggest life expectancy increases per year?
+> 
+> > ## Solution
+> > 
+> > We can plot life expectancy as a function of year as follows:
+> > 
+> > 
+> > ~~~
+> > gapminder_uk %>% ggplot(aes(x=year, y=lifeExp)) + geom_point()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-10-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+> > 
+> > It looks like life expectancy has been increasing approximately linearly with time, so fitting a linear model is probably reasonable.  We can do this with:
+> > 
+> > 
+> > ~~~
+> > uk_lifeExp_model <- lm(lifeExp ~ year, data=gapminder_uk)
+> > ~~~
+> > {: .language-r}
+> > 
+> > The `summary()` function will display information on the model:
+> > 
+> > 
+> > ~~~
+> > summary(uk_lifeExp_model)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 
+> > Call:
+> > lm(formula = lifeExp ~ year, data = gapminder_uk)
+> > 
+> > Residuals:
+> >      Min       1Q   Median       3Q      Max 
+> > -0.69767 -0.31962  0.06642  0.36601  0.68165 
+> > 
+> > Coefficients:
+> >               Estimate Std. Error t value Pr(>|t|)    
+> > (Intercept) -2.942e+02  1.464e+01  -20.10 2.05e-09 ***
+> > year         1.860e-01  7.394e-03   25.15 2.26e-10 ***
+> > ---
+> > Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> > 
+> > Residual standard error: 0.4421 on 10 degrees of freedom
+> > Multiple R-squared:  0.9844,	Adjusted R-squared:  0.9829 
+> > F-statistic: 632.5 on 1 and 10 DF,  p-value: 2.262e-10
+> > ~~~
+> > {: .output}
+> > According to the model, life expectancy is increasing by 0.186 years per year.  
+> > 
+> {: .solution}
+{: .challenge}
+
+
 ## Model predictions
 
 Let's compare the predictions of our model to the actual data.   We can do this using the `add_predictions()` function in `modelr`.  `modelr` is part of the tidyverse, but isn't loaded by default.
@@ -145,7 +206,7 @@ gapminder_uk %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
@@ -199,7 +260,7 @@ gapminder_uk %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 This makes the systematic difference between our model's predictions and reality much more obvious.  If the model fitted well we would expect the residuals to appear randomly distributed about 0.
 
