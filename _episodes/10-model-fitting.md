@@ -23,35 +23,50 @@ Fortunately, R will almost certainly be able to fit the model you are interested
 In this episode we will very briefly discuss fitting linear models in R.  The aim of this episiode is to give a flavour of how to fit a statistical model in R, and to point you to
 further resources.  The episode is based on modelling section of [R for Data Science, by Grolemund and Wickham](http://r4ds.had.co.nz/).    For a more statistical and in-depth treatment, see, e.g. Linear Models with R, by Faraway.
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("10-")
-# Silently load in the data so the rest of the lesson works
-library(tidyverse)
-gapminder <- read_csv("data/gapminder-FiveYearData.csv")
-```
+
 
 As with the rest of the course, we'll use the gapminder data.  To make things a little 
 more tractable, let's consider only data for the UK:
 
-```{r}
+
+~~~
 gapminder_uk <- gapminder %>% 
   filter(country == "United Kingdom")
-```
+~~~
+{: .language-r}
 
 To start with, let's plot GDP per capita as a function of time:
 
-```{r}
+
+~~~
 ggplot(data = gapminder_uk, aes(x=year, y=gdpPercap)) + geom_point()
-```
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-10-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 This looks like it's (roughly) a straight line.
 
 We can perform linear regression on the data using the `lm()` function:
 
-```{r}
+
+~~~
 lm(gdpPercap ~ year, data = gapminder_uk)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = gdpPercap ~ year, data = gapminder_uk)
+
+Coefficients:
+(Intercept)         year  
+  -777027.8        402.3  
+~~~
+{: .output}
 
 This will fit the model:
 
@@ -63,58 +78,105 @@ We see that, according to the model, the UK's GDP per capita is growing by $400 
 
 We can assign the model to a variable:
 
-```{r}
 
+~~~
 ukgdp_model <- lm(gdpPercap ~ year, data = gapminder_uk)
 print(ukgdp_model)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = gdpPercap ~ year, data = gapminder_uk)
+
+Coefficients:
+(Intercept)         year  
+  -777027.8        402.3  
+~~~
+{: .output}
 
 The `summary()` function will give us more details about the model. 
 
-```{r}
+
+~~~
 summary(ukgdp_model)
-```
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = gdpPercap ~ year, data = gapminder_uk)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2153.9  -786.3  -277.6   977.9  2758.8 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -777027.82   48840.08  -15.91 1.98e-08 ***
+year            402.33      24.67   16.31 1.56e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1475 on 10 degrees of freedom
+Multiple R-squared:  0.9638,	Adjusted R-squared:  0.9601 
+F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
+~~~
+{: .output}
 
 ## Model predictions
 
 Let's compare the predictions of our model to the actual data.   We can do this using the `add_predictions()` function in `modelr`.  `modelr` is part of the tidyverse, but isn't loaded by default.
 
-```{r}
+
+~~~
 library(modelr)
 
 gapminder_uk %>% 
   add_predictions(ukgdp_model) %>% 
   ggplot(aes(x=year, y=pred)) + geom_line() +
   geom_point(aes(y=gdpPercap))
+~~~
+{: .language-r}
 
-```
+<img src="../fig/rmd-10-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
 
-## Fitting other terms
-
-We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
-
-$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
-
-We would use:
-
-```{r, eval = FALSE}
-ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
-```
-
-Note, however, if we wish to transform covariates you may need to use the `I()` function
-to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
-
-$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
-
-We use: 
-
-```{r}
-ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
-```
-
+> ## Fitting other terms
+> 
+> We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
+> 
+> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
+> 
+> We would use:
+> 
+> 
+> ~~~
+> ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
+> ~~~
+> {: .language-r}
+> 
+> Note, however, if we wish to transform covariates you may need to use the `I()` function
+> to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
+> 
+> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
+> 
+> We use: 
+> 
+> 
+> ~~~
+> ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
+> ~~~
+> {: .language-r}
+> 
 {: .callout}
 
 ## Model checking -- plotting residuals
@@ -129,12 +191,15 @@ Extensive details on model checking and diagnostics are beyond the scope of the 
 We can add the model residuals to our tibble using the `add_residuals()` function in
 `modelr`. 
 
-```{r}
+
+~~~
 gapminder_uk %>% 
   add_residuals(ukgdp_model) %>% 
   ggplot(aes(x = year, y = resid)) + geom_point()
+~~~
+{: .language-r}
 
-```
+<img src="../fig/rmd-10-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 This makes the systematic difference between our model's predictions and reality much more obvious.  If the model fitted well we would expect the residuals to appear randomly distributed about 0.
 
