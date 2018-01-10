@@ -130,6 +130,35 @@ F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
 ~~~
 {: .output}
 
+> ## Fitting other terms
+> 
+> We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
+> 
+> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
+> 
+> We would use:
+> 
+> 
+> ~~~
+> ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
+> ~~~
+> {: .language-r}
+> 
+> Note, however, if we wish to transform covariates you may need to use the `I()` function
+> to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
+> 
+> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
+> 
+> We use: 
+> 
+> 
+> ~~~
+> ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
+> ~~~
+> {: .language-r}
+> 
+{: .callout}
+
 > ## Challenge 1: Modelling life expectancy
 > 
 > Using the `gapminder_uk` data, plot life-expectancy as a function of year.  Assuming it is reasonable to fit a linear model to the data, do so.   How much does the model suggest life expectancy increases per year?
@@ -144,7 +173,7 @@ F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-10-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-10-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 > > 
 > > It looks like life expectancy has been increasing approximately linearly with time, so fitting a linear model is probably reasonable.  We can do this with:
 > > 
@@ -206,39 +235,10 @@ gapminder_uk %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-10-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
-
-> ## Fitting other terms
-> 
-> We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
-> 
-> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
-> 
-> We would use:
-> 
-> 
-> ~~~
-> ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
-> ~~~
-> {: .language-r}
-> 
-> Note, however, if we wish to transform covariates you may need to use the `I()` function
-> to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
-> 
-> $$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
-> 
-> We use: 
-> 
-> 
-> ~~~
-> ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
-> ~~~
-> {: .language-r}
-> 
-{: .callout}
 
 ## Model checking -- plotting residuals
 

@@ -75,6 +75,31 @@ The `summary()` function will give us more details about the model.
 summary(ukgdp_model)
 ```
 
+## Fitting other terms
+
+We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
+
+$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
+
+We would use:
+
+```{r, eval = FALSE}
+ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
+```
+
+Note, however, if we wish to transform covariates you may need to use the `I()` function
+to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
+
+$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
+
+We use: 
+
+```{r}
+ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
+```
+
+{: .callout}
+
 ## Challenge 1: Modelling life expectancy
 
 Using the `gapminder_uk` data, plot life-expectancy as a function of year.  Assuming it is reasonable to fit a linear model to the data, do so.   How much does the model suggest life expectancy increases per year?
@@ -120,31 +145,6 @@ gapminder_uk %>%
 
 The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
-
-## Fitting other terms
-
-We can add additional terms to our model; `?formula()` explains the syntax used.  For example, to fit a covariate, z, giving the model 
-
-$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times z$$
-
-We would use:
-
-```{r, eval = FALSE}
-ukgdp_model_squared <- lm(gdpPercap ~ year + z , data = gapminder_uk)
-```
-
-Note, however, if we wish to transform covariates you may need to use the `I()` function
-to prevent the transformation being interpreted as part of the model formula.  For example, to fit:
-
-$$\mbox{gdpPercap} = x_0 + x_1 \times \mbox{year} + x_2 \times \mbox{year}^2$$
-
-We use: 
-
-```{r}
-ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
-```
-
-{: .callout}
 
 ## Model checking -- plotting residuals
 
