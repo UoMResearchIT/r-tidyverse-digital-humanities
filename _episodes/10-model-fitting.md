@@ -240,6 +240,12 @@ gapminder_uk %>%
 The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
 
+> ## Parameter uncertainty
+> 
+> Unfortunately `add_predictions()` doesn't show the uncertainty in our model.   If we wish to calculate confidence or prediction intervals we need to use the `predict()` function.  
+> 
+{: .callout}
+
 ## Model checking -- plotting residuals
 
 We can formalise this a little more by plotting the model residuals. 
@@ -263,6 +269,63 @@ gapminder_uk %>%
 <img src="../fig/rmd-10-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 This makes the systematic difference between our model's predictions and reality much more obvious.  If the model fitted well we would expect the residuals to appear randomly distributed about 0.
+
+> ## Challenge 2: 
+> 
+> Plot the residuals for your life expectancy model. Do they appear random? 
+> 
+> Advanced:  Try adding a quadratic term to your model?  Does this appear to improve the model fit? (in practice we would want to compare the models more formally).
+> 
+> > ## Solution 2:
+> > 
+> > We can calculate model residuals using `add_residuals()`.  By including this in a pipeline
+> > we can immediately plot them.
+> > 
+> > 
+> > ~~~
+> > gapminder_uk  %>% 
+> >   add_residuals(uk_lifeExp_model) %>% 
+> >   ggplot(aes(x=year, y=resid)) + 
+> >   geom_point()  
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-10-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+> > 
+> > It looks like values towards the centre of our year range are under-estimated, while values at the edges of the range are over estimated.   The plot of the data from challenge 1 suggests suggests that there is some curvature in the data.
+> > 
+> > We can fit a linear model with a $\mbox{year}^2$ term as follows:
+> > 
+> > 
+> > ~~~
+> > uk_lifeExp_model_squared <- lm(lifeExp ~ year + I(year^2), data=gapminder_uk)
+> > 
+> > gapminder_uk %>% add_residuals(uk_lifeExp_model_squared) %>% 
+> >   ggplot(aes(x=year, y=resid)) + 
+> >   geom_point()  
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-10-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+> > 
+> > The distribution of the residuals appears much more random.  We can visually compare the two 
+> > models by generating predictions from them both, and plotting (note that we use the `var` option
+> > to override the default variable name for the predictions):
+> > 
+> > 
+> > ~~~
+> > gapminder_uk %>% add_predictions(uk_lifeExp_model, var="linear") %>% 
+> >   add_predictions(uk_lifeExp_model_squared, var="squared") %>% 
+> >   ggplot(aes(x=year, y=lifeExp)) + geom_point() +
+> >   geom_line(aes(y=linear), colour="red") +
+> >   geom_line(aes(y=squared), colour="blue")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-10-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+> > 
+> {: .solution}
+{: .challenge}
 
 ## Going further
 
