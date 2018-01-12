@@ -360,6 +360,17 @@ To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kb
 {: .challenge}
 
 
+> ## Version control
+> 
+> It is always a good idea to use version control with your projects.  
+> This makes it easy to undo changes to your code, scripts and documents, and to collaborate with others. 
+> We don't cover version control in this course, however [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT)
+> (logon required). [Git](https://git-scm.com/) is a popular version control system, 
+> that integrates well with Rstudio.  Git makes collaboration with others easy when it is used in 
+> conjunction with [github](https://www.github.com).
+{: .callout}
+
+
 
 ## Mathematical functions
 
