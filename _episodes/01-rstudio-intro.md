@@ -554,6 +554,10 @@ The right hand side is *fully evaluated* before the assignment occurs.
 >  * camelCaseToSeparateWords
 >
 > What you use is up to you, but **be consistent**.
+> 
+> Variables that start with a "." are hidden variables.  These will not appear in the environment window
+> or when we use the `ls()` function (unless we us `ls(all.names = TRUE)`. The `ls()` function is introduced in the next episode.  Hidden variables are used for things
+> such as storing R's random number seed, which we typically don't want to change within a session.
 {: .callout}
 
 It is also possible to use the `=` operator for assignment:
@@ -618,7 +622,6 @@ We will discuss the important concept of _data types_ in the next episode.
 > min_height
 > max.height
 > _age
-> .mass
 > MaxLength
 > min-length
 > 2widths
@@ -633,11 +636,6 @@ We will discuss the important concept of _data types_ in the next episode.
 > > max.height
 > > MaxLength
 > > celsius2kelvin
-> > ```
-> >
-> > The following creates a hidden variable:
-> > ```
-> > .mass
 > > ```
 > >
 > > The following will not be able to be used to create a variable
