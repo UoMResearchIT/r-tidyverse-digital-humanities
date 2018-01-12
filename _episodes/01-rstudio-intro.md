@@ -1354,14 +1354,29 @@ month.name[c(-1, -5)]  # or month.name[-c(1,5)]
 > {: .output}
 {: .callout}
 
-## Subsettting with logical vectors 
+## Subsetting with logical vectors 
 
 As well as providing a list of indices we want to keep (or delete, if we prefix them with `-`), we 
 can pass a _logical vector_ to R indicating the indices we wish to select:
 
 
 ~~~
-month.name[c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)]
+fourmonths <- month.name[1:4]
+fourmonths
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "January"  "February" "March"    "April"   
+~~~
+{: .output}
+
+
+
+~~~
+fourmonths[c(TRUE, FALSE, TRUE, TRUE)]
 ~~~
 {: .language-r}
 
@@ -1376,31 +1391,33 @@ What happens if we supply a logical vector that is shorter than the vector we're
 
 
 ~~~
-month.name[c(TRUE,FALSE)]
+fourmonths[c(TRUE,FALSE)]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "January"   "March"     "May"       "July"      "September" "November" 
+[1] "January" "March"  
 ~~~
 {: .output}
 
-This illustrates the idea of _vector recycling_; the `[]` extract operator recycles the subsetting vector:
+This illustrates the idea of _vector recycling_; the `[]` extract operator "recycles" the subsetting vector:
 
 
 ~~~
-month.name[c(TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE)]
+fourmonths[c(TRUE,FALSE,TRUE,FALSE)]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "January"   "March"     "May"       "July"      "September" "November" 
+[1] "January" "March"  
 ~~~
 {: .output}
+
+This can be useful, but can easily catch you out.
 
 The idea of selecting elements of a vector using a logical subsetting vector may seem a bit esoteric, and a lot more
 typing than just selecting the elements you want by index.  It becomes really useful when we write code to generate
@@ -1408,7 +1425,7 @@ the logical vector:
 
 
 ~~~
-my_vector <- c(0.01, 0.69, 0.51, 0.39, 0.81, 0.93, 0.49, 0.34, 0.84, 0.16)
+my_vector <- c(0.01, 0.69, 0.51, 0.39)
 my_vector > 0.5
 ~~~
 {: .language-r}
@@ -1416,7 +1433,7 @@ my_vector > 0.5
 
 
 ~~~
- [1] FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+[1] FALSE  TRUE  TRUE FALSE
 ~~~
 {: .output}
 
@@ -1430,7 +1447,7 @@ my_vector[my_vector > 0.5]
 
 
 ~~~
-[1] 0.69 0.51 0.81 0.93 0.84
+[1] 0.69 0.51
 ~~~
 {: .output}
 
@@ -1599,9 +1616,9 @@ ls()
 
 
 ~~~
- [1] "age"            "fix_fig_path"   "hook_error"     "hook_in"       
- [5] "hook_out"       "knitr_fig_path" "mass"           "my_vector"     
- [9] "sentence"       "x"             
+ [1] "age"            "fix_fig_path"   "fourmonths"     "hook_error"    
+ [5] "hook_in"        "hook_out"       "knitr_fig_path" "mass"          
+ [9] "my_vector"      "sentence"       "x"             
 ~~~
 {: .output}
 
