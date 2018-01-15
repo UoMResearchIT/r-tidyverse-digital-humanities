@@ -20,7 +20,7 @@ So far we've looked at exploratory analysis; loading our data, manipulating it a
 
 Fortunately, R will almost certainly be able to fit the model you are interested in, either using functions in the `stats` package (which comes with R), a library which implements your model in R code, or a library which calls a more specialised modelling language.   The [CRAN task views](https://cran.r-project.org/web/views/) are a good place to start if your preferred modelling approach isn't included in base R.
 
-In this episode we will very briefly discuss fitting linear models in R.  The aim of this episiode is to give a flavour of how to fit a statistical model in R, and to point you to
+In this episode we will very briefly discuss fitting linear models in R.  The aim of this episode is to give a flavour of how to fit a statistical model in R, and to point you to
 further resources.  The episode is based on modelling section of [R for Data Science, by Grolemund and Wickham](http://r4ds.had.co.nz/).    For a more statistical and in-depth treatment, see, e.g. Linear Models with R, by Faraway.
 
 
@@ -237,7 +237,7 @@ gapminder_uk %>%
 
 <img src="../fig/rmd-10-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
-The model we have fitted assumes linear (i.e. straight line) change with repsect to time.
+The model we have fitted assumes linear (i.e. straight line) change with respect to time.
 It looks like this is a not entirely unreasonable, although there are systematic differences.  For example, the model predicts a larger GDP per capita than reality for all the data between 1967 and 1997.   
 
 > ## Parameter uncertainty
