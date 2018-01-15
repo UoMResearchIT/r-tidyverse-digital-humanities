@@ -108,7 +108,7 @@ Rstudio we make it easier to manage these files.
 {: .callout}
 
 Now when we start R in this project directory, or open this project with RStudio,
-all of our work on this project will be entirely self-contained in this directory.
+all of our work on this project will be entirely self-contained in this directory.  R's _working directory_ will be set to the project's directory.   When we load and save files they will be saved relative to this directory.  The working directory is show above the console window.
 
 
 ## Good practices for project organization
@@ -1721,7 +1721,3 @@ Before running our analysis script it is a good idea to restart your R session. 
 If we include the `#` symbol in a command in R, everything following it will be ignored.  This
 lets us enter comments into our code.  
 
-
-## Working directory
-
-FIXME - mention this - common problem in classes
