@@ -106,7 +106,7 @@ Rstudio we make it easier to manage these files.
 
 > ## Project locations
 > 
-> We suggest you save your project in `c:\work` in case network access to the `P:` drive is lost during the course. Files in `c:\work` are stored locally on the machine, and are not backed up.  You should copy your project folder to the `P:` drive at the end of the day.  
+> We suggest you save your project in `c:\work` in case network access to the `P:` drive is lost during the course. Files in `c:\work` are stored locally on the machine, and are not backed up.  You should copy your project folder to the `P:` drive at lunchtime (in case you use a different machine after lunch) the end of the day (so you can refer to your work after).  
 > 
 {: .callout}
 
