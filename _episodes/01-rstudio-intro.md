@@ -360,7 +360,7 @@ The text after each line of code is called a
 > {: .challenge}
 > 
 > 
-> > ## Version control
+> > ## Version Control
 > > 
 > > It is always a good idea to use version control with your projects.  
 > > This makes it easy to undo changes to your code, scripts and documents, and to collaborate with others. 
