@@ -5,6 +5,7 @@
 .sass-cache
 __pycache__
 _site
+<<<<<<< HEAD
 *.Rproj.user
 *.Rproj
 _slides_rmd/*.html
