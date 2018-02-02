@@ -87,7 +87,7 @@ When you first open RStudio, you will be greeted by three panels:
 
 ## Projects in R studio 
 
-When we are perorming an analysis we will typically be using many files... 
+When we are performing an analysis we will typically be using many files...
 input data, files containing code to perform the analysis, and results.    By creating a _project_ in
 Rstudio we make it easier to manage these files.
 
@@ -99,7 +99,7 @@ Rstudio we make it easier to manage these files.
 > 1. Click the "File" menu button, then "New Project".
 > 2. Click "New Directory".
 > 3. Click "Empty Project".
-> 4. Type in the name of the directory to store your project, e.g. "r_course". You should avoid using spaces and "."s in the project name.
+> 4. Type in the name of the directory to store your project, e.g. "r_course". You should avoid using spaces and fullstops in the project name.
 > 5. If you are using a teaching cluster machine, choose "Browse" and select `C:\work`.  
 > 6. Click the "Create Project" button.
 {: .challenge}
