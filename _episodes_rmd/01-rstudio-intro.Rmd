@@ -387,10 +387,10 @@ exp(0.5) # e^(1/2)
 
 Don't worry about trying to remember every function in R. You
 can simply look them up on Google, or if you can remember the
-start of the function's name, type the start of it, then press the `tab` key.
+start of the function's name, type the start of it, then press the <kbd>tab</kbd> key.
 This will show a list of
 functions whose name matches what you've typed so far; this is known
-as `tab completion`, and can save a lot of typing (and reduce the risk
+as _tab completion_, and can save a lot of typing (and reduce the risk
 of typing errors).  Tab completion works in R (i.e. running it out
 of RStudio), and in RStudio. In RStudio this feature is even more useful; a
 extract of the function's help file will be shown alongside the function name.
