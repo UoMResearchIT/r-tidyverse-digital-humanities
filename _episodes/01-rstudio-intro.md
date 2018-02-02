@@ -305,82 +305,82 @@ The text after each line of code is called a
 "comment". Anything that follows after the hash symbol
 `#` is ignored by R when it executes code.
 
-> ## Saving our commands
+## Saving our commands
+
+Although we can use R in this interactive way, we will usually write our
+commands into a file.  This way we (and others) can follow the steps
+performed in our analysis, and we (and others) can re-run them if required.
+
+We can create a new script by choosing the menu item: `File, New File, R script`, or with the keyboard
+shortcut <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>.    Commands we type in here
+won't be excuted immediately.
+
+Script files are text files.  By convention they have the extension `.R`.
+
+You can execute the command that the cursor is currently on by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (the cursor does not have to be at the start of the command, and the command can extend over more than one line, provided a single line does not make a complete command - you will explore this in the challenge below).  
+
+If you have selected some code, <kbd>Ctrl</kbd>+<kbd>Enter</kbd> will execute the selection.
+
+To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>.
+
+> ## Challenge
 > 
-> Although we can use R in this interactive way, we will usually write our
-> commands into a file.  This way we (and others) can follow the steps
-> performed in our analysis, and we (and others) can re-run them if required.
 > 
-> We can create a new script by choosing the menu item: `File, New File, R script`, or with the keyboard
-> shortcut <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>.    Commands we type in here
-> won't be excuted immediately.
+> Create a new script file, and save it with the name `courseintro.R` in the `src` directory you created earlier.   Enter a few commands into this, and try running them.   What happens if you enter:
 > 
-> Script files are text files.  By convention they have the extension `.R`.
+> ```
+> 1 +
+> 2
+> ```
 > 
-> You can execute the command that the cursor is currently on by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (the cursor does not have to be at the start of the command, and the command can extend over more than one line, provided a single line does not make a complete command - you will explore this in the challenge below).  
+> Does the position of the `+` sign matter?  Does entering
+> ```
+> 1
+> + 2
+> ``` 
+> work?
 > 
-> If you have selected some code, <kbd>Ctrl</kbd>+<kbd>Enter</kbd> will execute the selection.
-> 
-> To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>.
-> 
-> > ## Challenge
+> > ## Solution
 > > 
-> > 
-> > Create a new script file, and save it with the name `courseintro.R` in the `src` directory you created earlier.   Enter a few commands into this, and try running them.   What happens if you enter:
-> > 
-> > ```
-> > 1 +
-> > 2
-> > ```
-> > 
-> > Does the position of the `+` sign matter?  Does entering
+> > You will find that writing 
 > > ```
 > > 1
 > > + 2
-> > ``` 
-> > work?
+> > ```
+> > is interpreted as two separate commands.   In contrast:
+> > ```
+> > 1 + 
+> >  2
+> > ```
+> > is run as a single command.  `1 +` does not make up a complate R command (if we enter this in the console we would see the `+` prompt).    You may have noticed that when you entered this command into the script RStudio indents the second line; this makes it clearer to us that the line is a continuation of the previous command.
 > > 
-> > > ## Solution
-> > > 
-> > > You will find that writing 
-> > > ```
-> > > 1
-> > > + 2
-> > > ```
-> > > is interpreted as two separate commands.   In contrast:
-> > > ```
-> > > 1 + 
-> > >  2
-> > > ```
-> > > is run as a single command.  `1 +` does not make up a complate R command (if we enter this in the console we would see the `+` prompt).    You may have noticed that when you entered this command into the script RStudio indents the second line; this makes it clearer to us that the line is a continuation of the previous command.
-> > > 
-> > > We will make extensive use of this feature when we start writing data analysis pipelines.
-> > > 
-> > {: .solution}
-> {: .challenge}
-> 
-> 
-> > ## Version Control
+> > We will make extensive use of this feature when we start writing data analysis pipelines.
 > > 
-> > It is always a good idea to use version control with your projects.  
-> > This makes it easy to undo changes to your code, scripts and documents, and to collaborate with others. 
-> > We don't cover version control in this course, however [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT)
-> > (logon required). [Git](https://git-scm.com/) is a popular version control system, 
-> > that integrates well with Rstudio.  Git makes collaboration with others easy when it is used in 
-> > conjunction with [github](https://www.github.com).
-> {: .callout}
+> {: .solution}
+{: .challenge}
+
+
+> ## Version Control
 > 
-> 
-> > ## The history tab
-> >
-> > RStudio keeps a log of the command you've entered.  This makes it 
+> It is always a good idea to use version control with your projects.  
+> This makes it easy to undo changes to your code, scripts and documents, and to collaborate with others. 
+> We don't cover version control in this course, however [Research IT offers a course on using git](http://app.manchester.ac.uk/RGIT)
+> (logon required). [Git](https://git-scm.com/) is a popular version control system, 
+> that integrates well with Rstudio.  Git makes collaboration with others easy when it is used in 
+> conjunction with [github](https://www.github.com).
+{: .callout}
+
+
+> ## The history tab
+>
+> RStudio keeps a log of the command you've entered.  This makes it 
 > easier to go back and edit a command if you've made a mistake in it.
 > There are several ways of accessing the command history:
-> >
-> > 1. In the console window, the up and down arrows will take you 
+>
+> 1. In the console window, the up and down arrows will take you 
 > through the command history. (The command can then be edited using the
 > left and right arrow keys)
-> > 2. The history tab in the top right of RStudio contains the command history.  One
+> 2. The history tab in the top right of RStudio contains the command history.  One
 > or more lines from this can be selected.  These can then be copied to the console, or to
 > your R script by pressing the appropriate button.
 {: .callout}
