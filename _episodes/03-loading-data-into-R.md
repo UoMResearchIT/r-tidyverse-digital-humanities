@@ -191,7 +191,7 @@ We don't *have* to specify a column type for each variable; the `cols()` functio
 
 > ## Importing data using RStudio
 > 
-> You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  *You should copy the generated code to your script, so that you can reproduce your analysis*. 
+> You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  It's fine to do this initially, but *you should copy the generated code to your script, so that you can reproduce your analysis*. 
 {: .callout}
 
 ## Exploring tibbles
@@ -411,31 +411,35 @@ take this idea a step further, and define `coat` as a factor when we load the da
 >
 > > ## Solution to challenge 1
 > >  
-> >
-> >~~~
+> > 
+> > ~~~
 > > cats <- read_csv("data/feline-data.csv", col_types = cols(
 > >  coat = col_factor(levels = c("black", "white", "calico",  "tabby")),
 > >  weight = col_double(),
 > >  likes_string = col_logical()
 > > ) )
 > > cats
-> >~~~
-> >{: .language-r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 3 x 3
-> >    coat weight likes_string
-> >  <fctr>  <dbl>        <lgl>
-> >1 calico    2.1         TRUE
-> >2  black    5.0        FALSE
-> >3  tabby    3.2         TRUE
-> >~~~
-> >{: .output}
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 3 x 3
+> >     coat weight likes_string
+> >   <fctr>  <dbl>        <lgl>
+> > 1 calico    2.1         TRUE
+> > 2  black    5.0        FALSE
+> > 3  tabby    3.2         TRUE
+> > ~~~
+> > {: .output}
 > >  You may have noticed while reading the help file for `col_factor()` and `parse_factor()` that we can pass
-the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  In general this
-is a bad idea, since invalid data (such as "calic0" in the example above) will get their own factor level.
+> > the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  This can be a bad idea,
+> > since invalid data (such as "calic0" in the example above) will get their own factor level.  If, on the other hand
+> > you've got hundereds of possible values,  that's a lot of typing.  
+> >
+> > A compromise between these two approaches is to look at the levels your factor has having loded the data, using the `levels()` function: e.g. `levels(cats$coat)`.  By testing the length of this vector you can check that you have as many factor levels as you expect.
+> >
 > {: .solution}
 {: .challenge}
 
