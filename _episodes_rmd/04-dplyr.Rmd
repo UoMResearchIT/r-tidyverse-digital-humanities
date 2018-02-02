@@ -22,23 +22,19 @@ knitr_fig_path("05-")
 
 In the previous episode we used the `readr` package to load tabular data into a tibble within R.  The `readr` package is part of a family of packages known as the   [tidyverse](http://tidyverse.org/).  The tidyverse packages are designed to work well together; they provide a modern and streamlined approach to data-analysis, and deal with some of the idiosyncrasies of base R.
 
-We load the core libraries in the tidyverse with:
-
-```{r}
-library("tidyverse")
-```
 
 This loads the most commonly used packages in the tidyverse; we used `readr` in the previous episode.  We will cover all of the other main packages, with the exception of `purrr` in this course. There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required; these aren't covered in this course. 
 
 Let's dive in and look at how we can use the tidyverse to analyse and, in a couple of episodes' time,  plot data from the [gapminder project](https://www.gapminder.org/).  At [the start of the course]({{ page.root}}/02-project-intro), you should have copied the file `gapminder-FiveYearData.csv` to your `data` directory.     Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
-As with the [lesson on data structures]({{ page.root }}/04-data-structures-part1) we use the `read_csv()` function to load data from a comma separated file:
+As we did with the [previous episode]({{ page.root }}/03-loading-data-into-R) we use the `read_csv()` function to load data from a comma separated file. Let's make a new script (using the file menu), and load the tidyverse: (in the previous episode we only loaded `readr`; since we'll be using several packages in the tidyverse, we load them all)
 
 ```{r}
+library("tidyverse")
 gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
 ```
 
-As we discussed in [lesson 4]({{ page.root }}/04-data-structures-part1/), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
+As we discussed in [previous episode]({{ page.root }}/03-loading-data-into-R), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
 
 For example, if we wanted to load the `pop` column as a character string, we would use:
 

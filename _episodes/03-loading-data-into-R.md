@@ -38,9 +38,11 @@ tabby,3.2,1
 
 We can view the contents of the file by selecting it from the "Files" window in RStudio, and selecting "View File".  This will display the contents of the file in a new window in RStudio.  We can see that the variables names are given in the first line of the file, and that the remaining lines contain the data itself.  Each observation is on a separate line, and variables are separated by commas. Note that viewing the file  _doesn't_ make its contents available to R; to do this we need to _import_ the data.
 
-We can import the data into R using the `read_csv()` function; this is part of the `readr` package, which is part of the `tidyverse`.   In order to make the function available to us, we need to first load the `readr` library, before calling
-the read_csv() function to import the data, which we store in the variable named `cats`:
+We can import the data into R using the `read_csv()` function; this is part of the `readr` package, which is part of the `tidyverse`. 
 
+Let's make a new script for this episode, by choosing the menu options _File_, _New File_, _R Script_.
+
+Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(readr)` in the new script.   We could use `library(tidyverse)` to load all of the commonly used packages in the tidyverse.   We then use   the `read_csv()` function to import the data, which we store in the object named `cats`:
 
 
 ~~~
@@ -60,6 +62,7 @@ cols(
 )
 ~~~
 {: .output}
+
 We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
 
 
@@ -84,7 +87,7 @@ When we enter `cats` by itself on the command line, it will print the contents o
 
 > ## read_csv() vs read.csv()
 >
-> You may notice that RStudio suggests `read.csv()` as a function to load a comma separated 
+> You may notice while typing the command that RStudio auto suggests `read.csv()` as a function to load a comma separated 
 > value file.  This function is included as part of base R, and performs a similar job 
 > to `read_csv()`.  We will be using `read_csv()` in this course; it is part of the tidyverse,
 > so works well with other parts of the tidyverse, is faster than `read.csv()` and handles 
@@ -188,7 +191,7 @@ We don't *have* to specify a column type for each variable; the `cols()` functio
 
 > ## Importing data using RStudio
 > 
-> You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  *You should copy the generated code to your script, so that you can reproduce your analysis*. 
+> You may have noticed when we viewed the `feline-data.csv` file in RStudio, before importing it, that another option  appeared, labelled "Import Dataset".  This lets us import the data interactively.   It can be more convenient to use this approach, rather than manually writing the required code.   If you do this, you will find that the code RStudio has written is put into the console and run (and will appear in the history tab in RStudio).  It's fine to do this initially, but *you should copy the generated code to your script, so that you can reproduce your analysis*. 
 {: .callout}
 
 ## Exploring tibbles
@@ -408,31 +411,35 @@ take this idea a step further, and define `coat` as a factor when we load the da
 >
 > > ## Solution to challenge 1
 > >  
-> >
-> >~~~
+> > 
+> > ~~~
 > > cats <- read_csv("data/feline-data.csv", col_types = cols(
 > >  coat = col_factor(levels = c("black", "white", "calico",  "tabby")),
 > >  weight = col_double(),
 > >  likes_string = col_logical()
 > > ) )
 > > cats
-> >~~~
-> >{: .language-r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 3 x 3
-> >    coat weight likes_string
-> >  <fctr>  <dbl>        <lgl>
-> >1 calico    2.1         TRUE
-> >2  black    5.0        FALSE
-> >3  tabby    3.2         TRUE
-> >~~~
-> >{: .output}
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 3 x 3
+> >     coat weight likes_string
+> >   <fctr>  <dbl>        <lgl>
+> > 1 calico    2.1         TRUE
+> > 2  black    5.0        FALSE
+> > 3  tabby    3.2         TRUE
+> > ~~~
+> > {: .output}
 > >  You may have noticed while reading the help file for `col_factor()` and `parse_factor()` that we can pass
-the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  In general this
-is a bad idea, since invalid data (such as "calic0" in the example above) will get their own factor level.
+> > the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  This can be a bad idea,
+> > since invalid data (such as "calic0" in the example above) will get their own factor level.  If, on the other hand
+> > you've got hundereds of possible values,  that's a lot of typing.  
+> >
+> > A compromise between these two approaches is to look at the levels your factor has having loded the data, using the `levels()` function: e.g. `levels(cats$coat)`.  By testing the length of this vector you can check that you have as many factor levels as you expect.
+> >
 > {: .solution}
 {: .challenge}
 
@@ -484,7 +491,7 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > 
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
-> This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` > to `read.csv()`.  
+> This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` to `read.csv()`.  
 >
 > We used `parse_factor()` to define factors.  The base R equivalent is the `factor()` function.
 > The main differences between the two approaches are:
