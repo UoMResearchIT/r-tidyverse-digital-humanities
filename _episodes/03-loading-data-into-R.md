@@ -38,13 +38,49 @@ tabby,3.2,1
 
 We can view the contents of the file by selecting it from the "Files" window in RStudio, and selecting "View File".  This will display the contents of the file in a new window in RStudio.  We can see that the variables names are given in the first line of the file, and that the remaining lines contain the data itself.  Each observation is on a separate line, and variables are separated by commas. Note that viewing the file  _doesn't_ make its contents available to R; to do this we need to _import_ the data.
 
-We can import the data into R using the `read_csv()` function; this is part of the `readr` package, which is part of the `tidyverse`.   In order to make the function available to us, we need to first load the `readr` library, before calling
-the read_csv() function to import the data, which we store in the variable named `cats`:
+We can import the data into R using the `read_csv()` function; this is part of the `readr` package, which is part of the `tidyverse`. 
+
+Let's make a new script for this episode, by choosing the menu options _File_, _New File_, _R Script_.
+
+Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(tidyverse)` in the new script.  We'll
+then use   the read_csv() function to import the data, which we store in the object named `cats`:
+
+
+~~~
+library(tidyverse)
+~~~
+{: .language-r}
 
 
 
 ~~~
-library(readr)
+Loading tidyverse: ggplot2
+Loading tidyverse: tibble
+Loading tidyverse: tidyr
+Loading tidyverse: readr
+Loading tidyverse: purrr
+Loading tidyverse: dplyr
+~~~
+{: .output}
+
+
+
+~~~
+Conflicts with tidy packages ----------------------------------------------
+~~~
+{: .output}
+
+
+
+~~~
+filter(): dplyr, stats
+lag():    dplyr, stats
+~~~
+{: .output}
+
+
+
+~~~
 cats <- read_csv(file = "data/feline-data.csv")
 ~~~
 {: .language-r}
@@ -60,6 +96,7 @@ cols(
 )
 ~~~
 {: .output}
+
 We see that the `read_csv()` table reports a "column specification".  This shows the variable names that were read in, and the type of data that each column was interpreted as.
 
 
