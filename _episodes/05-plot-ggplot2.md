@@ -448,7 +448,7 @@ We can plot a density plot using `geom_density()`.  This is a smoothed version o
 
 ~~~
 gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x=gdpPercap, fill=continent)) + geom_density() 
+  ggplot(aes(x = gdpPercap, fill = continent)) + geom_density() 
 ~~~
 {: .language-r}
 
