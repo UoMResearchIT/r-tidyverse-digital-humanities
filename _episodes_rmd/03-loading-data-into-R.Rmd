@@ -316,7 +316,7 @@ on data-analysis, rather than maths and algorithms.   For details of the matrix 
 > 
 > `read_csv()` will always read variables containing text as character variables.  In contrast,
 > the base R function `read.csv()` will, by default, convert any character variable to a factor.
-> This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` > to `read.csv()`.  
+> This is often not what you want, and can be overridden by passing the option `stringsAsFactors = FALSE` to `read.csv()`.  
 >
 > We used `parse_factor()` to define factors.  The base R equivalent is the `factor()` function.
 > The main differences between the two approaches are:
