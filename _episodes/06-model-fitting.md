@@ -157,6 +157,8 @@ F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
 > ~~~
 > {: .language-r}
 > 
+> This is because the `^` operator is used to fit models with interactions between covariates; see `?formula` for full details.
+> 
 {: .callout}
 
 > ## Challenge 1: Modelling life expectancy

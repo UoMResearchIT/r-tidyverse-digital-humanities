@@ -98,6 +98,8 @@ We use:
 ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
 ```
 
+This is because the `^` operator is used to fit models with interactions between covariates; see `?formula` for full details.
+
 {: .callout}
 
 ## Challenge 1: Modelling life expectancy
