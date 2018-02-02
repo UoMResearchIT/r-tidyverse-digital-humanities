@@ -18,7 +18,7 @@ source: Rmd
 
 So far we've looked at exploratory analysis; loading our data, manipulating it and plotting it.  We often wish to fit a statistical model to the data.   The model(s) you need to fit will depend on your data and the questions you want to try and answer.
 
-Fortunately, R will almost certainly be able to fit the model you are interested in, either using functions in the `stats` package (which comes with R), a library which implements your model in R code, or a library which calls a more specialised modelling language.   The [CRAN task views](https://cran.r-project.org/web/views/) are a good place to start if your preferred modelling approach isn't included in base R.
+Fortunately, R will almost certainly include functions to fit the model you are interested in, either using functions in the `stats` package (which comes with R), a library which implements your model in R code, or a library which calls a more specialised modelling language.   The [CRAN task views](https://cran.r-project.org/web/views/) are a good place to start if your preferred modelling approach isn't included in base R.
 
 In this episode we will very briefly discuss fitting linear models in R.  The aim of this episode is to give a flavour of how to fit a statistical model in R, and to point you to
 further resources.  The episode is based on modelling section of [R for Data Science, by Grolemund and Wickham](http://r4ds.had.co.nz/).    For a more statistical and in-depth treatment, see, e.g. Linear Models with R, by Faraway.
@@ -156,6 +156,8 @@ F-statistic: 265.9 on 1 and 10 DF,  p-value: 1.563e-08
 > ukgdp_model_squared <- lm(gdpPercap ~ year + I(year^2) , data = gapminder_uk)
 > ~~~
 > {: .language-r}
+> 
+> This is because the `^` operator is used to fit models with interactions between covariates; see `?formula` for full details.
 > 
 {: .callout}
 
