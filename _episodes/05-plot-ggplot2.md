@@ -409,6 +409,26 @@ x-axis.
 > {: .solution}
 {: .challenge}
 
+## Pre processing data
+
+When we want to start sub-setting and mutating the data before plotting, the usefulness of
+"piped" data-analysis becomes apparent; we can perform our data transformations and then
+send the result to `ggplot2` without making an intermediate data set.
+
+For example, if we wanted to produce a version of the graph in challenge 4, but only for countries in Europe, we could use:
+
+
+
+~~~
+ gapminder %>% 
+  filter(continent == "Europe") %>% 
+  ggplot(aes(x = year, y = lifeExp, colour = country)) +
+ geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+
 ## Plotting 1D data
 
 In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
@@ -423,7 +443,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -439,7 +459,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -448,11 +468,12 @@ We can plot a density plot using `geom_density()`.  This is a smoothed version o
 
 ~~~
 gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x=gdpPercap, fill=continent)) + geom_density() 
+  ggplot(aes(x = gdpPercap, fill = continent)) + geom_density() 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+
 
 
 > ## Challenge 5
@@ -461,7 +482,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 > may find making the density estimates partially transparent produces a clearer graph.
 > As there are only 2 countries in Oceania, a density plot isn't going to be useful for
 > this continent, so don't plot the data for it.
->
+> 
 > Advanced:
 >
 >  - Log transform the x axis to better visualise the data spread.
@@ -498,10 +519,6 @@ The figure we produced in challenge 6 is visually rather complicated; it's diffi
 to get a feel for how the different continents' GDPs are changing over time.  Let's focus on 
 just a couple of continents.  
 
-When we want to start sub-setting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can perform our data transformations and then
-send the result to `ggplot2` without making an intermediate data set.
-
 
 ~~~
 gapminder %>% 
@@ -513,9 +530,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
-
-
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 ## Modifying text
 
