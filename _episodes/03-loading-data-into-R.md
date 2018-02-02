@@ -42,45 +42,11 @@ We can import the data into R using the `read_csv()` function; this is part of t
 
 Let's make a new script for this episode, by choosing the menu options _File_, _New File_, _R Script_.
 
-Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(tidyverse)` in the new script.  We'll
-then use   the read_csv() function to import the data, which we store in the object named `cats`:
+Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(readr)` in the new script.   We could use `library(tidyverse)` to load all of the commonly used packages in the tidyverse.   We then use   the `read_csv()` function to import the data, which we store in the object named `cats`:
 
 
 ~~~
-library(tidyverse)
-~~~
-{: .language-r}
-
-
-
-~~~
-Loading tidyverse: ggplot2
-Loading tidyverse: tibble
-Loading tidyverse: tidyr
-Loading tidyverse: readr
-Loading tidyverse: purrr
-Loading tidyverse: dplyr
-~~~
-{: .output}
-
-
-
-~~~
-Conflicts with tidy packages ----------------------------------------------
-~~~
-{: .output}
-
-
-
-~~~
-filter(): dplyr, stats
-lag():    dplyr, stats
-~~~
-{: .output}
-
-
-
-~~~
+library(readr)
 cats <- read_csv(file = "data/feline-data.csv")
 ~~~
 {: .language-r}
@@ -121,7 +87,7 @@ When we enter `cats` by itself on the command line, it will print the contents o
 
 > ## read_csv() vs read.csv()
 >
-> You may notice that RStudio suggests `read.csv()` as a function to load a comma separated 
+> You may notice while typing the command that RStudio auto suggests `read.csv()` as a function to load a comma separated 
 > value file.  This function is included as part of base R, and performs a similar job 
 > to `read_csv()`.  We will be using `read_csv()` in this course; it is part of the tidyverse,
 > so works well with other parts of the tidyverse, is faster than `read.csv()` and handles 
