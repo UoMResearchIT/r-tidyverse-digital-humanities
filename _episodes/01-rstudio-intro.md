@@ -231,21 +231,8 @@ complete it:
 
 Any time you hit return and the R session shows a `+` instead of a `>`, it
 means it's waiting for you to complete the command. If you want to cancel
-a command you can simply hit `Esc` and RStudio will give you back the `>`
-prompt.
-
-> ## Tip: Cancelling commands
->
-> If you're using R from the command line instead of from within RStudio,
-> you need to use `Ctrl+C` instead of `Esc` to cancel the command. This
-> applies to Mac users as well!
->
-> Cancelling a command isn't only useful for killing incomplete commands:
-> you can also use it to tell R to stop running code (for example if it's
-> taking much longer than you expect), or to get rid of the code you're
-> currently writing.
->
-{: .callout}
+a command you can press <kbd>Escape</kbd> and RStudio will give you back the `>`
+prompt. This can also be used to interrupt a long-running job.
 
 When using R as a calculator, the order of operations is the same as you
 would have learned back in school.
