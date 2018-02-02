@@ -334,7 +334,7 @@ We will make extensive use of this feature when we start writing data analysis p
 {: .challenge}
 
 
-> ## Version control
+> ## Version Control
 > 
 > It is always a good idea to use version control with your projects.  
 > This makes it easy to undo changes to your code, scripts and documents, and to collaborate with others. 
@@ -348,15 +348,15 @@ We will make extensive use of this feature when we start writing data analysis p
 > ## The history tab
 >
 > RStudio keeps a log of the command you've entered.  This makes it 
-easier to go back and edit a command if you've made a mistake in it.
-There are several ways of accessing the command history:
+> easier to go back and edit a command if you've made a mistake in it.
+> There are several ways of accessing the command history:
 >
 > 1. In the console window, the up and down arrows will take you 
-through the command history. (The command can then be edited using the
-left and right arrow keys)
+> through the command history. (The command can then be edited using the
+> left and right arrow keys)
 > 2. The history tab in the top right of RStudio contains the command history.  One
-or more lines from this can be selected.  These can then be copied to the console, or to
-your R script by pressing the appropriate button.
+> or more lines from this can be selected.  These can then be copied to the console, or to
+> your R script by pressing the appropriate button.
 {: .callout}
 
 
@@ -387,10 +387,10 @@ exp(0.5) # e^(1/2)
 
 Don't worry about trying to remember every function in R. You
 can simply look them up on Google, or if you can remember the
-start of the function's name, type the start of it, then press the `tab` key.
+start of the function's name, type the start of it, then press the <kbd>tab</kbd> key.
 This will show a list of
 functions whose name matches what you've typed so far; this is known
-as `tab completion`, and can save a lot of typing (and reduce the risk
+as _tab completion_, and can save a lot of typing (and reduce the risk
 of typing errors).  Tab completion works in R (i.e. running it out
 of RStudio), and in RStudio. In RStudio this feature is even more useful; a
 extract of the function's help file will be shown alongside the function name.

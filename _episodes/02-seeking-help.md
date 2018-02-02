@@ -19,7 +19,7 @@ source: Rmd
 
 ## R packages
 
-R packages extend the functionality of R.  Over 11,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
+R packages extend the functionality of R.  Over 12,000 packages have been written by others. It's also possible to write your own packages; this can be a great way of disseminating your research and making it useful to others.  A number of useful packages are installed by default with R (are part of the R core distribution). The teaching machines at the University have a number of additional packages installed by default.
 
 We can see the packages installed on an R installation via the "packages" tab in RStudio, or by typing `installed.packages()` at the prompt, or by selecting the "Packages" tab in RStudio.
 
@@ -102,6 +102,8 @@ lag():    dplyr, stats
 ~~~
 {: .output}
 
+The tidyverse is a collection of other pacakges that work well together.  The `tidyverse` package's main function is to load some of these other packages.   We will be using some of these later in the course.
+
 > ## Conflicting names
 >
 > You may get a warning message when loading a package that a function is "masked".  This
@@ -112,15 +114,16 @@ lag():    dplyr, stats
 > 
 {: .callout}
 
+
 ## Reading Help files
 
 R, and every package, provide help files for functions. The general syntax to search for help on any
-function, "function_name", from a specific function that is in a package loaded into your
-namespace (your interactive R session):
+function, say `function_name`:
 
 
 ~~~
 ?function_name
+# OR 
 help(function_name)
 ~~~
 {: .language-r}
