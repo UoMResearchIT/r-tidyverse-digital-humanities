@@ -9,7 +9,7 @@ DST=_site
 # Command to run an Rscript
 # Set this to Rscript -e if you don't want to build 
 # in Dockerised environment
-RSCRIPT=docker run --rm --user "$$UID" -v "$$PWD":"$$PWD"  -w="$$PWD" -ti rg11  Rscript -e
+RSCRIPT=docker run --rm --user "$$UID" -v "$$PWD":"$$PWD"  -w="$$PWD" -ti mawds/rg11  Rscript -e
 
 # Controls
 .PHONY : commands clean files data
