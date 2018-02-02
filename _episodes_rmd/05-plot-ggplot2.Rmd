@@ -178,7 +178,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country, color = contine
 At the moment the aesthetic we defined applies to all of the plot layers; both the points
 and the lines are coloured according to their continent. We can apply an aesthetic to certain layers
 the plot by supplying them with their own aesthetic.  For example, if we remove the `color` option, we aren't
-mapping any aspect of the data to the colour proprerty of any part of the graph - all the points and lines have the same
+mapping any aspect of the data to the colour property of any part of the graph - all the points and lines have the same
 colour:
 
 
@@ -189,7 +189,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 ```
 
 If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
-is overriden by the new aesthetic.  The points' colours are unchanged:
+is overridden by the new aesthetic.  The points' colours are unchanged:
 ```{r lifeExp-line-point3}
 
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
@@ -240,7 +240,7 @@ The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
-`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and gdp, we could facet this by continent and/or year:
+`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and GDP, we could facet this by continent and/or year:
 
 ```{r}
 gapminder %>% 
@@ -372,7 +372,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
 > As there are only 2 countries in Oceania, a density plot isn't going to be useful for
-> this contient, so don't plot the data for it.
+> this continent, so don't plot the data for it.
 >
 > Advanced:
 >
@@ -402,7 +402,7 @@ The figure we produced in challenge 6 is visually rather complicated; it's diffi
 to get a feel for how the different continents' GDPs are changing over time.  Let's focus on 
 just a couple of continents.  
 
-When we want to start subsetting and mutating the data before plotting, the usefulness of
+When we want to start sub-setting and mutating the data before plotting, the usefulness of
 "piped" data-analysis becomes apparent; we can perform our data transformations and then
 send the result to `ggplot2` without making an intermediate data set.
 
