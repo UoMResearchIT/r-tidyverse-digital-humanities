@@ -930,7 +930,7 @@ c("a", "b", "c", "def")
 ~~~
 {: .output}
 
-R comes with a few built in vectors containing useful sequences:
+R comes with a few built in constants, containing useful values:
 
 ~~~
 LETTERS
