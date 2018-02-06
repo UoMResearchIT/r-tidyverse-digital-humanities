@@ -8,8 +8,8 @@ params:
 ---
 
 
-```{r setup, message=FALSE, echo=FALSE}
-library(readr)
+```{r setup,include=FALSE}
+library(tidyverse)
 ```
 
 ```{r loaddata, echo=FALSE}
