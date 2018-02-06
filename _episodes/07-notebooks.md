@@ -127,7 +127,7 @@ _This text is italic._ This text isn't
 
 R Studio has a quick reference guide to common markdown formatting codes. This can be found under "Help", "Markdown quick reference".  There is also a more comprehensive cheat sheet under the help menu, and an even more comprehensive reference guide.
 
-[LaTeX equations](https://en.wikibooks.org/wiki/LaTeX/Mathematics) can be included in the your notebook as follows:
+[LaTeX equations](https://en.wikibooks.org/wiki/LaTeX/Mathematics) can be included in your notebook as follows:
 
 <pre>
 $$a=\pi r^2$$
@@ -154,7 +154,7 @@ Writing up our work in notebooks is a really useful way of explaining our analys
 
 There are two ways of doing this; we can define our parameters in a code chunk, and refer to the variables, or define a [parameter in the header of the document](http://rmarkdown.rstudio.com/developer_parameterized_reports.html).
 
-Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/mawds/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd).  In this, we define the year we're interested in as a parameter, and always refer to the parameter rather than hard-coding a year into various places in the text and code.  
+Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresearchit/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd).  In this, we define the year we're interested in as a parameter, and always refer to the parameter rather than hard-coding a year into various places in the text and code.  
 
 
 > ## Challenge 3
@@ -192,7 +192,7 @@ In this episode we've looked at how to make notebooks, and how to compile these 
 
 We can use a similar approach to produce other types of outputs. The [RMarkdown gallery](http://rmarkdown.rstudio.com/gallery.html) contains examples of the many different types of document you can produce (some of these may require a newer version of R Studio than the one installed on the PC clusters).
 
-This course was written in R Studio.  The slides I used to introduce the course at the start were written as a R Markdown document.  Each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory; having selected an episode you will need to click the "raw" button to see the markdown itself.  
+This course was written in R Studio.  The slides I used to introduce the course at the start were written as an R Markdown document.  Each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory; having selected an episode you will need to click the "raw" button to see the markdown itself.  
 
 
 
