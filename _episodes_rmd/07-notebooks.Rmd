@@ -160,7 +160,7 @@ Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresear
 
 > ## Challenge 3
 > 
-> Part 1: Modify your notebook to plot a line graph showing life expectancy over time, coloured by continent (you should have code to do this from the ggplot lesson). 
+> Part 1: Modify your notebook, or use the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresearchit/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd) as a starting point, to plot a line graph showing life expectancy over time, coloured by continent (you should have code to do this from the ggplot lesson). 
 > 
 > Part 2: Modify the notebook to print something similar to the following paragraph:
 > 
