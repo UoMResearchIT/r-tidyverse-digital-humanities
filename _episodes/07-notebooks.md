@@ -159,23 +159,25 @@ Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresear
 
 > ## Challenge 3
 > 
-> Modify your notebook to plot a line graph showing life expectancy over time, coloured by continent (you should have code to do this from the ggplot lesson). 
+> Part 1: Modify your notebook to plot a line graph showing life expectancy over time, coloured by continent (you should have code to do this from the ggplot lesson). 
 > 
-> Modify the notebook to print something similar to the following paragraph:
+> Part 2: Modify the notebook to print something similar to the following paragraph:
 > 
 > "In 2002, citizens of Japan had the longest average life expectancy in the world, at 82. By comparison, in United Kingdom, the average life expectancy was 78.471".  
 > 
-> You should pass the year we wish to calculate the life expectancies at, and the comparator country as parameters to your report.
+> You should pass the year we wish to calculate the life expectancies at (e.g. 2002), and the comparator country (e.g. United Kingdom) as parameters to your report.
 > 
-> Hints:  To calculate the country with the longest life expectancy use `arrange(desc())` to sort the data in descending order.  The country with the longest life expectancy will then be first in the resulting tibble.
+> Hints:  To calculate the country with the longest life expectancy use `arrange(desc())` to sort the data in descending order.   The country with the longest life expectancy will then be first in the resulting tibble. 
 > 
-> You can extract a column from a tibble, as a vector using the `$` operator:
+> If you save the tibble containing the data sorted by age, you can then extract a column from it, as a vector using the `$` operator:
 > 
 > 
 > ~~~
-> gapminder$lifeExp
+> gapminderSorted$lifeExp
 > ~~~
 > {: .language-r}
+>
+> You can then use the indexing operator `[]` to get the value of the first element of this vector, which will be the largest age.
 > 
 > > ## Solution
 > > 
