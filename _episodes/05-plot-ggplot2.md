@@ -361,7 +361,7 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 
 <img src="../fig/rmd-06-axis-scale-1.png" title="plot of chunk axis-scale" alt="plot of chunk axis-scale" style="display: block; margin: auto;" />
 
-The `log10` function applied a transformation to the values of the gdpPercap
+The `scale_x_log10` function applied a transformation to the values of the gdpPercap
 column before rendering them on the plot, so that each multiple of 10 now only
 corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
 of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y

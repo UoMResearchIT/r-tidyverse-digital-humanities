@@ -65,7 +65,7 @@ testing your code much easier (and even claims to make it "fun").
 
 Another approach
 is to test assumptions in your code, and print an error if they are untrue.  For example,
-if the inbuilt constant `letters` had been redefined to use the [Italien alphabet](https://en.wikipedia.org/wiki/Italian_orthography), which consists of 21 letters:
+if the inbuilt constant `letters` had been redefined to use the [Italian alphabet](https://en.wikipedia.org/wiki/Italian_orthography), which consists of 21 letters:
 
 
 ~~~

@@ -81,7 +81,7 @@ cols(
 ~~~
 {: .output}
 
-As we discussed in [previous episode]({{ page.root }}/03-loading-data-into-R), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
+As we discussed in the [previous episode]({{ page.root }}/03-loading-data-into-R), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
 
 For example, if we wanted to load the `pop` column as a character string, we would use:
 
@@ -204,7 +204,7 @@ Only rows of the data where the condition (i.e. `continent=="Europe") is `TRUE` 
 
 We've now seen how to choose certain columns of data (using `select()`) and certain rows of data (using `filter()`).  In an analysis we often want to do both of these things (and many other things, like calculating summary statistics, which we'll come to shortly).    How do we combine these?
 
-There are several ways of doing this; the method we will lean about today is using _pipes_.  
+There are several ways of doing this; the method we will learn about today is using _pipes_.  
 
 The pipe operator `%>%` lets us pipe the output of one command into the next.   This allows us to build up a data-processing pipeline.  This approach has several advantages:
 
@@ -661,7 +661,7 @@ gapminder %>%
 ~~~
 {: .output}
 
-Although we could use the `group_by()`, `n()` and `summarize()` functions to calculate the number of observations in each group, `dplyr` provides the `count()` function which automatically groups the data, calculate the totals and then ungroups it. 
+Although we could use the `group_by()`, `n()` and `summarize()` functions to calculate the number of observations in each group, `dplyr` provides the `count()` function which automatically groups the data, calculates the totals and then ungroups it. 
 
 For instance, if we wanted to check the number of countries included in the
 dataset for the year 2002, we can use:
