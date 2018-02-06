@@ -19,7 +19,7 @@ source: Rmd
 
 
 
-_This episode will form part of the forthcoming "Programming in R" course.  It is included in this course for self study._
+_This episode will form part of the forthcoming "Programming in R" course.  It is included in this course for self study. If you are interested in taking part in a pilot of the course, (provisionally scheduled for March/April 2018, please contact david.mawdsley@manchester.ac.uk)_
 
 If we only had one data set to analyse, it would probably be faster to load the
 file into a spreadsheet and use that to plot simple statistics. However, the
