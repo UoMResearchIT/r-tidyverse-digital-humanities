@@ -268,14 +268,6 @@ of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y
 axis and so on. This makes it easier to visualize the spread of data on the
 x-axis.
 
-> ## Tip Reminder: Setting an aesthetic to a value instead of a mapping
->
-> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we could give a different transparency to each continent with `geom_point(aes(alpha = continent))` (although in this example, this isn't 
-> very useful as a visualisation technique.
-{: .callout}
-
-
-
 > ## Challenge 4
 > 
 > Modify the plot so that each country has its own colour.   Although we would 
