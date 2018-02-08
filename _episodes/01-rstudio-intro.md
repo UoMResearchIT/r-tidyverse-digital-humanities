@@ -1153,11 +1153,32 @@ month.name[c(1,1,2,3,4)]
 > ## Challenge 4
 > 
 > Return a vector containing the letters of the alphabet in reverse order
->
+> 
 > > ## Solution to challenge 4
 > > We can extract the elements in reverse order by generating the sequence
 > > 26, 25, ... 1 using the `:` operator:
-> >
+> > 
+> > 
+> > ~~~
+> > letters[26:1]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >  [1] "z" "y" "x" "w" "v" "u" "t" "s" "r" "q" "p" "o" "n" "m" "l" "k" "j"
+> > [18] "i" "h" "g" "f" "e" "d" "c" "b" "a"
+> > ~~~
+> > {: .output}
+> > 
+> > Although this works, it makes the assumption that `letters` will always be length 26.
+> > Although this is probably a safe assumption in English, other
+> > languages may have more (or fewer) letters in their alphabet.   It is good
+> > practice to avoid assuming _anything_ about your data.
+> > 
+> > We can avoid assuming `letters` is length 26, by using the `length()` function:
+> > 
 > > 
 > > ~~~
 > > letters[length(letters):1]
@@ -1172,12 +1193,6 @@ month.name[c(1,1,2,3,4)]
 > > ~~~
 > > {: .output}
 > > 
-> > Why didn't we just use `letters[26:1]`?  By hard-coding the length of the
-> > variable into our code, we're making an assumption that `letters` will always
-> > be length 26.  Although this is probably a safe assumption in English, other
-> > languages may have more (or fewer) letters in their alphabet.   It is good
-> > practice to avoid hard-coding information about your data into your scripts.
-> > We will talk about testing assumptions at the very end of the course.
 > {: .solution}
 {: .challenge}
 
