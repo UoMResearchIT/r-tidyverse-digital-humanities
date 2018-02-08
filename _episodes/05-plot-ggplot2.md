@@ -287,13 +287,13 @@ The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
-`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and GDP, we could facet this by continent and/or year:
+`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` to generate a grid of plots, split by one or two variables.  For example, if we plot life expectancy and GDP, we could facet this by continent and/or year:
 
 
 ~~~
 gapminder %>% 
   ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3)  + 
-  facet_grid( ~ continent)
+  facet_grid(. ~ continent)
 ~~~
 {: .language-r}
 
@@ -308,6 +308,8 @@ gapminder %>%
 
 <img src="../fig/rmd-06-unnamed-chunk-5-2.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
+Note that in contrast to `facet_wrap()` where we specify the variable we want to facet over with `~ variable`,
+we use a `.` if we don't wish to split by row or column.
 
 > ## Challenge 3
 > 
