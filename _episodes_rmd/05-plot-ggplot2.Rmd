@@ -239,6 +239,47 @@ We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
+> ## Challenge 3
+> 
+> Modify the plot so that each country has its own colour.   Although we would 
+> usually use a legend when plotting multiple series, you will find that this takes
+> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
+> 
+> 
+> > ## Solution to challenge 3
+> > We can colour each country's line using the `colour` aesthetic:
+> > 
+> > ```{r withLegend}
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( "continent" )
+> > ```
+> >
+> > This will produce a plot that only shows (part of) the legend.
+> > We can hide the legend using `guides(colour = "none")`
+> >
+> > ```{r noLegend}
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( "continent" ) + guides(colour = "none")
+> > ```
+> {: .solution}
+{: .challenge}
+
+## Pre processing data
+
+When we want to start sub-setting and mutating the data before plotting, the usefulness of
+"piped" data-analysis becomes apparent; we can perform our data transformations and then
+send the result to `ggplot2` without making an intermediate data set.
+
+For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in Europe, we could use:
+
+
+```{r}
+ gapminder %>% 
+  filter(continent == "Europe") %>% 
+  ggplot(aes(x = year, y = lifeExp, colour = country)) +
+ geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+```
+
 ## Transformations 
 
 Ggplot also makes it easy to transform axes, to better show our data.  To
@@ -267,47 +308,6 @@ corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
 of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y
 axis and so on. This makes it easier to visualize the spread of data on the
 x-axis.
-
-> ## Challenge 4
-> 
-> Modify the plot so that each country has its own colour.   Although we would 
-> usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
-> 
-> 
-> > ## Solution to challenge 4
-> > We can colour each country's line using the `colour` aesthetic:
-> > 
-> > ```{r withLegend}
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( ~ continent)
-> > ```
-> >
-> > This will produce a plot that only shows (part of) the legend.
-> > We can hide the legend using `guides(colour = "none")`
-> >
-> > ```{r noLegend}
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
-> > ```
-> {: .solution}
-{: .challenge}
-
-## Pre processing data
-
-When we want to start sub-setting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can perform our data transformations and then
-send the result to `ggplot2` without making an intermediate data set.
-
-For example, if we wanted to produce a version of the graph in challenge 4, but only for countries in Europe, we could use:
-
-
-```{r}
- gapminder %>% 
-  filter(continent == "Europe") %>% 
-  ggplot(aes(x = year, y = lifeExp, colour = country)) +
- geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
-```
 
 ## Plotting 1D data
 
@@ -344,7 +344,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 
 
 
-> ## Challenge 5
+> ## Challenge 4
 >
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
@@ -356,7 +356,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >  - Log transform the x axis to better visualise the data spread.
 >  - Add a facet layer produce a separate density plot for each year.
 >
-> > ## Solution to challenge 5
+> > ## Solution to challenge 4
 > >
 > > ```{r ch5-sol}
 > >  gapminder %>%  
