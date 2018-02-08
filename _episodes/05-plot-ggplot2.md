@@ -276,60 +276,86 @@ for each continent. We can split the plot into  multiple panels by adding a laye
 
 ~~~
 gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line() + facet_wrap( ~ continent)
+  geom_line() + facet_wrap("continent")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
-The `facet_wrap` layer took a "formula" as its argument, denoted by the tilde
-`~`. This tells R to draw a panel for each unique value in the continent column.  We have removed
+We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
-`facet_wrap` will wrap the plot panels so that they fit nicely in our plotting area.  We can use `facet_grid` according to one or two variables.  For example, if we plot life expectancy and GDP, we could facet this by continent and/or year:
-
-
-~~~
-gapminder %>% 
-  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3)  + 
-  facet_grid( ~ continent)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
-
-~~~
-gapminder %>% 
-  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
-  facet_grid(continent ~ year)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-5-2.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
-
+> ## More on facetting
+> 
+> It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
+> using the following code:
+> 
+> 
+> ~~~
+> gapminder %>% 
+>   ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
+>   facet_grid(continent ~ year)
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+> This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
+> 
+{: .callout}
 
 > ## Challenge 3
 > 
-> Modify the figure so that one continent per row is shown, each line is semi-transparent, and thicker.
+> Modify the plot so that each country has its own colour.   Although we would 
+> usually use a legend when plotting multiple series, you will find that this takes
+> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
 > 
-> Hint: There is a cheatsheet for `ggplot2` included with Rstudio, which lists the aesthetics commonly
-> used with each geom
 > 
-> > ## Solution
+> > ## Solution to challenge 3
+> > We can colour each country's line using the `colour` aesthetic:
 > > 
 > > 
 > > ~~~
-> > gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-> >   geom_line(alpha=0.2, size=2) + facet_grid(continent ~ .)
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( "continent" )
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-withLegend-1.png" title="plot of chunk withLegend" alt="plot of chunk withLegend" style="display: block; margin: auto;" />
+> >
+> > This will produce a plot that only shows (part of) the legend.
+> > We can hide the legend using `guides(colour = "none")`
+> >
 > > 
+> > ~~~
+> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
+> >  geom_line() + facet_wrap( "continent" ) + guides(colour = "none")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
+## Pre processing data
+
+When we want to start sub-setting and mutating the data before plotting, the usefulness of
+"piped" data-analysis becomes apparent; we can perform our data transformations and then
+send the result to `ggplot2` without making an intermediate data set.
+
+For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in Europe, we could use:
+
+
+
+~~~
+ gapminder %>% 
+  filter(continent == "Europe") %>% 
+  ggplot(aes(x = year, y = lifeExp, colour = country)) +
+ geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 ## Transformations 
 
@@ -368,67 +394,6 @@ of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y
 axis and so on. This makes it easier to visualize the spread of data on the
 x-axis.
 
-> ## Tip Reminder: Setting an aesthetic to a value instead of a mapping
->
-> Notice that we used `geom_point(alpha = 0.5)`. As the previous tip mentioned, using a setting outside of the `aes()` function will cause this value to be used for all points, which is what we want in this case. But just like any other aesthetic setting, *alpha* can also be mapped to a variable in the data. For example, we could give a different transparency to each continent with `geom_point(aes(alpha = continent))` (although in this example, this isn't 
-> very useful as a visualisation technique.
-{: .callout}
-
-
-
-> ## Challenge 4
-> 
-> Modify the plot so that each country has its own colour.   Although we would 
-> usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
-> 
-> 
-> > ## Solution to challenge 4
-> > We can colour each country's line using the `colour` aesthetic:
-> > 
-> > 
-> > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( ~ continent)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-withLegend-1.png" title="plot of chunk withLegend" alt="plot of chunk withLegend" style="display: block; margin: auto;" />
-> >
-> > This will produce a plot that only shows (part of) the legend.
-> > We can hide the legend using `guides(colour = "none")`
-> >
-> > 
-> > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
-> {: .solution}
-{: .challenge}
-
-## Pre processing data
-
-When we want to start sub-setting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can perform our data transformations and then
-send the result to `ggplot2` without making an intermediate data set.
-
-For example, if we wanted to produce a version of the graph in challenge 4, but only for countries in Europe, we could use:
-
-
-
-~~~
- gapminder %>% 
-  filter(continent == "Europe") %>% 
-  ggplot(aes(x = year, y = lifeExp, colour = country)) +
- geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
-
 ## Plotting 1D data
 
 In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
@@ -443,7 +408,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -459,7 +424,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -472,11 +437,11 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 
 
-> ## Challenge 5
+> ## Challenge 4
 >
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
@@ -488,7 +453,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >  - Log transform the x axis to better visualise the data spread.
 >  - Add a facet layer produce a separate density plot for each year.
 >
-> > ## Solution to challenge 5
+> > ## Solution to challenge 4
 > >
 > > 
 > > ~~~
@@ -530,7 +495,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 ## Modifying text
 
@@ -576,12 +541,6 @@ extensive documentation is available on the [ggplot2 website][ggplot-doc].
 Having produced a plot, we can save it, or copy it to the clipboard using the "Export" command at the top of RStudio's plot window.
 
 It's a better idea to save your plots as part of your scripts; this way if you modify your analysis code, you _know_ the plot will reflect the results of the code.  If you manually save the plot, you have to remember to do this after running the script.  
-
-> ## Reproducible research
-> 
-> You still have to remember to update the figure in your report, thesis or paper manuscript. Although we don't have time to consider it in this course, we can actually take this one step further, and write our reports, presentations or even web pages in R.  This way the text, analysis and figures are all produced from the same source.  This is referred to as reproducible research.  We can use the [knitr package](https://yihui.name/knitr/) to do this.  [Reproducible Research with R and RStudio, by Christopher Gandrud](https://www.librarysearch.manchester.ac.uk/primo-explore/fulldisplay?docid=44MAN_ALMA_DS21275136220001631&context=L&vid=MU_NUI&search_scope=BLENDED&tab=local&lang=en_US) offers a comprehensive guide to this approach.
-{: .callout }
-
 
 We can save the most recently produced ggplot using the `ggsave()` function:
 

@@ -5,10 +5,10 @@ exercises: 15
 questions:
 - "How can I read and write tabular data in R?"
 - "What are the basic data types in R?"
-- "How do I represent categorical information in R?"
 objectives:
 - "To be aware of the different types of data."
 - "To begin exploring `tibbles`"
+- "To be able to extract parts of a `tibble`"
 keypoints:
 - "Tibbles let us store tabular data in R.  Tibbles are an extension of the base R data frame."
 - "Use `read_csv` to read tabular data into a tibble R."
@@ -200,10 +200,20 @@ cats[,1]
 > another data frame. For more details see the callout at the end of this episode.
 {: .callout}
 
-## Categorical data
+## Writing data in R
 
-Another important data structure is called a `factor`. Factors usually look like
-character data, but are used to represent categorical information.
+We can save a tibble (or data frame) to a csv file, using `readr`'s `write_csv()` function.  For example, to save the cat data to `mycats.csv`:
+
+```{r, eval=FALSE}
+write_csv(cats, "data/mycats.csv")
+```
+
+
+## Categorical data (self study)
+
+Another data structure is called a `factor`. Factors usually look like
+character data, but are used to represent categorical information.  We don't handle much
+categorical data in this course, so this session is left for self study.
 
 Let's work with the coat colours of the cats in our dataset
 
@@ -278,14 +288,6 @@ take this idea a step further, and define `coat` as a factor when we load the da
 > makes this easy.  Note that `forcats` isn't loaded by default, so you will
 > need to use `library("forcats")` before using it.
 {: .callout}
-
-## Writing data in R
-
-We can save a tibble (or data frame) to a csv file, using `readr`'s `write_csv()` function.  For example, to save the cat data to `mycats.csv`:
-
-```{r, eval=FALSE}
-write_csv(cats, "data/mycats.csv")
-```
 
 ## Matrices
 
