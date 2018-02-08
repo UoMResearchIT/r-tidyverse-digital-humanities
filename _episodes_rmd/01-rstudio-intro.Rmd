@@ -91,28 +91,22 @@ When we are performing an analysis we will typically be using many files...
 input data, files containing code to perform the analysis, and results.    By creating a _project_ in
 Rstudio we make it easier to manage these files.
 
+Let's start the course by making a new project in RStudio, and copying the data we'll be using for the
+rest of the day into it.
 
-> ## Challenge: Creating a self-contained project
->
-> We're going to create a new project in RStudio:
->
-> 1. Click the "File" menu button, then "New Project".
-> 2. Click "New Directory".
-> 3. Click "Empty Project".
-> 4. Type in the name of the directory to store your project, e.g. "r_course". You should avoid using spaces and fullstops in the project name.
-> 5. If you are using a teaching cluster machine, choose "Browse" and select `C:\work`.  
-> 6. Click the "Create Project" button.
-{: .challenge}
+
+1. Click the "File" menu button, then "New Project".
+2. Click "New Directory".
+3. Click "Empty Project".
+4. Type in the name of the directory to store your project, e.g. "r_course". You should avoid using spaces and fullstops in the project name.
+5. If you are using a teaching cluster machine, choose "Browse" and select `C:\work`.  
+6. Click the "Create Project" button.
 
 > ## Project locations
 > 
 > We suggest you save your project in `c:\work` in case network access to the `P:` drive is lost during the course. Files in `c:\work` are stored locally on the machine, and are not backed up.  You should copy your project folder to the `P:` drive at lunchtime (in case you use a different machine after lunch) the end of the day (so you can refer to your work after).  
 > 
 {: .callout}
-
-Now when we start R in this project directory, or open this project with RStudio,
-all of our work on this project will be entirely self-contained in this directory.  R's _working directory_ will be set to the project's directory.   When we load and save files they will be saved relative to this directory.  The working directory is show above the console window.
-
 
 ## Good practices for project organization
 
@@ -159,34 +153,38 @@ get shared between projects.
 {: .callout}
 
 
-> ## Challenge
-> 
-> Create `data`, `src`, and `results` directories in your project directory.
-> 
-> Copy the files `gapminder-FiveYearData.csv`, `feline-data.csv`,  and `feline-data_v2.csv` files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  We will load and use these files later in the course.
->
-> Note that you cannot drag and drop files from Windows Explorer
-> (or your operating system's equivalent) into the files window in RStudio.   You can
-> get a new Windows Explorer (or equivalent) window for the location shown in the the
-> files tab of RStudio by clicking "More" and selecting "Show folder in new window".
-> You can then drag and drop the the required files into the folder.
->
-> You may find that you need to click the "refresh" icon in RStudio's file window
-> before the files appear in RStudio.
->
-> > ## Solution
-> > Your project structure should look like this:
-> > 
-> > ![](../fig/01-project.png)
-> >
-> > The data directory should looks like this:
-> >
-> > ![](../fig/01-project-data.png)
-> > 
-> > Note that the path ("Home > training > ...") will vary according to where you created the project.
-> {: .solution}
-{: .challenge}
 
+Create `data`, `src`, and `results` directories in your project directory.
+
+Copy the files `gapminder-FiveYearData.csv`, `feline-data.csv`,  and `feline-data_v2.csv` files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  We will load and use these files later in the course.
+
+Note that you cannot drag and drop files from Windows Explorer
+(or your operating system's equivalent) into the files window in RStudio.   You can
+get a new Windows Explorer (or equivalent) window for the location shown in the the
+files tab of RStudio by clicking "More" and selecting "Show folder in new window".
+You can then drag and drop the the required files into the folder.
+
+You may find that you need to click the "refresh" icon in RStudio's file window
+before the files appear in RStudio.
+
+Your project structure should look like this:
+
+![](../fig/01-project.png)
+
+The data directory should looks like this:
+
+![](../fig/01-project-data.png)
+
+Note that the path ("Home > training > ...") will vary according to where you created the project.
+
+Now when we start R in this project directory, or open this project with RStudio,
+all of our work on this project will be entirely self-contained in this directory.  
+
+R's _working directory_ determines where files will be loaded from and saved to by default.  The current working directory is shown above the console.   If this is not our project's directory you can set your working directory as follows:
+
+1. Check that the files tab is in your project directory (or navigate there if not)
+2. Press the `More` button
+3. Select `Set as current working directory`
 
 ## Introduction to R
 
