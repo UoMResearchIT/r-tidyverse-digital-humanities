@@ -286,6 +286,24 @@ We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
+> ## More on facetting
+> 
+> It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
+> using the following code:
+> 
+> 
+> ~~~
+> gapminder %>% 
+>   ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
+>   facet_grid(continent ~ year)
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+> This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
+> 
+{: .callout}
+
 > ## Challenge 3
 > 
 > Modify the plot so that each country has its own colour.   Although we would 
@@ -337,7 +355,7 @@ For example, if we wanted to produce a version of the graph in challenge 3, but 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 ## Transformations 
 
@@ -390,7 +408,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -406,7 +424,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -419,7 +437,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 
 
@@ -477,7 +495,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 ## Modifying text
 

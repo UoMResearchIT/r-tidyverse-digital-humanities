@@ -239,6 +239,20 @@ We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.
 
+## More on facetting
+
+It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
+using the following code:
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
+  facet_grid(continent ~ year)
+```
+This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
+
+{: .callout}
+
 > ## Challenge 3
 > 
 > Modify the plot so that each country has its own colour.   Although we would 
