@@ -211,10 +211,12 @@ Make sure you use the option `results='asis'` on the code chunk; this will allow
 In this episode we've looked at how to make notebooks, and how to compile these into Word, PDF and HTML files.
 [The British Ecological Society has published](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) an excellent guide on producing reproducible reports using RMarkdown, and on reproducible research more generally (although aimed at Ecologists the approaches they advocate are general).  
 
+The book [Reproducible Research with R and RStudio, by Christopher Gandrud](https://www.librarysearch.manchester.ac.uk/primo-explore/fulldisplay?docid=44MAN_ALMA_DS21275136220001631&context=L&vid=MU_NUI&search_scope=BLENDED&tab=local&lang=en_US) also explains this approach.
+
 
 We can use a similar approach to produce other types of outputs. The [RMarkdown gallery](http://rmarkdown.rstudio.com/gallery.html) contains examples of the many different types of document you can produce (some of these may require a newer version of R Studio than the one installed on the PC clusters).
 
-This course was written in R Studio.  The slides I used to introduce the course at the start were written as an R Markdown document.  Each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory; having selected an episode you will need to click the "raw" button to see the markdown itself.  
+This course was written in R Studio.  The slides I used to introduce the course at the start were written as an R Markdown document and each episode of this course is written as an R Markdown document (although the conversion to an HTML page is a little more complex than for the examples we looked at - this is so that the formatting of the challenges etc. works properly).   You can see all of the underlying R Markdown for this course on [Github](https://github.com/uomresearchit/r-tidyverse-intro/), in the `_episodes_rmd` directory; having selected an episode you will need to click the "raw" button to see the markdown itself.  
 
 
 

@@ -579,12 +579,6 @@ Having produced a plot, we can save it, or copy it to the clipboard using the "E
 
 It's a better idea to save your plots as part of your scripts; this way if you modify your analysis code, you _know_ the plot will reflect the results of the code.  If you manually save the plot, you have to remember to do this after running the script.  
 
-> ## Reproducible research
-> 
-> You still have to remember to update the figure in your report, thesis or paper manuscript. Although we don't have time to consider it in this course, we can actually take this one step further, and write our reports, presentations or even web pages in R.  This way the text, analysis and figures are all produced from the same source.  This is referred to as reproducible research.  We can use the [knitr package](https://yihui.name/knitr/) to do this.  [Reproducible Research with R and RStudio, by Christopher Gandrud](https://www.librarysearch.manchester.ac.uk/primo-explore/fulldisplay?docid=44MAN_ALMA_DS21275136220001631&context=L&vid=MU_NUI&search_scope=BLENDED&tab=local&lang=en_US) offers a comprehensive guide to this approach.
-{: .callout }
-
-
 We can save the most recently produced ggplot using the `ggsave()` function:
 
 
