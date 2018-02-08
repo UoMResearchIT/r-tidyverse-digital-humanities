@@ -41,7 +41,9 @@ This makes it easier to jump between chunks within your document, using the sele
 
 The header at the start of the notebook (between the `---`s) contains metadata which tells R how to process the notebook.  This can be edited by hand (for example to change the "title:" field), or to add an "author: " field.  R Studio may also modify it, for example, if you change the output format of the document.
 
-Before we go any further, make a new subdirectory for your notebooks and save the notebook in it using `File`, `Save`.  We need to do this so that we can preview and build the notebook.  
+Before we go any further, make a new subdirectory for your notebooks, for example, `notebook`. and save the notebook in it using `File`, `Save`.  We need to do this so that we can preview and build the notebook.   When you run code in your notebook, RStudio will set the working directory to be the notebook's directory.  This means that if we want to load some data from our `data` folder, we will need to use the path `../data/gapminder-FiveYearData.csv` (rather than `data/gapminder-FiveYearData.csv`, as we used previously).  The `..` tells R to look in the parent directory of the working directory.  
+
+
 
 We can run the notebook interactively within R Studio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   This will execute each chunk of code within R Studio and show us the results of each chunk within the document. This makes it easier to interactively edit our code, look at the results of our analysis, and edit our text within the same environment.
 
