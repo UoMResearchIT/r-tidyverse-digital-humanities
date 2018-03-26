@@ -36,14 +36,14 @@ package, and the [ggplot2][ggplot2] package.
 [lattice]: http://www.statmethods.net/advgraphs/trellis.html
 [ggplot2]: http://www.statmethods.net/advgraphs/ggplot2.html
 
-Today we'll be learning about the ggplot2 package, because
-it is the most effective for creating publication quality
-graphics.  It is also part of the tidyverse.
+Today we'll be learning about the ggplot2 package, which is part of the tidyverse.  It is the most effective for creating 
+publication quality graphics. There are many extension packages for ggplot2, which make it easy to produce specialised types of
+graph, such as survival plots, geographic maps and ROC curves.
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
 **coordinate system**, and a set of **geoms**--the visual representation of data
-points.
+points.    
 
 The key to understanding ggplot2 is thinking about a figure in layers.
 This idea may be familiar to you if you have used image editing programs like Photoshop, Illustrator, or
