@@ -495,7 +495,7 @@ passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill accordi
 > As the challenge is quite long, it's broken down into sections.  _Please_ try each section
 > beforelooking at the answer.
 >
-> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.
+> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.  Hint: the `%in%` operator may be useful.
 >
 > > ## Solution a
 > > 
