@@ -357,19 +357,21 @@ When we want to start sub-setting and mutating the data before plotting, the use
 "piped" data-analysis becomes apparent; we can perform our data transformations and then
 send the result to `ggplot2` without making an intermediate data set.
 
-For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in Europe, we could use:
+For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in the Americas, we could use:
 
 
 
 ~~~
- gapminder %>% 
-  filter(continent == "Europe") %>% 
-  ggplot(aes(x = year, y = lifeExp, colour = country)) +
- geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  ggplot(aes(x = year, y = gdpPercap, group = country)) +
+  geom_line() +
+  facet_wrap("continent")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+
 
 ## Transformations 
 
