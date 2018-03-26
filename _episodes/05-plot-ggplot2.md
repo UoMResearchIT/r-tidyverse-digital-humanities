@@ -406,9 +406,40 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 The `scale_x_log10` function applied a transformation to the values of the gdpPercap
 column before rendering them on the plot, so that each multiple of 10 now only
 corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
-of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y
+of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
 axis and so on. This makes it easier to visualize the spread of data on the
-x-axis.
+x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
+
+> ## Challenge 4 
+> 
+> Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
+> 
+> > ## Solution to challenge 4
+> > 
+> > We can add the `scale_y_log10()` to our plotting command:
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+> >   geom_line() +
+> >   facet_wrap("continent") + 
+> >   scale_y_log10()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+> > 
+> > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
+> > between the difference continents much less obvious.  
+> > 
+> > If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
+> > many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introducton to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
+> > 
+> {: .solution}
+{: .challenge}
+
+
 
 ## Plotting 1D data
 
@@ -424,7 +455,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -440,7 +471,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -453,11 +484,11 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 
 
-> ## Challenge 4
+> ## Challenge 5
 >
 >  Create a density plot of GDP per capita, filled by continent. You 
 > may find making the density estimates partially transparent produces a clearer graph.
@@ -469,7 +500,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 >  - Log transform the x axis to better visualise the data spread.
 >  - Add a facet layer produce a separate density plot for each year.
 >
-> > ## Solution to challenge 4
+> > ## Solution to challenge 5
 > >
 > > 
 > > ~~~
@@ -511,7 +542,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 ## Modifying text
 
