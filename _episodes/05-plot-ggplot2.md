@@ -284,7 +284,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 
 We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
-information.
+information.  Note that the variable we are faceting by needs to be placed in quotes.
 
 > ## More on facetting
 > 
