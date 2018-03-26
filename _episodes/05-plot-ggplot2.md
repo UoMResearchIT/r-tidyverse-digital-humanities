@@ -434,80 +434,79 @@ x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10
 > > between the difference continents much less obvious.  
 > > 
 > > If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
-> > many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introducton to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
+> > many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introduction to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
 > > 
 > {: .solution}
 {: .challenge}
 
-
-
-## Plotting 1D data
-
-In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
-plot counts using `geom_bar()`.  For example, to plot the number of counties in the gapminder data that are in each
-continent we can use:
-
-
-~~~
-gapminder %>% filter(year == 2007) %>%
-  ggplot(aes(x=continent)) + 
-  geom_bar()
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
-
-We filter to a single year of data to avoid multiple counting
-
-We often wish to explore the distribution of a continuous variable.  We can do this using a histogram (`geom_histogram()`), 
-or a density plot (`geom_density()`)
-
-For example, to produce a histogram of GDPs per capita for countries in Europe in 2007:
-
-
-~~~
-gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x=gdpPercap)) + geom_histogram(bins = 10)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
-
-We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
-
-We can plot a density plot using `geom_density()`.  This is a smoothed version of a histogram.
-
-
-~~~
-gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) + geom_density() 
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
-
-
-
-> ## Challenge 5
->
->  Create a density plot of GDP per capita, filled by continent. You 
-> may find making the density estimates partially transparent produces a clearer graph.
-> As there are only 2 countries in Oceania, a density plot isn't going to be useful for
-> this continent, so don't plot the data for it.
+> ## Plotting 1D data
 > 
-> Advanced:
->
->  - Log transform the x axis to better visualise the data spread.
->  - Add a facet layer produce a separate density plot for each year.
->
-> > ## Solution to challenge 5
-> >
+> In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
+> plot counts using `geom_bar()`.  For example, to plot the number of counties in the gapminder data that are in each
+> continent we can use:
+> 
+> 
+> ~~~
+> gapminder %>% filter(year == 2007) %>%
+>   ggplot(aes(x=continent)) + 
+>   geom_bar()
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+> 
+> We filter to a single year of data to avoid multiple counting
+> 
+> We often wish to explore the distribution of a continuous variable.  We can do this using a histogram (`geom_histogram()`), 
+> or a density plot (`geom_density()`)
+> 
+> For example, to produce a histogram of GDPs per capita for countries in Europe in 2007:
+> 
+> 
+> ~~~
+> gapminder %>% filter(year == 2007, continent == "Europe") %>% 
+>   ggplot(aes(x=gdpPercap)) + geom_histogram(bins = 10)
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+> 
+> We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
+> 
+> We can plot a density plot using `geom_density()`.  This is a smoothed version of a histogram.
+> 
+> 
+> ~~~
+> gapminder %>% 
+>   filter(year == 2007, continent == "Europe") %>% 
+>   ggplot(aes(x = gdpPercap, fill = continent)) + 
+>   geom_density() 
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+> 
+> > ## Challenge 5
+> > 
+> > Create a density plot of GDP per capita, filled by continent. You 
+> > may find making the density estimates partially transparent produces a clearer graph.
+> > As there are only 2 countries in Oceania, a density plot isn't going to be useful for
+> > this continent, so don't plot the data for it.
+> > 
+> > Advanced:
+> > 
+> >  - Log transform the x axis to better visualise the data spread.
+> >  - Add a facet layer produce a separate density plot for each year.
+> > 
+> > > ## Solution to challenge 5
+> > 
 > > 
 > > ~~~
 > >  gapminder %>%  
-> >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) 
+> >   filter(year == 2007) %>% 
+> >   filter(continent != "Oceania") %>% 
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.6) 
 > > ~~~
 > > {: .language-r}
 > > 
@@ -518,8 +517,8 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 > > ~~~
 > >  gapminder %>%  
 > >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
 > > ~~~
 > > {: .language-r}
 > > 
@@ -600,7 +599,6 @@ ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 {: .language-r}
 
 The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the resolution and size of the saved image.
-
 
 ## ggplot themes and extensions
 

@@ -360,12 +360,10 @@ Although this makes it easier to visualise all of the data on a single plot, it 
 between the difference continents much less obvious.  
 
 If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
-many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introducton to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
+many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introduction to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
 
 {: .solution}
 {: .challenge}
-
-
 
 ## Plotting 1D data
 
@@ -396,41 +394,42 @@ We can specify the number of bins (`bins = `), or the width of a bin (`binwidth 
 We can plot a density plot using `geom_density()`.  This is a smoothed version of a histogram.
 
 ```{r}
-gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) + geom_density() 
+gapminder %>% 
+  filter(year == 2007, continent == "Europe") %>% 
+  ggplot(aes(x = gdpPercap, fill = continent)) + 
+  geom_density() 
 ```
 
+## Challenge 5
 
+Create a density plot of GDP per capita, filled by continent. You 
+may find making the density estimates partially transparent produces a clearer graph.
+As there are only 2 countries in Oceania, a density plot isn't going to be useful for
+this continent, so don't plot the data for it.
 
-> ## Challenge 5
->
->  Create a density plot of GDP per capita, filled by continent. You 
-> may find making the density estimates partially transparent produces a clearer graph.
-> As there are only 2 countries in Oceania, a density plot isn't going to be useful for
-> this continent, so don't plot the data for it.
-> 
-> Advanced:
->
->  - Log transform the x axis to better visualise the data spread.
->  - Add a facet layer produce a separate density plot for each year.
->
-> > ## Solution to challenge 5
-> >
-> > ```{r ch5-sol}
-> >  gapminder %>%  
-> >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) 
-> > ```
-> > We can make this clearer by applying a log transform to the x axis, and facetting by year:
-> > 
-> > ```{r ch5-sol-adv}
-> >  gapminder %>%  
-> >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
-> > ```
-> {: .solution}
+Advanced:
+
+ - Log transform the x axis to better visualise the data spread.
+ - Add a facet layer produce a separate density plot for each year.
+
+> ## Solution to challenge 5
+
+```{r ch5-sol}
+ gapminder %>%  
+  filter(year == 2007) %>% 
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = gdpPercap, fill = continent)) +
+  geom_density(alpha = 0.6) 
+```
+We can make this clearer by applying a log transform to the x axis, and facetting by year:
+
+```{r ch5-sol-adv}
+ gapminder %>%  
+ filter(continent != "Oceania") %>% 
+  ggplot(aes(x = gdpPercap, fill = continent)) +
+  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+```
+{: .solution}
 {: .challenge}
 
 The figure we produced in challenge 6 is visually rather complicated; it's difficult
@@ -498,7 +497,6 @@ ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 ```
 
 The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the resolution and size of the saved image.
-
 
 ## ggplot themes and extensions
 
