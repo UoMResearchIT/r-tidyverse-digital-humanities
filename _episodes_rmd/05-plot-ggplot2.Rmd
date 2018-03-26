@@ -253,29 +253,43 @@ This uses R's formula notation to specify how we want to arrange to grid; see `?
 
 {: .callout}
 
-> ## Challenge 3
-> 
-> Modify the plot so that each country has its own colour.   Although we would 
-> usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
-> 
-> 
-> > ## Solution to challenge 3
-> > We can colour each country's line using the `colour` aesthetic:
-> > 
-> > ```{r withLegend}
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" )
-> > ```
-> >
-> > This will produce a plot that only shows (part of) the legend.
-> > We can hide the legend using `guides(colour = "none")`
-> >
-> > ```{r noLegend}
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" ) + guides(colour = "none")
-> > ```
-> {: .solution}
+## Challenge 3
+
+In this challenge you will explore how each country's GDP per capita has changed with time.
+
+Try two different approaches to visualising this data:
+
+* Plot all the data on a single graph, colouring each country's data by continent
+* Facet the data by continent.
+
+## Solution to challenge 3
+
+* Plot all the data on a single graph, colouring each country's data by continent
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x = year, y = gdpPercap, group = country, colour = continent)) + 
+  geom_line()
+```
+
+* Facet the data by continent.
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x = year, y = gdpPercap, group = country)) +
+  geom_line() +
+  facet_wrap("continent")
+```
+
+This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
+GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
+shortly.
+
+Another approach is to allow each facet to have its own scale on the y axis.   This can be done by
+passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
+it very difficult to compare data in different continents, and is arguably misleading.
+
+{: .solution}
 {: .challenge}
 
 ## Pre processing data

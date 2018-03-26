@@ -306,34 +306,48 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 
 > ## Challenge 3
 > 
-> Modify the plot so that each country has its own colour.   Although we would 
-> usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
+> In this challenge you will explore how each country's GDP per capita has changed with time.
 > 
+> Try two different approaches to visualising this data:
+> 
+> * Plot all the data on a single graph, colouring each country's data by continent
+> * Facet the data by continent.
 > 
 > > ## Solution to challenge 3
-> > We can colour each country's line using the `colour` aesthetic:
+> > 
+> > * Plot all the data on a single graph, colouring each country's data by continent
 > > 
 > > 
 > > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" )
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-withLegend-1.png" title="plot of chunk withLegend" alt="plot of chunk withLegend" style="display: block; margin: auto;" />
-> >
-> > This will produce a plot that only shows (part of) the legend.
-> > We can hide the legend using `guides(colour = "none")`
-> >
-> > 
-> > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" ) + guides(colour = "none")
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country, colour = continent)) + 
+> >   geom_line()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+> > 
+> > * Facet the data by continent.
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+> >   geom_line() +
+> >   facet_wrap("continent")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+> > 
+> > This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
+> > GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
+> > shortly.
+> > 
+> > Another approach is to allow each facet to have its own scale on the y axis.   This can be done by
+> > passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
+> > it very difficult to compare data in different continents, and is arguably misleading.
+> > 
 > {: .solution}
 {: .challenge}
 
@@ -355,7 +369,7 @@ For example, if we wanted to produce a version of the graph in challenge 3, but 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 ## Transformations 
 
@@ -408,7 +422,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -424,7 +438,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -437,7 +451,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 
 
@@ -495,7 +509,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 ## Modifying text
 
