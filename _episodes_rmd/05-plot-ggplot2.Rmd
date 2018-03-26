@@ -396,55 +396,79 @@ We can plot a density plot using `geom_density()`.  This is a smoothed version o
 ```{r}
 gapminder %>% 
   filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) + 
+  ggplot(aes(x = gdpPercap)) + 
   geom_density() 
 ```
 
-## Challenge 5
+By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
+passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`.
 
-Create a density plot of GDP per capita, filled by continent. You 
-may find making the density estimates partially transparent produces a clearer graph.
-As there are only 2 countries in Oceania, a density plot isn't going to be useful for
-this continent, so don't plot the data for it.
-
-Advanced:
-
- - Log transform the x axis to better visualise the data spread.
- - Add a facet layer produce a separate density plot for each year.
-
-> ## Solution to challenge 5
-
-```{r ch5-sol}
- gapminder %>%  
-  filter(year == 2007) %>% 
-  filter(continent != "Oceania") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) 
-```
-We can make this clearer by applying a log transform to the x axis, and facetting by year:
-
-```{r ch5-sol-adv}
- gapminder %>%  
- filter(continent != "Oceania") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
-```
-{: .solution}
+> ## Challenge 5
+> 
+> In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
+> As the challenge is quite long, it's broken down into sections.  _Please_ try each section
+> beforelooking at the answer.
+>
+> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.
+>
+> > ## Solution a
+> > 
+> > ```{r}
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa"))
+> > ```
+> > This returns a tibble, which we can then pipe into ggplot.
+> {: .solution}
+> 
+> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, coloured by continent (e.g. each continent has its own density estimate)
+> 
+> > ## Solution b
+> > 
+> > ```{r}
+> > 
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density()
+> > ```
+> >
+> {: .solution}
+>
+> c. This looks OK, but the continent's density estimates overlay each other.  Use the `alpha =` option to make each density estimate
+> semi transparent
+>
+> > ## Solution c
+> >
+> > ```{r}
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.5) 
+> > ```
+> > 
+> {: .solution}
+> 
+> d.  Let's take a look at how the relative GDPs per capita have changed over time.  We can use `facet_wrap()` to do  this.  
+> Modify your code to produce a separate graph for each year
+>
+>
+> > ## Solution d
+> >
+> > ```{r}
+> > gapminder %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x =gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.5) +
+> >   facet_wrap("year")
+> > ```
+> > Note that you need to remove the `filter(year == 2007)` line from the code.
+> >
+> {: .solution}
 {: .challenge}
-
-The figure we produced in challenge 6 is visually rather complicated; it's difficult
-to get a feel for how the different continents' GDPs are changing over time.  Let's focus on 
-just a couple of continents.  
-
-```{r}
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  facet_wrap( ~ year) + 
-  scale_x_log10() + 
-  geom_density(alpha = 0.6) 
   
-```
 
 ## Modifying text
 
@@ -463,11 +487,10 @@ of a fill legend would be set using `fill = "MyTitle"`.
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, fill = continent)) +
-  facet_wrap( ~ year) + 
-  scale_x_log10() + 
-  geom_density(alpha = 0.6) +
+  geom_density(alpha = 0.5) +
+  facet_wrap("year") + 
   labs(
-    x = "GDP per capita (log scale)", # x axis title
+    x = "GDP per capita", # x axis title
     y = "Density",   # y axis title
     title = "Figure 1",      # main title of figure
     fill = "Continent"      # title of legend
@@ -475,7 +498,7 @@ gapminder %>%
 ```
 
 
- RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
+RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
 extensive documentation is available on the [ggplot2 website][ggplot-doc].
 
 [cheat]: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
@@ -520,7 +543,6 @@ library(ggridges)
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
-  scale_x_log10() + 
-  geom_density_ridges(alpha = 0.6) 
+  geom_density_ridges(alpha = 0.5) 
 ```
 
