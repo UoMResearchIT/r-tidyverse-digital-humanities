@@ -30,14 +30,14 @@ package, and the [ggplot2][ggplot2] package.
 [lattice]: http://www.statmethods.net/advgraphs/trellis.html
 [ggplot2]: http://www.statmethods.net/advgraphs/ggplot2.html
 
-Today we'll be learning about the ggplot2 package, because
-it is the most effective for creating publication quality
-graphics.  It is also part of the tidyverse.
+Today we'll be learning about the ggplot2 package, which is part of the tidyverse.  It is the most effective for creating 
+publication quality graphics. There are many extension packages for ggplot2, which make it easy to produce specialised types of
+graph, such as survival plots, geographic maps and ROC curves.
 
 ggplot2 is built on the grammar of graphics, the idea that any plot can be
 expressed from the same set of components: a **data** set, a
 **coordinate system**, and a set of **geoms**--the visual representation of data
-points.
+points.    
 
 The key to understanding ggplot2 is thinking about a figure in layers.
 This idea may be familiar to you if you have used image editing programs like Photoshop, Illustrator, or
@@ -284,7 +284,7 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 
 We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
-information.
+information.  Note that the variable we are faceting by needs to be placed in quotes.
 
 > ## More on facetting
 > 
@@ -306,34 +306,48 @@ information.
 
 > ## Challenge 3
 > 
-> Modify the plot so that each country has its own colour.   Although we would 
-> usually use a legend when plotting multiple series, you will find that this takes
-> up all of the plotting space; you can hide the legend using `+ guides(colour = "none")`.
+> In this challenge you will explore how each country's GDP per capita has changed with time.
 > 
+> Try two different approaches to visualising this data:
+> 
+> * Plot all the data on a single graph, colouring each country's data by continent
+> * Facet the data by continent.
 > 
 > > ## Solution to challenge 3
-> > We can colour each country's line using the `colour` aesthetic:
+> > 
+> > * Plot all the data on a single graph, colouring each country's data by continent
 > > 
 > > 
 > > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" )
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-withLegend-1.png" title="plot of chunk withLegend" alt="plot of chunk withLegend" style="display: block; margin: auto;" />
-> >
-> > This will produce a plot that only shows (part of) the legend.
-> > We can hide the legend using `guides(colour = "none")`
-> >
-> > 
-> > ~~~
-> >  gapminder %>% ggplot(aes(x = year, y = lifeExp, colour = country)) +
-> >  geom_line() + facet_wrap( "continent" ) + guides(colour = "none")
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country, colour = continent)) + 
+> >   geom_line()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-noLegend-1.png" title="plot of chunk noLegend" alt="plot of chunk noLegend" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+> > 
+> > * Facet the data by continent.
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+> >   geom_line() +
+> >   facet_wrap("continent")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+> > 
+> > This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
+> > GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
+> > shortly.
+> > 
+> > Another approach is to allow each facet to have its own scale on the y axis.   This can be done by
+> > passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
+> > it very difficult to compare data in different continents, and is arguably misleading.
+> > 
 > {: .solution}
 {: .challenge}
 
@@ -343,19 +357,21 @@ When we want to start sub-setting and mutating the data before plotting, the use
 "piped" data-analysis becomes apparent; we can perform our data transformations and then
 send the result to `ggplot2` without making an intermediate data set.
 
-For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in Europe, we could use:
+For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in the Americas, we could use:
 
 
 
 ~~~
- gapminder %>% 
-  filter(continent == "Europe") %>% 
-  ggplot(aes(x = year, y = lifeExp, colour = country)) +
- geom_line() + facet_wrap( ~ continent) + guides(colour = "none")
+gapminder %>% 
+  filter(continent == "Americas") %>% 
+  ggplot(aes(x = year, y = gdpPercap, group = country)) +
+  geom_line() +
+  facet_wrap("continent")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+
 
 ## Transformations 
 
@@ -390,9 +406,38 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 The `scale_x_log10` function applied a transformation to the values of the gdpPercap
 column before rendering them on the plot, so that each multiple of 10 now only
 corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
-of 1,000 is now 3 on the y axis, a value of 10,000 corresponds to 4 on the y
+of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
 axis and so on. This makes it easier to visualize the spread of data on the
-x-axis.
+x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
+
+> ## Challenge 4 
+> 
+> Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
+> 
+> > ## Solution to challenge 4
+> > 
+> > We can add the `scale_y_log10()` to our plotting command:
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+> >   geom_line() +
+> >   facet_wrap("continent") + 
+> >   scale_y_log10()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+> > 
+> > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
+> > between the difference continents much less obvious.  
+> > 
+> > If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
+> > many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introduction to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
+> > 
+> {: .solution}
+{: .challenge}
 
 ## Plotting 1D data
 
@@ -408,7 +453,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -424,7 +469,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -432,70 +477,117 @@ We can plot a density plot using `geom_density()`.  This is a smoothed version o
 
 
 ~~~
-gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) + geom_density() 
+gapminder %>% 
+  filter(year == 2007, continent == "Europe") %>% 
+  ggplot(aes(x = gdpPercap)) + 
+  geom_density() 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
+By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
+passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`.
 
-
-> ## Challenge 4
->
->  Create a density plot of GDP per capita, filled by continent. You 
-> may find making the density estimates partially transparent produces a clearer graph.
-> As there are only 2 countries in Oceania, a density plot isn't going to be useful for
-> this continent, so don't plot the data for it.
+> ## Challenge 5
 > 
-> Advanced:
+> In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
+> As the challenge is quite long, it's broken down into sections.  _Please_ try each section
+> beforelooking at the answer.
 >
->  - Log transform the x axis to better visualise the data spread.
->  - Add a facet layer produce a separate density plot for each year.
+> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.  Hint: the `%in%` operator may be useful.
 >
-> > ## Solution to challenge 4
+> > ## Solution a
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa"))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 82 x 6
+> >                   country  year      pop continent lifeExp gdpPercap
+> >                     <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
+> >  1                Albania  2007  3600523    Europe  76.423  5937.030
+> >  2                Algeria  2007 33333216    Africa  72.301  6223.367
+> >  3                 Angola  2007 12420476    Africa  42.731  4797.231
+> >  4                Austria  2007  8199783    Europe  79.829 36126.493
+> >  5                Belgium  2007 10392226    Europe  79.441 33692.605
+> >  6                  Benin  2007  8078314    Africa  56.728  1441.285
+> >  7 Bosnia and Herzegovina  2007  4552198    Europe  74.852  7446.299
+> >  8               Botswana  2007  1639131    Africa  50.728 12569.852
+> >  9               Bulgaria  2007  7322858    Europe  73.005 10680.793
+> > 10           Burkina Faso  2007 14326203    Africa  52.295  1217.033
+> > # ... with 72 more rows
+> > ~~~
+> > {: .output}
+> > This returns a tibble, which we can then pipe into ggplot.
+> {: .solution}
+> 
+> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, coloured by continent (e.g. each continent has its own density estimate)
+> 
+> > ## Solution b
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+> >
+> {: .solution}
+>
+> c. This looks OK, but the continent's density estimates overlay each other.  Use the `alpha =` option to make each density estimate
+> semi transparent
+>
+> > ## Solution c
 > >
 > > 
 > > ~~~
-> >  gapminder %>%  
-> >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) 
+> > gapminder %>% 
+> >   filter(year == 2007) %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.5) 
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-ch5-sol-1.png" title="plot of chunk ch5-sol" alt="plot of chunk ch5-sol" style="display: block; margin: auto;" />
-> > We can make this clearer by applying a log transform to the x axis, and facetting by year:
+> > <img src="../fig/rmd-06-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
 > > 
+> {: .solution}
+> 
+> d.  Let's take a look at how the relative GDPs per capita have changed over time.  We can use `facet_wrap()` to do  this.  
+> Modify your code to produce a separate graph for each year
+>
+>
+> > ## Solution d
+> >
 > > 
 > > ~~~
-> >  gapminder %>%  
-> >  filter(continent != "Oceania") %>% 
-> >  ggplot(aes(x = gdpPercap, fill = continent)) +
-> >  geom_density(alpha = 0.6) + facet_wrap( ~ year) + scale_x_log10()
+> > gapminder %>% 
+> >   filter(continent %in% c("Europe", "Africa")) %>% 
+> >   ggplot(aes(x =gdpPercap, fill = continent)) +
+> >   geom_density(alpha = 0.5) +
+> >   facet_wrap("year")
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-ch5-sol-adv-1.png" title="plot of chunk ch5-sol-adv" alt="plot of chunk ch5-sol-adv" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+> > Note that you need to remove the `filter(year == 2007)` line from the code.
+> >
 > {: .solution}
 {: .challenge}
-
-The figure we produced in challenge 6 is visually rather complicated; it's difficult
-to get a feel for how the different continents' GDPs are changing over time.  Let's focus on 
-just a couple of continents.  
-
-
-~~~
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  facet_wrap( ~ year) + 
-  scale_x_log10() + 
-  geom_density(alpha = 0.6) 
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+  
 
 ## Modifying text
 
@@ -515,11 +607,10 @@ of a fill legend would be set using `fill = "MyTitle"`.
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, fill = continent)) +
-  facet_wrap( ~ year) + 
-  scale_x_log10() + 
-  geom_density(alpha = 0.6) +
+  geom_density(alpha = 0.5) +
+  facet_wrap("year") + 
   labs(
-    x = "GDP per capita (log scale)", # x axis title
+    x = "GDP per capita", # x axis title
     y = "Density",   # y axis title
     title = "Figure 1",      # main title of figure
     fill = "Continent"      # title of legend
@@ -530,7 +621,7 @@ gapminder %>%
 <img src="../fig/rmd-06-theme-1.png" title="plot of chunk theme" alt="plot of chunk theme" style="display: block; margin: auto;" />
 
 
- RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
+RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
 extensive documentation is available on the [ggplot2 website][ggplot-doc].
 
 [cheat]: http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
@@ -554,7 +645,6 @@ ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
 
 The help for the `ggsave()` function lists the image formats that are available, as well as the options for setting the resolution and size of the saved image.
 
-
 ## ggplot themes and extensions
 
 ggplot is very flexible, and its capabilities can be extended.  
@@ -573,15 +663,14 @@ library(ggridges)
 gapminder %>% 
   filter(continent %in% c("Europe", "Africa")) %>% 
   ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
-  scale_x_log10() + 
-  geom_density_ridges(alpha = 0.6) 
+  geom_density_ridges(alpha = 0.5) 
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Picking joint bandwidth of 0.128
+Picking joint bandwidth of 1850
 ~~~
 {: .output}
 
