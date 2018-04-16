@@ -435,6 +435,7 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 {: .callout}
 ## Other great resources
 
+* [Data Wrangling tutorial](https://suzan.rbind.io/categories/tutorial/) - an excellent four part tutorial covering selecting data, filtering data, summarising and transforming your data.
 * [R for Data Science](http://r4ds.had.co.nz/)
 * [Data Wrangling Cheat sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 * [Introduction to dplyr](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) - this is the package vignette.  It can be viewed within R using `vignette(package="dplyr", "dplyr")`
