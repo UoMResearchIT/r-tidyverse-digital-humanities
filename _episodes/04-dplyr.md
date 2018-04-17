@@ -309,8 +309,10 @@ What about if we wanted to match more than one item?  To do this we use the `%in
 
 
 ~~~
-gapminder_benelux <- gapminder %>% 
-  filter(country %in% c("Belgium", "Netherlands", "France"))
+gapminder_scandinavia <- gapminder %>% 
+  filter(country %in% c("Denmark",
+                        "Norway",
+                        "Sweden"))
 ~~~
 {: .language-r}
 
