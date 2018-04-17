@@ -492,8 +492,8 @@ passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill accordi
 > ## Challenge 5
 > 
 > In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
-> As the challenge is quite long, it's broken down into sections.  _Please_ try each section
-> beforelooking at the answer.
+> As the challenge is quite long, it's broken down into sections.  Please try each section
+> before looking at the answer.
 >
 > a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.  Hint: the `%in%` operator may be useful.
 >
@@ -529,7 +529,7 @@ passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill accordi
 > > This returns a tibble, which we can then pipe into ggplot.
 > {: .solution}
 > 
-> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, coloured by continent (e.g. each continent has its own density estimate)
+> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, setting the fill colour by continent (e.g. each continent has its own density estimate)
 > 
 > > ## Solution b
 > > 
@@ -576,7 +576,7 @@ passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill accordi
 > > ~~~
 > > gapminder %>% 
 > >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x =gdpPercap, fill = continent)) +
+> >   ggplot(aes(x = gdpPercap, fill = continent)) +
 > >   geom_density(alpha = 0.5) +
 > >   facet_wrap("year")
 > > ~~~
@@ -598,9 +598,8 @@ the variable name from the data-set.  We may also wish to change the text size, 
 We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot 
 title and any legend can be set using the `labs` function. Legend titles
-are set using the same names we used in the `aes` specification. Thus below
-the colour legend title is set using `color = "Continent"`, while the title 
-of a fill legend would be set using `fill = "MyTitle"`. 
+are set using the same names we used in the `aes` specification; since we used the `fill` property to 
+colour by continent we use `fill = "Continent` in the `labs()` function.  
 
 
 ~~~
@@ -631,7 +630,7 @@ extensive documentation is available on the [ggplot2 website][ggplot-doc].
 
 Having produced a plot, we can save it, or copy it to the clipboard using the "Export" command at the top of RStudio's plot window.
 
-It's a better idea to save your plots as part of your scripts; this way if you modify your analysis code, you _know_ the plot will reflect the results of the code.  If you manually save the plot, you have to remember to do this after running the script.  
+It's a better idea to save your plots as part of your scripts; this way if you modify your analysis code, you _know_ the plot will reflect the results of the code.  If you manually save the plot, you have to remember to do this after changing the script.  
 
 We can save the most recently produced ggplot using the `ggsave()` function:
 

@@ -370,7 +370,7 @@ gapminder_scandinavia <- gapminder %>%
 > Write a single command (which can span multiple lines and includes pipes) that
 > will produce a tibble that has the values of `lifeExp`, `country`
 > and `year`, for the countries in Africa, but not for other Continents.  How many rows does your tibble  
-> have?
+> have? (You can use the `nrow()` function to find out how many rows are in a tibble.)
 >
 > > ## Solution to Challenge 1
 > >
@@ -471,13 +471,46 @@ gapminder_totalgdp <- gapminder %>%
 ~~~
 {: .language-r}
 
+We can also use functions within mutate to generate new variables.  For example, to take the log of `gdpPercap` we could use:
+
+
+~~~
+gapminder %>% 
+  mutate(logGdpPercap = log(gdpPercap))
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap logGdpPercap
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453     6.658583
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530     6.710344
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007     6.748878
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971     6.728864
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811     6.606625
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134     6.667101
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114     6.885521
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959     6.748051
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414     6.475959
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414     6.454162
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+The dplyr cheat sheet contains many useful functions which can be used with dplyr.  This can be found in the help menu of RStudio. You will use one of these functions in the next challenge.
+
 > ## Challenge 2
 > 
 > Create a tibble containing each country in Europe, its life expectancy in 2007
-> and the rank of the country's life expectancy. 
+> and the rank of the country's life expectancy. (note that ranking the countries _will not_ sort the table; the row order will be unchanged.  You can use the `arrange()` function to sort the table).
 >
-> Hint: First filter and then use mutate to create a new variable with the rank in it.  The cheat-sheet contains useful
-> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio)
+> Hint: First `filter()` to get the rows you want, and then use `mutate()` to create a new variable with the rank in it.  The cheat-sheet contains useful
+> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio).  
+> There are several functions for ranking observations, which handle tied values differently.  For this exercise it 
+> doesn't matter which function you choose.
 >
 > Can you reverse the ranking order
 > so that the country with the longest life expectancy gets the lowest rank?
@@ -700,37 +733,31 @@ When creating new variables, we can hook this with a logical condition. A simple
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the tibble will not change) or for updating values depending on this given condition.
 
+The `ifelse()` function takes three parameters.  The first it the logical test.  The second is the value to use if the test is TRUE for that observation, and the third is the value to use if the test is FALSE.
+
 
 ~~~
 ## keeping all data but "filtering" after a certain condition
-# calculate GDP only for people with a life expectation above 25
+# calculate GDP only for people with a life expectation above 50
 gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
-    mutate(gdp_billion = ifelse(lifeExp > 25, gdpPercap * pop / 10^9, NA)) %>%
-    group_by(continent, year) %>%
-    summarize(mean_gdpPercap = mean(gdpPercap),
-              sd_gdpPercap = sd(gdpPercap),
-              mean_pop = mean(pop),
-              sd_pop = sd(pop),
-              mean_gdp_billion = mean(gdp_billion),
-              sd_gdp_billion = sd(gdp_billion))
-
-## updating only if certain condition is fullfilled
-# for life expectations above 40 years, the gpd to be expected in the future is scaled
-gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
-    mutate(gdp_futureExpectation = ifelse(lifeExp > 40, gdpPercap * 1.5, gdpPercap)) %>%
-    group_by(continent, year) %>%
-    summarize(mean_gdpPercap = mean(gdpPercap),
-              mean_gdpPercap_expected = mean(gdp_futureExpectation))
+    mutate(gdp_billion = ifelse(lifeExp > 50, gdpPercap * pop / 10^9, NA)) 
 ~~~
 {: .language-r}
 
 
 > ## Challenge 4
 >
+> (More complicated)
+>
+> Filter the data to only contain observations for the year 2002.
 > Select two countries at random from each continent.  For each continent, calculate the 
-> average life expectancy of the two countries.   Then arrange the continent names in reverse order.
+> average life expectancy of the two countries.
 > 
-> Hint: The `dplyr` function `sample_n()` can be used to select a sample of rows.  
+> Hints: 
+> There are several steps in this challenge.   It will be easier to build your solution
+> step by step, testing it after each step.  For example, first filter the data, then group,
+> then take a sample, etc.
+> The `dplyr` function `sample_n()` can be used to select a sample of rows.  
 >
 > The final tibble should contain the columns `continent` and the average life expectancy. You do
 > *not* need to include the countries that were selected in it.
@@ -743,9 +770,8 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > >    filter(year==2002) %>%
 > >    group_by(continent) %>%
 > >    sample_n(2) %>%
-> >    summarize(mean_lifeExp=mean(lifeExp)) %>%
-> >    arrange(desc(mean_lifeExp))
-> >lifeExp_2countries_bycontinents 
+> >    summarize(mean_lifeExp=mean(lifeExp)) 
+> >print(lifeExp_2countries_bycontinents)
 > >~~~
 > >{: .language-r}
 > >
@@ -755,11 +781,11 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > ># A tibble: 5 x 2
 > >  continent mean_lifeExp
 > >      <chr>        <dbl>
-> >1   Oceania      79.7400
-> >2    Europe      77.2100
-> >3  Americas      74.1675
-> >4    Africa      58.9130
-> >5      Asia      55.3465
+> >1    Africa      58.9130
+> >2  Americas      74.1675
+> >3      Asia      55.3465
+> >4    Europe      77.2100
+> >5   Oceania      79.7400
 > >~~~
 > >{: .output}
 > >
