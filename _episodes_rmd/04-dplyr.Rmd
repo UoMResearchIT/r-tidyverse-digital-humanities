@@ -217,7 +217,7 @@ gapminder_scandinavia <- gapminder %>%
 > Write a single command (which can span multiple lines and includes pipes) that
 > will produce a tibble that has the values of `lifeExp`, `country`
 > and `year`, for the countries in Africa, but not for other Continents.  How many rows does your tibble  
-> have?
+> have? (You can use the `nrow()` function to find out how many rows are in a tibble.)
 >
 > > ## Solution to Challenge 1
 > >```{r}
