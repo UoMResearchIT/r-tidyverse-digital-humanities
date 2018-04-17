@@ -733,37 +733,31 @@ When creating new variables, we can hook this with a logical condition. A simple
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the tibble will not change) or for updating values depending on this given condition.
 
+The `ifelse()` function takes three parameters.  The first it the logical test.  The second is the value to use if the test is TRUE for that observation, and the third is the value to use if the test is FALSE.
+
 
 ~~~
 ## keeping all data but "filtering" after a certain condition
-# calculate GDP only for people with a life expectation above 25
+# calculate GDP only for people with a life expectation above 50
 gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
-    mutate(gdp_billion = ifelse(lifeExp > 25, gdpPercap * pop / 10^9, NA)) %>%
-    group_by(continent, year) %>%
-    summarize(mean_gdpPercap = mean(gdpPercap),
-              sd_gdpPercap = sd(gdpPercap),
-              mean_pop = mean(pop),
-              sd_pop = sd(pop),
-              mean_gdp_billion = mean(gdp_billion),
-              sd_gdp_billion = sd(gdp_billion))
-
-## updating only if certain condition is fullfilled
-# for life expectations above 40 years, the gpd to be expected in the future is scaled
-gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
-    mutate(gdp_futureExpectation = ifelse(lifeExp > 40, gdpPercap * 1.5, gdpPercap)) %>%
-    group_by(continent, year) %>%
-    summarize(mean_gdpPercap = mean(gdpPercap),
-              mean_gdpPercap_expected = mean(gdp_futureExpectation))
+    mutate(gdp_billion = ifelse(lifeExp > 50, gdpPercap * pop / 10^9, NA)) 
 ~~~
 {: .language-r}
 
 
 > ## Challenge 4
 >
+> (More complicated)
+>
+> Filter the data to only contain observations for the year 2002.
 > Select two countries at random from each continent.  For each continent, calculate the 
-> average life expectancy of the two countries.   Then arrange the continent names in reverse order.
+> average life expectancy of the two countries.
 > 
-> Hint: The `dplyr` function `sample_n()` can be used to select a sample of rows.  
+> Hints: 
+> There are several steps in this challenge.   It will be easier to build your solution
+> step by step, testing it after each step.  For example, first filter the data, then group,
+> then take a sample, etc.
+> The `dplyr` function `sample_n()` can be used to select a sample of rows.  
 >
 > The final tibble should contain the columns `continent` and the average life expectancy. You do
 > *not* need to include the countries that were selected in it.
@@ -776,9 +770,8 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > >    filter(year==2002) %>%
 > >    group_by(continent) %>%
 > >    sample_n(2) %>%
-> >    summarize(mean_lifeExp=mean(lifeExp)) %>%
-> >    arrange(desc(mean_lifeExp))
-> >lifeExp_2countries_bycontinents 
+> >    summarize(mean_lifeExp=mean(lifeExp)) 
+> >print(lifeExp_2countries_bycontinents)
 > >~~~
 > >{: .language-r}
 > >
@@ -788,11 +781,11 @@ gdp_future_bycontinents_byyear_high_lifeExp <- gapminder %>%
 > ># A tibble: 5 x 2
 > >  continent mean_lifeExp
 > >      <chr>        <dbl>
-> >1   Oceania      79.7400
-> >2    Europe      77.2100
-> >3  Americas      74.1675
-> >4    Africa      58.9130
-> >5      Asia      55.3465
+> >1    Africa      58.9130
+> >2  Americas      74.1675
+> >3      Asia      55.3465
+> >4    Europe      77.2100
+> >5   Oceania      79.7400
 > >~~~
 > >{: .output}
 > >
