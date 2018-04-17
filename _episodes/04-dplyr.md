@@ -471,13 +471,46 @@ gapminder_totalgdp <- gapminder %>%
 ~~~
 {: .language-r}
 
+We can also use functions within mutate to generate new variables.  For example, to take the log of `gdpPercap` we could use:
+
+
+~~~
+gapminder %>% 
+  mutate(logGdpPercap = log(gdpPercap))
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 1,704 x 7
+       country  year      pop continent lifeExp gdpPercap logGdpPercap
+         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333      Asia  28.801  779.4453     6.658583
+ 2 Afghanistan  1957  9240934      Asia  30.332  820.8530     6.710344
+ 3 Afghanistan  1962 10267083      Asia  31.997  853.1007     6.748878
+ 4 Afghanistan  1967 11537966      Asia  34.020  836.1971     6.728864
+ 5 Afghanistan  1972 13079460      Asia  36.088  739.9811     6.606625
+ 6 Afghanistan  1977 14880372      Asia  38.438  786.1134     6.667101
+ 7 Afghanistan  1982 12881816      Asia  39.854  978.0114     6.885521
+ 8 Afghanistan  1987 13867957      Asia  40.822  852.3959     6.748051
+ 9 Afghanistan  1992 16317921      Asia  41.674  649.3414     6.475959
+10 Afghanistan  1997 22227415      Asia  41.763  635.3414     6.454162
+# ... with 1,694 more rows
+~~~
+{: .output}
+
+The dplyr cheat sheet contains many useful functions which can be used with dplyr.  This can be found in the help menu of RStudio. You will use one of these functions in the next challenge.
+
 > ## Challenge 2
 > 
 > Create a tibble containing each country in Europe, its life expectancy in 2007
-> and the rank of the country's life expectancy. 
+> and the rank of the country's life expectancy. (note that ranking the countries _will not_ sort the table; the row order will be unchanged.  You can use the `arrange()` function to sort the table).
 >
-> Hint: First filter and then use mutate to create a new variable with the rank in it.  The cheat-sheet contains useful
-> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio)
+> Hint: First `filter()` to get the rows you want, and then use `mutate()` to create a new variable with the rank in it.  The cheat-sheet contains useful
+> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio).  
+> There are several functions for ranking observations, which handle tied values differently.  For this exercise it 
+> doesn't matter which function you choose.
 >
 > Can you reverse the ranking order
 > so that the country with the longest life expectancy gets the lowest rank?
