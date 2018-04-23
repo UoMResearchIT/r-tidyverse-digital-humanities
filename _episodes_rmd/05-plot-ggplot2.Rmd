@@ -545,3 +545,6 @@ gapminder %>%
   geom_density_ridges(alpha = 0.5) 
 ```
 
+[Data Visualization - A practical Introduction](http://socviz.co/) is an online book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
+
+

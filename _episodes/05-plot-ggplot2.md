@@ -675,3 +675,6 @@ Picking joint bandwidth of 1850
 
 <img src="../fig/rmd-06-ridgesplot-1.png" title="plot of chunk ridgesplot" alt="plot of chunk ridgesplot" style="display: block; margin: auto;" />
 
+[Data Visualization - A practical Introduction](http://socviz.co/) is an online book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
+
+
