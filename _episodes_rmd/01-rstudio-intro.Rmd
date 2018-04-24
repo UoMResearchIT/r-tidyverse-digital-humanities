@@ -908,7 +908,7 @@ c(1, 2, "three", "four", 5)
 We see that R has coerced the elements containing digits to strings, so that all the elements have the same type.  We will talk more about data types in a later episode.
 
 
-## Managing your environment
+## Managing your environment (self study)
 
 In this section we will discuss ways of keeping your environment tidy.
 
