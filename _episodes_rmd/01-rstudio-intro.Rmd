@@ -284,43 +284,6 @@ If you have selected some code, <kbd>Ctrl</kbd>+<kbd>Enter</kbd> will execute th
 
 To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>.
 
-## Challenge
-
-
-Create a new script file, and save it with the name `courseintro.R` in the `src` directory you created earlier.   Enter a few commands into this, and try running them.   What happens if you enter:
-
-```
-1 +
-2
-```
-
-Does the position of the `+` sign matter?  Does entering
-```
-1
-+ 2
-``` 
-work?
-
-## Solution
-
-You will find that writing 
-```
-1
-+ 2
-```
-is interpreted as two separate commands.   In contrast:
-```
-1 + 
- 2
-```
-is run as a single command.  `1 +` does not make up a complate R command (if we enter this in the console we would see the `+` prompt).    You may have noticed that when you entered this command into the script RStudio indents the second line; this makes it clearer to us that the line is a continuation of the previous command.
-
-We will make extensive use of this feature when we start writing data analysis pipelines.
-
-{: .solution}
-{: .challenge}
-
-
 > ## Version Control
 > 
 > It is always a good idea to use version control with your projects.  
