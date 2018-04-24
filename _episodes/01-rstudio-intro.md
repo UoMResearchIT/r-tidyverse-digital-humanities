@@ -310,43 +310,6 @@ If you have selected some code, <kbd>Ctrl</kbd>+<kbd>Enter</kbd> will execute th
 
 To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Enter</kbd>.
 
-> ## Challenge
-> 
-> 
-> Create a new script file, and save it with the name `courseintro.R` in the `src` directory you created earlier.   Enter a few commands into this, and try running them.   What happens if you enter:
-> 
-> ```
-> 1 +
-> 2
-> ```
-> 
-> Does the position of the `+` sign matter?  Does entering
-> ```
-> 1
-> + 2
-> ``` 
-> work?
-> 
-> > ## Solution
-> > 
-> > You will find that writing 
-> > ```
-> > 1
-> > + 2
-> > ```
-> > is interpreted as two separate commands.   In contrast:
-> > ```
-> > 1 + 
-> >  2
-> > ```
-> > is run as a single command.  `1 +` does not make up a complate R command (if we enter this in the console we would see the `+` prompt).    You may have noticed that when you entered this command into the script RStudio indents the second line; this makes it clearer to us that the line is a continuation of the previous command.
-> > 
-> > We will make extensive use of this feature when we start writing data analysis pipelines.
-> > 
-> {: .solution}
-{: .challenge}
-
-
 > ## Version Control
 > 
 > It is always a good idea to use version control with your projects.  
@@ -649,10 +612,7 @@ x = 1/40
 ~~~
 {: .language-r}
 
-But this is much less common among R users.  The most important thing is to
-**be consistent** with the operator you use. There are occasionally places
-where it is less confusing to use `<-` than `=`, and it is the most common
-symbol used in the community. So the recommendation is to use `<-`.
+But this is much less common among R users.  It is a good idea to **be consistent** with the operator you use. 
 
 We aren't limited to storing numbers in variables:
 
@@ -946,77 +906,13 @@ R comes with a few built in constants, containing useful values:
 
 ~~~
 LETTERS
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q"
-[18] "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
-~~~
-{: .output}
-
-
-
-~~~
 letters
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q"
-[18] "r" "s" "t" "u" "v" "w" "x" "y" "z"
-~~~
-{: .output}
-
-
-
-~~~
 month.abb
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov"
-[12] "Dec"
-~~~
-{: .output}
-
-
-
-~~~
 month.name
 ~~~
 {: .language-r}
 
-
-
-~~~
- [1] "January"   "February"  "March"     "April"     "May"      
- [6] "June"      "July"      "August"    "September" "October"  
-[11] "November"  "December" 
-~~~
-{: .output}
-
-
-
-~~~
-pi
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 3.141593
-~~~
-{: .output}
-
+We will use some of these in the examples that follow.
 
 ## Vector lengths
 
@@ -1104,33 +1000,6 @@ month.name[c(2,3,4)]
 > element of a vector has an index of 0. In R, the first element is 1.
 {: .callout}
 
-We can pass the extract operator a vector of indices that we wish to extract:
-
-~~~
-month.name[c(1,2,3)]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "January"  "February" "March"   
-~~~
-{: .output}
-
-
-
-~~~
-month.name[c(11,12)]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "November" "December"
-~~~
-{: .output}
 
 Values are returned in the order that we specify the indices.  We can extract the same element more 
 than once:
@@ -1614,7 +1483,7 @@ c(1, 2, "three", "four", 5)
 We see that R has coerced the elements containing digits to strings, so that all the elements have the same type.  We will talk more about data types in a later episode.
 
 
-## Managing your environment
+## Managing your environment (self study)
 
 In this section we will discuss ways of keeping your environment tidy.
 
