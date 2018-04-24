@@ -470,10 +470,7 @@ It is also possible to use the `=` operator for assignment:
 x = 1/40
 ```
 
-But this is much less common among R users.  The most important thing is to
-**be consistent** with the operator you use. There are occasionally places
-where it is less confusing to use `<-` than `=`, and it is the most common
-symbol used in the community. So the recommendation is to use `<-`.
+But this is much less common among R users.  It is a good idea to **be consistent** with the operator you use. 
 
 We aren't limited to storing numbers in variables:
 
@@ -598,7 +595,6 @@ consecutive values:
 ```{r}
 1:5
 -3:3
-
 5:1
 ```
 
@@ -630,14 +626,14 @@ c("a", "b", "c", "def")
 ```
 
 R comes with a few built in constants, containing useful values:
-```{r}
+```{r, eval = FALSE}
 LETTERS
 letters
 month.abb
 month.name
-pi
 ```
 
+We will use some of these in the examples that follow.
 
 ## Vector lengths
 
@@ -672,11 +668,6 @@ month.name[c(2,3,4)]
 > element of a vector has an index of 0. In R, the first element is 1.
 {: .callout}
 
-We can pass the extract operator a vector of indices that we wish to extract:
-```{r}
-month.name[c(1,2,3)]
-month.name[c(11,12)]
-```
 
 Values are returned in the order that we specify the indices.  We can extract the same element more 
 than once:

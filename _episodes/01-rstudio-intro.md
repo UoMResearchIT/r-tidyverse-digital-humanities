@@ -612,10 +612,7 @@ x = 1/40
 ~~~
 {: .language-r}
 
-But this is much less common among R users.  The most important thing is to
-**be consistent** with the operator you use. There are occasionally places
-where it is less confusing to use `<-` than `=`, and it is the most common
-symbol used in the community. So the recommendation is to use `<-`.
+But this is much less common among R users.  It is a good idea to **be consistent** with the operator you use. 
 
 We aren't limited to storing numbers in variables:
 
@@ -909,77 +906,13 @@ R comes with a few built in constants, containing useful values:
 
 ~~~
 LETTERS
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q"
-[18] "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
-~~~
-{: .output}
-
-
-
-~~~
 letters
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q"
-[18] "r" "s" "t" "u" "v" "w" "x" "y" "z"
-~~~
-{: .output}
-
-
-
-~~~
 month.abb
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov"
-[12] "Dec"
-~~~
-{: .output}
-
-
-
-~~~
 month.name
 ~~~
 {: .language-r}
 
-
-
-~~~
- [1] "January"   "February"  "March"     "April"     "May"      
- [6] "June"      "July"      "August"    "September" "October"  
-[11] "November"  "December" 
-~~~
-{: .output}
-
-
-
-~~~
-pi
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 3.141593
-~~~
-{: .output}
-
+We will use some of these in the examples that follow.
 
 ## Vector lengths
 
@@ -1067,33 +1000,6 @@ month.name[c(2,3,4)]
 > element of a vector has an index of 0. In R, the first element is 1.
 {: .callout}
 
-We can pass the extract operator a vector of indices that we wish to extract:
-
-~~~
-month.name[c(1,2,3)]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "January"  "February" "March"   
-~~~
-{: .output}
-
-
-
-~~~
-month.name[c(11,12)]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "November" "December"
-~~~
-{: .output}
 
 Values are returned in the order that we specify the indices.  We can extract the same element more 
 than once:
