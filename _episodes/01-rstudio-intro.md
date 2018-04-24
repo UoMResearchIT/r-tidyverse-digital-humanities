@@ -699,6 +699,7 @@ We will discuss the important concept of _data types_ in the next episode.
 > ## Challenge 1
 >
 > Which of the following are valid R variable names?
+> 
 > ```
 > min_height
 > max.height
@@ -708,6 +709,17 @@ We will discuss the important concept of _data types_ in the next episode.
 > 2widths
 > celsius2kelvin
 > ```
+>
+> You can use the rules described above to work out
+> which are valid variable names, or try to assign
+> a value to a variable and see whether R gives an error;
+> for example:
+> 
+> 
+> ~~~
+> min_height <- 2
+> ~~~
+> {: .language-r}
 >
 > > ## Solution to challenge 1
 > >
@@ -1620,7 +1632,7 @@ ls()
 ~~~
  [1] "age"            "fix_fig_path"   "fourmonths"     "hook_error"    
  [5] "hook_in"        "hook_out"       "knitr_fig_path" "mass"          
- [9] "my_vector"      "sentence"       "x"             
+ [9] "min_height"     "my_vector"      "sentence"       "x"             
 ~~~
 {: .output}
 

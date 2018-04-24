@@ -17,6 +17,8 @@ A rendered version of the original Software Carpentry lesson can be found at: <h
 for instructions on formatting, building, and submitting material,
 or run `make` in this directory for a list of helpful commands.
 
+By default the Makefile will build the .md images using R in a Dockerised container, which contains the same packages and versions as the machines which are used for teaching.  The lessons should be compatable with newer versions of the packages, but the output (most notably the tidyverse loading messages) will be different in places.   _To use your local installation of R, rather than the dockerised version, modify the Makefile where indicated in its comments_
+
 The remainder of this README is from the original Software Carpentry version of the lesson:
 
 The goal of this lesson is to teach novice programmers to write modular code
