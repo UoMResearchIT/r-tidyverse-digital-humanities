@@ -1,7 +1,7 @@
 ---
 title: "Introduction to R and RStudio"
-teaching: 45
-exercises: 10
+teaching: 60 
+exercises: 15 
 questions:
 - "How to find your way around RStudio?"
 - "How to interact with R?"

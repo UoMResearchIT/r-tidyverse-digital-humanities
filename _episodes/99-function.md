@@ -1,7 +1,7 @@
 ---
 title: Functions Explained (self study)
-teaching: 45
-exercises: 15
+teaching: 0 
+exercises: 0
 questions:
 - "How can I write a new function in R?"
 - "How do we write functions that work with dplyr?"

@@ -1,7 +1,7 @@
 ---
 title: "Loading data into R"
-teaching: 45
-exercises: 15
+teaching: 20
+exercises: 10
 questions:
 - "How can I read and write tabular data in R?"
 - "What are the basic data types in R?"

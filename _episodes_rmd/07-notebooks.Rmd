@@ -1,7 +1,7 @@
 ---
 title: "Combining your code with text"
-teaching: 30
-exercises: 15
+teaching: 20
+exercises: 10
 questions:
 - "How can I organise my work using Rmarkdown documents?"
 objectives:

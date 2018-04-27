@@ -1,6 +1,6 @@
 ---
 title: "Writing Good Software"
-teaching: 15
+teaching: 10
 exercises: 0
 questions:
 - "How can I write software that other people can use?"

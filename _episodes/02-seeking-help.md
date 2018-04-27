@@ -1,7 +1,7 @@
 ---
 title: "R Packages and Seeking Help"
 teaching: 10
-exercises: 10
+exercises: 5
 questions:
 - "How do I use packages in R?"
 - "How can I get help in R?"
