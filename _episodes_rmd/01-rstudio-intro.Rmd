@@ -915,9 +915,22 @@ In this section we will discuss ways of keeping your environment tidy.
 `ls` will list all of the variables and functions stored in the global environment
 (your working R session):
 
-```{r}
+```{r, eval = FALSE}
 ls()
 ```
+
+```{r, echo = FALSE}
+# We make a new environment to show what the user would see
+# and not print all the functions used in the lesson build process
+# The R code from the chunk above is shown, but not executed
+# The R code in this chunk is not shown, but *is* executed
+e <- new.env()
+e$x <- c(1,2,3)
+ls(envir = e)
+
+```
+
+
 
 Information on the objects in your environment is also available from the environment panel in RStudio.
 

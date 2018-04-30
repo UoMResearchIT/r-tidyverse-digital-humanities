@@ -1497,13 +1497,12 @@ ls()
 {: .language-r}
 
 
-
 ~~~
- [1] "age"            "fix_fig_path"   "fourmonths"     "hook_error"    
- [5] "hook_in"        "hook_out"       "knitr_fig_path" "mass"          
- [9] "min_height"     "my_vector"      "sentence"       "x"             
+[1] "x"
 ~~~
 {: .output}
+
+
 
 Information on the objects in your environment is also available from the environment panel in RStudio.
 
