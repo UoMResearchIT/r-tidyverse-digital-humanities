@@ -401,7 +401,15 @@ gapminder %>%
 ```
 
 By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
-passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`.
+passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`. The `colour` attribute controls the _outline_ of the shape.  For example:
+
+
+```{r}
+gapminder %>% 
+  filter(year == 2007, continent == "Europe") %>% 
+  ggplot(aes(x = gdpPercap)) + 
+  geom_density(fill = "red", colour="blue") 
+```
 
 > ## Challenge 5
 > 
