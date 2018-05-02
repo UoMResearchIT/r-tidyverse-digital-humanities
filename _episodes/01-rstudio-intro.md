@@ -1367,12 +1367,12 @@ my_vector[my_vector > 0.5]
 
 
 > ## Challenge 5
->
+> 
 > Given the following code:
->
+> 
 > 
 > ~~~
-> x <- c(5.4, 6.2, 7.1, 4.8, 7.5)
+> x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
 > print(x)
 > ~~~
 > {: .language-r}
@@ -1380,22 +1380,22 @@ my_vector[my_vector > 0.5]
 > 
 > 
 > ~~~
-> [1] 5.4 6.2 7.1 4.8 7.5
+> [1] 5.4 6.2 7.1 7.5 4.8
 > ~~~
 > {: .output}
->
+> 
 > Come up with at least 3 different commands that will produce the following output:
->
+> 
 > 
 > ~~~
-> [1] 6.2 7.1 4.8
+> [1] 6.2 7.1 7.5
 > ~~~
 > {: .output}
->
+> 
 > After you find 3 different commands, compare notes with your neighbour. Did you have different strategies?
->
+> 
 > > ## Solution to challenge 5
-> >
+> > 
 > > 
 > > ~~~
 > > x[2:4]
@@ -1405,7 +1405,7 @@ my_vector[my_vector > 0.5]
 > > 
 > > 
 > > ~~~
-> > [1] 6.2 7.1 4.8
+> > [1] 6.2 7.1 7.5
 > > ~~~
 > > {: .output}
 > > 
@@ -1417,7 +1417,7 @@ my_vector[my_vector > 0.5]
 > > 
 > > 
 > > ~~~
-> > [1] 6.2 7.1 4.8
+> > [1] 6.2 7.1 7.5
 > > ~~~
 > > {: .output}
 > > 
@@ -1429,9 +1429,11 @@ my_vector[my_vector > 0.5]
 > > 
 > > 
 > > ~~~
-> > [1] 6.2 7.1 4.8
+> > [1] 6.2 7.1 7.5
 > > ~~~
 > > {: .output}
+> > 
+> > 
 > > 
 > > ~~~
 > > x[c(FALSE, TRUE, TRUE, TRUE, FALSE)]
@@ -1441,11 +1443,11 @@ my_vector[my_vector > 0.5]
 > > 
 > > 
 > > ~~~
-> > [1] 6.2 7.1 4.8
+> > [1] 6.2 7.1 7.5
 > > ~~~
 > > {: .output}
-> >
-> > (We can use vector recycling to make the last example slightly shorter:
+> > 
+> > (We can use vector recycling to make the previous example slightly shorter:
 > > 
 > > ~~~
 > > x[c(FALSE, TRUE, TRUE, TRUE)]
@@ -1455,10 +1457,33 @@ my_vector[my_vector > 0.5]
 > > 
 > > 
 > > ~~~
-> > [1] 6.2 7.1 4.8
+> > [1] 6.2 7.1 7.5
 > > ~~~
 > > {: .output}
 > > The first element of the logical vector will be recycled)
+> > 
+> > We can construct a logical test to generate the logical vector:
+> > 
+> > ~~~
+> > x[x > 6]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 6.2 7.1 7.5
+> > ~~~
+> > {: .output}
+> > Unpicking this example, `x > 6` generates the logical vector:
+> > 
+> > 
+> > ~~~
+> > [1] FALSE  TRUE  TRUE  TRUE FALSE
+> > ~~~
+> > {: .output}
+> > 
+> > Which we pass to the `[ ]` subsetting operator.
 > {: .solution}
 {: .challenge}
 
