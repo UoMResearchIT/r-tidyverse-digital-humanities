@@ -278,6 +278,8 @@ This makes the systematic difference between our model's predictions and reality
 > 
 > Advanced:  Try adding a quadratic term to your model?  Does this appear to improve the model fit? (in practice we would want to compare the models more formally).
 > 
+> Having plotted the residuals, plot the model predictions and the data.  If you made a model with a quadratic term, you might wish to compare the two models' predictions. The `var=` option of `add_predictions()` will let you override the default variable name of `pred`.
+> 
 > > ## Solution 2:
 > > 
 > > We can calculate model residuals using `add_residuals()`.  By including this in a pipeline
