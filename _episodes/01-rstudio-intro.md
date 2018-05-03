@@ -769,7 +769,12 @@ We will discuss the important concept of _data types_ in the next episode.
 > > [1] TRUE
 > > ~~~
 > > {: .output}
-> > This will yield a boolean value of TRUE since 109.25 is greater than 102.
+> > This will yield a boolean value of TRUE since 109.25 is greater than 102.  
+> >
+> > In practice, this probably _isn't_ an
+> > appropriate comparison to make; it doesn't make sense to compare a mass to an age.   R has no concept of units
+> > like kg and years; the values stored in the variables are just numbers. It's our job to make sure the code we 
+> > write makes appropriate comparisons.
 > {: .solution}
 {: .challenge}
 

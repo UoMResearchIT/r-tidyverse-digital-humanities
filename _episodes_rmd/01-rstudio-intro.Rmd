@@ -582,7 +582,12 @@ We will discuss the important concept of _data types_ in the next episode.
 > > ```{r ch3-sol}
 > > mass > age
 > >```
-> > This will yield a boolean value of TRUE since `r mass` is greater than `r age`.
+> > This will yield a boolean value of TRUE since `r mass` is greater than `r age`.  
+> >
+> > In practice, this probably _isn't_ an
+> > appropriate comparison to make; it doesn't make sense to compare a mass to an age.   R has no concept of units
+> > like kg and years; the values stored in the variables are just numbers. It's our job to make sure the code we 
+> > write makes appropriate comparisons.
 > {: .solution}
 {: .challenge}
 
