@@ -18,7 +18,7 @@ Remind helpers about voice volume when helping learners when teaching is ongoing
 ## Overall
 
 Make sure to emphasize good practices: put code in scripts. Highlight the benefits of
-version control and mention the Git coruse.
+version control and mention the Git course.
 Encourage students to create script files for challenges.
 
 
