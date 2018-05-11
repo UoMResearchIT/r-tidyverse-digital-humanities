@@ -626,6 +626,13 @@ gapminder %>%
 ~~~
 {: .output}
 
+> ## Statistics revision
+> 
+> If you need to revise or learn about statistical concepts, the University Library's "My Learning Essentials" team have produced a site [Start to Finish:Statistics](https://www.escholar.manchester.ac.uk/learning-objects/mle/packages/statistics/) which covers important statistical concepts.
+> 
+{: .callout}
+
+
 > ## Challenge 3
 >
 > For each combination of continent and year, calculate the average life expectancy.
