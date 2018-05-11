@@ -4,6 +4,13 @@ title: "Instructor Notes"
 permalink: /guide/
 ---
 
+## Things to remember
+
+* Sticky notes
+* Research IT cards
+* Water
+* "Lecturn" box
+
 ## Timing
 
 Leave about 30 minutes at the start of each workshop and another 15 mins
