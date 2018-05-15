@@ -11,6 +11,8 @@ permalink: /guide/
 * Water
 * "Lecturn" box
 
+Load [Zoomit](https://docs.microsoft.com/en-us/sysinternals/downloads/zoomit) beforehand.
+
 ## Timing
 
 Leave about 30 minutes at the start of each workshop and another 15 mins
