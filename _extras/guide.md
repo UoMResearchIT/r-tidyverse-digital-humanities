@@ -10,6 +10,7 @@ permalink: /guide/
 * Research IT cards
 * Water
 * "Lecturn" box
+* URL sheet for latecomers (print course homepage on sheet)
 
 Load [Zoomit](https://docs.microsoft.com/en-us/sysinternals/downloads/zoomit) beforehand.
 
