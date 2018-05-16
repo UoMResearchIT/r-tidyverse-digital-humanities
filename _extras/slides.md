@@ -4,4 +4,5 @@ title: Slides
 permalink: /slidelink/
 ---
 
-The slide deck can be found [here](/slides/)
+The slide deck can be found [here](https://uomresearchit.github.io/r-tidyverse-intro/slides/)
+
