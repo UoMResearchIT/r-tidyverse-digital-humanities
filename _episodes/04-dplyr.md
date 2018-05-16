@@ -752,63 +752,6 @@ gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
 {: .language-r}
 
 
-> ## Challenge 4
->
-> (More complicated)
->
-> Filter the data to only contain observations for the year 2002.
-> Select two countries at random from each continent.  For each continent, calculate the 
-> average life expectancy of the two countries.
-> 
-> Hints: 
-> There are several steps in this challenge.   It will be easier to build your solution
-> step by step, testing it after each step.  For example, first filter the data, then group,
-> then take a sample, etc.
-> The `dplyr` function `sample_n()` can be used to select a sample of rows.  
->
-> The final tibble should contain the columns `continent` and the average life expectancy. You do
-> *not* need to include the countries that were selected in it.
->
-> > ## Solution to Challenge 4
-> >
-> >~~~
-> >set.seed(171124)
-> >lifeExp_2countries_bycontinents <- gapminder %>%
-> >    filter(year==2002) %>%
-> >    group_by(continent) %>%
-> >    sample_n(2) %>%
-> >    summarize(mean_lifeExp=mean(lifeExp)) 
-> >print(lifeExp_2countries_bycontinents)
-> >~~~
-> >{: .language-r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 5 x 2
-> >  continent mean_lifeExp
-> >      <chr>        <dbl>
-> >1    Africa      58.9130
-> >2  Americas      74.1675
-> >3      Asia      55.3465
-> >4    Europe      77.2100
-> >5   Oceania      79.7400
-> >~~~
-> >{: .output}
-> >
-> > Discussion: Do get the same answer as your neighbour?  What about if you run the command again? Do you get the
-> > same answer as last time?
-> > 
-> > As we're sampling the rows at random we expect to get a different answer from our neighbour, and each time
-> > we run the command.   You can set the random number _seed_ used by R using `set.seed(**a number**)`, as shown in the example above.
-> > By default
-> > R generates a seed when one is first requried using the process ID of R and the current time (i.e. essentially at
-> > random). If you are using random numbers in your work you should set the seed at the start of your analysis
-> > so that your results are reproducible. 
-> {: .solution}
-{: .challenge}
-
-
 > ## Equivalent functions in base R
 >
 > In this course we've taught the tidyverse.  You are likely come across
