@@ -96,16 +96,9 @@ rest of the day into it.
 2. Click "New Directory".
 3. Click "Empty Project".
 4. Type in the name of the directory to store your project, e.g. "r_course". _You should avoid using spaces and fullstops in the project name_.
-5. If you are using a teaching cluster machine, choose "Browse" and select `C:\work`.  
+5. If you are using a teaching cluster machine, choose "Browse" and select `P:\`.  
 6. Click the "Create Project" button.
 
-> ## Project locations
-> 
-> We suggest you save your project in `c:\work` in case network access to the `P:` drive is lost during the course. Files in `c:\work` are stored locally on the machine, and are not backed up.  You should copy your project folder to the `P:` drive at lunchtime (in case you use a different machine after lunch) the end of the day (so you can refer to your work after).  
->
-> If there is already a folder called r_course in `c:\work` this is from a previous presentation of the course, and it can be deleted.
-> 
-{: .callout}
 
 ## Good practices for project organization
 
