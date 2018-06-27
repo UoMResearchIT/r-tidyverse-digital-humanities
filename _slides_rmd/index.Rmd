@@ -65,10 +65,10 @@ Get in touch via the [support centre](http://supportcentre.manchester.ac.uk/)
 * (probably) the most popular language for data-analysis and statistics
 * It's free
 * It's extensible
-    + Interactive apps [Shiny](https://shiny.rstudio.com/)
+    + Interactive apps [Shiny](https://shiny.rstudio.com/), [e.g. gapminder visualisation](https://mawds.shinyapps.io/worked_example/)
     + Reproducible research with [Knitr](https://yihui.name/knitr/)
     + [Presentations](https://www.r-bloggers.com/creating-a-presentation-with-r/)
-* Over 12,000 packages  
+* Over 12,500 packages  
     + This does mean there's (often) more than one way to do a task
 
 ## R user groups
