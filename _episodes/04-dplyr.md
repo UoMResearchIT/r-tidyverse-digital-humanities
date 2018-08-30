@@ -35,27 +35,26 @@ library("tidyverse")
 
 
 ~~~
-Loading tidyverse: ggplot2
-Loading tidyverse: tibble
-Loading tidyverse: tidyr
-Loading tidyverse: readr
-Loading tidyverse: purrr
-Loading tidyverse: dplyr
+── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──
 ~~~
 {: .output}
 
 
 
 ~~~
-Conflicts with tidy packages ----------------------------------------------
+✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+✔ tibble  1.4.2     ✔ dplyr   0.7.6
+✔ tidyr   0.8.1     ✔ stringr 1.3.1
+✔ readr   1.1.1     ✔ forcats 0.3.0
 ~~~
 {: .output}
 
 
 
 ~~~
-filter(): dplyr, stats
-lag():    dplyr, stats
+── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
 ~~~
 {: .output}
 
@@ -148,18 +147,18 @@ print(year_country_gdp)
 
 ~~~
 # A tibble: 1,704 x 3
-    year     country gdpPercap
-   <int>       <chr>     <dbl>
- 1  1952 Afghanistan  779.4453
- 2  1957 Afghanistan  820.8530
- 3  1962 Afghanistan  853.1007
- 4  1967 Afghanistan  836.1971
- 5  1972 Afghanistan  739.9811
- 6  1977 Afghanistan  786.1134
- 7  1982 Afghanistan  978.0114
- 8  1987 Afghanistan  852.3959
- 9  1992 Afghanistan  649.3414
-10  1997 Afghanistan  635.3414
+    year country     gdpPercap
+   <int> <chr>           <dbl>
+ 1  1952 Afghanistan      779.
+ 2  1957 Afghanistan      821.
+ 3  1962 Afghanistan      853.
+ 4  1967 Afghanistan      836.
+ 5  1972 Afghanistan      740.
+ 6  1977 Afghanistan      786.
+ 7  1982 Afghanistan      978.
+ 8  1987 Afghanistan      852.
+ 9  1992 Afghanistan      649.
+10  1997 Afghanistan      635.
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -183,17 +182,17 @@ print(gapminder_Europe)
 ~~~
 # A tibble: 360 x 6
    country  year     pop continent lifeExp gdpPercap
-     <chr> <int>   <dbl>     <chr>   <dbl>     <dbl>
- 1 Albania  1952 1282697    Europe  55.230  1601.056
- 2 Albania  1957 1476505    Europe  59.280  1942.284
- 3 Albania  1962 1728137    Europe  64.820  2312.889
- 4 Albania  1967 1984060    Europe  66.220  2760.197
- 5 Albania  1972 2263554    Europe  67.690  3313.422
- 6 Albania  1977 2509048    Europe  68.930  3533.004
- 7 Albania  1982 2780097    Europe  70.420  3630.881
- 8 Albania  1987 3075321    Europe  72.000  3738.933
- 9 Albania  1992 3326498    Europe  71.581  2497.438
-10 Albania  1997 3428038    Europe  72.950  3193.055
+   <chr>   <int>   <dbl> <chr>       <dbl>     <dbl>
+ 1 Albania  1952 1282697 Europe       55.2     1601.
+ 2 Albania  1957 1476505 Europe       59.3     1942.
+ 3 Albania  1962 1728137 Europe       64.8     2313.
+ 4 Albania  1967 1984060 Europe       66.2     2760.
+ 5 Albania  1972 2263554 Europe       67.7     3313.
+ 6 Albania  1977 2509048 Europe       68.9     3533.
+ 7 Albania  1982 2780097 Europe       70.4     3631.
+ 8 Albania  1987 3075321 Europe       72       3739.
+ 9 Albania  1992 3326498 Europe       71.6     2497.
+10 Albania  1997 3428038 Europe       73.0     3193.
 # ... with 350 more rows
 ~~~
 {: .output}
@@ -249,18 +248,18 @@ print(year_country_gdp)
 
 ~~~
 # A tibble: 1,704 x 3
-    year     country gdpPercap
-   <int>       <chr>     <dbl>
- 1  1952 Afghanistan  779.4453
- 2  1957 Afghanistan  820.8530
- 3  1962 Afghanistan  853.1007
- 4  1967 Afghanistan  836.1971
- 5  1972 Afghanistan  739.9811
- 6  1977 Afghanistan  786.1134
- 7  1982 Afghanistan  978.0114
- 8  1987 Afghanistan  852.3959
- 9  1992 Afghanistan  649.3414
-10  1997 Afghanistan  635.3414
+    year country     gdpPercap
+   <int> <chr>           <dbl>
+ 1  1952 Afghanistan      779.
+ 2  1957 Afghanistan      821.
+ 3  1962 Afghanistan      853.
+ 4  1967 Afghanistan      836.
+ 5  1972 Afghanistan      740.
+ 6  1977 Afghanistan      786.
+ 7  1982 Afghanistan      978.
+ 8  1987 Afghanistan      852.
+ 9  1992 Afghanistan      649.
+10  1997 Afghanistan      635.
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -288,17 +287,17 @@ print(year_country_gdp_euro)
 ~~~
 # A tibble: 360 x 3
     year country gdpPercap
-   <int>   <chr>     <dbl>
- 1  1952 Albania  1601.056
- 2  1957 Albania  1942.284
- 3  1962 Albania  2312.889
- 4  1967 Albania  2760.197
- 5  1972 Albania  3313.422
- 6  1977 Albania  3533.004
- 7  1982 Albania  3630.881
- 8  1987 Albania  3738.933
- 9  1992 Albania  2497.438
-10  1997 Albania  3193.055
+   <int> <chr>       <dbl>
+ 1  1952 Albania     1601.
+ 2  1957 Albania     1942.
+ 3  1962 Albania     2313.
+ 4  1967 Albania     2760.
+ 5  1972 Albania     3313.
+ 6  1977 Albania     3533.
+ 7  1982 Albania     3631.
+ 8  1987 Albania     3739.
+ 9  1992 Albania     2497.
+10  1997 Albania     3193.
 # ... with 350 more rows
 ~~~
 {: .output}
@@ -413,18 +412,18 @@ gapminder %>%
 
 ~~~
 # A tibble: 30 x 6
-                  country  year     pop continent lifeExp gdpPercap
-                    <chr> <int>   <dbl>     <chr>   <dbl>     <dbl>
- 1                Iceland  2007  301931    Europe  81.757 36180.789
- 2             Montenegro  2007  684736    Europe  74.543  9253.896
- 3               Slovenia  2007 2009245    Europe  77.926 25768.258
- 4                Albania  2007 3600523    Europe  76.423  5937.030
- 5                Ireland  2007 4109086    Europe  78.885 40675.996
- 6                Croatia  2007 4493312    Europe  75.748 14619.223
- 7 Bosnia and Herzegovina  2007 4552198    Europe  74.852  7446.299
- 8                 Norway  2007 4627926    Europe  80.196 49357.190
- 9                Finland  2007 5238460    Europe  79.313 33207.084
-10        Slovak Republic  2007 5447502    Europe  74.663 18678.314
+   country                 year     pop continent lifeExp gdpPercap
+   <chr>                  <int>   <dbl> <chr>       <dbl>     <dbl>
+ 1 Iceland                 2007  301931 Europe       81.8    36181.
+ 2 Montenegro              2007  684736 Europe       74.5     9254.
+ 3 Slovenia                2007 2009245 Europe       77.9    25768.
+ 4 Albania                 2007 3600523 Europe       76.4     5937.
+ 5 Ireland                 2007 4109086 Europe       78.9    40676.
+ 6 Croatia                 2007 4493312 Europe       75.7    14619.
+ 7 Bosnia and Herzegovina  2007 4552198 Europe       74.9     7446.
+ 8 Norway                  2007 4627926 Europe       80.2    49357.
+ 9 Finland                 2007 5238460 Europe       79.3    33207.
+10 Slovak Republic         2007 5447502 Europe       74.7    18678.
 # ... with 20 more rows
 ~~~
 {: .output}
@@ -442,18 +441,18 @@ gapminder %>%
 
 ~~~
 # A tibble: 30 x 6
-          country  year      pop continent lifeExp gdpPercap
-            <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
- 1        Germany  2007 82400996    Europe  79.406 32170.374
- 2         Turkey  2007 71158647    Europe  71.777  8458.276
- 3         France  2007 61083916    Europe  80.657 30470.017
- 4 United Kingdom  2007 60776238    Europe  79.425 33203.261
- 5          Italy  2007 58147733    Europe  80.546 28569.720
- 6          Spain  2007 40448191    Europe  80.941 28821.064
- 7         Poland  2007 38518241    Europe  75.563 15389.925
- 8        Romania  2007 22276056    Europe  72.476 10808.476
- 9    Netherlands  2007 16570613    Europe  79.762 36797.933
-10         Greece  2007 10706290    Europe  79.483 27538.412
+   country         year      pop continent lifeExp gdpPercap
+   <chr>          <int>    <dbl> <chr>       <dbl>     <dbl>
+ 1 Germany         2007 82400996 Europe       79.4    32170.
+ 2 Turkey          2007 71158647 Europe       71.8     8458.
+ 3 France          2007 61083916 Europe       80.7    30470.
+ 4 United Kingdom  2007 60776238 Europe       79.4    33203.
+ 5 Italy           2007 58147733 Europe       80.5    28570.
+ 6 Spain           2007 40448191 Europe       80.9    28821.
+ 7 Poland          2007 38518241 Europe       75.6    15390.
+ 8 Romania         2007 22276056 Europe       72.5    10808.
+ 9 Netherlands     2007 16570613 Europe       79.8    36798.
+10 Greece          2007 10706290 Europe       79.5    27538.
 # ... with 20 more rows
 ~~~
 {: .output}
@@ -484,18 +483,18 @@ gapminder %>%
 
 ~~~
 # A tibble: 1,704 x 7
-       country  year      pop continent lifeExp gdpPercap logGdpPercap
-         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
- 1 Afghanistan  1952  8425333      Asia  28.801  779.4453     6.658583
- 2 Afghanistan  1957  9240934      Asia  30.332  820.8530     6.710344
- 3 Afghanistan  1962 10267083      Asia  31.997  853.1007     6.748878
- 4 Afghanistan  1967 11537966      Asia  34.020  836.1971     6.728864
- 5 Afghanistan  1972 13079460      Asia  36.088  739.9811     6.606625
- 6 Afghanistan  1977 14880372      Asia  38.438  786.1134     6.667101
- 7 Afghanistan  1982 12881816      Asia  39.854  978.0114     6.885521
- 8 Afghanistan  1987 13867957      Asia  40.822  852.3959     6.748051
- 9 Afghanistan  1992 16317921      Asia  41.674  649.3414     6.475959
-10 Afghanistan  1997 22227415      Asia  41.763  635.3414     6.454162
+   country      year      pop continent lifeExp gdpPercap logGdpPercap
+   <chr>       <int>    <dbl> <chr>       <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.         6.66
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.         6.71
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.         6.75
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.         6.73
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.         6.61
+ 6 Afghanistan  1977 14880372 Asia         38.4      786.         6.67
+ 7 Afghanistan  1982 12881816 Asia         39.9      978.         6.89
+ 8 Afghanistan  1987 13867957 Asia         40.8      852.         6.75
+ 9 Afghanistan  1992 16317921 Asia         41.7      649.         6.48
+10 Afghanistan  1997 22227415 Asia         41.8      635.         6.45
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -531,38 +530,38 @@ The dplyr cheat sheet contains many useful functions which can be used with dply
 > > 
 > > ~~~
 > > # A tibble: 30 x 3
-> >                   country lifeExp  rank
-> >                     <chr>   <dbl> <int>
-> >  1                Albania  76.423    11
-> >  2                Austria  79.829    23
-> >  3                Belgium  79.441    20
-> >  4 Bosnia and Herzegovina  74.852     8
-> >  5               Bulgaria  73.005     3
-> >  6                Croatia  75.748    10
-> >  7         Czech Republic  76.486    12
-> >  8                Denmark  78.332    15
-> >  9                Finland  79.313    17
-> > 10                 France  80.657    26
-> > 11                Germany  79.406    18
-> > 12                 Greece  79.483    21
-> > 13                Hungary  73.338     4
-> > 14                Iceland  81.757    30
-> > 15                Ireland  78.885    16
-> > 16                  Italy  80.546    25
-> > 17             Montenegro  74.543     6
-> > 18            Netherlands  79.762    22
-> > 19                 Norway  80.196    24
-> > 20                 Poland  75.563     9
-> > 21               Portugal  78.098    14
-> > 22                Romania  72.476     2
-> > 23                 Serbia  74.002     5
-> > 24        Slovak Republic  74.663     7
-> > 25               Slovenia  77.926    13
-> > 26                  Spain  80.941    28
-> > 27                 Sweden  80.884    27
-> > 28            Switzerland  81.701    29
-> > 29                 Turkey  71.777     1
-> > 30         United Kingdom  79.425    19
+> >    country                lifeExp  rank
+> >    <chr>                    <dbl> <int>
+> >  1 Albania                   76.4    11
+> >  2 Austria                   79.8    23
+> >  3 Belgium                   79.4    20
+> >  4 Bosnia and Herzegovina    74.9     8
+> >  5 Bulgaria                  73.0     3
+> >  6 Croatia                   75.7    10
+> >  7 Czech Republic            76.5    12
+> >  8 Denmark                   78.3    15
+> >  9 Finland                   79.3    17
+> > 10 France                    80.7    26
+> > 11 Germany                   79.4    18
+> > 12 Greece                    79.5    21
+> > 13 Hungary                   73.3     4
+> > 14 Iceland                   81.8    30
+> > 15 Ireland                   78.9    16
+> > 16 Italy                     80.5    25
+> > 17 Montenegro                74.5     6
+> > 18 Netherlands               79.8    22
+> > 19 Norway                    80.2    24
+> > 20 Poland                    75.6     9
+> > 21 Portugal                  78.1    14
+> > 22 Romania                   72.5     2
+> > 23 Serbia                    74.0     5
+> > 24 Slovak Republic           74.7     7
+> > 25 Slovenia                  77.9    13
+> > 26 Spain                     80.9    28
+> > 27 Sweden                    80.9    27
+> > 28 Switzerland               81.7    29
+> > 29 Turkey                    71.8     1
+> > 30 United Kingdom            79.4    19
 > > ~~~
 > > {: .output}
 > > 
@@ -596,7 +595,7 @@ gapminder %>%
 # A tibble: 1 x 2
   meanlife medianlife
      <dbl>      <dbl>
-1 67.00742    71.9355
+1     67.0       71.9
 ~~~
 {: .output}
 
@@ -617,12 +616,12 @@ gapminder %>%
 ~~~
 # A tibble: 5 x 3
   continent meanlife medianlife
-      <chr>    <dbl>      <dbl>
-1    Africa 54.80604    52.9265
-2  Americas 73.60812    72.8990
-3      Asia 70.72848    72.3960
-4    Europe 77.64860    78.6085
-5   Oceania 80.71950    80.7195
+  <chr>        <dbl>      <dbl>
+1 Africa        54.8       52.9
+2 Americas      73.6       72.9
+3 Asia          70.7       72.4
+4 Europe        77.6       78.6
+5 Oceania       80.7       80.7
 ~~~
 {: .output}
 
@@ -654,17 +653,17 @@ gapminder %>%
 > ># A tibble: 60 x 3
 > ># Groups:   continent [?]
 > >   continent  year mean_lifeExp
-> >       <chr> <int>        <dbl>
-> > 1    Africa  1952     39.13550
-> > 2    Africa  1957     41.26635
-> > 3    Africa  1962     43.31944
-> > 4    Africa  1967     45.33454
-> > 5    Africa  1972     47.45094
-> > 6    Africa  1977     49.58042
-> > 7    Africa  1982     51.59287
-> > 8    Africa  1987     53.34479
-> > 9    Africa  1992     53.62958
-> >10    Africa  1997     53.59827
+> >   <chr>     <int>        <dbl>
+> > 1 Africa     1952         39.1
+> > 2 Africa     1957         41.3
+> > 3 Africa     1962         43.3
+> > 4 Africa     1967         45.3
+> > 5 Africa     1972         47.5
+> > 6 Africa     1977         49.6
+> > 7 Africa     1982         51.6
+> > 8 Africa     1987         53.3
+> > 9 Africa     1992         53.6
+> >10 Africa     1997         53.6
 > ># ... with 50 more rows
 > >~~~
 > >{: .output}
@@ -693,13 +692,13 @@ gapminder %>%
 
 ~~~
 # A tibble: 5 x 2
-  continent    se_pop
-      <chr>     <dbl>
-1    Africa 1.3294078
-2  Americas 0.9599411
-3      Asia 1.4578299
-4    Europe 0.5335146
-5   Oceania 0.6300000
+  continent se_pop
+  <chr>      <dbl>
+1 Africa     1.33 
+2 Americas   0.960
+3 Asia       1.46 
+4 Europe     0.534
+5 Oceania    0.63 
 ~~~
 {: .output}
 
@@ -721,12 +720,12 @@ gapminder %>%
 ~~~
 # A tibble: 5 x 2
   continent     n
-      <chr> <int>
-1    Africa    52
-2      Asia    33
-3    Europe    30
-4  Americas    25
-5   Oceania     2
+  <chr>     <int>
+1 Africa       52
+2 Asia         33
+3 Europe       30
+4 Americas     25
+5 Oceania       2
 ~~~
 {: .output}
 We can optionally sort the results in descending order by adding `sort=TRUE`:

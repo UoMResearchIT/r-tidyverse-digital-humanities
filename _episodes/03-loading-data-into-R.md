@@ -75,11 +75,11 @@ cats
 
 ~~~
 # A tibble: 3 x 3
-    coat weight likes_string
-   <chr>  <dbl>        <int>
+  coat   weight likes_string
+  <chr>   <dbl>        <int>
 1 calico    2.1            1
-2  black    5.0            0
-3  tabby    3.2            1
+2 black     5              0
+3 tabby     3.2            1
 ~~~
 {: .output}
 When we enter `cats` by itself on the command line, it will print the contents of `cats`; we see that it consists of a 3 by 3 `tibble`. A tibble is a way of storing tabular data, which is part of the tidyverse.   We see the variable names, and an (abbreviated) string indicating what type of data is stored in each variable.
@@ -180,7 +180,7 @@ a multiple of vector length (arg 2)
 
 ~~~
 Warning: 1 parsing failure.
-row # A tibble: 1 x 5 col     row    col               expected  actual                      file expected   <int>  <chr>                  <chr>   <chr>                     <chr> actual 1     4 weight no trailing characters  or 2.4 'data/feline-data_v2.csv' file # A tibble: 1 x 5
+row # A tibble: 1 x 5 col     row col    expected               actual    file                      expected   <int> <chr>  <chr>                  <chr>     <chr>                     actual 1     4 weight no trailing characters " or 2.4" 'data/feline-data_v2.csv' file # A tibble: 1 x 5
 ~~~
 {: .error}
 
@@ -227,9 +227,9 @@ cats[1:2,2:3]
 ~~~
 # A tibble: 2 x 2
   weight likes_string
-   <dbl>        <lgl>
-1    2.1         TRUE
-2    5.0        FALSE
+   <dbl> <lgl>       
+1    2.1 TRUE        
+2    5   FALSE       
 ~~~
 {: .output}
 
@@ -245,9 +245,9 @@ cats[1,]
 
 ~~~
 # A tibble: 1 x 3
-    coat weight likes_string
-   <chr>  <dbl>        <lgl>
-1 calico    2.1         TRUE
+  coat   weight likes_string
+  <chr>   <dbl> <lgl>       
+1 calico    2.1 TRUE        
 ~~~
 {: .output}
 
@@ -262,11 +262,11 @@ cats[,1]
 
 ~~~
 # A tibble: 3 x 1
-    coat
-   <chr>
+  coat  
+  <chr> 
 1 calico
-2  black
-3  tabby
+2 black 
+3 tabby 
 ~~~
 {: .output}
 
@@ -296,11 +296,11 @@ cats[,1]
 
 ~~~
 # A tibble: 3 x 1
-    coat
-   <chr>
+  coat  
+  <chr> 
 1 calico
-2  black
-3  tabby
+2 black 
+3 tabby 
 ~~~
 {: .output}
 
@@ -394,7 +394,7 @@ parse_factor(catCoats2, levels = validCoatColours)
 
 ~~~
 Warning: 1 parsing failure.
-row # A tibble: 1 x 4 col     row   col           expected actual expected   <int> <int>              <chr>  <chr> actual 1     1    NA value in level set calic0
+row # A tibble: 1 x 4 col     row   col expected           actual expected   <int> <int> <chr>              <chr>  actual 1     1    NA value in level set calic0
 ~~~
 {: .error}
 
@@ -404,8 +404,8 @@ row # A tibble: 1 x 4 col     row   col           expected actual expected   <in
 [1] <NA>  black tabby
 attr(,"problems")
 # A tibble: 1 x 4
-    row   col           expected actual
-  <int> <int>              <chr>  <chr>
+    row   col expected           actual
+  <int> <int> <chr>              <chr> 
 1     1    NA value in level set calic0
 Levels: white black calico tabby
 ~~~
@@ -438,11 +438,11 @@ take this idea a step further, and define `coat` as a factor when we load the da
 > > 
 > > ~~~
 > > # A tibble: 3 x 3
-> >     coat weight likes_string
-> >   <fctr>  <dbl>        <lgl>
-> > 1 calico    2.1         TRUE
-> > 2  black    5.0        FALSE
-> > 3  tabby    3.2         TRUE
+> >   coat   weight likes_string
+> >   <fct>   <dbl> <lgl>       
+> > 1 calico    2.1 TRUE        
+> > 2 black     5   FALSE       
+> > 3 tabby     3.2 TRUE        
 > > ~~~
 > > {: .output}
 > >  You may have noticed while reading the help file for `col_factor()` and `parse_factor()` that we can pass

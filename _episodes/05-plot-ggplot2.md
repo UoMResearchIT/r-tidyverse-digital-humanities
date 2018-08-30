@@ -523,18 +523,18 @@ gapminder %>%
 > > 
 > > ~~~
 > > # A tibble: 82 x 6
-> >                   country  year      pop continent lifeExp gdpPercap
-> >                     <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>
-> >  1                Albania  2007  3600523    Europe  76.423  5937.030
-> >  2                Algeria  2007 33333216    Africa  72.301  6223.367
-> >  3                 Angola  2007 12420476    Africa  42.731  4797.231
-> >  4                Austria  2007  8199783    Europe  79.829 36126.493
-> >  5                Belgium  2007 10392226    Europe  79.441 33692.605
-> >  6                  Benin  2007  8078314    Africa  56.728  1441.285
-> >  7 Bosnia and Herzegovina  2007  4552198    Europe  74.852  7446.299
-> >  8               Botswana  2007  1639131    Africa  50.728 12569.852
-> >  9               Bulgaria  2007  7322858    Europe  73.005 10680.793
-> > 10           Burkina Faso  2007 14326203    Africa  52.295  1217.033
+> >    country                 year      pop continent lifeExp gdpPercap
+> >    <chr>                  <int>    <dbl> <chr>       <dbl>     <dbl>
+> >  1 Albania                 2007  3600523 Europe       76.4     5937.
+> >  2 Algeria                 2007 33333216 Africa       72.3     6223.
+> >  3 Angola                  2007 12420476 Africa       42.7     4797.
+> >  4 Austria                 2007  8199783 Europe       79.8    36126.
+> >  5 Belgium                 2007 10392226 Europe       79.4    33693.
+> >  6 Benin                   2007  8078314 Africa       56.7     1441.
+> >  7 Bosnia and Herzegovina  2007  4552198 Europe       74.9     7446.
+> >  8 Botswana                2007  1639131 Africa       50.7    12570.
+> >  9 Bulgaria                2007  7322858 Europe       73.0    10681.
+> > 10 Burkina Faso            2007 14326203 Africa       52.3     1217.
 > > # ... with 72 more rows
 > > ~~~
 > > {: .output}
