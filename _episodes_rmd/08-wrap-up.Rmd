@@ -105,6 +105,7 @@ There are a huge number of resources for using and learning R online.  Links to 
 * [The John Hopkins Coursera Data Science notes](http://sux13.github.io/DataScienceSpCourseNotes/)
 * [Sheffield University's Exploratory Data Analysis With R notes](http://dzchilds.github.io/aps-data-analysis-L1/) (click the "topics" link in the top right).  
 * [Advanced R, by Hadley Wickham](http://adv-r.had.co.nz/) is particularly useful if you are coming to R from another programming language.  It is focussed on base-R rather than the tidyverse, and is a useful reference on the lower-level aspects of R.
+* [Beyond basic R - Introduction and Best Practices](https://owi.usgs.gov/blog/intro-best-practices/) contains useful advice on managing your code and following good programming practice.
 
 *Please* complete the [course feedback survey](http://bit.ly/2xP95Ef).  The material for the course is modified
 in response to this; if anything was unclear, or we didn't cover anything you thought 
