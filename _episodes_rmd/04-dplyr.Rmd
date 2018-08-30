@@ -137,9 +137,8 @@ perform a complex series of operations in one go
 > This saves typing and reduces the risk of error.
 > 
 > RStudio includes a helpful "cheat sheet", which summarises the main functionality
-> and syntax of `dplyr` and the related package `tidyr`.  This can be accessed via the
-> help menu --> cheatsheets --> data manipulation with dplyr, tidyr. 
-> (In RStudio 1.1 this has been replaced with the cheat sheet "data transformation with dplyr".)
+> and syntax of `dplyr`.  This can be accessed via the
+> help menu --> cheatsheets --> data transformation with dplyr. 
 >
 {: .callout}
 
