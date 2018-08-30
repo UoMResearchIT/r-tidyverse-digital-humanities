@@ -109,6 +109,7 @@ There are a huge number of resources for using and learning R online.  Links to 
 * [R for Data Science, by Garette Grolemund and Hadley Wickham](http://r4ds.had.co.nz/) - this is the online version of the book with the same title ([the university library has a physical copy](https://www.librarysearch.manchester.ac.uk/primo-explore/fulldisplay?docid=44MAN_ALMA_DS21302877580001631&context=L&vid=MU_NUI&search_scope=BLENDED&tab=local&lang=en_US)).  It's an excellent tutorial on using R for data-science, and uses the tidyverse.
 * [R weekly](https://rweekly.org/) - a weekly newsletter about R.  This contains links to lots of example uses of R (typically including full source code).  
 * [The John Hopkins Coursera Data Science notes](http://sux13.github.io/DataScienceSpCourseNotes/)
+* [Sheffield University's Exploratory Data Analysis With R notes](http://dzchilds.github.io/aps-data-analysis-L1/) (click the "topics" link in the top right).  
 * [Advanced R, by Hadley Wickham](http://adv-r.had.co.nz/) is particularly useful if you are coming to R from another programming language.  It is focussed on base-R rather than the tidyverse, and is a useful reference on the lower-level aspects of R.
 
 *Please* complete the [course feedback survey](http://bit.ly/2xP95Ef).  The material for the course is modified
