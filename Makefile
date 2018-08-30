@@ -11,7 +11,7 @@ DST=_site
 # Set this to Rscript -e if you don't want to build 
 # in Dockerised environment
 # the mawds/rg11 image has the same packages and versions as in G11 of SSB
-RSCRIPT=docker run --rm --user "$$UID" -v "$$PWD":"$$PWD"  -w="$$PWD" -ti mawds/rg11  Rscript -e
+RSCRIPT=docker run --rm --user "$$UID" -v "$$PWD":"$$PWD"  -w="$$PWD" -ti mawds/rg11:1819  Rscript -e
 
 # Controls
 .PHONY : commands clean files data

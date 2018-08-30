@@ -282,18 +282,18 @@ calc_GDP_and_filter(gapminder, 1997)
 
 ~~~
 # A tibble: 1,704 x 7
-       country  year      pop continent lifeExp gdpPercap         gdp
-         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
- 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
- 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
- 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
- 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
- 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
- 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
- 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
- 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
- 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
-10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+   country      year      pop continent lifeExp gdpPercap          gdp
+   <chr>       <int>    <dbl> <chr>       <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.  6567086330.
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.  7585448670.
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.  8758855797.
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.  9648014150.
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.  9678553274.
+ 6 Afghanistan  1977 14880372 Asia         38.4      786. 11697659231.
+ 7 Afghanistan  1982 12881816 Asia         39.9      978. 12598563401.
+ 8 Afghanistan  1987 13867957 Asia         40.8      852. 11820990309.
+ 9 Afghanistan  1992 16317921 Asia         41.7      649. 10595901589.
+10 Afghanistan  1997 22227415 Asia         41.8      635. 14121995875.
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -346,18 +346,18 @@ calc_GDP_and_filter(gapminder, 1997)
 
 ~~~
 # A tibble: 1,704 x 7
-       country  year      pop continent lifeExp gdpPercap         gdp
-         <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
- 1 Afghanistan  1952  8425333      Asia  28.801  779.4453  6567086330
- 2 Afghanistan  1957  9240934      Asia  30.332  820.8530  7585448670
- 3 Afghanistan  1962 10267083      Asia  31.997  853.1007  8758855797
- 4 Afghanistan  1967 11537966      Asia  34.020  836.1971  9648014150
- 5 Afghanistan  1972 13079460      Asia  36.088  739.9811  9678553274
- 6 Afghanistan  1977 14880372      Asia  38.438  786.1134 11697659231
- 7 Afghanistan  1982 12881816      Asia  39.854  978.0114 12598563401
- 8 Afghanistan  1987 13867957      Asia  40.822  852.3959 11820990309
- 9 Afghanistan  1992 16317921      Asia  41.674  649.3414 10595901589
-10 Afghanistan  1997 22227415      Asia  41.763  635.3414 14121995875
+   country      year      pop continent lifeExp gdpPercap          gdp
+   <chr>       <int>    <dbl> <chr>       <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.  6567086330.
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.  7585448670.
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.  8758855797.
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.  9648014150.
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.  9678553274.
+ 6 Afghanistan  1977 14880372 Asia         38.4      786. 11697659231.
+ 7 Afghanistan  1982 12881816 Asia         39.9      978. 12598563401.
+ 8 Afghanistan  1987 13867957 Asia         40.8      852. 11820990309.
+ 9 Afghanistan  1992 16317921 Asia         41.7      649. 10595901589.
+10 Afghanistan  1997 22227415 Asia         41.8      635. 14121995875.
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -402,18 +402,18 @@ calc_GDP_and_filter(gapminder, 1997)
 
 ~~~
 # A tibble: 142 x 7
-       country  year       pop continent lifeExp  gdpPercap          gdp
-         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
- 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
- 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
- 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
- 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
- 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
- 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
- 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
- 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
- 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
-10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
+   country      year       pop continent lifeExp gdpPercap           gdp
+   <chr>       <int>     <dbl> <chr>       <dbl>     <dbl>         <dbl>
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.  14121995875.
+ 2 Albania      1997   3428038 Europe       73.0     3193.  10945912519.
+ 3 Algeria      1997  29072015 Africa       69.2     4797. 139467033682.
+ 4 Angola       1997   9875024 Africa       41.0     2277.  22486820881.
+ 5 Argentina    1997  36203463 Americas     73.3    10967. 397053586287.
+ 6 Australia    1997  18565243 Oceania      78.8    26998. 501223252921.
+ 7 Austria      1997   8069876 Europe       77.5    29096. 234800471832.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.  12146009862.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. 119957417048.
+10 Belgium      1997  10199787 Europe       77.5    27561. 281118335091.
 # ... with 132 more rows
 ~~~
 {: .output}
@@ -480,18 +480,18 @@ calc_GDP_and_filter(gap_noyear, 1997)
 
 ~~~
 # A tibble: 1,704 x 6
-       country      pop continent lifeExp gdpPercap         gdp
-         <chr>    <dbl>     <chr>   <dbl>     <dbl>       <dbl>
- 1 Afghanistan  8425333      Asia  28.801  779.4453  6567086330
- 2 Afghanistan  9240934      Asia  30.332  820.8530  7585448670
- 3 Afghanistan 10267083      Asia  31.997  853.1007  8758855797
- 4 Afghanistan 11537966      Asia  34.020  836.1971  9648014150
- 5 Afghanistan 13079460      Asia  36.088  739.9811  9678553274
- 6 Afghanistan 14880372      Asia  38.438  786.1134 11697659231
- 7 Afghanistan 12881816      Asia  39.854  978.0114 12598563401
- 8 Afghanistan 13867957      Asia  40.822  852.3959 11820990309
- 9 Afghanistan 16317921      Asia  41.674  649.3414 10595901589
-10 Afghanistan 22227415      Asia  41.763  635.3414 14121995875
+   country          pop continent lifeExp gdpPercap          gdp
+   <chr>          <dbl> <chr>       <dbl>     <dbl>        <dbl>
+ 1 Afghanistan  8425333 Asia         28.8      779.  6567086330.
+ 2 Afghanistan  9240934 Asia         30.3      821.  7585448670.
+ 3 Afghanistan 10267083 Asia         32.0      853.  8758855797.
+ 4 Afghanistan 11537966 Asia         34.0      836.  9648014150.
+ 5 Afghanistan 13079460 Asia         36.1      740.  9678553274.
+ 6 Afghanistan 14880372 Asia         38.4      786. 11697659231.
+ 7 Afghanistan 12881816 Asia         39.9      978. 12598563401.
+ 8 Afghanistan 13867957 Asia         40.8      852. 11820990309.
+ 9 Afghanistan 16317921 Asia         41.7      649. 10595901589.
+10 Afghanistan 22227415 Asia         41.8      635. 14121995875.
 # ... with 1,694 more rows
 ~~~
 {: .output}
@@ -528,18 +528,18 @@ calc_GDP_and_filter(gapminder, 1997)
 
 ~~~
 # A tibble: 142 x 7
-       country  year       pop continent lifeExp  gdpPercap          gdp
-         <chr> <int>     <dbl>     <chr>   <dbl>      <dbl>        <dbl>
- 1 Afghanistan  1997  22227415      Asia  41.763   635.3414  14121995875
- 2     Albania  1997   3428038    Europe  72.950  3193.0546  10945912519
- 3     Algeria  1997  29072015    Africa  69.152  4797.2951 139467033682
- 4      Angola  1997   9875024    Africa  40.963  2277.1409  22486820881
- 5   Argentina  1997  36203463  Americas  73.275 10967.2820 397053586287
- 6   Australia  1997  18565243   Oceania  78.830 26997.9366 501223252921
- 7     Austria  1997   8069876    Europe  77.510 29095.9207 234800471832
- 8     Bahrain  1997    598561      Asia  73.925 20292.0168  12146009862
- 9  Bangladesh  1997 123315288      Asia  59.412   972.7700 119957417048
-10     Belgium  1997  10199787    Europe  77.530 27561.1966 281118335091
+   country      year       pop continent lifeExp gdpPercap           gdp
+   <chr>       <int>     <dbl> <chr>       <dbl>     <dbl>         <dbl>
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.  14121995875.
+ 2 Albania      1997   3428038 Europe       73.0     3193.  10945912519.
+ 3 Algeria      1997  29072015 Africa       69.2     4797. 139467033682.
+ 4 Angola       1997   9875024 Africa       41.0     2277.  22486820881.
+ 5 Argentina    1997  36203463 Americas     73.3    10967. 397053586287.
+ 6 Australia    1997  18565243 Oceania      78.8    26998. 501223252921.
+ 7 Austria      1997   8069876 Europe       77.5    29096. 234800471832.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.  12146009862.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. 119957417048.
+10 Belgium      1997  10199787 Europe       77.5    27561. 281118335091.
 # ... with 132 more rows
 ~~~
 {: .output}
@@ -554,7 +554,7 @@ calc_GDP_and_filter(gap_noyear, 1997)
 
 
 ~~~
-Error in filter_impl(.data, quo): Evaluation error: Column `year`: not found in data.
+Error in filter_impl(.data, quo): Evaluation error: Column `year` not found in `.data`.
 ~~~
 {: .error}
 
@@ -584,9 +584,9 @@ As you can see, we've also used the `.data` pronoun when calculating the GDP; if
 > > 
 > > ~~~
 > > # A tibble: 1 x 7
-> >          country  year      pop continent lifeExp gdpPercap          gdp
-> >            <chr> <int>    <dbl>     <chr>   <dbl>     <dbl>        <dbl>
-> > 1 United Kingdom  2007 60776238    Europe  79.425  33203.26 2.017969e+12
+> >   country         year      pop continent lifeExp gdpPercap     gdp
+> >   <chr>          <int>    <dbl> <chr>       <dbl>     <dbl>   <dbl>
+> > 1 United Kingdom  2007 60776238 Europe       79.4    33203. 2.02e12
 > > ~~~
 > > {: .output}
 > > 
