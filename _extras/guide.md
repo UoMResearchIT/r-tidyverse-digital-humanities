@@ -10,7 +10,7 @@ permalink: /guide/
 * Research IT cards
 * Water
 * "Lecturn" box
-* URL sheet for latecomers (print course homepage on sheet)
+* URL sheet for latecomers (in urlSheet/url.pdf))
 
 Load [Zoomit](https://docs.microsoft.com/en-us/sysinternals/downloads/zoomit) beforehand.
 
