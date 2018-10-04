@@ -314,7 +314,7 @@ for the whole data-set using the dplyr's `summarise()` function:
 ```{r}
 gapminder %>% 
   filter(year == 2007) %>% 
-  summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
+  summarise(meanlife = mean(lifeExp))
 ```
 
 To generate summary statistics for each value of another variable we use the 
@@ -324,8 +324,16 @@ To generate summary statistics for each value of another variable we use the
 gapminder %>% 
   filter(year == 2007) %>% 
   group_by(continent) %>% 
-  summarise(meanlife = mean(lifeExp), medianlife = median(lifeExp))
+  summarise(meanlife = mean(lifeExp))
 ```
+
+
+## Aside
+
+In the examples above it would be preferable to calculate the weighted mean (to reflect the different populations of the countries).
+R can calculate this for us using `weighted.mean(lifeExp, pop)`. For simplicty I've used the regular mean in the above examples.
+
+{: .callout}
 
 ## Statistics revision
 

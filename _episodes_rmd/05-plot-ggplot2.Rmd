@@ -311,6 +311,27 @@ gapminder %>%
 ```
 
 
+## Challenge 4
+
+Rather than plotting the life expectancy of each country over time, make a plot showing the average life expectancy in each continent over time.   
+
+Hint - Challenge 3 of the [previous episode](../04-dplyr) may be useful.  This can then be piped into a ggplot command.
+
+## Solution to challenge 4
+
+```{r}
+gapminder %>% 
+  group_by(continent, year) %>% 
+  summarise(mean_lifeExp = mean(lifeExp)) %>% 
+  ggplot(aes(x = year, y=mean_lifeExp, colour = continent)) +
+  geom_line()
+```
+
+{: .solution}
+{: .challenge}
+
+
+
 ## Transformations 
 
 Ggplot also makes it easy to transform axes, to better show our data.  To
@@ -340,11 +361,11 @@ of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
 axis and so on. This makes it easier to visualize the spread of data on the
 x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
 
-## Challenge 4 
+## Challenge 5 
 
 Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
 
-## Solution to challenge 4
+## Solution to challenge 5
 
 We can add the `scale_y_log10()` to our plotting command:
 
@@ -411,7 +432,7 @@ gapminder %>%
   geom_density(fill = "red", colour="blue") 
 ```
 
-> ## Challenge 5
+> ## Challenge 6
 > 
 > In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
 > As the challenge is quite long, it's broken down into sections.  Please try each section

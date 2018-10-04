@@ -48,18 +48,6 @@ If you are using your own computer, please ensure you have the latest version of
 
 **The University machines already have suitable versions of R and RStudio installed.**  
 
-> ## RStudio
->
-> The University machines have RStudio version 1 installed on them.  Version
-> 1.1 of RStudio was released on 9 October 2017.  If you install RStudio on your
-> own machine it will be version 1.1; by default this uses a different colour theme,
-> however the layout of windows and buttons is similar.
-> 
-> Details of new features in version 1.1 can be found on the [page announcing its
-> release](https://blog.rstudio.com/2017/10/09/rstudio-v1.1-released/)
->
-{: .callout}
-
 ## Introduction to RStudio
 
 Throughout this lesson, we're going to teach you some of the fundamentals of
@@ -1371,7 +1359,7 @@ my_vector[my_vector > 0.5]
 > 
 > ~~~
 > x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
-> print(x)
+> x
 > ~~~
 > {: .language-r}
 > 
@@ -1481,7 +1469,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > {: .output}
 > > 
-> > Which we pass to the `[ ]` subsetting operator.
+> > Which is passed to the `[ ]` subsetting operator.
 > {: .solution}
 {: .challenge}
 
