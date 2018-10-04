@@ -848,7 +848,7 @@ Given the following code:
 
 ```{r}
 x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
-print(x)
+x
 ```
 
 Come up with at least 3 different commands that will produce the following output:
@@ -892,7 +892,7 @@ Unpicking this example, `x > 6` generates the logical vector:
 x > 6
 ```
 
-Which we pass to the `[ ]` subsetting operator.
+Which is passed to the `[ ]` subsetting operator.
 {: .solution}
 {: .challenge}
 

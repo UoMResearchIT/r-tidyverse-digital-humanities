@@ -1359,7 +1359,7 @@ my_vector[my_vector > 0.5]
 > 
 > ~~~
 > x <- c(5.4, 6.2, 7.1, 7.5, 4.8)
-> print(x)
+> x
 > ~~~
 > {: .language-r}
 > 
@@ -1469,7 +1469,7 @@ my_vector[my_vector > 0.5]
 > > ~~~
 > > {: .output}
 > > 
-> > Which we pass to the `[ ]` subsetting operator.
+> > Which is passed to the `[ ]` subsetting operator.
 > {: .solution}
 {: .challenge}
 
