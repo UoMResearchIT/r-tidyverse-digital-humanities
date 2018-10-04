@@ -373,6 +373,31 @@ gapminder %>%
 <img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 
+> ## Challenge 4
+> 
+> Rather than plotting the life expectancy of each country over time, make a plot showing the average life expectancy in each continent over time.   
+> 
+> Hint - Challenge 3 of the [previous episode](../04-dplyr) may be useful.  This can then be piped into a ggplot command.
+> 
+> > ## Solution to challenge 4
+> > 
+> > 
+> > ~~~
+> > gapminder %>% 
+> >   group_by(continent, year) %>% 
+> >   summarise(mean_lifeExp = mean(lifeExp)) %>% 
+> >   ggplot(aes(x = year, y=mean_lifeExp, colour = continent)) +
+> >   geom_line()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+> > 
+> {: .solution}
+{: .challenge}
+
+
+
 ## Transformations 
 
 Ggplot also makes it easy to transform axes, to better show our data.  To
@@ -410,11 +435,11 @@ of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
 axis and so on. This makes it easier to visualize the spread of data on the
 x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
 
-> ## Challenge 4 
+> ## Challenge 5 
 > 
 > Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
 > 
-> > ## Solution to challenge 4
+> > ## Solution to challenge 5
 > > 
 > > We can add the `scale_y_log10()` to our plotting command:
 > > 
@@ -428,7 +453,7 @@ x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 > > 
 > > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
 > > between the difference continents much less obvious.  
@@ -453,7 +478,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -469,7 +494,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -484,7 +509,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
 passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`. The `colour` attribute controls the _outline_ of the shape.  For example:
@@ -499,9 +524,9 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
 
-> ## Challenge 5
+> ## Challenge 6
 > 
 > In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
 > As the challenge is quite long, it's broken down into sections.  Please try each section
@@ -555,7 +580,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 >
@@ -574,7 +599,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
 > > 
 > {: .solution}
 > 
@@ -594,7 +619,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
 > > Note that you need to remove the `filter(year == 2007)` line from the code.
 > >
 > {: .solution}
