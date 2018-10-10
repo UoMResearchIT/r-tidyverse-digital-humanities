@@ -351,6 +351,27 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > {: .solution}
 {: .challenge}
 
+
+> ## Aside: Interactively exploring graphs
+> 
+> There are some outlying data points in the solution to challenge 3.  You might be wondering which country these belong to.  Unfortunately there
+> isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_label()` to label each data point with the country:
+> 
+> 
+> ~~~
+> gapminder %>% 
+>   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+>   geom_line() +
+>   facet_wrap("continent")
+> ~~~
+> {: .language-r}
+> 
+> The labels for each data point overlap each other, and are plotted for each data point.  You can deal with the latter issue by creating a new variable which only contains the label for one point per group (i.e per country), and for the groups you wish to label.  You can do this using `mutate` and `ifelse` as described at the end of the previous episode.
+> 
+> It's also possible to make a graph with "tooltips", so that the country pops up when you hover the mouse over a line.  `ggplot2` can't do this automatically, but an extension package [`ggiraph`](https://davidgohel.github.io/ggiraph/index.html) let's you do this.  The package's documentation has full examples.  
+> 
+{: .callout}
+
 ## Pre processing data
 
 When we want to start sub-setting and mutating the data before plotting, the usefulness of
@@ -370,7 +391,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 
 > ## Challenge 4
@@ -391,7 +412,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 > > 
 > {: .solution}
 {: .challenge}
@@ -453,7 +474,7 @@ x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 > > 
 > > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
 > > between the difference continents much less obvious.  
@@ -478,7 +499,7 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 We filter to a single year of data to avoid multiple counting
 
@@ -494,7 +515,7 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -509,7 +530,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
 
 By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
 passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`. The `colour` attribute controls the _outline_ of the shape.  For example:
@@ -524,7 +545,7 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
 
 > ## Challenge 6
 > 
@@ -580,7 +601,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 >
@@ -599,7 +620,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
 > > 
 > {: .solution}
 > 
@@ -619,7 +640,7 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
 > > Note that you need to remove the `filter(year == 2007)` line from the code.
 > >
 > {: .solution}
