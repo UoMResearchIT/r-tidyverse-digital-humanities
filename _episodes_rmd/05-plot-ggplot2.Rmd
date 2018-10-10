@@ -239,7 +239,7 @@ We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
 information.  Note that the variable we are faceting by needs to be placed in quotes.
 
-## More on facetting
+## More on faceting
 
 It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
 using the following code:
@@ -296,18 +296,21 @@ it very difficult to compare data in different continents, and is arguably misle
 ## Aside: Interactively exploring graphs
 
 There are some outlying data points in the solution to challenge 3.  You might be wondering which country these belong to.  Unfortunately there
-isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_label()` to label each data point with the country:
+isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_text()` to label each data point with the country (this uses the `label` aesthetic to select which variable in the data to use as the label):
 
-```{r, eval = FALSE}
+```{r}
 gapminder %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country)) +
-  geom_line() +
+  ggplot(aes(x = year, y = gdpPercap, group = country, label = country)) +
+  geom_line() + 
+  geom_text() +
   facet_wrap("continent")
 ```
 
+The output from this clearly isn't suitable for publication, but it may be sufficient if you just need to produce something for your own use.
+
 The labels for each data point overlap each other, and are plotted for each data point.  You can deal with the latter issue by creating a new variable which only contains the label for one point per group (i.e per country), and for the groups you wish to label.  You can do this using `mutate` and `ifelse` as described at the end of the previous episode.
 
-It's also possible to make a graph with "tooltips", so that the country pops up when you hover the mouse over a line.  `ggplot2` can't do this automatically, but an extension package [`ggiraph`](https://davidgohel.github.io/ggiraph/index.html) let's you do this.  The package's documentation has full examples.  
+It's also possible to make a graph with "tooltips", so that the country pops up when you hover the mouse over a line.  `ggplot2` can't do this automatically, but an extension package [ggiraph`](https://davidgohel.github.io/ggiraph/index.html) provides this functionality.  The package's documentation has full examples.  
 
 {: .callout}
 
