@@ -197,7 +197,7 @@ print(gapminder_Europe)
 ~~~
 {: .output}
 
-Only rows of the data where the condition (i.e. `continent=="Europe") is `TRUE` are kept.
+Only rows of the data where the condition (i.e. `continent=="Europe"`) is `TRUE` are kept.
 
 ## Using pipes and dplyr
 
