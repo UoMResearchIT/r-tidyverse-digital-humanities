@@ -28,7 +28,7 @@ source: Rmd
 
 ## Motivation
 
-Science is a multi-step process: once you've designed an experiment and collected
+Research is a multi-step process: once you've designed an experiment and collected
 data, the real fun begins! This lesson will teach you how to start this process using
 R and RStudio. We will begin with raw data, perform exploratory analyses, and learn
 how to plot results graphically. This example starts with a dataset from

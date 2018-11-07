@@ -22,9 +22,16 @@ In the previous episode we used the `readr` package to load tabular data into a 
 
 This loads the most commonly used packages in the tidyverse; we used `readr` in the previous episode.  We will cover all of the other main packages, with the exception of `purrr` in this course. There are other [libraries included](https://github.com/tidyverse/tidyverse) but these are less widely used, and must be loaded manually if they are required; these aren't covered in this course. 
 
-Let's dive in and look at how we can use the tidyverse to analyse and, in a couple of episodes' time,  plot data from the [gapminder project](https://www.gapminder.org/).  At [the start of the course]({{ page.root}}/02-project-intro), you should have copied the file `gapminder-FiveYearData.csv` to your `data` directory.     Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+The data we'll be using for the rest of the course is taken from Twitter. The data contains information on how often various new "slang" words were used in each state of the USA, over a period of time.  The data are taken from [GRIEVE, J., NINI, A., & GUO, D. (2017). Analyzing lexical emergence in Modern American English online. English Language and Linguistics, 21(1), 99-127. doi:10.1017/S1360674316000113
+](https://www.cambridge.org/core/journals/english-language-and-linguistics/article/analyzing-lexical-emergence-in-modern-american-english-online-1/73E2D917856BE39ACD9EE3789E2BE597).
 
-As we did with the [previous episode]({{ page.root }}/03-loading-data-into-R) we use the `read_csv()` function to load data from a comma separated file. Let's make a new script (using the file menu), and load the tidyverse: (in the previous episode we only loaded `readr`; since we'll be using several packages in the tidyverse, we load them all)
+Let's dive in and look at how we can use the tidyverse to analyse and, in a couple of episodes' time,  plot data from twitter.    At [the start of the course]({{ page.root}}/02-project-intro), you should have copied the file `twitterData.csv` to your `data` directory.     Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
+
+The data are in what's often referred to as "tidy" format; each observation is on a new line, and each column represents a variable.  This is what's sometimes known as "long" format.   The tidyverse is geared up towards working with data in tidy format.  Often (almost always in fact), your data won't be in the "shape" you need to analyse it. Transforming and cleaning your data is often one of the most time consuming (and frustrating) parts of the analysis process.   For these reasons, and because it's very problem specific we won't spend much time on it today.
+ 
+FIXME - more here. Mention tidyr?  Or include section on data cleaning at the end? But it introduces so many new concepts, it might be counter productive.
+
+As we did with the [previous episode]({{ page.root }}/03-loading-data-into-R) we use the `read_csv()` function to load the comma separated file. Let's make a new script (using the file menu), and load the tidyverse: (in the previous episode we only loaded `readr`; since we'll be using several packages in the tidyverse, we load them all)
 
 
 ~~~
@@ -61,7 +68,7 @@ library("tidyverse")
 
 
 ~~~
-gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
+twitterData <- read_csv("./data/twitterData.csv")
 ~~~
 {: .language-r}
 
@@ -70,31 +77,34 @@ gapminder <- read_csv("./data/gapminder-FiveYearData.csv")
 ~~~
 Parsed with column specification:
 cols(
-  country = col_character(),
-  year = col_integer(),
-  pop = col_double(),
-  continent = col_character(),
-  lifeExp = col_double(),
-  gdpPercap = col_double()
+  date = col_date(format = ""),
+  stateCode = col_character(),
+  word = col_character(),
+  cases = col_integer(),
+  dataDay = col_integer(),
+  Region = col_character(),
+  Division = col_character(),
+  totalTokens = col_double()
 )
 ~~~
 {: .output}
 
 As we discussed in the [previous episode]({{ page.root }}/03-loading-data-into-R), variables in R can be character, integer, double, etc.   A tibble (and R's built in equivalent; the data-frame) require that all the values in a particular column have the same data type.  The `read_csv()` function will attempt to infer the data type of each column, and prints the column types it has guessed to the screen.  If the wrong column types have been generated, you can pass the `col_types=` option to `read_csv()`.  
 
-For example, if we wanted to load the `pop` column as a character string, we would use:
+For example, if we wanted to load the `date` column as a character string, we would use:
 
 
 ~~~
-gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv", 
+twitterData <- read_csv("data/twitterData.csv", 
                              col_types = cols(
-                               country = col_character(),
-                               year = col_integer(),
-                               pop = col_character(),
-                               continent = col_character(),
-                               lifeExp = col_double(),
-                               gdpPercap = col_double()
-) )
+                               date = col_character(),
+                               stateCode = col_character(),
+                               word = col_character(),
+                               cases = col_double(),
+                               dataDay = col_double(),
+                               Region = col_character(),
+                               Division = col_character()
+                             ) )
 ~~~
 {: .language-r}
 
@@ -106,6 +116,33 @@ gapminderPopChar <- read_csv("./data/gapminder-FiveYearData.csv",
 > the data types of your columns explicit, and will help protect you if the format 
 > of your data changes.
 {: .callout}
+
+
+You may notice from the column specification that the date column of the data has bene read in as a `col_date()`.  R has special data types for handling dates, and "date times" (e.g. 2018-11-07 16:01:55).  Dates and date times are awkward to handle in any programming language (including R); things like different ways of writing dates (day/month/year or month/day/year?) time zones, leap years (and leap seconds) complicate things.  The `lubridate` package in the tidyverse makes dates a bit easier to handle.  This isn't loaded by default.  We will be using one of the functions from it later in this episode, so we'll load it now. Add the following to the top of your script:
+
+
+~~~
+library(lubridate)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Attaching package: 'lubridate'
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:base':
+
+    date
+~~~
+{: .output}
+
 
 ## Manipulating tibbles 
 
@@ -138,28 +175,28 @@ variables you select.
 
 
 ~~~
-year_country_gdp <- select(gapminder,year,country,gdpPercap)
-print(year_country_gdp)
+dateWordState <- select(twitterData, date, word, stateCode)
+print(dateWordState)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 1,704 x 3
-    year country     gdpPercap
-   <int> <chr>           <dbl>
- 1  1952 Afghanistan      779.
- 2  1957 Afghanistan      821.
- 3  1962 Afghanistan      853.
- 4  1967 Afghanistan      836.
- 5  1972 Afghanistan      740.
- 6  1977 Afghanistan      786.
- 7  1982 Afghanistan      978.
- 8  1987 Afghanistan      852.
- 9  1992 Afghanistan      649.
-10  1997 Afghanistan      635.
-# ... with 1,694 more rows
+# A tibble: 94,940 x 3
+   date       word   stateCode
+   <date>     <chr>  <chr>    
+ 1 2013-10-07 anime  AL       
+ 2 2013-10-07 bae    AL       
+ 3 2013-10-07 boi    AL       
+ 4 2013-10-07 bruhhh AL       
+ 5 2013-10-07 fleek  AL       
+ 6 2013-10-07 anime  AR       
+ 7 2013-10-07 bae    AR       
+ 8 2013-10-07 boi    AR       
+ 9 2013-10-07 bruhhh AR       
+10 2013-10-07 fleek  AR       
+# ... with 94,930 more rows
 ~~~
 {: .output}
 
@@ -167,37 +204,160 @@ Select will select _columns_ of data.  What if we want to select rows that meet 
 
 ## Using `filter()`
 
-The `filter()` function is used to select rows of data.  For example, to select only countries in 
-Europe:
+The `filter()` function is used to select rows of data.  For example, to select only data relating to the north east states:
 
 
 ~~~
-gapminder_Europe <- filter(gapminder, continent=="Europe") 
-print(gapminder_Europe)
+twitterDataNE <- filter(twitterData, Region == "Northeast")
+print(twitterDataNE)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 360 x 6
-   country  year     pop continent lifeExp gdpPercap
-   <chr>   <int>   <dbl> <chr>       <dbl>     <dbl>
- 1 Albania  1952 1282697 Europe       55.2     1601.
- 2 Albania  1957 1476505 Europe       59.3     1942.
- 3 Albania  1962 1728137 Europe       64.8     2313.
- 4 Albania  1967 1984060 Europe       66.2     2760.
- 5 Albania  1972 2263554 Europe       67.7     3313.
- 6 Albania  1977 2509048 Europe       68.9     3533.
- 7 Albania  1982 2780097 Europe       70.4     3631.
- 8 Albania  1987 3075321 Europe       72       3739.
- 9 Albania  1992 3326498 Europe       71.6     2497.
-10 Albania  1997 3428038 Europe       73.0     3193.
-# ... with 350 more rows
+# A tibble: 16,160 x 8
+   date       stateCode word   cases dataDay Region  Division  totalTokens
+   <date>     <chr>     <chr>  <int>   <int> <chr>   <chr>           <dbl>
+ 1 2013-10-07 CT        anime      1       1 Northe… New Engl…      149773
+ 2 2013-10-07 CT        bae       22       1 Northe… New Engl…      149773
+ 3 2013-10-07 CT        boi        4       1 Northe… New Engl…      149773
+ 4 2013-10-07 CT        bruhhh     2       1 Northe… New Engl…      149773
+ 5 2013-10-07 CT        fleek      0       1 Northe… New Engl…      149773
+ 6 2013-10-07 MA        anime      0       1 Northe… New Engl…       61205
+ 7 2013-10-07 MA        bae        5       1 Northe… New Engl…       61205
+ 8 2013-10-07 MA        boi        2       1 Northe… New Engl…       61205
+ 9 2013-10-07 MA        bruhhh     0       1 Northe… New Engl…       61205
+10 2013-10-07 MA        fleek      0       1 Northe… New Engl…       61205
+# ... with 16,150 more rows
 ~~~
 {: .output}
 
-Only rows of the data where the condition (i.e. `continent=="Europe"`) is `TRUE` are kept.
+Only rows of the data where the condition (i.e. `Region == "Northeast"`) is `TRUE` are kept.  Note that we use `==` to test for equality.
+
+We can use numeric tests in the `filter()` function too.  For example, to only keep rows where at a word was tweeted at least once:
+
+
+~~~
+twitterData %>% 
+  filter(cases >= 1)
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 55,848 x 8
+   date       stateCode word   cases dataDay Region Division   totalTokens
+   <date>     <chr>     <chr>  <int>   <int> <chr>  <chr>            <dbl>
+ 1 2013-10-07 AL        bae       32       1 South  East Sout…      184649
+ 2 2013-10-07 AL        boi        9       1 South  East Sout…      184649
+ 3 2013-10-07 AR        bae        5       1 South  West Sout…       23641
+ 4 2013-10-07 AR        boi        1       1 South  West Sout…       23641
+ 5 2013-10-07 AR        bruhhh     1       1 South  West Sout…       23641
+ 6 2013-10-07 AZ        anime      1       1 West   Mountain        198852
+ 7 2013-10-07 AZ        bae       22       1 West   Mountain        198852
+ 8 2013-10-07 AZ        boi        5       1 West   Mountain        198852
+ 9 2013-10-07 CA        anime     11       1 West   Pacific        1209652
+10 2013-10-07 CA        bae      124       1 West   Pacific        1209652
+# ... with 55,838 more rows
+~~~
+{: .output}
+
+We can use the same idea to select tweets that occured on, before or after a certain date.  We need a way of providing the date to R in a way it can understand.  If we want all the tweets that occured on or after 1st Jan 2014, we might try something like:
+
+
+~~~
+twitterData %>% 
+  filter(date >= 01012014)
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 0 x 8
+# ... with 8 variables: date <date>, stateCode <chr>, word <chr>,
+#   cases <int>, dataDay <int>, Region <chr>, Division <chr>,
+#   totalTokens <dbl>
+~~~
+{: .output}
+
+But this doesn't work.  The `dmy()` function in the lubridate function lets us specify a date to R. It is very liberal in how we format the date for example:
+
+
+~~~
+dmy(01012014)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "2014-01-01"
+~~~
+{: .output}
+
+
+
+~~~
+dmy("1 Jan 2014")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "2014-01-01"
+~~~
+{: .output}
+
+
+
+~~~
+dmy("1/1/2014")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "2014-01-01"
+~~~
+{: .output}
+
+will all work.  There are also `mdy()` and `ymd()` functions if you prefer to specify the parts of the date in a different order.
+(If these commands don't work, check you have loaded the `lubridate` package with `library(lubridate)`)
+
+So, to only keep tweets on or after 1 Jan 2014 we can use:
+
+~~~
+twitterData %>% 
+  filter(date >= dmy("1 Jan 2014"))
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 74,730 x 8
+   date       stateCode word   cases dataDay Region Division   totalTokens
+   <date>     <chr>     <chr>  <int>   <int> <chr>  <chr>            <dbl>
+ 1 2014-01-01 AL        anime      1      87 South  East Sout…      315249
+ 2 2014-01-01 AL        bae      127      87 South  East Sout…      315249
+ 3 2014-01-01 AL        boi        5      87 South  East Sout…      315249
+ 4 2014-01-01 AL        bruhhh     2      87 South  East Sout…      315249
+ 5 2014-01-01 AL        fleek      0      87 South  East Sout…      315249
+ 6 2014-01-01 AR        anime      0      87 South  West Sout…       61134
+ 7 2014-01-01 AR        bae       22      87 South  West Sout…       61134
+ 8 2014-01-01 AR        boi        2      87 South  West Sout…       61134
+ 9 2014-01-01 AR        bruhhh     0      87 South  West Sout…       61134
+10 2014-01-01 AR        fleek      0      87 South  West Sout…       61134
+# ... with 74,720 more rows
+~~~
+{: .output}
+
+
 
 ## Using pipes and dplyr
 
@@ -238,81 +398,100 @@ Let's rewrite the select command example using the pipe operator:
 
 
 ~~~
-year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
-print(year_country_gdp)
+dateWordStateCode<- twitterData %>% 
+  select(date, word, stateCode)
+print(dateWordStateCode)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 1,704 x 3
-    year country     gdpPercap
-   <int> <chr>           <dbl>
- 1  1952 Afghanistan      779.
- 2  1957 Afghanistan      821.
- 3  1962 Afghanistan      853.
- 4  1967 Afghanistan      836.
- 5  1972 Afghanistan      740.
- 6  1977 Afghanistan      786.
- 7  1982 Afghanistan      978.
- 8  1987 Afghanistan      852.
- 9  1992 Afghanistan      649.
-10  1997 Afghanistan      635.
-# ... with 1,694 more rows
+# A tibble: 94,940 x 3
+   date       word   stateCode
+   <date>     <chr>  <chr>    
+ 1 2013-10-07 anime  AL       
+ 2 2013-10-07 bae    AL       
+ 3 2013-10-07 boi    AL       
+ 4 2013-10-07 bruhhh AL       
+ 5 2013-10-07 fleek  AL       
+ 6 2013-10-07 anime  AR       
+ 7 2013-10-07 bae    AR       
+ 8 2013-10-07 boi    AR       
+ 9 2013-10-07 bruhhh AR       
+10 2013-10-07 fleek  AR       
+# ... with 94,930 more rows
 ~~~
 {: .output}
 
 To help you understand why we wrote that in that way, let's walk through it step
-by step. First we summon the gapminder tibble and pass it on, using the pipe
+by step. First we summon the twitterData tibble and pass it on, using the pipe
 symbol `%>%`, to the next step, which is the `select()` function. In this case
 we don't specify which data object we use in the `select()` function since in
 gets that from the previous pipe. 
 
-What if we wanted to combine this with the filter example? I.e. we want to select year, country and GDP per capita, but only for countries in Europe?  We can join these two operations using a pipe; feeding the output of one command directly into the next:
+What if we wanted to combine this with the filter example? I.e. we want to select the date, word and state code, but only for countries in the north east?  We can join these two operations using a pipe; feeding the output of one command directly into the next:
 
 
 
 ~~~
-year_country_gdp_euro <- gapminder %>%
-    filter(continent == "Europe") %>%
-    select(year,country,gdpPercap)
-print(year_country_gdp_euro)
+NorthEastData <- twitterData %>% 
+  filter(Region == "Northeast") %>% 
+  select(date, word, stateCode)
+print(NorthEastData)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 360 x 3
-    year country gdpPercap
-   <int> <chr>       <dbl>
- 1  1952 Albania     1601.
- 2  1957 Albania     1942.
- 3  1962 Albania     2313.
- 4  1967 Albania     2760.
- 5  1972 Albania     3313.
- 6  1977 Albania     3533.
- 7  1982 Albania     3631.
- 8  1987 Albania     3739.
- 9  1992 Albania     2497.
-10  1997 Albania     3193.
-# ... with 350 more rows
+# A tibble: 16,160 x 3
+   date       word   stateCode
+   <date>     <chr>  <chr>    
+ 1 2013-10-07 anime  CT       
+ 2 2013-10-07 bae    CT       
+ 3 2013-10-07 boi    CT       
+ 4 2013-10-07 bruhhh CT       
+ 5 2013-10-07 fleek  CT       
+ 6 2013-10-07 anime  MA       
+ 7 2013-10-07 bae    MA       
+ 8 2013-10-07 boi    MA       
+ 9 2013-10-07 bruhhh MA       
+10 2013-10-07 fleek  MA       
+# ... with 16,150 more rows
 ~~~
 {: .output}
 
-Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `continent` variable wouldn't exist in the data-set when we came to apply the filter.  
+Note that the order of these operations matters; if we reversed the order of the `select()` and `filter()` functions, the `stateCode` variable wouldn't exist in the data-set when we came to apply the filter.  
 
 What about if we wanted to match more than one item?  To do this we use the `%in%` operator:
 
 
 ~~~
-gapminder_scandinavia <- gapminder %>% 
-  filter(country %in% c("Denmark",
-                        "Norway",
-                        "Sweden"))
+twitterData %>% 
+  filter(stateCode %in% c("WY", "UT", "CO", "AZ", "NM"))
 ~~~
 {: .language-r}
+
+
+
+~~~
+# A tibble: 10,100 x 8
+   date       stateCode word   cases dataDay Region Division totalTokens
+   <date>     <chr>     <chr>  <int>   <int> <chr>  <chr>          <dbl>
+ 1 2013-10-07 AZ        anime      1       1 West   Mountain      198852
+ 2 2013-10-07 AZ        bae       22       1 West   Mountain      198852
+ 3 2013-10-07 AZ        boi        5       1 West   Mountain      198852
+ 4 2013-10-07 AZ        bruhhh     0       1 West   Mountain      198852
+ 5 2013-10-07 AZ        fleek      0       1 West   Mountain      198852
+ 6 2013-10-07 CO        anime      0       1 West   Mountain      106166
+ 7 2013-10-07 CO        bae        4       1 West   Mountain      106166
+ 8 2013-10-07 CO        boi        1       1 West   Mountain      106166
+ 9 2013-10-07 CO        bruhhh     0       1 West   Mountain      106166
+10 2013-10-07 CO        fleek      0       1 West   Mountain      106166
+# ... with 10,090 more rows
+~~~
+{: .output}
 
 
 > ## Another way of thinking about pipes
@@ -320,14 +499,14 @@ gapminder_scandinavia <- gapminder %>%
 > It might be useful to think of the statement
 > 
 > ~~~
->  gapminder %>%
->     filter(continent=="Europe") %>%
->     select(year,country,gdpPercap)
+> NorthEastData <- twitterData %>% 
+>  filter(Region == "Northeast") %>% 
+>  select(date, word, stateCode)
 > ~~~
 > {: .language-r}
 >  as a sentence, which we can read as
-> "take the gapminder data *and then* `filter` records where continent == Europe
-> *and then* `select` the year, country and gdpPercap
+> "take the twitter data *and then* `filter` records where `Region == "Northeast"`
+> *and then* `select` the date, word and stateCode
 > 
 > We can think of the `filter()` and `select()` functions as verbs in the sentence; 
 > they do things to the data flowing through the pipeline.  
@@ -343,18 +522,18 @@ gapminder_scandinavia <- gapminder %>%
 > 
 > 
 > ~~~
-> gapminder_benelux <- gapminder 
-> %>% filter(country %in% c("Belgium", "Netherlands", "France"))
+> twitterData 
+>   %>% filter(stateCode %in% c("WY", "UT", "CO", "AZ", "NM"))
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Error: <text>:2:1: unexpected SPECIAL
-> 1: gapminder_benelux <- gapminder 
-> 2: %>%
->    ^
+> Error: <text>:2:3: unexpected SPECIAL
+> 1: twitterData 
+> 2:   %>%
+>      ^
 > ~~~
 > {: .error}
 > 
@@ -366,31 +545,32 @@ gapminder_scandinavia <- gapminder %>%
 > ## Challenge 1
 >
 > Write a single command (which can span multiple lines and includes pipes) that
-> will produce a tibble that has the values of `lifeExp`, `country`
-> and `year`, for the countries in Africa, but not for other Continents.  How many rows does your tibble  
+> will produce a tibble that has the values of  `cases`, `stateCode`
+> and `dataDay`, for the countries in the south, but not for other regions.  How many rows does your tibble  
 > have? (You can use the `nrow()` function to find out how many rows are in a tibble.)
 >
 > > ## Solution to Challenge 1
 > >
 > >~~~
-> >year_country_lifeExp_Africa <- gapminder %>%
-> >                            filter(continent=="Africa") %>%
-> >                            select(year,country,lifeExp)
-> > nrow(year_country_lifeExp_Africa)
+> > SouthBae <- twitterData %>% 
+> >   filter(Region == "South") %>% 
+> >   filter(word == "bae") %>% 
+> >   select(cases, stateCode, dataDay) 
+> > nrow(SouthBae)
 > >~~~
 > >{: .language-r}
 > >
 > >
 > >
 > >~~~
-> >[1] 624
+> >[1] 6464
 > >~~~
 > >{: .output}
-> > As with last time, first we pass the gapminder tibble to the `filter()`
-> > function, then we pass the filtered version of the gapminder tibble  to the
+> > As with last time, first we pass the twitterData tibble to the `filter()`
+> > function, then we pass the filtered version of the twitterData tibble  to the
 > > `select()` function. **Note:** The order of operations is very important in this
 > > case. If we used 'select' first, filter would not be able to find the variable
-> > continent since we would have removed it in the previous step.
+> > Region since we would have removed it in the previous step.
 > {: .solution}
 {: .challenge}
 
@@ -401,58 +581,58 @@ The `arrange()` function will sort a tibble by one or more of the variables in i
 
 
 ~~~
-gapminder %>%
-  filter(continent == "Europe", year == 2007) %>% 
-  arrange(pop)
+twitterData %>% 
+  filter(word == "anime") %>%
+  arrange(cases)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 30 x 6
-   country                 year     pop continent lifeExp gdpPercap
-   <chr>                  <int>   <dbl> <chr>       <dbl>     <dbl>
- 1 Iceland                 2007  301931 Europe       81.8    36181.
- 2 Montenegro              2007  684736 Europe       74.5     9254.
- 3 Slovenia                2007 2009245 Europe       77.9    25768.
- 4 Albania                 2007 3600523 Europe       76.4     5937.
- 5 Ireland                 2007 4109086 Europe       78.9    40676.
- 6 Croatia                 2007 4493312 Europe       75.7    14619.
- 7 Bosnia and Herzegovina  2007 4552198 Europe       74.9     7446.
- 8 Norway                  2007 4627926 Europe       80.2    49357.
- 9 Finland                 2007 5238460 Europe       79.3    33207.
-10 Slovak Republic         2007 5447502 Europe       74.7    18678.
-# ... with 20 more rows
+# A tibble: 18,988 x 8
+   date       stateCode word  cases dataDay Region  Division   totalTokens
+   <date>     <chr>     <chr> <int>   <int> <chr>   <chr>            <dbl>
+ 1 2013-10-07 AL        anime     0       1 South   East Sout…      184649
+ 2 2013-10-07 AR        anime     0       1 South   West Sout…       23641
+ 3 2013-10-07 CO        anime     0       1 West    Mountain        106166
+ 4 2013-10-07 DE        anime     0       1 South   South Atl…       12039
+ 5 2013-10-07 IA        anime     0       1 Midwest West Nort…       73405
+ 6 2013-10-07 ID        anime     0       1 West    Mountain         23522
+ 7 2013-10-07 IN        anime     0       1 Midwest East Nort…      149274
+ 8 2013-10-07 KY        anime     0       1 South   East Sout…       45995
+ 9 2013-10-07 LA        anime     0       1 South   West Sout…      180652
+10 2013-10-07 MA        anime     0       1 Northe… New Engla…       61205
+# ... with 18,978 more rows
 ~~~
 {: .output}
 We can use the `desc()` function to sort a variable in reverse order:
 
 
 ~~~
-gapminder %>%
-  filter(continent == "Europe", year == 2007) %>% 
-  arrange(desc(pop))
+twitterData %>% 
+  filter(word == "anime") %>%
+  arrange(desc(cases))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 30 x 6
-   country         year      pop continent lifeExp gdpPercap
-   <chr>          <int>    <dbl> <chr>       <dbl>     <dbl>
- 1 Germany         2007 82400996 Europe       79.4    32170.
- 2 Turkey          2007 71158647 Europe       71.8     8458.
- 3 France          2007 61083916 Europe       80.7    30470.
- 4 United Kingdom  2007 60776238 Europe       79.4    33203.
- 5 Italy           2007 58147733 Europe       80.5    28570.
- 6 Spain           2007 40448191 Europe       80.9    28821.
- 7 Poland          2007 38518241 Europe       75.6    15390.
- 8 Romania         2007 22276056 Europe       72.5    10808.
- 9 Netherlands     2007 16570613 Europe       79.8    36798.
-10 Greece          2007 10706290 Europe       79.5    27538.
-# ... with 20 more rows
+# A tibble: 18,988 x 8
+   date       stateCode word  cases dataDay Region Division totalTokens
+   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
+ 1 2014-07-05 CA        anime   367     272 West   Pacific      2865511
+ 2 2014-07-03 CA        anime   293     270 West   Pacific      3298513
+ 3 2014-07-04 CA        anime   286     271 West   Pacific      3185266
+ 4 2014-07-06 CA        anime   260     273 West   Pacific      3077657
+ 5 2014-07-16 CA        anime   180     283 West   Pacific      3524572
+ 6 2014-07-07 CA        anime   145     274 West   Pacific      3454158
+ 7 2014-07-09 CA        anime   144     276 West   Pacific      3628779
+ 8 2014-07-02 CA        anime   117     269 West   Pacific      3353831
+ 9 2014-07-08 CA        anime   115     275 West   Pacific      3836043
+10 2014-07-17 CA        anime   103     284 West   Pacific      3478334
+# ... with 18,978 more rows
 ~~~
 {: .output}
 
@@ -460,41 +640,32 @@ gapminder %>%
 
 The `mutate()` function lets us add new variables to our tibble.  It will often be the case that these are variables we _derive_ from existing variables in the data-frame. 
 
-As an example, the gapminder data contains the population of each country, and its GDP per capita.  We can use this to calculate the total GDP of each country:
+As an example, we can calculate the proportion of all tokens that were each of the words we are studying:
 
 
 ~~~
-gapminder_totalgdp <- gapminder %>% 
-  mutate(gdp = gdpPercap * pop)
-~~~
-{: .language-r}
-
-We can also use functions within mutate to generate new variables.  For example, to take the log of `gdpPercap` we could use:
-
-
-~~~
-gapminder %>% 
-  mutate(logGdpPercap = log(gdpPercap))
+twitterData %>% 
+  mutate(wordProp = cases / totalTokens)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 1,704 x 7
-   country      year      pop continent lifeExp gdpPercap logGdpPercap
-   <chr>       <int>    <dbl> <chr>       <dbl>     <dbl>        <dbl>
- 1 Afghanistan  1952  8425333 Asia         28.8      779.         6.66
- 2 Afghanistan  1957  9240934 Asia         30.3      821.         6.71
- 3 Afghanistan  1962 10267083 Asia         32.0      853.         6.75
- 4 Afghanistan  1967 11537966 Asia         34.0      836.         6.73
- 5 Afghanistan  1972 13079460 Asia         36.1      740.         6.61
- 6 Afghanistan  1977 14880372 Asia         38.4      786.         6.67
- 7 Afghanistan  1982 12881816 Asia         39.9      978.         6.89
- 8 Afghanistan  1987 13867957 Asia         40.8      852.         6.75
- 9 Afghanistan  1992 16317921 Asia         41.7      649.         6.48
-10 Afghanistan  1997 22227415 Asia         41.8      635.         6.45
-# ... with 1,694 more rows
+# A tibble: 94,940 x 9
+   date       stateCode word  cases dataDay Region Division totalTokens
+   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
+ 1 2013-10-07 AL        anime     0       1 South  East So…      184649
+ 2 2013-10-07 AL        bae      32       1 South  East So…      184649
+ 3 2013-10-07 AL        boi       9       1 South  East So…      184649
+ 4 2013-10-07 AL        bruh…     0       1 South  East So…      184649
+ 5 2013-10-07 AL        fleek     0       1 South  East So…      184649
+ 6 2013-10-07 AR        anime     0       1 South  West So…       23641
+ 7 2013-10-07 AR        bae       5       1 South  West So…       23641
+ 8 2013-10-07 AR        boi       1       1 South  West So…       23641
+ 9 2013-10-07 AR        bruh…     1       1 South  West So…       23641
+10 2013-10-07 AR        fleek     0       1 South  West So…       23641
+# ... with 94,930 more rows, and 1 more variable: wordProp <dbl>
 ~~~
 {: .output}
 
@@ -502,74 +673,155 @@ The dplyr cheat sheet contains many useful functions which can be used with dply
 
 > ## Challenge 2
 > 
-> Create a tibble containing each country in Europe, its life expectancy in 2007
-> and the rank of the country's life expectancy. (note that ranking the countries _will not_ sort the table; the row order will be unchanged.  You can use the `arrange()` function to sort the table).
->
-> Hint: First `filter()` to get the rows you want, and then use `mutate()` to create a new variable with the rank in it.  The cheat-sheet contains useful
-> functions you can use when you make new variables (the cheat-sheets can be found in the help menu in RStudio).  
-> There are several functions for ranking observations, which handle tied values differently.  For this exercise it 
-> doesn't matter which function you choose.
->
-> Can you reverse the ranking order
-> so that the country with the longest life expectancy gets the lowest rank?
-> Hint: This is similar to sorting in reverse order
->
-> > ## Solution to challenge 2
+> In this challenge we'll calculate a cumulative sum of how often the word "anime" occurs over time in the state of New York.   We haven't talked about how to make a cumulative sum yet; take a look at the dplyr cheat sheet for this part of the question.
+> 
+> There are a few steps you'll need to go through to do this.  When you're doing this, it's a really good idea to build you analysis pipeline command by command and check it's doing what you think it is after each step.  
+> 
+> The first thing we'll need to do is filter the rows of data we want. It's also a good idea to just select the columns of data we need for the rest of the exercise at this point. It looks like the data are sorted by date, but we don't _know_ this for sure, so it'll be a good idea to make sure.  Then we'll need to make a new column containing the cumulative sum.  
+> 
+> As this is quite a long challenge, the solution is split into several parts:
+> 
+> > ## Solution - the rows we want
+> > 
+> > The first thing to do is to get the rows of data we want.  We use the `filter()` function for this:
+> > 
 > > 
 > > ~~~
-> > europeLifeExp <- gapminder %>% 
-> >   filter(continent == "Europe", year == 2007) %>% 
-> >   select(country, lifeExp) %>% 
-> >   mutate(rank = min_rank(lifeExp))
-> > print(europeLifeExp, n=100)
+> > twitterData %>% 
+> >   filter(stateCode == "NY") %>% 
+> >   filter(word == "anime")
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > # A tibble: 30 x 3
-> >    country                lifeExp  rank
-> >    <chr>                    <dbl> <int>
-> >  1 Albania                   76.4    11
-> >  2 Austria                   79.8    23
-> >  3 Belgium                   79.4    20
-> >  4 Bosnia and Herzegovina    74.9     8
-> >  5 Bulgaria                  73.0     3
-> >  6 Croatia                   75.7    10
-> >  7 Czech Republic            76.5    12
-> >  8 Denmark                   78.3    15
-> >  9 Finland                   79.3    17
-> > 10 France                    80.7    26
-> > 11 Germany                   79.4    18
-> > 12 Greece                    79.5    21
-> > 13 Hungary                   73.3     4
-> > 14 Iceland                   81.8    30
-> > 15 Ireland                   78.9    16
-> > 16 Italy                     80.5    25
-> > 17 Montenegro                74.5     6
-> > 18 Netherlands               79.8    22
-> > 19 Norway                    80.2    24
-> > 20 Poland                    75.6     9
-> > 21 Portugal                  78.1    14
-> > 22 Romania                   72.5     2
-> > 23 Serbia                    74.0     5
-> > 24 Slovak Republic           74.7     7
-> > 25 Slovenia                  77.9    13
-> > 26 Spain                     80.9    28
-> > 27 Sweden                    80.9    27
-> > 28 Switzerland               81.7    29
-> > 29 Turkey                    71.8     1
-> > 30 United Kingdom            79.4    19
+> > # A tibble: 404 x 8
+> >    date       stateCode word  cases dataDay Region  Division   totalTokens
+> >    <date>     <chr>     <chr> <int>   <int> <chr>   <chr>            <dbl>
+> >  1 2013-10-07 NY        anime     1       1 Northe… Middle At…      265028
+> >  2 2013-10-08 NY        anime     2       2 Northe… Middle At…      334360
+> >  3 2013-10-09 NY        anime     0       3 Northe… Middle At…      333082
+> >  4 2013-10-10 NY        anime     4       4 Northe… Middle At…      337997
+> >  5 2013-10-11 NY        anime     1       5 Northe… Middle At…      300758
+> >  6 2013-10-12 NY        anime     0       6 Northe… Middle At…      297587
+> >  7 2013-10-13 NY        anime     4       7 Northe… Middle At…      346526
+> >  8 2013-10-14 NY        anime     0       8 Northe… Middle At…      349689
+> >  9 2013-10-15 NY        anime     1       9 Northe… Middle At…      342450
+> > 10 2013-10-16 NY        anime     4      10 Northe… Middle At…      355594
+> > # ... with 394 more rows
 > > ~~~
 > > {: .output}
 > > 
-> > To reverse the order of the ranking, use the `desc` function, i.e.
-> > `mutate(rank = min_rank(desc(lifeExp)))`
+> {: .solution}
+> 
+> > ## Solution - the columns we want
 > > 
-> > There are several functions for calculating ranks; you may have used, e.g. `dense_rank()`
-> > The functions handle ties differently.  The help file for `dplyr`'s ranking functions
-> > explains the differences, and can be accessed with `?ranking`
+> > We can extend the pipeline with a `select()` to get the columns we need for the rest of the challenge:
+> > 
+> > 
+> > ~~~
+> > twitterData %>% 
+> >   filter(stateCode == "NY") %>% 
+> >   filter(word == "anime") %>% 
+> >   select(date, cases)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 404 x 2
+> >    date       cases
+> >    <date>     <int>
+> >  1 2013-10-07     1
+> >  2 2013-10-08     2
+> >  3 2013-10-09     0
+> >  4 2013-10-10     4
+> >  5 2013-10-11     1
+> >  6 2013-10-12     0
+> >  7 2013-10-13     4
+> >  8 2013-10-14     0
+> >  9 2013-10-15     1
+> > 10 2013-10-16     4
+> > # ... with 394 more rows
+> > ~~~
+> > {: .output}
+> > 
+> {: .solution}
+> 
+> > ## Solution - getting things in order
+> > 
+> > It's a good idea to check the data are in date order:
+> > 
+> > 
+> > ~~~
+> > twitterData %>% 
+> >   filter(stateCode == "NY") %>% 
+> >   filter(word == "anime") %>% 
+> >   select(date, cases) %>% 
+> >   arrange(date)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 404 x 2
+> >    date       cases
+> >    <date>     <int>
+> >  1 2013-10-07     1
+> >  2 2013-10-08     2
+> >  3 2013-10-09     0
+> >  4 2013-10-10     4
+> >  5 2013-10-11     1
+> >  6 2013-10-12     0
+> >  7 2013-10-13     4
+> >  8 2013-10-14     0
+> >  9 2013-10-15     1
+> > 10 2013-10-16     4
+> > # ... with 394 more rows
+> > ~~~
+> > {: .output}
+> {: .solution}
+> 
+> 
+> > ## Solution - calculating the cumulative sum
+> > 
+> > The last thing to do is to calculate the cumulative sum.  We need to make a new column, so we use `mutate()`; the dplyr cheat sheet lists (some of) the functions we can use with mutate, including `cumsum()`. 
+> > 
+> > 
+> > 
+> > ~~~
+> > twitterData %>% 
+> >   filter(stateCode == "NY") %>% 
+> >   filter(word == "anime") %>% 
+> >   select(date, cases) %>% 
+> >   arrange(date) %>% 
+> >   mutate(cumulativeUse = cumsum(cases))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 404 x 3
+> >    date       cases cumulativeUse
+> >    <date>     <int>         <int>
+> >  1 2013-10-07     1             1
+> >  2 2013-10-08     2             3
+> >  3 2013-10-09     0             3
+> >  4 2013-10-10     4             7
+> >  5 2013-10-11     1             8
+> >  6 2013-10-12     0             8
+> >  7 2013-10-13     4            12
+> >  8 2013-10-14     0            12
+> >  9 2013-10-15     1            13
+> > 10 2013-10-16     4            17
+> > # ... with 394 more rows
+> > ~~~
+> > {: .output}
+> > 
 > {: .solution}
 {: .challenge}
 
@@ -577,14 +829,14 @@ The dplyr cheat sheet contains many useful functions which can be used with dply
 
 We often wish to calculate a summary statistic (the mean, standard deviation, etc.)
 for a variable.  We frequently want to calculate a separate summary statistic for several
-groups of data (e.g. the experiment and control group).    We can calculate a summary statistic
+groups of data (e.g. for each state or region).    We can calculate a summary statistic
 for the whole data-set using the dplyr's `summarise()` function:
 
 
 ~~~
-gapminder %>% 
-  filter(year == 2007) %>% 
-  summarise(meanlife = mean(lifeExp))
+twitterData %>% 
+  filter(word == "anime") %>% 
+  summarise(totalAnime = sum(cases))
 ~~~
 {: .language-r}
 
@@ -592,21 +844,22 @@ gapminder %>%
 
 ~~~
 # A tibble: 1 x 1
-  meanlife
-     <dbl>
-1     67.0
+  totalAnime
+       <int>
+1      51335
 ~~~
 {: .output}
+
+Tells us how often "anime" occured in the whole data set
 
 To generate summary statistics for each value of another variable we use the 
 `group_by()` function:
 
 
 ~~~
-gapminder %>% 
-  filter(year == 2007) %>% 
-  group_by(continent) %>% 
-  summarise(meanlife = mean(lifeExp))
+twitterData %>% 
+  group_by(word) %>% 
+  summarise(total = sum(cases))
 ~~~
 {: .language-r}
 
@@ -614,23 +867,16 @@ gapminder %>%
 
 ~~~
 # A tibble: 5 x 2
-  continent meanlife
-  <chr>        <dbl>
-1 Africa        54.8
-2 Americas      73.6
-3 Asia          70.7
-4 Europe        77.6
-5 Oceania       80.7
+  word     total
+  <chr>    <int>
+1 anime    51335
+2 bae    2572247
+3 boi     152717
+4 bruhhh   52260
+5 fleek    35317
 ~~~
 {: .output}
 
-
-> ## Aside
-> 
-> In the examples above it would be preferable to calculate the weighted mean (to reflect the different populations of the countries).
-> R can calculate this for us using `weighted.mean(lifeExp, pop)`. For simplicty I've used the regular mean in the above examples.
-> 
-{: .callout}
 
 > ## Statistics revision
 > 
@@ -638,42 +884,44 @@ gapminder %>%
 > 
 {: .callout}
 
-
 > ## Challenge 3
->
-> For each combination of continent and year, calculate the average life expectancy.
->
-> > ## Solution to Challenge 3
-> >
-> >
-> >~~~
-> > lifeExp_bycontinentyear <- gapminder %>% 
-> >    group_by(continent, year) %>% 
-> >   summarise(mean_lifeExp = mean(lifeExp))
-> > print(lifeExp_bycontinentyear)
-> >~~~
-> >{: .language-r}
-> >
-> >
-> >
-> >~~~
-> ># A tibble: 60 x 3
-> ># Groups:   continent [?]
-> >   continent  year mean_lifeExp
-> >   <chr>     <int>        <dbl>
-> > 1 Africa     1952         39.1
-> > 2 Africa     1957         41.3
-> > 3 Africa     1962         43.3
-> > 4 Africa     1967         45.3
-> > 5 Africa     1972         47.5
-> > 6 Africa     1977         49.6
-> > 7 Africa     1982         51.6
-> > 8 Africa     1987         53.3
-> > 9 Africa     1992         53.6
-> >10 Africa     1997         53.6
-> ># ... with 50 more rows
-> >~~~
-> >{: .output}
+> 
+> For each day in January 2014 calculate the number of times each word occured
+> 
+> Hint - first filter the data so that only observations in January 2014 are included.  Then group by date and word
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > twitterData %>% 
+> >   filter(date >= dmy("1 Jan 2014")) %>% 
+> >   filter(date < dmy("1 Feb 2014")) %>% 
+> >   group_by(date, word) %>% 
+> >   summarise(totalUse = sum(cases))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 155 x 3
+> > # Groups:   date [?]
+> >    date       word   totalUse
+> >    <date>     <chr>     <int>
+> >  1 2014-01-01 anime       104
+> >  2 2014-01-01 bae        4288
+> >  3 2014-01-01 boi         346
+> >  4 2014-01-01 bruhhh       90
+> >  5 2014-01-01 fleek         0
+> >  6 2014-01-02 anime       124
+> >  7 2014-01-02 bae        4161
+> >  8 2014-01-02 boi         379
+> >  9 2014-01-02 bruhhh       84
+> > 10 2014-01-02 fleek         0
+> > # ... with 145 more rows
+> > ~~~
+> > {: .output}
+> > 
 > {: .solution}
 {: .challenge}
 
@@ -683,15 +931,13 @@ group. The `dplyr` package comes with two related functions that help with this.
 
 
 If we need to use the number of observations in calculations, the `n()` function
-is useful. For instance, if we wanted to get the standard error of the life
-expectancy per continent:
+is useful. For instance, if we wanted to see how many observations there were for each word we could use:
 
 
 ~~~
-gapminder %>%
-    filter(year == 2002) %>%	
-    group_by(continent) %>%
-    summarize(se_pop = sd(lifeExp)/sqrt(n()))
+twitterData %>% 
+  group_by(word) %>% 
+  summarise(numObs = n())
 ~~~
 {: .language-r}
 
@@ -699,26 +945,22 @@ gapminder %>%
 
 ~~~
 # A tibble: 5 x 2
-  continent se_pop
-  <chr>      <dbl>
-1 Africa     1.33 
-2 Americas   0.960
-3 Asia       1.46 
-4 Europe     0.534
-5 Oceania    0.63 
+  word   numObs
+  <chr>   <int>
+1 anime   18988
+2 bae     18988
+3 boi     18988
+4 bruhhh  18988
+5 fleek   18988
 ~~~
 {: .output}
 
-Although we could use the `group_by()`, `n()` and `summarize()` functions to calculate the number of observations in each group, `dplyr` provides the `count()` function which automatically groups the data, calculates the totals and then ungroups it. 
-
-For instance, if we wanted to check the number of countries included in the
-dataset for the year 2002, we can use:
+There's a shorthand for this; the count function:
 
 
 ~~~
-gapminder %>%
-    filter(year == 2002) %>%
-    count(continent, sort = TRUE)
+twitterData %>% 
+  count(word) 
 ~~~
 {: .language-r}
 
@@ -726,13 +968,13 @@ gapminder %>%
 
 ~~~
 # A tibble: 5 x 2
-  continent     n
-  <chr>     <int>
-1 Africa       52
-2 Asia         33
-3 Europe       30
-4 Americas     25
-5 Oceania       2
+  word       n
+  <chr>  <int>
+1 anime  18988
+2 bae    18988
+3 boi    18988
+4 bruhhh 18988
+5 fleek  18988
 ~~~
 {: .output}
 We can optionally sort the results in descending order by adding `sort=TRUE`:
@@ -748,14 +990,35 @@ of the tibble will not change) or for updating values depending on this given co
 
 The `ifelse()` function takes three parameters.  The first it the logical test.  The second is the value to use if the test is TRUE for that observation, and the third is the value to use if the test is FALSE.
 
+For example, if we wanted to take the log of all observations where the word was mentioned at least once, and use `NA` otherwise, we could use:
+
 
 ~~~
-## keeping all data but "filtering" after a certain condition
-# calculate GDP only for people with a life expectation above 50
-gdp_pop_bycontinents_byyear_above25 <- gapminder %>%
-    mutate(gdp_billion = ifelse(lifeExp > 50, gdpPercap * pop / 10^9, NA)) 
+twitterData %>% 
+  select(date, stateCode, word, cases) %>% 
+  mutate(logcases = ifelse(cases > 0, log(cases), NA))
 ~~~
 {: .language-r}
+
+
+
+~~~
+# A tibble: 94,940 x 5
+   date       stateCode word   cases logcases
+   <date>     <chr>     <chr>  <int>    <dbl>
+ 1 2013-10-07 AL        anime      0    NA   
+ 2 2013-10-07 AL        bae       32     3.47
+ 3 2013-10-07 AL        boi        9     2.20
+ 4 2013-10-07 AL        bruhhh     0    NA   
+ 5 2013-10-07 AL        fleek      0    NA   
+ 6 2013-10-07 AR        anime      0    NA   
+ 7 2013-10-07 AR        bae        5     1.61
+ 8 2013-10-07 AR        boi        1     0   
+ 9 2013-10-07 AR        bruhhh     1     0   
+10 2013-10-07 AR        fleek      0    NA   
+# ... with 94,930 more rows
+~~~
+{: .output}
 
 
 > ## Equivalent functions in base R
