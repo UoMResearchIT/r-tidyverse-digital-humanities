@@ -74,6 +74,9 @@ RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
 RMD_PP = $(subst _episodes_rmd/,_episodes_pp/,$(RMD_SRC))
 RMD_DST = $(patsubst _episodes_pp/%.Rmd,_episodes/%.md,$(RMD_PP))
 
+# Data files - we assume all the episodes depend on all the files
+DATA_FILES = $(wildcard _episodes_rmd/data/*)
+
 # RMarkdown slides
 SLIDE_SRC = $(wildcard _slides_rmd/*.Rmd)
 SLIDE_DST = $(patsubst _slides_rmd/%.Rmd,_slides/%.html,$(SLIDE_SRC))
@@ -104,7 +107,7 @@ lesson-md : ${RMD_DST}
 lesson-watchrmd:
 	@bin/watchRmd.sh &	
 
-_episodes/%.md: _episodes_pp/%.Rmd
+_episodes/%.md: _episodes_pp/%.Rmd data 
 #	@bin/knit_lessons.sh $< $@ 
 	${RSCRIPT} 'knitr::knit("$<", "$@")'
 	
@@ -159,7 +162,7 @@ _slides/%.html:	_slides_rmd/%.Rmd
 
 data: data/r-novice.zip
 
-data/r-novice.zip: $(shell find _episodes_rmd/data -type f)
+data/r-novice.zip: $(DATA_FILES) 
 	@zip -j $@ $^
 
 #-------------------------------------------------------------------------------
