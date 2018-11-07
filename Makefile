@@ -107,7 +107,7 @@ lesson-md : ${RMD_DST}
 lesson-watchrmd:
 	@bin/watchRmd.sh &	
 
-_episodes/%.md: _episodes_pp/%.Rmd data 
+_episodes/%.md: _episodes_pp/%.Rmd $(DATA_FILES)
 #	@bin/knit_lessons.sh $< $@ 
 	${RSCRIPT} 'knitr::knit("$<", "$@")'
 	
