@@ -44,13 +44,13 @@ twitterData <- twitterDataCounty %>%
 tokenData <- twitterData %>% 
   filter(word == "tokens_cbsa") %>% 
   select(-word) %>% 
-  rename(total = cases)
+  rename(totalTokens = cases)
 
 twitterData <- twitterData %>%
   filter(word != "tokens_cbsa") 
 
 stateCodes <- read_csv(paste0(datadir, "/states.csv")) %>% 
-  rename(stateCode = Abbreviation)
+  rename(stateCode = `State Code`)
 
 stateRural <- read_csv(paste0(datadir, "/DEC_00_SF1_P002.csv")) %>% 
   rename(state = `GEO.display-label`, urban = VD03, rural = VD05, total = VD01) %>% 
@@ -59,6 +59,13 @@ stateRural <- read_csv(paste0(datadir, "/DEC_00_SF1_P002.csv")) %>%
   inner_join(stateCodes, by=c("state" = "State")) %>% 
   select(state, stateCode, ruralpct, majorityUrbanRural)
 
+
+
+# Join the region and division data to the twitter data
+twitterData <-  twitterData %>%
+  inner_join(stateCodes %>% select(-State)) %>% 
+# And the total number of tokens
+  inner_join(tokenData)
 
 write_csv(twitterData, paste0(outdir, "twitterData.csv"))
 write_csv(tokenData, paste0(outdir, "tokenData.csv"))
