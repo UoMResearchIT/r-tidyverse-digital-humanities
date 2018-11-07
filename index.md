@@ -3,16 +3,15 @@ layout: lesson
 root: .
 ---
 
+This is a modified version of the University of Manchester Course [R for data analysis](https://app.manchester.ac.uk/rrdata), taylored for the digital humanities.
 
-This is an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder), for the University of Manchester Course [R for data analysis](https://app.manchester.ac.uk/rrdata).  
-
-The original lesson includes tuition on using [git](https://git-scm.com/) for source control. The University offers a separate course on this, which can be booked online at [http://app.manchester.ac.uk/RGIT](http://app.manchester.ac.uk/RGIT) (university logon required).
+The UoM R course is, itself an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).
 
 
 **[The slide deck used in this course can be found here]({{ page.root }}/slides/).**
 
 
-The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many scientific disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach good practices for scientific computing.
+The goal of this lesson is to teach novice programmers to use R for data analysis. R is commonly used in many disciplines for statistical analysis and its array of third-party packages greatly extend its usefulness.  The emphasis of these materials is to give attendees a strong foundation in the fundamentals of R, and to teach good practices for research computing.
 
 Note that this workshop will focus on teaching the fundamentals of the
 programming language R for data analysis.  The statistical content is minimal, though learners should know _how_ to find the appropriate functions and packages for a statistical analysis by the end of the course.
