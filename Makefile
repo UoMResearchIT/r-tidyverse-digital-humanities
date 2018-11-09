@@ -159,6 +159,9 @@ _slides/%.html:	_slides_rmd/%.Rmd
 	@Rscript -e "rmarkdown::render('$<', output_dir='$(dir $@)')"
 	
 ## data			 : Create the data zip file from episodes rmd data directory
+_episodes_rmd/data/%.csv: prepareData.R
+	Rscript $<
+	touch $(wildcard _episodes_rmd/data/*.csv) # Hack since we don't regenerate all the data
 
 data: data/r-novice.zip
 
