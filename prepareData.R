@@ -53,11 +53,11 @@ stateCodes <- read_csv(paste0(datadir, "/states.csv")) %>%
   rename(stateCode = `State Code`)
 
 stateRural <- read_csv(paste0(datadir, "/DEC_00_SF1_P002.csv")) %>% 
-  rename(state = `GEO.display-label`, urban = VD03, rural = VD05, total = VD01) %>% 
-  mutate(ruralpct = rural / total * 100) %>% 
+  rename(state = `GEO.display-label`, urban = VD03, rural = VD05, totalPop = VD01) %>% 
+  mutate(ruralpct = rural / totalPop * 100) %>% 
   mutate(majorityUrbanRural = ifelse(ruralpct > 50, "Majority rural pop", "Majority urban pop")) %>% 
   inner_join(stateCodes, by=c("state" = "State")) %>% 
-  select(state, stateCode, ruralpct, majorityUrbanRural)
+  select(state, stateCode, ruralpct, majorityUrbanRural, totalPop)
 
 
 
@@ -65,7 +65,10 @@ stateRural <- read_csv(paste0(datadir, "/DEC_00_SF1_P002.csv")) %>%
 twitterData <-  twitterData %>%
   inner_join(stateCodes %>% select(-State)) %>% 
 # And the total number of tokens
-  inner_join(tokenData)
+  inner_join(tokenData) %>%
+  inner_join(stateRural %>%
+	     select(stateCode, totalPop))
+
 
 write_csv(twitterData, paste0(outdir, "twitterData.csv"))
 write_csv(tokenData, paste0(outdir, "tokenData.csv"))
