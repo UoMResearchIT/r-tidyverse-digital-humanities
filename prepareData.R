@@ -25,6 +25,8 @@ readData <- function(infiles){
       mutate(county = str_match(METROPOLITAN_NAME, "^(.+);")[,2]) %>% 
       filter(str_length(stateCode) == 2) %>%  # How to handle counties a/c state boundaries?? Deleting for now.
       filter(date >= ymd("2013-10-07")) %>% # Data collection appears to start here
+      filter(!between(date, dmy("20-10-2014"), dmy("28-10-2014"))) %>% # Tweets weren't properly collected in these period
+      filter(!(date %in% c(dmy("26-03-2014"), dmy("29-03-2014")))) %>% # Tweets weren't properly collected on these dates
       mutate(word = currentword) # Extract word from filename
     
     allData[[currentword]] <- thisdata
