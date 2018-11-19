@@ -72,8 +72,44 @@ twitterData <-  twitterData %>%
 # And the total number of tokens
   inner_join(tokenData) %>%
   inner_join(stateRural %>%
-	     select(stateCode, totalPop))
+	     select(stateCode, totalPop, ruralpct))
 
+
+# Add extra data from AN 
+
+newData <- read_csv("rawdata/LI_DEMO.txt")
+
+newDataState <- newData %>% 
+  group_by(STATE) %>% 
+  summarise(BLACK_2010 = weighted.mean(BLACK_2010, TOTPOP_2000),
+            TOTPOP_2000 = sum(TOTPOP_2000))
+
+# Sense check the total populations
+# newDataState %>% 
+#   summarise(totpop = sum(TOTPOP_2000))
+# 
+# newDataState %>% 
+#   arrange(desc(TOTPOP_2000))
+# newDataState %>% 
+#   arrange((TOTPOP_2000))
+
+# Compare total population estimates
+# twitterData %>% 
+#   filter(word == "anime") %>% 
+#   filter(date == ymd("2013-10-07")) %>% 
+#   inner_join(stateCodes %>% select(State, stateCode)) %>% 
+#   mutate(stateLower = tolower(State)) %>%  
+#   inner_join(newDataState %>%  select(STATE, TOTPOP_2000), by=c("stateLower" = "STATE")) %>% 
+#   filter(!between(TOTPOP_2000 / totalPop, 0.9, 1.1)) %>% # just look at state far from approx equality
+#   ggplot(aes(x = totalPop, y = TOTPOP_2000, label = State)) + geom_point() + geom_text() +
+#   geom_abline(slope = 1, intercept = 0)
+
+
+twitterData <- twitterData %>% 
+  inner_join(stateCodes %>% select(State, stateCode)) %>% 
+  mutate(stateLower = tolower(State)) %>%  
+  inner_join(newDataState %>%  select(STATE, BLACK_2010), by=c("stateLower" = "STATE")) %>% 
+  select(-stateLower) 
 
 write_csv(twitterData, paste0(outdir, "twitterData.csv"))
 write_csv(tokenData, paste0(outdir, "tokenData.csv"))
