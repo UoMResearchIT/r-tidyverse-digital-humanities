@@ -3,8 +3,6 @@ layout: page
 title: Setup
 permalink: /setup/
 ---
-## Files
-*We will be using some example data in the lesson.  Download the file from [here]({{ page.root }}/data/r-novice.zip) and extract it to your computer*
 
 ## Software
 This lesson assumes you have the R and RStudio software installed on your computer. This should already be the case if you are using the University computers.
