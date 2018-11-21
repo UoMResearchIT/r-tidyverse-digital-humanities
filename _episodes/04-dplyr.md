@@ -122,7 +122,7 @@ twitterData <- read_csv("data/twitterData.csv",
 {: .callout}
 
 
-You may notice from the column specification that the date column of the data has bene read in as a `col_date()`.  R has special data types for handling dates, and "date times" (e.g. 2018-11-21 11:09:44).  Dates and date times are awkward to handle in any programming language (including R); things like different ways of writing dates (day/month/year or month/day/year?) time zones, leap years (and leap seconds) complicate things.  The `lubridate` package in the tidyverse makes dates a bit easier to handle.  This isn't loaded by default.  We will be using one of the functions from it later in this episode, so we'll load it now. Add the following to the top of your script:
+You may notice from the column specification that the date column of the data has bene read in as a `col_date()`.  R has special data types for handling dates, and "date times" (e.g. 2018-01-01 00:00:01).  Dates and date times are awkward to handle in any programming language (including R); things like different ways of writing dates (day/month/year or month/day/year?) time zones, leap years (and leap seconds) complicate things.  The `lubridate` package in the tidyverse makes dates a bit easier to handle.  This isn't loaded by default.  We will be using one of the functions from it later in this episode, so we'll load it now. Add the following to the top of your script:
 
 
 ~~~
