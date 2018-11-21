@@ -261,127 +261,73 @@ We can see the aesthetics (x, y, group, etc.) that each `geom_` function uses by
 RStudio also includes a really useful "cheatsheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
 
 
-## Layers
+## Layers and aesthetics
+
+We can include more than one layer in the graph by adding additional geoms.  For example, to plot points and lines:
 
 
+~~~
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             colour = Region, group = stateCode)) +
+  geom_line() +
+  geom_point()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 In the graph in challenge 2 the aesthetic we defined applies to all of the plot layers; both the points
-and the lines are coloured according to their stateCode.  In this section we'll explain how to modify the aesthetics of
-the graph so that they only apply to certain layers.
+and the lines are coloured according to their region.  In this section we'll explain how to modify the aesthetics of the graph so that they only apply to certain layers.
 
-The most important thing to remember about aesthetics is that they map a variable in the data to a property of the graph.  In the example above we mapped "date" to the x axis, "cases" to the y axis and stateCode to the colour property of the graph.  Let's look at what happens when we remove
-the `filter` on word from the solution to Challenge 2:
+The most important thing to remember about aesthetics is that they map a variable in the data to a property of the graph.  In the example above we mapped `date` to the x axis, `tokenProp` to the y axis and Region to the colour property of the graph.  
 
-
-~~~
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  # filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases, colour = stateCode)) +
-  geom_line()
-~~~
-{: .language-r}
-
+The aesthetic defined in the `ggplot()` function can be thought of as the "master" aesthetic.  The mappings of graph-property to variable we define in it will apply to all of the geoms in the graph.  Both the points and lines are coloured according to region.  We can define aesthetics in a more granular way by applying them to a specific geom.  For example:
 
 
 ~~~
-Error in eval(lhs, parent, parent): object 'twitterData' not found
-~~~
-{: .error}
-
-
-
-~~~
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  # filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases, colour = stateCode, linetype = word)) +
-  geom_line()
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_line(aes(colour = Region)) +
+  geom_point()
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
-
-~~~
-Error in eval(lhs, parent, parent): object 'twitterData' not found
-~~~
-{: .error}
-
-
-You can see that we get a single line, joining both words on each day, before moving onto the next day (`geom_line` will connect the observations based on their order on the x axis).   This is beause ggplot doesn't know about any of the other variables in the input tibble.  
-
-
-~~~
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases)) +
-  geom_point(aes(colour = stateCode)) + 
-  geom_line()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'twitterData' not found
-~~~
-{: .error}
-
-If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
-is overridden by the new aesthetic.  The points' colours are unchanged:
-
-~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line(aes(colour=continent)) + geom_point()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
+Here I've moved the `colour` property from the master aesthetic to a new `aesthetic()` in `geom_line()`.   This overrides the master aesthetic's colour property (which is undefined, so no colour is used) on `geom_line()`.  `geom_point()` doesn't have its own aesthetic, so it uses the master aesthetic - so the points appear in a single colour.
 
 What if we want to print our points in a colour other than the default black?  Aesthetics map
 data to a property of the graph.  If we want to change the colour of all our points, we are not using 
-the data to specify the colour, so we specify the colour directly in the geom:
+the data to specify the colour, so we don't need to use an aesthetic mapping.  Instead we specify the colour directly in the geom:
 
 
 ~~~
-gapminder %>% 
-  ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line(aes(colour = continent)) +
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_line(aes(colour = Region)) +
   geom_point(colour = "red")
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-06-lifeExp-line-point4-1.png" title="plot of chunk lifeExp-line-point4" alt="plot of chunk lifeExp-line-point4" style="display: block; margin: auto;" />
 
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-It's important to note that each layer is drawn on top of the previous layer. In
+Each layer is drawn on top of the previous layer. In
 this example, the points have been drawn *on top of* the lines. If we swap the order
 of our `geom_line()` and `geom_point()`, the points appear **behind** the lines:
 
 
 ~~~
-gapminder %>% 
-  ggplot(aes(x = year, y = lifeExp, group = country)) +
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
   geom_point(colour = "red") + 
-  geom_line(aes(colour = continent)) 
+  geom_line(aes(colour = Region)) 
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
+<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 
 > ## Tip: Transparency
@@ -393,45 +339,67 @@ Error in eval(lhs, parent, parent): object 'gapminder' not found
 ## Multi-panel figures
 
 There's still a lot going on in this graph.  It may clearer if we plotted a separate graph
-for each continent. We can split the plot into  multiple panels by adding a layer of **facet** panels: 
+for each region. We can split the plot into  multiple panels by adding a layer of **facet** panels: 
 
 
 ~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line() + facet_wrap("continent")
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_point() + 
+  geom_line() +
+  facet_wrap("Region")
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
+<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
 
 We have removed
-`colour=continent` from the aesthetic since colouring each line by continent conveys no additional
+`colour=Region` from the aesthetic since colouring each line by region conveys no additional
 information.  Note that the variable we are faceting by needs to be placed in quotes.
 
 > ## More on faceting
 > 
-> It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
-> using the following code:
+> It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example,
+> if we had included all the words in our grouped data, we could produce a grid of graphs by word and region:
 > 
 > 
 > ~~~
-> gapminder %>% 
->   ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
->   facet_grid(continent ~ year)
+> monthlyDataAll <- read_csv("data/monthlyAll.csv")
 > ~~~
 > {: .language-r}
 > 
 > 
 > 
 > ~~~
-> Error in eval(lhs, parent, parent): object 'gapminder' not found
+> Parsed with column specification:
+> cols(
+>   word = col_character(),
+>   monthyear = col_date(format = ""),
+>   stateCode = col_character(),
+>   Region = col_character(),
+>   cases = col_integer(),
+>   totalTokens = col_integer(),
+>   tokenProp = col_double()
+> )
 > ~~~
-> {: .error}
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> monthlyDataAll %>%
+>   ggplot(aes(x = monthyear, y = tokenProp,
+>              group = stateCode)) +
+>   geom_point() + 
+>   geom_line() +
+>   facet_grid(word ~ Region)
+> ~~~
+> {: .language-r}
+> 
+> <img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+> 
+> 
 > This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
 > 
 {: .callout}

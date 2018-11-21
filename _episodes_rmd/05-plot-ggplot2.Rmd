@@ -216,35 +216,30 @@ monthlyData %>%
   geom_point()
 ```
 
-
-If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
-is overridden by the new aesthetic.  The points' colours are unchanged:
-```{r lifeExp-line-point3}
-
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line(aes(colour=continent)) + geom_point()
-```
+Here I've moved the `colour` property from the master aesthetic to a new `aesthetic()` in `geom_line()`.   This overrides the master aesthetic's colour property (which is undefined, so no colour is used) on `geom_line()`.  `geom_point()` doesn't have its own aesthetic, so it uses the master aesthetic - so the points appear in a single colour.
 
 What if we want to print our points in a colour other than the default black?  Aesthetics map
 data to a property of the graph.  If we want to change the colour of all our points, we are not using 
-the data to specify the colour, so we specify the colour directly in the geom:
+the data to specify the colour, so we don't need to use an aesthetic mapping.  Instead we specify the colour directly in the geom:
 
 ```{r lifeExp-line-point4}
-gapminder %>% 
-  ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line(aes(colour = continent)) +
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_line(aes(colour = Region)) +
   geom_point(colour = "red")
 ```
 
-It's important to note that each layer is drawn on top of the previous layer. In
+Each layer is drawn on top of the previous layer. In
 this example, the points have been drawn *on top of* the lines. If we swap the order
 of our `geom_line()` and `geom_point()`, the points appear **behind** the lines:
 
-```{r lifeExp-point-line}
-gapminder %>% 
-  ggplot(aes(x = year, y = lifeExp, group = country)) +
+```{r}
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
   geom_point(colour = "red") + 
-  geom_line(aes(colour = continent)) 
+  geom_line(aes(colour = Region)) 
 ```
 
 
@@ -257,27 +252,40 @@ gapminder %>%
 ## Multi-panel figures
 
 There's still a lot going on in this graph.  It may clearer if we plotted a separate graph
-for each continent. We can split the plot into  multiple panels by adding a layer of **facet** panels: 
+for each region. We can split the plot into  multiple panels by adding a layer of **facet** panels: 
 
 ```{r}
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line() + facet_wrap("continent")
+
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_point() + 
+  geom_line() +
+  facet_wrap("Region")
 ```
 
 We have removed
-`colour=continent` from the aesthetic since colouring each line by continent conveys no additional
+`colour=Region` from the aesthetic since colouring each line by region conveys no additional
 information.  Note that the variable we are faceting by needs to be placed in quotes.
 
 ## More on faceting
 
-It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example, we could plot life GDP per capita's relationship to life expectancy for each combination of continent and year 
-using the following code:
+It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example,
+if we had included all the words in our grouped data, we could produce a grid of graphs by word and region:
 
 ```{r}
-gapminder %>% 
-  ggplot(aes(x=lifeExp, y=gdpPercap)) + geom_point(size=0.3) + 
-  facet_grid(continent ~ year)
+monthlyDataAll <- read_csv("data/monthlyAll.csv")
+
+monthlyDataAll %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_point() + 
+  geom_line() +
+  facet_grid(word ~ Region)
+
 ```
+
+
 This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
 
 {: .callout}
