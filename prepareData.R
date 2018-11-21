@@ -111,8 +111,22 @@ twitterData <- twitterData %>%
   inner_join(newDataState %>%  select(STATE, BLACK_2010), by=c("stateLower" = "STATE")) %>% 
   select(-stateLower) 
 
+# Monthly sums and proportions for graphing section
+monthlyDataAll <- twitterData %>% 
+  # filter(word == "bae") %>%
+  # filter(Region == "West") %>% 
+  mutate(monthyear = dmy(paste0("1-", month(date), "-", year(date)))) %>% 
+  group_by(word, monthyear, stateCode, Region) %>% 
+  summarise(cases = sum(cases, na.rm = TRUE), totalTokens = sum(totalTokens, na.rm = TRUE),
+            tokenProp = sum(cases, na.rm = TRUE) / sum(totalTokens, na.rm = TRUE))
+
+monthlyData <- 
+  monthlyDataAll %>% 
+  filter(word == "bae") 
+
 write_csv(twitterData, paste0(outdir, "twitterData.csv"))
 write_csv(tokenData, paste0(outdir, "tokenData.csv"))
 write_csv(stateRural, paste0(outdir, "stateData.csv"))
-
+write_csv(monthlyData, paste0(outdir, "monthlyBae.csv"))
+write_csv(monthlyDataAll, paste0(outdir, "monthlyAll.csv"))
 
