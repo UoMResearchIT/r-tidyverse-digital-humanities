@@ -20,7 +20,7 @@ source: Rmd
 
 Plotting our data is one of the best ways to
 quickly explore it and the various relationships
-between variables.
+between variables.  For example in the last challenge of the previous episode we calculated the number of times each word was used on each day in January.  Until we plot the data it is very difficult to get a feel for what's happening.  Are some words becoming more prevalent? Is there a weekly cycle, with some words being more or less prevalent on certain days of the week?
 
 There are three main plotting systems in R,
 the [base plotting system][base], the [lattice][lattice]
@@ -43,17 +43,86 @@ The key to understanding ggplot2 is thinking about a figure in layers.
 This idea may be familiar to you if you have used image editing programs like Photoshop, Illustrator, or
 Inkscape.
 
-Let's start off with an example, using our gapminder data:
+Let's start off with an example, using our Twitter data.   The data-set we've been working with so far today is rather large.  Although `ggplot2` can plot large data-sets, it will be easier to explain what it's doing if we use a smaller data-set.  
+
+The file `monthlyBae.csv` contains the number of times "bae" was used in each state in each month (in the `cases` column), and the proportion of the total tokens (words) used in each state in each month (in the `tokenProp` column).
+
+Let's read the data in, using `read_csv()`:
+
+
+~~~
+monthlyData <- read_csv("data/monthlyBae.csv")
+~~~
+{: .language-r}
 
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+Parsed with column specification:
+cols(
+  word = col_character(),
+  monthyear = col_date(format = ""),
+  stateCode = col_character(),
+  Region = col_character(),
+  cases = col_integer(),
+  totalTokens = col_integer(),
+  tokenProp = col_double()
+)
+~~~
+{: .output}
+
+The guessed column types look OK, so we'll use the `col_types` argument to specify them
+
+
+~~~
+monthlyData <- read_csv("data/monthlyBae.csv",
+                        col_types =
+                          cols( word = col_character(),
+                                monthyear = col_date(format = ""),
+                                stateCode = col_character(),
+                                Region = col_character(),
+                                cases = col_integer(),
+                                totalTokens = col_integer(),
+                                tokenProp = col_double()
+                          ))
+
+monthlyData
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 658 x 7
+   word  monthyear  stateCode Region    cases totalTokens tokenProp
+   <chr> <date>     <chr>     <chr>     <int>       <int>     <dbl>
+ 1 bae   2013-10-01 AL        South      1617     6227779 0.000260 
+ 2 bae   2013-10-01 AR        South       213     1098699 0.000194 
+ 3 bae   2013-10-01 AZ        West       1035     7809649 0.000133 
+ 4 bae   2013-10-01 CA        West       5414    48481607 0.000112 
+ 5 bae   2013-10-01 CO        West        193     4082344 0.0000473
+ 6 bae   2013-10-01 CT        Northeast   520     4880456 0.000107 
+ 7 bae   2013-10-01 DE        South        54      424837 0.000127 
+ 8 bae   2013-10-01 FL        South      3991    22522717 0.000177 
+ 9 bae   2013-10-01 GA        South      3061    11400119 0.000269 
+10 bae   2013-10-01 IA        Midwest     335     2719798 0.000123 
+# ... with 648 more rows
+~~~
+{: .output}
+
+All of the data for each month has been aggregated into a single row.  R doesn't have a data-type for dates that are just a month and a year, so I've arbitrarily used the first of the month as a "placeholder".
+
+To illustrate ggplot, I'll generate an example graph.  Don't worry about what the code is doing at this stage; I'll pull the command apart after:
+
+
+~~~
+  ggplot(monthlyData, aes(x = monthyear, y = cases)) +
   geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-vs-gdpPercap-scatter-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter" alt="plot of chunk lifeExp-vs-gdpPercap-scatter" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
 
 So the first thing we do is call the `ggplot` function. This function lets R
 know that we're creating a new plot, and any of the arguments we give the
@@ -61,31 +130,30 @@ know that we're creating a new plot, and any of the arguments we give the
 layers on the plot.
 
 We've passed in two arguments to `ggplot`. First, we tell `ggplot` what data we
-want to show on our figure, in this example the gapminder data we read in
-earlier. For the second argument we passed in the `aes` function, which
+want to show on our figure, in this example the monthly Twitter data we just read in. For the second argument we passed in the `aes` function, which
 tells `ggplot` how variables in the **data** map to *aesthetic* properties of
-the figure, in this case the **x** and **y** locations. Here we told `ggplot` we
-want to plot the "gdpPercap" column of the gapminder data frame on the x-axis, and
-the "lifeExp" column on the y-axis. 
+the figure (i.e. something we can see on the graph), in this case the **x** and **y** locations. Here we told `ggplot` we
+want to plot the "date" column of the Twitter data on the x-axis, and
+the "cases" column on the y-axis. 
 
 By itself, the call to `ggplot` isn't enough to draw a figure:
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
+ggplot(monthlyData, aes(x = monthyear, y = cases)) 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 We need to tell `ggplot` how we want to visually represent the data, which we
 do by adding a new **geom** layer. In our example, we used `geom_point`, which
 tells `ggplot` we want to visually represent the relationship between **x** and
-**y** as a scatter-plot of points:
+**y** as a scatter-plot of points.  Each row in our tibble causes a single point to be drawn:
 
 
 ~~~
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+ggplot(monthlyData, aes(x = monthyear, y = cases)) +
   geom_point()
 ~~~
 {: .language-r}
@@ -101,124 +169,163 @@ We can repeat the above plot, using a pipe, as follows:
 
 
 ~~~
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) + geom_point()
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = cases)) +
+  geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 Note that the `ggplot2` commands are joined by the `+` symbol and not the `%>%` symbol.  It may help to remember that we **add** layers to our plot.
 
-> ## Challenge 1
->
-> Modify the example so that the figure shows how life expectancy has
-> changed over time.  Note that using points to show this data isn't the 
-> most effective way of presenting it; we will look at other ways of showing
-> the data shortly.
->
-> Hint: the gapminder dataset has a column called "year", which should appear
-> on the x-axis.
->
-> > ## Solution to challenge 1
-> >
-> > Here is one possible solution:
-> >
-> > 
-> > ~~~
-> > gapminder %>%  ggplot(aes(x = year, y = lifeExp)) + geom_point()
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-ch1-sol-1.png" title="plot of chunk ch1-sol" alt="plot of chunk ch1-sol" style="display: block; margin: auto;" />
-> >
-> {: .solution}
-{: .challenge}
+There are a couple of benefits to using pipes with ggplot.  The first is that RStudio can normally work out what variables are in the tibble you're piping to ggplot, and so the <kbd>Tab</kbd> completion will work.  We can also use a processing pipeline to pre-process our data.  For example, if
+we only want to look at how the prevalence of "bae" varied in states in the western region, we could use
 
->
-> ## Challenge 2
->
-> In the previous examples and challenge we've used the `aes` function to tell
-> the scatterplot **geom** about the **x** and **y** locations of each point.
-> Another *aesthetic* property we can modify is the point *color*. Modify the
-> code from the previous challenge to **color** the points by the "continent"
-> column. What trends do you see in the data? Are they what you expected?
->
-> > ## Solution to challenge 2
-> >
-> > In the previous examples and challenge we've used the `aes` function to tell
-> > the scatterplot **geom** about the **x** and **y** locations of each point.
-> > Another *aesthetic* property we can modify is the point *color*. Modify the
-> > code from the previous challenge to **color** the points by the "continent"
-> > column. What trends do you see in the data? Are they what you expected?
-> >
+
+~~~
+monthlyData %>%
+  filter(Region == "West") %>% 
+  ggplot(aes(x = monthyear, y = cases)) +
+  geom_point()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+
+> ## Challenge 1
+> 
+> Plotting the number of times "bae" was used may not be the most sensible approach, as it does not take account of the difference in the amount of Twitter use in the different states.  `tokenProp` contains the proportion of all tokens (essentially words) used in each state that were "bae".  
+> 
+> Modify the graph so that it plots `tokenProp` instead of `cases` on the y axis.
+> 
+> The `aes()` function maps a visual property of the graph (for example what's on the y axis) to a variable in the data.  Another visual property of the graph we can change is the point colour.  Modify the aesthetic on your graph so that the colour (or color  - ggplot accepts either spelling) of the points depends on the region
+> 
+> > ## Solution to challenge 1
+> > 
 > > 
 > > ~~~
-> > gapminder %>% ggplot(aes(x = year, y = lifeExp, color = continent)) +
+> > monthlyData %>%
+> >   ggplot(aes(x = monthyear, y = tokenProp)) +
 > >   geom_point()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-ch2-sol-1.png" title="plot of chunk ch2-sol" alt="plot of chunk ch2-sol" style="display: block; margin: auto;" />
-> >
+> > <img src="../fig/rmd-06-ch1-sol-1.png" title="plot of chunk ch1-sol" alt="plot of chunk ch1-sol" style="display: block; margin: auto;" />
+> > 
+> > We can colour the points according to the region by adding `colour = Region` to the aesthetic:
+> > 
+> > ~~~
+> > monthlyData %>%
+> >   ggplot(aes(x = monthyear, y = tokenProp, colour = Region)) +
+> >   geom_point()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-ch1-sol-b-1.png" title="plot of chunk ch1-sol-b" alt="plot of chunk ch1-sol-b" style="display: block; margin: auto;" />
+> > 
 > {: .solution}
 {: .challenge}
 
+## Joining the dots
 
-## Layers
+Plotting this data using points (with `geom_point()`) doesn't show the data to best effect.  It would be more useful if we could follow the prevalence of each state over time.  `geom_line()` lets us do this.  
 
-Using a scatter-plot probably isn't the best for visualizing change over time.
-Instead, let's tell `ggplot` to visualize the data as a line plot.  If we replace `geom_point()` with
-`geom_line()`, we obtain:
-
-
-~~~
-gapminder %>%  ggplot(aes(x = year, y = lifeExp, colour = continent )) + geom_line()
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-badline-1.png" title="plot of chunk badline" alt="plot of chunk badline" style="display: block; margin: auto;" />
-
-This probably isn't what you were expecting.   We need to modify the aesthetic to tell 
-ggplot that each country's data should be a separate line.   By default, `geom_point()` 
-joins all our observations together, sorting them in order of the variable we're plotting
-on the x axis.   To generate a separate line for each country, we use the `group` aesthetic:
+Replacing `geom_point()` with `geom_line()` in the solution to the previous challenge gives: 
 
 
 ~~~
-gapminder %>%  ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp, colour = Region)) +
   geom_line()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-line-1.png" title="plot of chunk lifeExp-line" alt="plot of chunk lifeExp-line" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
-
-But what if we want to visualize both lines and points on the plot? We can
-add another layer to the plot:
-
-
-~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country, color = continent)) +
-  geom_line() + geom_point()
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-lifeExp-line-point-1.png" title="plot of chunk lifeExp-line-point" alt="plot of chunk lifeExp-line-point" style="display: block; margin: auto;" />
-
-At the moment the aesthetic we defined applies to all of the plot layers; both the points
-and the lines are coloured according to their continent. We can apply an aesthetic to certain layers
-the plot by supplying them with their own aesthetic.  For example, if we remove the `color` option, we aren't
-mapping any aspect of the data to the colour property of any part of the graph - all the points and lines have the same
-colour:
+This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`, and the variable in the data that controls group is `stateCode`.  We modify the aesthetic function to include this mapping: 
 
 
 
 ~~~
-gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
-  geom_line() + geom_point()
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             colour = Region, group = stateCode)) +
+  geom_line()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-line-point2-1.png" title="plot of chunk lifeExp-line-point2" alt="plot of chunk lifeExp-line-point2" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+
+We can see the aesthetics (x, y, group, etc.) that each `geom_` function uses by looking at its help page.  As with any R function, enter `?functonName()` or use the search tab in the lower right window in RStudio to bring up the help. 
+
+RStudio also includes a really useful "cheatsheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
+
+
+## Layers
+
+
+In the graph in challenge 2 the aesthetic we defined applies to all of the plot layers; both the points
+and the lines are coloured according to their stateCode.  In this section we'll explain how to modify the aesthetics of
+the graph so that they only apply to certain layers.
+
+The most important thing to remember about aesthetics is that they map a variable in the data to a property of the graph.  In the example above we mapped "date" to the x axis, "cases" to the y axis and stateCode to the colour property of the graph.  Let's look at what happens when we remove
+the `filter` on word from the solution to Challenge 2:
+
+
+~~~
+twitterData %>% 
+  filter(stateCode %in% c("CA", "TX")) %>% 
+  # filter(word == "bae") %>% 
+  ggplot(aes(x = date, y = cases, colour = stateCode)) +
+  geom_line()
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'twitterData' not found
+~~~
+{: .error}
+
+
+
+~~~
+twitterData %>% 
+  filter(stateCode %in% c("CA", "TX")) %>% 
+  # filter(word == "bae") %>% 
+  ggplot(aes(x = date, y = cases, colour = stateCode, linetype = word)) +
+  geom_line()
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'twitterData' not found
+~~~
+{: .error}
+
+
+You can see that we get a single line, joining both words on each day, before moving onto the next day (`geom_line` will connect the observations based on their order on the x axis).   This is beause ggplot doesn't know about any of the other variables in the input tibble.  
+
+
+~~~
+twitterData %>% 
+  filter(stateCode %in% c("CA", "TX")) %>% 
+  filter(word == "bae") %>% 
+  ggplot(aes(x = date, y = cases)) +
+  geom_point(aes(colour = stateCode)) + 
+  geom_line()
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'twitterData' not found
+~~~
+{: .error}
 
 If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
 is overridden by the new aesthetic.  The points' colours are unchanged:
@@ -229,7 +336,12 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-line-point3-1.png" title="plot of chunk lifeExp-line-point3" alt="plot of chunk lifeExp-line-point3" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 What if we want to print our points in a colour other than the default black?  Aesthetics map
 data to a property of the graph.  If we want to change the colour of all our points, we are not using 
@@ -244,7 +356,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-line-point4-1.png" title="plot of chunk lifeExp-line-point4" alt="plot of chunk lifeExp-line-point4" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 It's important to note that each layer is drawn on top of the previous layer. In
 this example, the points have been drawn *on top of* the lines. If we swap the order
@@ -259,7 +376,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-point-line-1.png" title="plot of chunk lifeExp-point-line" alt="plot of chunk lifeExp-point-line" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 
 > ## Tip: Transparency
@@ -280,7 +402,12 @@ gapminder %>% ggplot(aes(x = year, y = lifeExp, group = country)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 We have removed
 `colour=continent` from the aesthetic since colouring each line by continent conveys no additional
@@ -299,7 +426,12 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-06-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error in eval(lhs, parent, parent): object 'gapminder' not found
+> ~~~
+> {: .error}
 > This uses R's formula notation to specify how we want to arrange to grid; see `?facet_grid` for more details.
 > 
 {: .callout}
@@ -325,7 +457,12 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > 
 > > * Facet the data by continent.
 > > 
@@ -338,7 +475,12 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > 
 > > This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
 > > GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
@@ -367,7 +509,12 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error in eval(lhs, parent, parent): object 'gapminder' not found
+> ~~~
+> {: .error}
 > 
 > The output from this clearly isn't suitable for publication, but it may be sufficient if you just need to produce something for your own use.
 > 
@@ -396,7 +543,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 
 > ## Challenge 4
@@ -417,7 +569,12 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > 
 > {: .solution}
 {: .challenge}
@@ -436,7 +593,12 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-lifeExp-vs-gdpPercap-scatter3-1.png" title="plot of chunk lifeExp-vs-gdpPercap-scatter3" alt="plot of chunk lifeExp-vs-gdpPercap-scatter3" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 Currently it's hard to see the relationship between the points due to some strong
 outliers in GDP per capita. We can change the scale of units on the x axis using
@@ -452,7 +614,12 @@ gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-axis-scale-1.png" title="plot of chunk axis-scale" alt="plot of chunk axis-scale" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 The `scale_x_log10` function applied a transformation to the values of the gdpPercap
 column before rendering them on the plot, so that each multiple of 10 now only
@@ -479,7 +646,12 @@ x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > 
 > > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
 > > between the difference continents much less obvious.  
@@ -504,7 +676,12 @@ gapminder %>% filter(year == 2007) %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 We filter to a single year of data to avoid multiple counting
 
@@ -520,7 +697,12 @@ gapminder %>% filter(year == 2007, continent == "Europe") %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
 
@@ -535,7 +717,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
 passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`. The `colour` attribute controls the _outline_ of the shape.  For example:
@@ -550,7 +737,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 > ## Challenge 6
 > 
@@ -573,22 +765,9 @@ gapminder %>%
 > > 
 > > 
 > > ~~~
-> > # A tibble: 82 x 6
-> >    country                 year      pop continent lifeExp gdpPercap
-> >    <chr>                  <int>    <dbl> <chr>       <dbl>     <dbl>
-> >  1 Albania                 2007  3600523 Europe       76.4     5937.
-> >  2 Algeria                 2007 33333216 Africa       72.3     6223.
-> >  3 Angola                  2007 12420476 Africa       42.7     4797.
-> >  4 Austria                 2007  8199783 Europe       79.8    36126.
-> >  5 Belgium                 2007 10392226 Europe       79.4    33693.
-> >  6 Benin                   2007  8078314 Africa       56.7     1441.
-> >  7 Bosnia and Herzegovina  2007  4552198 Europe       74.9     7446.
-> >  8 Botswana                2007  1639131 Africa       50.7    12570.
-> >  9 Bulgaria                2007  7322858 Europe       73.0    10681.
-> > 10 Burkina Faso            2007 14326203 Africa       52.3     1217.
-> > # ... with 72 more rows
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
 > > ~~~
-> > {: .output}
+> > {: .error}
 > > This returns a tibble, which we can then pipe into ggplot.
 > {: .solution}
 > 
@@ -606,7 +785,12 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > >
 > {: .solution}
 >
@@ -625,7 +809,12 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > 
 > {: .solution}
 > 
@@ -645,7 +834,12 @@ gapminder %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > ~~~
+> > {: .error}
 > > Note that you need to remove the `filter(year == 2007)` line from the code.
 > >
 > {: .solution}
@@ -680,7 +874,12 @@ gapminder %>%
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-06-theme-1.png" title="plot of chunk theme" alt="plot of chunk theme" style="display: block; margin: auto;" />
+
+
+~~~
+Error in eval(lhs, parent, parent): object 'gapminder' not found
+~~~
+{: .error}
 
 
 RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
@@ -732,11 +931,9 @@ gapminder %>%
 
 
 ~~~
-Picking joint bandwidth of 1850
+Error in eval(lhs, parent, parent): object 'gapminder' not found
 ~~~
-{: .output}
-
-<img src="../fig/rmd-06-ridgesplot-1.png" title="plot of chunk ridgesplot" alt="plot of chunk ridgesplot" style="display: block; margin: auto;" />
+{: .error}
 
 [Data Visualization - A practical Introduction](http://socviz.co/) is an online book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
 

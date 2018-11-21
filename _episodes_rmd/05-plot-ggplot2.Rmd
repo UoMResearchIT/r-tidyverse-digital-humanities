@@ -190,44 +190,32 @@ We can see the aesthetics (x, y, group, etc.) that each `geom_` function uses by
 RStudio also includes a really useful "cheatsheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
 
 
-## Layers
+## Layers and aesthetics
 
+We can include more than one layer in the graph by adding additional geoms.  For example, to plot points and lines:
 
+```{r}
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             colour = Region, group = stateCode)) +
+  geom_line() +
+  geom_point()
+```
 In the graph in challenge 2 the aesthetic we defined applies to all of the plot layers; both the points
-and the lines are coloured according to their stateCode.  In this section we'll explain how to modify the aesthetics of
-the graph so that they only apply to certain layers.
+and the lines are coloured according to their region.  In this section we'll explain how to modify the aesthetics of the graph so that they only apply to certain layers.
 
-The most important thing to remember about aesthetics is that they map a variable in the data to a property of the graph.  In the example above we mapped "date" to the x axis, "cases" to the y axis and stateCode to the colour property of the graph.  Let's look at what happens when we remove
-the `filter` on word from the solution to Challenge 2:
+The most important thing to remember about aesthetics is that they map a variable in the data to a property of the graph.  In the example above we mapped `date` to the x axis, `tokenProp` to the y axis and Region to the colour property of the graph.  
 
-```{r}
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  # filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases, colour = stateCode)) +
-  geom_line()
-```
-
+The aesthetic defined in the `ggplot()` function can be thought of as the "master" aesthetic.  The mappings of graph-property to variable we define in it will apply to all of the geoms in the graph.  Both the points and lines are coloured according to region.  We can define aesthetics in a more granular way by applying them to a specific geom.  For example:
 
 ```{r}
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  # filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases, colour = stateCode, linetype = word)) +
-  geom_line()
+monthlyData %>%
+  ggplot(aes(x = monthyear, y = tokenProp,
+             group = stateCode)) +
+  geom_line(aes(colour = Region)) +
+  geom_point()
 ```
 
-
-You can see that we get a single line, joining both words on each day, before moving onto the next day (`geom_line` will connect the observations based on their order on the x axis).   This is beause ggplot doesn't know about any of the other variables in the input tibble.  
-
-```{r}
-twitterData %>% 
-  filter(stateCode %in% c("CA", "TX")) %>% 
-  filter(word == "bae") %>% 
-  ggplot(aes(x = date, y = cases)) +
-  geom_point(aes(colour = stateCode)) + 
-  geom_line()
-```
 
 If we apply the aesthetic `aes(colour=continent)` to `geom_line()`, the (lack of) mapping of colour 
 is overridden by the new aesthetic.  The points' colours are unchanged:
