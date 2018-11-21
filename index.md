@@ -3,7 +3,7 @@ layout: lesson
 root: .
 ---
 
-This is a modified version of the University of Manchester Course [R for data analysis](https://app.manchester.ac.uk/rrdata), taylored for the digital humanities.
+This is a modified version of the University of Manchester Course [R for data analysis](https://app.manchester.ac.uk/rrdata), tailored for the digital humanities.
 
 The UoM R course is, itself an abridged and modified version of the Software Carpentry lesson [R for reproducible scientific analysis](http://swcarpentry.github.io/r-novice-gapminder).
 
