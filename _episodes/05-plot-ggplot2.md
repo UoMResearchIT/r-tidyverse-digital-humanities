@@ -6,7 +6,7 @@ questions:
 - "How can I create and save publication-quality graphics in R?"
 objectives:
 - "To be able to use ggplot2 to generate publication quality graphics."
-- "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and coloring or panelling by groups."
+- "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and colouring or panelling by groups."
 - "To understand how to save plots in a variety of formats"
 - "To be able to find extensions for `ggplot2` to produce custom graphics"
 keypoints:
@@ -110,7 +110,7 @@ monthlyData
 ~~~
 {: .output}
 
-All of the data for each month has been aggregated into a single row.  R doesn't have a data-type for dates that are just a month and a year, so I've arbitrarily used the first of the month as a "placeholder".
+All of the data for each month has been aggregated into a single row.  R doesn't have a data-type for dates that are just a month and a year, so I've arbitrarily used the first of the month as a "place-holder".
 
 To illustrate ggplot, I'll generate an example graph.  Don't worry about what the code is doing at this stage; I'll pull the command apart after:
 
@@ -242,7 +242,7 @@ monthlyData %>%
 
 <img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
-This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`, and the variable in the data that controls group is `stateCode`.  We modify the aesthetic function to include this mapping: 
+This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`. The data associated with each `stateCode` is in the same group (if we plotted a the data for a single state we would expect a single line).  We modify the aesthetic function to include this mapping: 
 
 
 
@@ -258,7 +258,7 @@ monthlyData %>%
 
 We can see the aesthetics (x, y, group, etc.) that each `geom_` function uses by looking at its help page.  As with any R function, enter `?functonName()` or use the search tab in the lower right window in RStudio to bring up the help. 
 
-RStudio also includes a really useful "cheatsheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
+RStudio also includes a really useful "cheat-sheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
 
 
 ## Layers and aesthetics
@@ -363,6 +363,8 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example,
 > if we had included all the words in our grouped data, we could produce a grid of graphs by word and region:
 > 
+> (I've included the option `scale = "free_y"` so that each row gets its own scale.  I've done this because the prevalence of each word varies)
+> 
 > 
 > ~~~
 > monthlyDataAll <- read_csv("data/monthlyAll.csv")
@@ -393,7 +395,7 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 >              group = stateCode)) +
 >   geom_point() + 
 >   geom_line() +
->   facet_grid(word ~ Region)
+>   facet_grid(word ~ Region, scale = "free_y")
 > ~~~
 > {: .language-r}
 > 
@@ -406,83 +408,65 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 
 > ## Challenge 3
 > 
-> In this challenge you will explore how each country's GDP per capita has changed with time.
+> In this challenge you will look at how the total number of tokens (e.g. words) tweeted varies with time.
 > 
 > Try two different approaches to visualising this data:
 > 
-> * Plot all the data on a single graph, colouring each country's data by continent
-> * Facet the data by continent.
+> * Plot all the data on a single graph, colouring each state's data by region
+> * Facet the data by region.
 > 
 > > ## Solution to challenge 3
 > > 
-> > * Plot all the data on a single graph, colouring each country's data by continent
+> > * Plot all the data on a single graph, colouring each state's data by region
 > > 
 > > 
 > > ~~~
-> > gapminder %>% 
-> >   ggplot(aes(x = year, y = gdpPercap, group = country, colour = continent)) + 
+> > monthlyData %>% 
+> >   ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
 > >   geom_line()
 > > ~~~
 > > {: .language-r}
 > > 
+> > <img src="../fig/rmd-06-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
+> > 
+> > * Facet the data by region.
 > > 
 > > 
 > > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > 
-> > * Facet the data by continent.
-> > 
-> > 
-> > ~~~
-> > gapminder %>% 
-> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
+> > monthlyData %>% 
+> >   ggplot(aes(x = monthyear, y = totalTokens, group = stateCode)) +
 > >   geom_line() +
-> >   facet_wrap("continent")
+> >   facet_wrap("Region")
 > > ~~~
 > > {: .language-r}
 > > 
+> > <img src="../fig/rmd-06-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 > > 
-> > 
-> > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > 
-> > This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
-> > GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
-> > shortly.
-> > 
-> > Another approach is to allow each facet to have its own scale on the y axis.   This can be done by
-> > passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
+> > The much greater volume of tokens coming from the southern and western states makes it difficult to see what's 
+> > going on in the midwest and northeastern states (where the volume of tokens is much lower). One way of dealing with this is to allow each facet to have its own scale on the y axis.   This can be done by passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
 > > it very difficult to compare data in different continents, and is arguably misleading.
 > > 
+> > Another approach is to use a log scale on the y axis.  We'll cover this shortly.
 > {: .solution}
 {: .challenge}
 
 
 > ## Aside: Interactively exploring graphs
 > 
-> There are some outlying data points in the solution to challenge 3.  You might be wondering which country these belong to.  Unfortunately there
-> isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_text()` to label each data point with the country (this uses the `label` aesthetic to select which variable in the data to use as the label):
-> 
+> You might be wondering which states have the largest volume of tokens. Unfortunately 
+> isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_text()` to label each data point with the state (this uses the `label` aesthetic to select which variable in the data to use as the label):
+> W
 > 
 > ~~~
-> gapminder %>% 
->   ggplot(aes(x = year, y = gdpPercap, group = country, label = country)) +
->   geom_line() + 
+> monthlyData %>% 
+>   ggplot(aes(x = monthyear, y = totalTokens, group = stateCode, label = stateCode)) +
+>   geom_line() +
 >   geom_text() +
->   facet_wrap("continent")
+>   facet_wrap("Region")
 > ~~~
 > {: .language-r}
 > 
-> 
-> 
-> ~~~
-> Error in eval(lhs, parent, parent): object 'gapminder' not found
-> ~~~
-> {: .error}
+> <img src="../fig/rmd-06-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
 > 
 > The output from this clearly isn't suitable for publication, but it may be sufficient if you just need to produce something for your own use.
 > 
@@ -492,146 +476,39 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 > 
 {: .callout}
 
-## Pre processing data
-
-When we want to start sub-setting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can perform our data transformations and then
-send the result to `ggplot2` without making an intermediate data set.
-
-For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in the Americas, we could use:
-
-
-
-~~~
-gapminder %>% 
-  filter(continent == "Americas") %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country)) +
-  geom_line() +
-  facet_wrap("continent")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-
-> ## Challenge 4
-> 
-> Rather than plotting the life expectancy of each country over time, make a plot showing the average life expectancy in each continent over time.   
-> 
-> Hint - Challenge 3 of the [previous episode](../04-dplyr) may be useful.  This can then be piped into a ggplot command.
-> 
-> > ## Solution to challenge 4
-> > 
-> > 
-> > ~~~
-> > gapminder %>% 
-> >   group_by(continent, year) %>% 
-> >   summarise(mean_lifeExp = mean(lifeExp)) %>% 
-> >   ggplot(aes(x = year, y=mean_lifeExp, colour = continent)) +
-> >   geom_line()
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > 
-> {: .solution}
-{: .challenge}
-
 
 
 ## Transformations 
 
-Ggplot also makes it easy to transform axes, to better show our data.  To
-demonstrate we'll go back to our first example:
+Ggplot also makes it easy to transform axes, to better show our data. 
 
-
-~~~
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point()
-~~~
-{: .language-r}
-
-
+Consider the graph we made just now, showing the total number of tokens in each state:
 
 ~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-Currently it's hard to see the relationship between the points due to some strong
-outliers in GDP per capita. We can change the scale of units on the x axis using
-the *scale* functions. These control the mapping between the data values and
-visual values of an aesthetic. We also modify the transparency of the
-points, using the *alpha* function, which is especially helpful when you have
-a large amount of data which is very clustered.
-
-
-~~~
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point(alpha = 0.5) + scale_x_log10()
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
+  geom_line()
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-06-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+
+We can make the y axis have a log scale by adding `scale_y_log10()` to our plotting command:
 
 
 ~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
+  geom_line() + scale_y_log10()
 ~~~
-{: .error}
+{: .language-r}
 
-The `scale_x_log10` function applied a transformation to the values of the gdpPercap
-column before rendering them on the plot, so that each multiple of 10 now only
-corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
-of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
-axis and so on. This makes it easier to visualize the spread of data on the
-x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
-
-> ## Challenge 5 
-> 
-> Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
-> 
-> > ## Solution to challenge 5
-> > 
-> > We can add the `scale_y_log10()` to our plotting command:
-> > 
-> > 
-> > ~~~
-> > gapminder %>% 
-> >   ggplot(aes(x = year, y = gdpPercap, group = country)) +
-> >   geom_line() +
-> >   facet_wrap("continent") + 
-> >   scale_y_log10()
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > 
-> > Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
-> > between the difference continents much less obvious.  
-> > 
-> > If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
-> > many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introduction to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
-> > 
-> {: .solution}
-{: .challenge}
+<img src="../fig/rmd-06-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
 
 ## Plotting 1D data
 
+## Andrea - cut this section?? 
+(all the errors are because the code refers to the old data-set)
 In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
 plot counts using `geom_bar()`.  For example, to plot the number of counties in the gapminder data that are in each
 continent we can use:
@@ -712,143 +589,150 @@ Error in eval(lhs, parent, parent): object 'gapminder' not found
 ~~~
 {: .error}
 
-> ## Challenge 6
+> ## Final Challenge 
 > 
-> In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
-> As the challenge is quite long, it's broken down into sections.  Please try each section
-> before looking at the answer.
->
-> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.  Hint: the `%in%` operator may be useful.
->
-> > ## Solution a
+> There was an anime expo in California during the period the Twitter data we're using were collected.  The aim of this challenge is to see whether we can see people talking about it.  For this challenge you'll need to use the daily data we were using.
+> 
+> As the challenge is quite long it's broken down into sections.  Please try each section before looking at the answer.
+> 
+> Firstly, load the daily data, using `read_csv()`
+> 
+> > ## Solution
 > > 
 > > 
 > > ~~~
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa"))
+> > twitterData <- read_csv("data/twitterData.csv")
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > Parsed with column specification:
+> > cols(
+> >   date = col_date(format = ""),
+> >   stateCode = col_character(),
+> >   word = col_character(),
+> >   cases = col_integer(),
+> >   dataDay = col_integer(),
+> >   Region = col_character(),
+> >   Division = col_character(),
+> >   totalTokens = col_double(),
+> >   totalPop = col_integer(),
+> >   ruralpct = col_double(),
+> >   State = col_character(),
+> >   BLACK_2010 = col_double()
+> > )
 > > ~~~
-> > {: .error}
-> > This returns a tibble, which we can then pipe into ggplot.
+> > {: .output}
+> > FIXME - set up col_types once we've finalised the data set
 > {: .solution}
 > 
-> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, setting the fill colour by continent (e.g. each continent has its own density estimate)
+> The next thing to do is to filter the data so that we are only looking at data for the word "anime"
 > 
-> > ## Solution b
+> > ## Solution
 > > 
 > > 
 > > ~~~
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density()
+> > twitterData %>% 
+> >   filter(word == "anime")
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
+> > # A tibble: 18,988 x 12
+> >    date       stateCode word  cases dataDay Region Division totalTokens
+> >    <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
+> >  1 2013-10-07 AL        anime     0       1 South  East So…      184649
+> >  2 2013-10-07 AR        anime     0       1 South  West So…       23641
+> >  3 2013-10-07 AZ        anime     1       1 West   Mountain      198852
+> >  4 2013-10-07 CA        anime    11       1 West   Pacific      1209652
+> >  5 2013-10-07 CO        anime     0       1 West   Mountain      106166
+> >  6 2013-10-07 CT        anime     1       1 North… New Eng…      149773
+> >  7 2013-10-07 DE        anime     0       1 South  South A…       12039
+> >  8 2013-10-07 FL        anime    10       1 South  South A…      675243
+> >  9 2013-10-07 GA        anime     4       1 South  South A…      363111
+> > 10 2013-10-07 IA        anime     0       1 Midwe… West No…       73405
+> > # ... with 18,978 more rows, and 4 more variables: totalPop <int>,
+> > #   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
 > > ~~~
-> > {: .error}
-> >
-> {: .solution}
->
-> c. This looks OK, but the continent's density estimates overlay each other.  Use the `alpha =` option to make each density estimate
-> semi transparent
->
-> > ## Solution c
-> >
-> > 
-> > ~~~
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density(alpha = 0.5) 
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > 
+> > {: .output}
 > {: .solution}
 > 
-> d.  Let's take a look at how the relative GDPs per capita have changed over time.  We can use `facet_wrap()` to do  this.  
-> Modify your code to produce a separate graph for each year
->
->
-> > ## Solution d
-> >
+> Now we want to plot how the number of `cases` varies with `date` for each state:
+> 
+> > ## Solution
+> > Using a pipe to send the output of the previous solution straight to ggplot:
 > > 
 > > ~~~
-> > gapminder %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density(alpha = 0.5) +
-> >   facet_wrap("year")
+> > twitterData %>% 
+> >   filter(word == "anime") %>% 
+> >   ggplot(aes(x = date, 
+> >              y = cases,  
+> >              colour = stateCode)) + 
+> >   geom_line()
 > > ~~~
 > > {: .language-r}
 > > 
+> > <img src="../fig/rmd-06-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
 > > 
-> > 
-> > ~~~
-> > Error in eval(lhs, parent, parent): object 'gapminder' not found
-> > ~~~
-> > {: .error}
-> > Note that you need to remove the `filter(year == 2007)` line from the code.
-> >
+> > Note that we don't need to set the `group` aesthetic here, since we've only got one set of data for each state.
 > {: .solution}
+> 
+> It's probably clearer if we don't show data on all the states.  Modify you command to only show data for CAlifornia, ORegon NeVada and (as a comparator that's far away), FLorida. Hint: the `%in%` operator may be useful.
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > twitterData %>% 
+> >   filter(word == "anime") %>% 
+> >   filter(stateCode %in% c("CA", "FL", "OR", "NV")) %>% 
+> >   ggplot(aes(x = date, 
+> >              y = cases,  
+> >              colour = stateCode)) + 
+> >   geom_line()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-06-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />
+> {: .solution}
+> 
 {: .challenge}
-  
 
 ## Modifying text
 
-To clean this figure up for a publication we need to change some of the text
+The final thing we'll do in this session is to tidy up the figure we've just made. We need to change some of the text
 elements.  For example the axis labels should be "human readable" rather than 
-the variable name from the data-set.  We may also wish to change the text size, etc.
+the variable name from the data-set.  
 
 We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot 
 title and any legend can be set using the `labs` function. Legend titles
-are set using the same names we used in the `aes` specification; since we used the `fill` property to 
-colour by continent we use `fill = "Continent` in the `labs()` function.  
+are set using the same names we used in the `aes` specification; since we used the `colour` property to 
+colour by state code we use `colour = "State"` in the `labs()` function.  
 
 
 ~~~
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.5) +
-  facet_wrap("year") + 
+twitterData %>% 
+  filter(word == "anime") %>% 
+  filter(stateCode %in% c("CA", "FL", "OR", "NV")) %>% 
+  ggplot(aes(x = date, 
+             y = cases,  
+             colour = stateCode)) + 
+  geom_line() + 
   labs(
-    x = "GDP per capita", # x axis title
-    y = "Density",   # y axis title
-    title = "Figure 1",      # main title of figure
-    fill = "Continent"      # title of legend
+    x = "Date", # x axis title
+    y = "Number of times tweeted",   # y axis title
+    title = "Use of 'anime' in various states",      # main title of figure
+    colour = "State"      # title of legend
   ) 
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
+<img src="../fig/rmd-06-theme-1.png" title="plot of chunk theme" alt="plot of chunk theme" style="display: block; margin: auto;" />
 
 RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
 extensive documentation is available on the [ggplot2 website][ggplot-doc].
@@ -866,9 +750,9 @@ We can save the most recently produced ggplot using the `ggsave()` function:
 
 
 ~~~
-ggsave("plots/myplot.png")
-# Can also set the size of plot
-ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
+ggsave("results/animePlot.png")
+# Can also set the size and type of plot
+ggsave("results/animePlot.pdf", width = 20, height = 20, units = "cm")
 ~~~
 {: .language-r}
 
@@ -882,27 +766,6 @@ The _theme_ of a plot affects the background, axes etc.  The [ggplot2 themes pac
 
 The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages that can extend its capabilities. If you have a specialised plotting need (for example plotting ROC curves, survival data, or time series) there are packages that will allow you to make these plots with minimal effort. [The top 50 ggplot2 visualisations page](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) provides examples (with full code) of almost any type of graph you might want to make. 
 
-As an example of how easy it can be to extend ggplot, we will use the `ggridges` plot to produce a stacked density plot, to better visualise the previous figure:
-
-
-
-
-~~~
-library(ggridges)
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
-  geom_density_ridges(alpha = 0.5) 
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-[Data Visualization - A practical Introduction](http://socviz.co/) is an online book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
+[Data Visualization - A practical Introduction](http://socviz.co/) is an on-line book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
 
 
