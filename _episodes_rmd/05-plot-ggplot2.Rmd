@@ -294,55 +294,52 @@ This uses R's formula notation to specify how we want to arrange to grid; see `?
 
 ## Challenge 3
 
-In this challenge you will explore how each country's GDP per capita has changed with time.
+In this challenge you will look at how the total number of tokens (e.g. words) tweeted varies with time.
 
 Try two different approaches to visualising this data:
 
-* Plot all the data on a single graph, colouring each country's data by continent
-* Facet the data by continent.
+* Plot all the data on a single graph, colouring each states's data by region
+* Facet the data by region.
 
 ## Solution to challenge 3
 
-* Plot all the data on a single graph, colouring each country's data by continent
+* Plot all the data on a single graph, colouring each states's data by region
 
 ```{r}
-gapminder %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country, colour = continent)) + 
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
   geom_line()
 ```
 
-* Facet the data by continent.
+* Facet the data by region.
 
 ```{r}
-gapminder %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country)) +
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, group = stateCode)) +
   geom_line() +
-  facet_wrap("continent")
+  facet_wrap("Region")
 ```
 
-This representation of the data is arguably clearer.  Neither graph is ideal though; the huge range of 
-GDPs per capita makes it difficult to show the data on the same graph.  We will look at transforming the scales of our axes
-shortly.
-
-Another approach is to allow each facet to have its own scale on the y axis.   This can be done by
-passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
+The much greater volume of tokens coming from the southern and western states makes it difficult to see what's 
+going on in the midwest and northeastern states (where the volume of tokens is much lower). One way of dealing with this is to allow each facet to have its own scale on the y axis.   This can be done by passing the `scales = "free_y"` option to `facet_wrap()`.  This can be useful in some circumstances.  It does, however, make
 it very difficult to compare data in different continents, and is arguably misleading.
 
+Another approach is to use a log scale on the y axis.  We'll cover this shortly.
 {: .solution}
 {: .challenge}
 
 
 ## Aside: Interactively exploring graphs
 
-There are some outlying data points in the solution to challenge 3.  You might be wondering which country these belong to.  Unfortunately there
-isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_text()` to label each data point with the country (this uses the `label` aesthetic to select which variable in the data to use as the label):
-
+You might be wondering which states have the largest volume of tokens. Unfortunately 
+isn't an easy way of doing this neatly in ggplot2.  One approach is to use `geom_text()` to label each data point with the state (this uses the `label` aesthetic to select which variable in the data to use as the label):
+W
 ```{r}
-gapminder %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country, label = country)) +
-  geom_line() + 
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, group = stateCode, label = stateCode)) +
+  geom_line() +
   geom_text() +
-  facet_wrap("continent")
+  facet_wrap("Region")
 ```
 
 The output from this clearly isn't suitable for publication, but it may be sufficient if you just need to produce something for your own use.
