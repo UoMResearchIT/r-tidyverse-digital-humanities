@@ -6,7 +6,7 @@ questions:
 - "How can I create and save publication-quality graphics in R?"
 objectives:
 - "To be able to use ggplot2 to generate publication quality graphics."
-- "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and coloring or panelling by groups."
+- "To understand the basic grammar of graphics, including the aesthetics and geometry layers, adding statistics, transforming scales, and colouring or panelling by groups."
 - "To understand how to save plots in a variety of formats"
 - "To be able to find extensions for `ggplot2` to produce custom graphics"
 keypoints:
@@ -20,7 +20,7 @@ source: Rmd
 source("../bin/chunk-options.R")
 knitr_fig_path("06-")
 library(tidyverse)
-# twitterData <- read_csv("data/twitterData.csv")
+twitterData <- read_csv("data/twitterData.csv")
 ```
 
 Plotting our data is one of the best ways to
@@ -75,7 +75,7 @@ monthlyData <- read_csv("data/monthlyBae.csv",
 monthlyData
 ```
 
-All of the data for each month has been aggregated into a single row.  R doesn't have a data-type for dates that are just a month and a year, so I've arbitrarily used the first of the month as a "placeholder".
+All of the data for each month has been aggregated into a single row.  R doesn't have a data-type for dates that are just a month and a year, so I've arbitrarily used the first of the month as a "place-holder".
 
 To illustrate ggplot, I'll generate an example graph.  Don't worry about what the code is doing at this stage; I'll pull the command apart after:
 
@@ -187,7 +187,7 @@ monthlyData %>%
 
 We can see the aesthetics (x, y, group, etc.) that each `geom_` function uses by looking at its help page.  As with any R function, enter `?functonName()` or use the search tab in the lower right window in RStudio to bring up the help. 
 
-RStudio also includes a really useful "cheatsheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
+RStudio also includes a really useful "cheat-sheet" which summarises the most common ggplot functions and their aesthetics; this can be found in the help menu.
 
 
 ## Layers and aesthetics
@@ -298,12 +298,12 @@ In this challenge you will look at how the total number of tokens (e.g. words) t
 
 Try two different approaches to visualising this data:
 
-* Plot all the data on a single graph, colouring each states's data by region
+* Plot all the data on a single graph, colouring each state's data by region
 * Facet the data by region.
 
 ## Solution to challenge 3
 
-* Plot all the data on a single graph, colouring each states's data by region
+* Plot all the data on a single graph, colouring each state's data by region
 
 ```{r}
 monthlyData %>% 
@@ -373,6 +373,8 @@ monthlyData %>%
 
 ## Plotting 1D data
 
+## Andrea - cut this section?? 
+(all the errors are because the code refers to the old data-set)
 In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
 plot counts using `geom_bar()`.  For example, to plot the number of counties in the gapminder data that are in each
 continent we can use:
@@ -417,96 +419,90 @@ gapminder %>%
   geom_density(fill = "red", colour="blue") 
 ```
 
-> ## Challenge 6
-> 
-> In this challenge, we'll extend the plot above to compare the distributions of GDP per capita in Europe and Africa over time.
-> As the challenge is quite long, it's broken down into sections.  Please try each section
-> before looking at the answer.
->
-> a.  We'll start off by plotting the data for a single year, before extending the plot for multiple years.  Using the code above as a starting point, write some code to return a tibble containing the data for Europe and Africa in 2007.  Hint: the `%in%` operator may be useful.
->
-> > ## Solution a
-> > 
-> > ```{r}
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa"))
-> > ```
-> > This returns a tibble, which we can then pipe into ggplot.
-> {: .solution}
-> 
-> b. Pipe the results of part a into ggplot, to make a density plot of GDP per capita, setting the fill colour by continent (e.g. each continent has its own density estimate)
-> 
-> > ## Solution b
-> > 
-> > ```{r}
-> > 
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density()
-> > ```
-> >
-> {: .solution}
->
-> c. This looks OK, but the continent's density estimates overlay each other.  Use the `alpha =` option to make each density estimate
-> semi transparent
->
-> > ## Solution c
-> >
-> > ```{r}
-> > gapminder %>% 
-> >   filter(year == 2007) %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density(alpha = 0.5) 
-> > ```
-> > 
-> {: .solution}
-> 
-> d.  Let's take a look at how the relative GDPs per capita have changed over time.  We can use `facet_wrap()` to do  this.  
-> Modify your code to produce a separate graph for each year
->
->
-> > ## Solution d
-> >
-> > ```{r}
-> > gapminder %>% 
-> >   filter(continent %in% c("Europe", "Africa")) %>% 
-> >   ggplot(aes(x = gdpPercap, fill = continent)) +
-> >   geom_density(alpha = 0.5) +
-> >   facet_wrap("year")
-> > ```
-> > Note that you need to remove the `filter(year == 2007)` line from the code.
-> >
-> {: .solution}
+## Final Challenge 
+
+There was an anime expo in California during the period the Twitter data we're using were collected.  The aim of this challenge is to see whether we can see people talking about it.  For this challenge you'll need to use the daily data we were using.
+
+As the challenge is quite long it's broken down into sections.  Please try each section before looking at the answer.
+
+Firstly, load the daily data, using `read_csv()`
+
+## Solution
+
+```{r}
+twitterData <- read_csv("data/twitterData.csv")
+```
+FIXME - set up col_types once we've finalised the data set
+{: .solution}
+
+The next thing to do is to filter the data so that we are only looking at data for the word "anime"
+
+## Solution
+
+```{r}
+twitterData %>% 
+  filter(word == "anime")
+```
+{: .solution}
+
+Now we want to plot how the number of `cases` varies with `date` for each state:
+
+## Solution
+Using a pipe to send the output of the previous solution straight to ggplot:
+```{r}
+twitterData %>% 
+  filter(word == "anime") %>% 
+  ggplot(aes(x = date, 
+             y = cases,  
+             colour = stateCode)) + 
+  geom_line()
+```
+
+Note that we don't need to set the `group` aesthetic here, since we've only got one set of data for each state.
+{: .solution}
+
+It's probably clearer if we don't show data on all the states.  Modify you command to only show data for CAlifornia, ORegon NeVada and (as a comparator that's far away), FLorida. Hint: the `%in%` operator may be useful.
+
+## Solution
+
+```{r}
+twitterData %>% 
+  filter(word == "anime") %>% 
+  filter(stateCode %in% c("CA", "FL", "OR", "NV")) %>% 
+  ggplot(aes(x = date, 
+             y = cases,  
+             colour = stateCode)) + 
+  geom_line()
+```
+{: .solution}
+
 {: .challenge}
-  
 
 ## Modifying text
 
-To clean this figure up for a publication we need to change some of the text
+The final thing we'll do in this session is to tidy up the figure we've just made. We need to change some of the text
 elements.  For example the axis labels should be "human readable" rather than 
-the variable name from the data-set.  We may also wish to change the text size, etc.
+the variable name from the data-set.  
 
 We can do this by adding a couple of different layers. The **theme** layer
 controls the axis text, and overall text size. Labels for the axes, plot 
 title and any legend can be set using the `labs` function. Legend titles
-are set using the same names we used in the `aes` specification; since we used the `fill` property to 
-colour by continent we use `fill = "Continent` in the `labs()` function.  
+are set using the same names we used in the `aes` specification; since we used the `colour` property to 
+colour by state code we use `colour = "State"` in the `labs()` function.  
 
 ```{r theme}
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.5) +
-  facet_wrap("year") + 
+twitterData %>% 
+  filter(word == "anime") %>% 
+  filter(stateCode %in% c("CA", "FL", "OR", "NV")) %>% 
+  ggplot(aes(x = date, 
+             y = cases,  
+             colour = stateCode)) + 
+  geom_line() + 
   labs(
-    x = "GDP per capita", # x axis title
-    y = "Density",   # y axis title
-    title = "Figure 1",      # main title of figure
-    fill = "Continent"      # title of legend
+    x = "Date", # x axis title
+    y = "Number of times tweeted",   # y axis title
+    title = "Use of 'anime' in various states",      # main title of figure
+    colour = "State"      # title of legend
   ) 
 ```
 
@@ -525,9 +521,9 @@ It's a better idea to save your plots as part of your scripts; this way if you m
 We can save the most recently produced ggplot using the `ggsave()` function:
 
 ```{r, eval = FALSE}
-ggsave("plots/myplot.png")
-# Can also set the size of plot
-ggsave("plots/myplot.pdf", width = 20, height = 20, units = "cm")
+ggsave("results/animePlot.png")
+# Can also set the size and type of plot
+ggsave("results/animePlot.pdf", width = 20, height = 20, units = "cm")
 
 ```
 
@@ -541,23 +537,6 @@ The _theme_ of a plot affects the background, axes etc.  The [ggplot2 themes pac
 
 The [ggplot2 exensions](http://www.ggplot2-exts.org/) pages lists R packages that can extend its capabilities. If you have a specialised plotting need (for example plotting ROC curves, survival data, or time series) there are packages that will allow you to make these plots with minimal effort. [The top 50 ggplot2 visualisations page](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) provides examples (with full code) of almost any type of graph you might want to make. 
 
-As an example of how easy it can be to extend ggplot, we will use the `ggridges` plot to produce a stacked density plot, to better visualise the previous figure:
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-if (!require("ggridges", quietly = TRUE)) {
-  install.packages("ggridges")
-  library("ggridges")
-}
-```
-
-```{r, ridgesplot}
-library(ggridges)
-gapminder %>% 
-  filter(continent %in% c("Europe", "Africa")) %>% 
-  ggplot(aes(x = gdpPercap, y = factor(year), fill = continent)) +
-  geom_density_ridges(alpha = 0.5) 
-```
-
-[Data Visualization - A practical Introduction](http://socviz.co/) is an online book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
+[Data Visualization - A practical Introduction](http://socviz.co/) is an on-line book which covers good practice in data visualisation, using R and ggplot2 to illustrate this.
 
 
