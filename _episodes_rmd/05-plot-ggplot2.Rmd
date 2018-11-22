@@ -350,99 +350,26 @@ It's also possible to make a graph with "tooltips", so that the country pops up 
 
 {: .callout}
 
-## Pre processing data
-
-When we want to start sub-setting and mutating the data before plotting, the usefulness of
-"piped" data-analysis becomes apparent; we can perform our data transformations and then
-send the result to `ggplot2` without making an intermediate data set.
-
-For example, if we wanted to produce a version of the graph in challenge 3, but only for countries in the Americas, we could use:
-
-
-```{r}
-
-gapminder %>% 
-  filter(continent == "Americas") %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country)) +
-  geom_line() +
-  facet_wrap("continent")
-```
-
-
-## Challenge 4
-
-Rather than plotting the life expectancy of each country over time, make a plot showing the average life expectancy in each continent over time.   
-
-Hint - Challenge 3 of the [previous episode](../04-dplyr) may be useful.  This can then be piped into a ggplot command.
-
-## Solution to challenge 4
-
-```{r}
-gapminder %>% 
-  group_by(continent, year) %>% 
-  summarise(mean_lifeExp = mean(lifeExp)) %>% 
-  ggplot(aes(x = year, y=mean_lifeExp, colour = continent)) +
-  geom_line()
-```
-
-{: .solution}
-{: .challenge}
-
 
 
 ## Transformations 
 
-Ggplot also makes it easy to transform axes, to better show our data.  To
-demonstrate we'll go back to our first example:
+Ggplot also makes it easy to transform axes, to better show our data. 
 
-```{r lifeExp-vs-gdpPercap-scatter3, message=FALSE}
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point()
+Consider the graph we made just now, showing the total number of tokens in each state:
+```{r}
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
+  geom_line()
 ```
 
-Currently it's hard to see the relationship between the points due to some strong
-outliers in GDP per capita. We can change the scale of units on the x axis using
-the *scale* functions. These control the mapping between the data values and
-visual values of an aesthetic. We also modify the transparency of the
-points, using the *alpha* function, which is especially helpful when you have
-a large amount of data which is very clustered.
-
-```{r axis-scale}
-gapminder %>% ggplot(aes(x = gdpPercap, y = lifeExp)) +
-  geom_point(alpha = 0.5) + scale_x_log10()
-```
-
-The `scale_x_log10` function applied a transformation to the values of the gdpPercap
-column before rendering them on the plot, so that each multiple of 10 now only
-corresponds to an increase in 1 on the transformed scale, e.g. a GDP per capita
-of 1,000 is now 3 on the x axis, a value of 10,000 corresponds to 4 on the x-
-axis and so on. This makes it easier to visualize the spread of data on the
-x-axis.  If we want plot the y-axis on a log scale we can use the `scale_y_log10` function.
-
-## Challenge 5 
-
-Modify the faceted plot you produced in challenge 3 to show GDP per capita on a log scale.
-
-## Solution to challenge 5
-
-We can add the `scale_y_log10()` to our plotting command:
+We can make the y axis have a log scale by adding `scale_y_log10()` to our plotting command:
 
 ```{r}
-gapminder %>% 
-  ggplot(aes(x = year, y = gdpPercap, group = country)) +
-  geom_line() +
-  facet_wrap("continent") + 
-  scale_y_log10()
+monthlyData %>% 
+  ggplot(aes(x = monthyear, y = totalTokens, colour = Region, group = stateCode)) +
+  geom_line() + scale_y_log10()
 ```
-
-Although this makes it easier to visualise all of the data on a single plot, it makes the inequality in GDP per capita
-between the difference continents much less obvious.  
-
-If we plot the data with a linear scale the inequality is more obvious, but this masks the individual trajectories of
-many countries' GDPs . Decisions about how best to plot data are beyond the scope of this course.  Research IT offers a course, [Introduction to data visualisation and analysis](https://app.manchester.ac.uk/rintrovis), which covers this topic in much more detail.
-
-{: .solution}
-{: .challenge}
 
 ## Plotting 1D data
 
