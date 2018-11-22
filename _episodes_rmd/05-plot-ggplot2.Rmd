@@ -175,7 +175,7 @@ monthlyData %>%
   geom_line()
 ```
 
-This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`, and the variable in the data that controls group is `stateCode`.  We modify the aesthetic function to include this mapping: 
+This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`. The data associated with each `stateCode` is in the same group (if we plotted a the data for a single state we would expect a single line).  We modify the aesthetic function to include this mapping: 
 
 
 ```{r}
@@ -273,6 +273,8 @@ information.  Note that the variable we are faceting by needs to be placed in qu
 It's also possible to facet by one or two variables on a grid, using the `facet_grid()` function.  For example,
 if we had included all the words in our grouped data, we could produce a grid of graphs by word and region:
 
+(I've included the option `scale = "free_y"` so that each row gets its own scale.  I've done this because the prevalence of each word varies)
+
 ```{r}
 monthlyDataAll <- read_csv("data/monthlyAll.csv")
 
@@ -281,7 +283,7 @@ monthlyDataAll %>%
              group = stateCode)) +
   geom_point() + 
   geom_line() +
-  facet_grid(word ~ Region)
+  facet_grid(word ~ Region, scale = "free_y")
 
 ```
 
@@ -583,7 +585,6 @@ gapminder %>%
     fill = "Continent"      # title of legend
   ) 
 ```
-
 
 RStudio provides a really useful [cheat sheet][cheat] of the different layers available, and more
 extensive documentation is available on the [ggplot2 website][ggplot-doc].
