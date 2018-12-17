@@ -317,90 +317,6 @@ To run all of the code in the script, press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kb
 {: .callout}
 
 
-## Mathematical functions
-
-R has many built in mathematical functions. To call a function,
-we simply type its name, followed by  open and closing parentheses.
-Anything we type inside the parentheses are called the function's
-arguments:
-
-
-~~~
-sin(1)  # trigonometry functions
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0.841471
-~~~
-{: .output}
-
-
-~~~
-log(1)  # natural logarithm
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0
-~~~
-{: .output}
-
-
-~~~
-log10(10) # base-10 logarithm
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1
-~~~
-{: .output}
-
-
-~~~
-exp(0.5) # e^(1/2)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1.648721
-~~~
-{: .output}
-
-## Remembering function names and arguments
-
-Don't worry about trying to remember every function in R. You
-can simply look them up on Google, or if you can remember the
-start of the function's name, type the start of it, then press the <kbd>tab</kbd> key.
-This will show a list of
-functions whose name matches what you've typed so far; this is known
-as _tab completion_, and can save a lot of typing (and reduce the risk
-of typing errors).  Tab completion works in R (i.e. running it out
-of RStudio), and in RStudio. In RStudio this feature is even more useful; a
-extract of the function's help file will be shown alongside the function name.
-
-This is one advantage that RStudio has over R on its own: it
-has auto-completion abilities that allow you to more easily
-look up functions, their arguments, and the values that they
-take.
-
-Typing a `?` before the name of a command will open the help page
-for that command. As well as providing a detailed description of
-the command and how it works, scrolling to the bottom of the
-help page will usually show a collection of code examples which
-illustrate command usage. We'll go through an example later.
-
-
-
 ## Comparing things
 
 We can also do comparison in R:
@@ -758,6 +674,65 @@ We will discuss the important concept of _data types_ in the next episode.
 > > write makes appropriate comparisons.
 > {: .solution}
 {: .challenge}
+
+## Introducing functions
+
+What if we want to do something more complicated than using R as a fancy calculator?  This is where _functions_ are useful.   We can think of a function as a black box.  It takes zero or more _arguments_, and returns something (the "something" can be a single value, or something more complicated).   R contains many built in fuctions.  We can also make use of additional functions using libraries, which we will cover later today.
+
+We can think of a function as a recipe that takes certain ingredients ("arguments"), and produces a given product (what it "returns").  For example, the `toupper()` function will convert text to upper case:
+
+
+~~~
+toupper("Hello, world")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "HELLO, WORLD"
+~~~
+{: .output}
+
+
+
+~~~
+toupper(sentence)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "THE CAT SAT ON THE MAT"
+~~~
+{: .output}
+
+As the second example shows, we can pass a variable as an argument to a function.  We defined `sentence` earlier in the lesson.
+
+## Remembering function names and arguments
+
+Don't worry about trying to remember every function in R. You
+can simply look them up on Google, or if you can remember the
+start of the function's name, type the start of it, then press the <kbd>tab</kbd> key.
+This will show a list of
+functions whose name matches what you've typed so far; this is known
+as _tab completion_, and can save a lot of typing (and reduce the risk
+of typing errors).  Tab completion works in R (i.e. running it out
+of RStudio), and in RStudio. In RStudio this feature is even more useful; a
+extract of the function's help file will be shown alongside the function name.
+
+This is one advantage that RStudio has over R on its own: it
+has auto-completion abilities that allow you to more easily
+look up functions, their arguments, and the values that they
+take.
+
+Typing a `?` before the name of a command will open the help page
+for that command. As well as providing a detailed description of
+the command and how it works, scrolling to the bottom of the
+help page will usually show a collection of code examples which
+illustrate command usage. We'll go through an example later.
+
 
 ## Vectorization
 
