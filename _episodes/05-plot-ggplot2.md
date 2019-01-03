@@ -504,94 +504,9 @@ monthlyData %>%
 {: .language-r}
 
 <img src="../fig/rmd-06-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
-
-## Plotting 1D data
-
-## Andrea - cut this section?? 
-(all the errors are because the code refers to the old data-set)
-In the examples so far we've plotted one variable against another.  Often we wish to plot single variable. We can
-plot counts using `geom_bar()`.  For example, to plot the number of counties in the gapminder data that are in each
-continent we can use:
-
-
-~~~
-gapminder %>% filter(year == 2007) %>%
-  ggplot(aes(x=continent)) + 
-  geom_bar()
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-We filter to a single year of data to avoid multiple counting
-
-We often wish to explore the distribution of a continuous variable.  We can do this using a histogram (`geom_histogram()`), 
-or a density plot (`geom_density()`)
-
-For example, to produce a histogram of GDPs per capita for countries in Europe in 2007:
-
-
-~~~
-gapminder %>% filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x=gdpPercap)) + geom_histogram(bins = 10)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-We can specify the number of bins (`bins = `), or the width of a bin (`binwidth = `).
-
-We can plot a density plot using `geom_density()`.  This is a smoothed version of a histogram.
-
-
-~~~
-gapminder %>% 
-  filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap)) + 
-  geom_density() 
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
-By default the density estimate is drawn in outline (i.e. it isn't filled in).  We can use the `fill` attribute to fill it in; this can be
-passed in the aesthetic (e.g. `aes(x = gdpPercap, fill = ...))`) to fill according to the data, or directly to `geom_density()`. The `colour` attribute controls the _outline_ of the shape.  For example:
-
-
-
-~~~
-gapminder %>% 
-  filter(year == 2007, continent == "Europe") %>% 
-  ggplot(aes(x = gdpPercap)) + 
-  geom_density(fill = "red", colour="blue") 
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(lhs, parent, parent): object 'gapminder' not found
-~~~
-{: .error}
-
 > ## Final Challenge 
 > 
-> There was an anime expo in California during the period the Twitter data we're using were collected.  The aim of this challenge is to see whether we can see people talking about it.  For this challenge you'll need to use the daily data we were using.
+> There was an anime expo in California during the period the Twitter data we're using were collected.  The aim of this challenge is to see whether we can see people talking about it.  For this challenge you'll need to use the daily data we were using.  This is stored in the file `twitterData.csv`.
 > 
 > As the challenge is quite long it's broken down into sections.  Please try each section before looking at the answer.
 > 
@@ -676,7 +591,7 @@ Error in eval(lhs, parent, parent): object 'gapminder' not found
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
 > > 
 > > Note that we don't need to set the `group` aesthetic here, since we've only got one set of data for each state.
 > {: .solution}
@@ -697,7 +612,7 @@ Error in eval(lhs, parent, parent): object 'gapminder' not found
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
 > {: .solution}
 > 
 {: .challenge}
