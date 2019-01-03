@@ -41,7 +41,7 @@ This makes it easier to jump between chunks within your document, using the sele
 
 The header at the start of the notebook (between the `---`s) contains metadata which tells R how to process the notebook.  This can be edited by hand (for example to change the "title:" field), or to add an "author: " field.  R Studio may also modify it, for example, if you change the output format of the document.
 
-Before we go any further, make a new subdirectory for your notebooks, for example, `notebook`. and save the notebook in it using `File`, `Save`.  We need to do this so that we can preview and build the notebook.   When you run code in your notebook, RStudio will set the working directory to be the notebook's directory.  This means that if we want to load some data from our `data` folder, we will need to use the path `../data/gapminder-FiveYearData.csv` (rather than `data/gapminder-FiveYearData.csv`, as we used previously).  The `..` tells R to look in the parent directory of the working directory.  
+Before we go any further, make a new subdirectory for your notebooks, for example, `notebooks`. and save the notebook in it using `File`, `Save`.  We need to do this so that we can preview and build the notebook.   When you run code in your notebook, RStudio will set the working directory to be the notebook's directory.  This means that if we want to load some data from our `data` folder, we will need to use the path `../data/twitterData.csv` (rather than `data/twitterData.csv`, as we used previously).  The `..` tells R to look in the parent directory of the working directory.  
 
 
 
@@ -49,21 +49,13 @@ We can run the notebook interactively within R Studio.  Press the "Run" button (
 
 We can preview the notebook by selecting "Preview notebook" from the top of the editor window.  This will render the text and code into an html document.   Note that the preview will use executed chunks of R code in the editor window.  For this reason it is a good idea to choose "Restart R and run all chunks" from the run button (at the top of the editor).  This will ensure your code has been run in order, and that it is self consistent.
 
-As an example of using notebooks, let's use the gapminder data, and some of the ideas introduced earlier to run, and to document, an analysis of the data.
+As an example of using notebooks, let's use the Twitter data, and some of the ideas introduced earlier to run, and to document, an analysis of the data.  I'll do this as a running demonstration, to illustrate the principles.    
 
-> ## Challenge 1
-> 
-> Modify the example notebook to load the gapminder data into your working environment, and to print an extract of it in the notebook (using `print(gapminder)` will do this).
-> 
-> It is a good idea to make a separate chunk called "setup" to load your libraries and clear your working environment.  You can re-use the code you used to load the gapminder data earlier today.  
-> 
-> > ## Solution
-> > 
-> > Because these lessons are built from R Markdown documents, it is difficult to show the markdown
-> > itself within them.  The solution to this challenge can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge1.Rmd)
-> > 
-> {: .solution}
-{: .challenge}
+As these lessons are written in R Markdown, it is difficult to show the markdown itself within them.  For this reason, you will need to click the links where indicated.  This will show you the contents of the Markdown document; copy the entire contents of the webpage into a new R notebook (overwriting the example notebook), and save it in `notebooks` directory you made in your project directory.   Make sure it has the extension `.Rmd`; this way RStudio will know it is a notebook and handle it appropriately.
+
+
+
+We can modify the example notebook to load the twitter data into our working environment, and to print of extract of it.  The notebook to do this can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digtial-humanities/gh-pages/notebooks/example1.Rmd)
 
 At the moment all the code and data we've written are shown in the document.  This can be excessive.  For example, we may get diagnostic messages which we don't anticipate being of interest to the reader.  We can hide the R code in a chunk as follows: 
 
@@ -108,6 +100,8 @@ You would typically include this in your setup chunk, and use `include=FALSE` so
 
 How much of the "behind the scenes" work you show in a notebook is up to you, and will depend on the intended audience.   If you hide all the code, you can produce something which looks very much like a regular scientific paper.  The benefit of writing a paper like this is that your analysis and write up are in the same place.   If your analysis (or data) change, the paper will be updated automatically.   By keeping the underlying R Markdown file it is possible for you, or others to work out exactly how each figure in you work was produced.
 
+[This example](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digtial-humanities/gh-pages/notebooks/example2.Rmd) shows the effect of using `include=FALSE` and `echo=FALSE` to hide the package loading messages and our R code.
+
 We can also display R output "inline" (i.e. so it appears as normal text within a paragraph):  For example:
 <pre>
 The sine of 0 is &#96;r sin(0)&#96;
@@ -150,45 +144,6 @@ You can insert an equation within a line of text by enclosing the LaTeX code wit
 > </pre>
 > which will display as "The cos of 0 is 1".
 {: .callout}
-
-## Don't repeat yourself
-
-Writing up our work in notebooks is a really useful way of explaining our analyses to others, and our future selves.  It also makes it really easy to experiment with your analysis, and to try things out.  This makes it particularly important to define your parameters once, and then refer to the variable they're stored in, rather than using them more than once.
-
-There are two ways of doing this; we can define our parameters in a code chunk, and refer to the variables, or define a [parameter in the header of the document](http://rmarkdown.rstudio.com/developer_parameterized_reports.html).
-
-Take a look at the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresearchit/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd).  In this, we define the year we're interested in as a parameter, and always refer to the parameter rather than hard-coding a year into various places in the text and code.  
-
-
-> ## Challenge 3
-> 
-> Part 1: Modify your notebook, or use the [DRYNotebook.Rmd](https://raw.githubusercontent.com/uomresearchit/r-tidyverse-intro/gh-pages/notebooks/DRYNotebook.Rmd) as a starting point, to plot a line graph showing life expectancy over time, coloured by continent (you should have code to do this from the ggplot lesson). 
-> 
-> Part 2: Modify the notebook to print something similar to the following paragraph:
-> 
-> "In 2002, citizens of Japan had the longest average life expectancy in the world, at 82. By comparison, in United Kingdom, the average life expectancy was 78.471".  
-> 
-> You should pass the year we wish to calculate the life expectancies at (e.g. 2002), and the comparator country (e.g. United Kingdom) as parameters to your report.
-> 
-> Hints:  To calculate the country with the longest life expectancy use `arrange(desc())` to sort the data in descending order.   The country with the longest life expectancy will then be first in the resulting tibble. 
-> 
-> If you save the tibble containing the data sorted by age, you can then extract a column from it, as a vector using the `$` operator:
-> 
-> ```{r, eval=FALSE}
-> gapminderSorted$lifeExp
-> ```
->
-> You can then use the indexing operator `[]` to get the value of the first element of this vector, which will be the largest age.
-> 
-> > ## Solution
-> > 
-> > The solution can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge3.Rmd)
-> > 
-> {: .solution}
-{: .challenge}
-
-
-
 
 ##  Doing more with Markdown and notebooks
 
