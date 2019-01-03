@@ -143,7 +143,7 @@ You can insert an equation within a line of text by enclosing the LaTeX code wit
 
 We sometimes want to include the output of of statistical analysis (such as the results of the models we
 fitted using `lm()`.  The [`pander`](https://cran.r-project.org/web/packages/pander/index.html) package 
-will add the appropriate markdown formating to many R functions to make them display nicely.  Having installed
+will add the appropriate markdown formatting to many R functions to make them display nicely.  Having installed
 and loaded the `pander` package,  run the `pander()` function on the object you wish to display, e.g.
 
 ```{r, eval=FALSE}
