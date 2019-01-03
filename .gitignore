@@ -15,4 +15,5 @@ notes.md
 *.swp
 _episodes_pp/*.Rmd
 .RData
+notebooks/*.html
 
