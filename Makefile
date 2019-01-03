@@ -167,6 +167,7 @@ data: data/r-novice.zip
 
 data/r-novice.zip: $(DATA_FILES) 
 	@zip -j $@ $^
+	cp $(DATA_FILES) $(dir $@) # Copy raw data so we can use it in notebooks (need same relative path as learners will have)
 
 #-------------------------------------------------------------------------------
 # Include extra commands if available.
