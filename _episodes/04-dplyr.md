@@ -83,12 +83,8 @@ cols(
   cases = col_integer(),
   dataDay = col_integer(),
   Region = col_character(),
-  Division = col_character(),
   totalTokens = col_double(),
-  totalPop = col_integer(),
-  ruralpct = col_double(),
-  State = col_character(),
-  BLACK_2010 = col_double()
+  State = col_character()
 )
 ~~~
 {: .output}
@@ -220,21 +216,20 @@ print(twitterDataNE)
 
 
 ~~~
-# A tibble: 16,160 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2013-10-07 CT        anime     1       1 North… New Eng…      149773
- 2 2013-10-07 CT        bae      22       1 North… New Eng…      149773
- 3 2013-10-07 CT        boi       4       1 North… New Eng…      149773
- 4 2013-10-07 CT        bruh…     2       1 North… New Eng…      149773
- 5 2013-10-07 CT        fleek     0       1 North… New Eng…      149773
- 6 2013-10-07 MA        anime     0       1 North… New Eng…       61205
- 7 2013-10-07 MA        bae       5       1 North… New Eng…       61205
- 8 2013-10-07 MA        boi       2       1 North… New Eng…       61205
- 9 2013-10-07 MA        bruh…     0       1 North… New Eng…       61205
-10 2013-10-07 MA        fleek     0       1 North… New Eng…       61205
-# ... with 16,150 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 16,160 x 8
+   date       stateCode word   cases dataDay Region  totalTokens State    
+   <date>     <chr>     <chr>  <int>   <int> <chr>         <dbl> <chr>    
+ 1 2013-10-07 CT        anime      1       1 Northe…      149773 Connecti…
+ 2 2013-10-07 CT        bae       22       1 Northe…      149773 Connecti…
+ 3 2013-10-07 CT        boi        4       1 Northe…      149773 Connecti…
+ 4 2013-10-07 CT        bruhhh     2       1 Northe…      149773 Connecti…
+ 5 2013-10-07 CT        fleek      0       1 Northe…      149773 Connecti…
+ 6 2013-10-07 MA        anime      0       1 Northe…       61205 Massachu…
+ 7 2013-10-07 MA        bae        5       1 Northe…       61205 Massachu…
+ 8 2013-10-07 MA        boi        2       1 Northe…       61205 Massachu…
+ 9 2013-10-07 MA        bruhhh     0       1 Northe…       61205 Massachu…
+10 2013-10-07 MA        fleek      0       1 Northe…       61205 Massachu…
+# ... with 16,150 more rows
 ~~~
 {: .output}
 
@@ -252,21 +247,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 55,188 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2013-10-07 AL        bae      32       1 South  East So…      184649
- 2 2013-10-07 AL        boi       9       1 South  East So…      184649
- 3 2013-10-07 AR        bae       5       1 South  West So…       23641
- 4 2013-10-07 AR        boi       1       1 South  West So…       23641
- 5 2013-10-07 AR        bruh…     1       1 South  West So…       23641
- 6 2013-10-07 AZ        anime     1       1 West   Mountain      198852
- 7 2013-10-07 AZ        bae      22       1 West   Mountain      198852
- 8 2013-10-07 AZ        boi       5       1 West   Mountain      198852
- 9 2013-10-07 CA        anime    11       1 West   Pacific      1209652
-10 2013-10-07 CA        bae     124       1 West   Pacific      1209652
-# ... with 55,178 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 55,188 x 8
+   date       stateCode word   cases dataDay Region totalTokens State     
+   <date>     <chr>     <chr>  <int>   <int> <chr>        <dbl> <chr>     
+ 1 2013-10-07 AL        bae       32       1 South       184649 Alabama   
+ 2 2013-10-07 AL        boi        9       1 South       184649 Alabama   
+ 3 2013-10-07 AR        bae        5       1 South        23641 Arkansas  
+ 4 2013-10-07 AR        boi        1       1 South        23641 Arkansas  
+ 5 2013-10-07 AR        bruhhh     1       1 South        23641 Arkansas  
+ 6 2013-10-07 AZ        anime      1       1 West        198852 Arizona   
+ 7 2013-10-07 AZ        bae       22       1 West        198852 Arizona   
+ 8 2013-10-07 AZ        boi        5       1 West        198852 Arizona   
+ 9 2013-10-07 CA        anime     11       1 West       1209652 California
+10 2013-10-07 CA        bae      124       1 West       1209652 California
+# ... with 55,178 more rows
 ~~~
 {: .output}
 
@@ -282,11 +276,10 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 0 x 12
-# ... with 12 variables: date <date>, stateCode <chr>, word <chr>,
-#   cases <int>, dataDay <int>, Region <chr>, Division <chr>,
-#   totalTokens <dbl>, totalPop <int>, ruralpct <dbl>, State <chr>,
-#   BLACK_2010 <dbl>
+# A tibble: 0 x 8
+# ... with 8 variables: date <date>, stateCode <chr>, word <chr>,
+#   cases <int>, dataDay <int>, Region <chr>, totalTokens <dbl>,
+#   State <chr>
 ~~~
 {: .output}
 
@@ -347,21 +340,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 74,730 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2014-01-01 AL        anime     1      87 South  East So…      315249
- 2 2014-01-01 AL        bae     127      87 South  East So…      315249
- 3 2014-01-01 AL        boi       5      87 South  East So…      315249
- 4 2014-01-01 AL        bruh…     2      87 South  East So…      315249
- 5 2014-01-01 AL        fleek     0      87 South  East So…      315249
- 6 2014-01-01 AR        anime     0      87 South  West So…       61134
- 7 2014-01-01 AR        bae      22      87 South  West So…       61134
- 8 2014-01-01 AR        boi       2      87 South  West So…       61134
- 9 2014-01-01 AR        bruh…     0      87 South  West So…       61134
-10 2014-01-01 AR        fleek     0      87 South  West So…       61134
-# ... with 74,720 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 74,730 x 8
+   date       stateCode word   cases dataDay Region totalTokens State   
+   <date>     <chr>     <chr>  <int>   <int> <chr>        <dbl> <chr>   
+ 1 2014-01-01 AL        anime      1      87 South       315249 Alabama 
+ 2 2014-01-01 AL        bae      127      87 South       315249 Alabama 
+ 3 2014-01-01 AL        boi        5      87 South       315249 Alabama 
+ 4 2014-01-01 AL        bruhhh     2      87 South       315249 Alabama 
+ 5 2014-01-01 AL        fleek      0      87 South       315249 Alabama 
+ 6 2014-01-01 AR        anime      0      87 South        61134 Arkansas
+ 7 2014-01-01 AR        bae       22      87 South        61134 Arkansas
+ 8 2014-01-01 AR        boi        2      87 South        61134 Arkansas
+ 9 2014-01-01 AR        bruhhh     0      87 South        61134 Arkansas
+10 2014-01-01 AR        fleek      0      87 South        61134 Arkansas
+# ... with 74,720 more rows
 ~~~
 {: .output}
 
@@ -484,21 +476,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 10,100 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2013-10-07 AZ        anime     1       1 West   Mountain      198852
- 2 2013-10-07 AZ        bae      22       1 West   Mountain      198852
- 3 2013-10-07 AZ        boi       5       1 West   Mountain      198852
- 4 2013-10-07 AZ        bruh…     0       1 West   Mountain      198852
- 5 2013-10-07 AZ        fleek     0       1 West   Mountain      198852
- 6 2013-10-07 CO        anime     0       1 West   Mountain      106166
- 7 2013-10-07 CO        bae       4       1 West   Mountain      106166
- 8 2013-10-07 CO        boi       1       1 West   Mountain      106166
- 9 2013-10-07 CO        bruh…     0       1 West   Mountain      106166
-10 2013-10-07 CO        fleek     0       1 West   Mountain      106166
-# ... with 10,090 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 10,100 x 8
+   date       stateCode word   cases dataDay Region totalTokens State   
+   <date>     <chr>     <chr>  <int>   <int> <chr>        <dbl> <chr>   
+ 1 2013-10-07 AZ        anime      1       1 West        198852 Arizona 
+ 2 2013-10-07 AZ        bae       22       1 West        198852 Arizona 
+ 3 2013-10-07 AZ        boi        5       1 West        198852 Arizona 
+ 4 2013-10-07 AZ        bruhhh     0       1 West        198852 Arizona 
+ 5 2013-10-07 AZ        fleek      0       1 West        198852 Arizona 
+ 6 2013-10-07 CO        anime      0       1 West        106166 Colorado
+ 7 2013-10-07 CO        bae        4       1 West        106166 Colorado
+ 8 2013-10-07 CO        boi        1       1 West        106166 Colorado
+ 9 2013-10-07 CO        bruhhh     0       1 West        106166 Colorado
+10 2013-10-07 CO        fleek      0       1 West        106166 Colorado
+# ... with 10,090 more rows
 ~~~
 {: .output}
 
@@ -599,21 +590,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 18,988 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2013-10-07 AL        anime     0       1 South  East So…      184649
- 2 2013-10-07 AR        anime     0       1 South  West So…       23641
- 3 2013-10-07 CO        anime     0       1 West   Mountain      106166
- 4 2013-10-07 DE        anime     0       1 South  South A…       12039
- 5 2013-10-07 IA        anime     0       1 Midwe… West No…       73405
- 6 2013-10-07 ID        anime     0       1 West   Mountain       23522
- 7 2013-10-07 IN        anime     0       1 Midwe… East No…      149274
- 8 2013-10-07 KY        anime     0       1 South  East So…       45995
- 9 2013-10-07 LA        anime     0       1 South  West So…      180652
-10 2013-10-07 MA        anime     0       1 North… New Eng…       61205
-# ... with 18,978 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 18,988 x 8
+   date       stateCode word  cases dataDay Region   totalTokens State    
+   <date>     <chr>     <chr> <int>   <int> <chr>          <dbl> <chr>    
+ 1 2013-10-07 AL        anime     0       1 South         184649 Alabama  
+ 2 2013-10-07 AR        anime     0       1 South          23641 Arkansas 
+ 3 2013-10-07 CO        anime     0       1 West          106166 Colorado 
+ 4 2013-10-07 DE        anime     0       1 South          12039 Delaware 
+ 5 2013-10-07 IA        anime     0       1 Midwest        73405 Iowa     
+ 6 2013-10-07 ID        anime     0       1 West           23522 Idaho    
+ 7 2013-10-07 IN        anime     0       1 Midwest       149274 Indiana  
+ 8 2013-10-07 KY        anime     0       1 South          45995 Kentucky 
+ 9 2013-10-07 LA        anime     0       1 South         180652 Louisiana
+10 2013-10-07 MA        anime     0       1 Northea…       61205 Massachu…
+# ... with 18,978 more rows
 ~~~
 {: .output}
 We can use the `desc()` function to sort a variable in reverse order:
@@ -629,21 +619,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 18,988 x 12
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2014-07-05 CA        anime   367     272 West   Pacific      2865511
- 2 2014-07-03 CA        anime   293     270 West   Pacific      3298513
- 3 2014-07-04 CA        anime   286     271 West   Pacific      3185266
- 4 2014-07-06 CA        anime   260     273 West   Pacific      3077657
- 5 2014-07-16 CA        anime   180     283 West   Pacific      3524572
- 6 2014-07-07 CA        anime   145     274 West   Pacific      3454158
- 7 2014-07-09 CA        anime   144     276 West   Pacific      3628779
- 8 2014-07-02 CA        anime   117     269 West   Pacific      3353831
- 9 2014-07-08 CA        anime   115     275 West   Pacific      3836043
-10 2014-07-17 CA        anime   103     284 West   Pacific      3478334
-# ... with 18,978 more rows, and 4 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+# A tibble: 18,988 x 8
+   date       stateCode word  cases dataDay Region totalTokens State     
+   <date>     <chr>     <chr> <int>   <int> <chr>        <dbl> <chr>     
+ 1 2014-07-05 CA        anime   367     272 West       2865511 California
+ 2 2014-07-03 CA        anime   293     270 West       3298513 California
+ 3 2014-07-04 CA        anime   286     271 West       3185266 California
+ 4 2014-07-06 CA        anime   260     273 West       3077657 California
+ 5 2014-07-16 CA        anime   180     283 West       3524572 California
+ 6 2014-07-07 CA        anime   145     274 West       3454158 California
+ 7 2014-07-09 CA        anime   144     276 West       3628779 California
+ 8 2014-07-02 CA        anime   117     269 West       3353831 California
+ 9 2014-07-08 CA        anime   115     275 West       3836043 California
+10 2014-07-17 CA        anime   103     284 West       3478334 California
+# ... with 18,978 more rows
 ~~~
 {: .output}
 
@@ -663,21 +652,20 @@ twitterData %>%
 
 
 ~~~
-# A tibble: 94,940 x 13
-   date       stateCode word  cases dataDay Region Division totalTokens
-   <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
- 1 2013-10-07 AL        anime     0       1 South  East So…      184649
- 2 2013-10-07 AL        bae      32       1 South  East So…      184649
- 3 2013-10-07 AL        boi       9       1 South  East So…      184649
- 4 2013-10-07 AL        bruh…     0       1 South  East So…      184649
- 5 2013-10-07 AL        fleek     0       1 South  East So…      184649
- 6 2013-10-07 AR        anime     0       1 South  West So…       23641
- 7 2013-10-07 AR        bae       5       1 South  West So…       23641
- 8 2013-10-07 AR        boi       1       1 South  West So…       23641
- 9 2013-10-07 AR        bruh…     1       1 South  West So…       23641
-10 2013-10-07 AR        fleek     0       1 South  West So…       23641
-# ... with 94,930 more rows, and 5 more variables: totalPop <int>,
-#   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>, wordProp <dbl>
+# A tibble: 94,940 x 9
+   date       stateCode word  cases dataDay Region totalTokens State
+   <date>     <chr>     <chr> <int>   <int> <chr>        <dbl> <chr>
+ 1 2013-10-07 AL        anime     0       1 South       184649 Alab…
+ 2 2013-10-07 AL        bae      32       1 South       184649 Alab…
+ 3 2013-10-07 AL        boi       9       1 South       184649 Alab…
+ 4 2013-10-07 AL        bruh…     0       1 South       184649 Alab…
+ 5 2013-10-07 AL        fleek     0       1 South       184649 Alab…
+ 6 2013-10-07 AR        anime     0       1 South        23641 Arka…
+ 7 2013-10-07 AR        bae       5       1 South        23641 Arka…
+ 8 2013-10-07 AR        boi       1       1 South        23641 Arka…
+ 9 2013-10-07 AR        bruh…     1       1 South        23641 Arka…
+10 2013-10-07 AR        fleek     0       1 South        23641 Arka…
+# ... with 94,930 more rows, and 1 more variable: wordProp <dbl>
 ~~~
 {: .output}
 
@@ -708,21 +696,20 @@ The dplyr cheat sheet contains many useful functions which can be used with dply
 > > 
 > > 
 > > ~~~
-> > # A tibble: 404 x 12
-> >    date       stateCode word  cases dataDay Region Division totalTokens
-> >    <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
-> >  1 2013-10-07 NY        anime     1       1 North… Middle …      265028
-> >  2 2013-10-08 NY        anime     2       2 North… Middle …      334360
-> >  3 2013-10-09 NY        anime     0       3 North… Middle …      333082
-> >  4 2013-10-10 NY        anime     4       4 North… Middle …      337997
-> >  5 2013-10-11 NY        anime     1       5 North… Middle …      300758
-> >  6 2013-10-12 NY        anime     0       6 North… Middle …      297587
-> >  7 2013-10-13 NY        anime     4       7 North… Middle …      346526
-> >  8 2013-10-14 NY        anime     0       8 North… Middle …      349689
-> >  9 2013-10-15 NY        anime     1       9 North… Middle …      342450
-> > 10 2013-10-16 NY        anime     4      10 North… Middle …      355594
-> > # ... with 394 more rows, and 4 more variables: totalPop <int>,
-> > #   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+> > # A tibble: 404 x 8
+> >    date       stateCode word  cases dataDay Region    totalTokens State   
+> >    <date>     <chr>     <chr> <int>   <int> <chr>           <dbl> <chr>   
+> >  1 2013-10-07 NY        anime     1       1 Northeast      265028 New York
+> >  2 2013-10-08 NY        anime     2       2 Northeast      334360 New York
+> >  3 2013-10-09 NY        anime     0       3 Northeast      333082 New York
+> >  4 2013-10-10 NY        anime     4       4 Northeast      337997 New York
+> >  5 2013-10-11 NY        anime     1       5 Northeast      300758 New York
+> >  6 2013-10-12 NY        anime     0       6 Northeast      297587 New York
+> >  7 2013-10-13 NY        anime     4       7 Northeast      346526 New York
+> >  8 2013-10-14 NY        anime     0       8 Northeast      349689 New York
+> >  9 2013-10-15 NY        anime     1       9 Northeast      342450 New York
+> > 10 2013-10-16 NY        anime     4      10 Northeast      355594 New York
+> > # ... with 394 more rows
 > > ~~~
 > > {: .output}
 > > 

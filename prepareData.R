@@ -124,9 +124,16 @@ monthlyData <-
   monthlyDataAll %>% 
   filter(word == "bae") 
 
+# I ended up not using all of the data I created.  Here we remove unused variables and don't save files 
+# we don't need in the lesson.  (I've left the code to create them so that the course can be extended)
+
+twitterData <- twitterData %>% 
+  select(-Division, -ruralpct, -BLACK_2010, -totalPop)
 write_csv(twitterData, paste0(outdir, "twitterData.csv"))
-write_csv(tokenData, paste0(outdir, "tokenData.csv"))
-write_csv(stateRural, paste0(outdir, "stateData.csv"))
+
+
+#write_csv(tokenData, paste0(outdir, "tokenData.csv"))
+#write_csv(stateRural, paste0(outdir, "stateData.csv"))
 write_csv(monthlyData, paste0(outdir, "monthlyBae.csv"))
 write_csv(monthlyDataAll, paste0(outdir, "monthlyAll.csv"))
 

@@ -531,12 +531,8 @@ monthlyData %>%
 > >   cases = col_integer(),
 > >   dataDay = col_integer(),
 > >   Region = col_character(),
-> >   Division = col_character(),
 > >   totalTokens = col_double(),
-> >   totalPop = col_integer(),
-> >   ruralpct = col_double(),
-> >   State = col_character(),
-> >   BLACK_2010 = col_double()
+> >   State = col_character()
 > > )
 > > ~~~
 > > {: .output}
@@ -557,21 +553,20 @@ monthlyData %>%
 > > 
 > > 
 > > ~~~
-> > # A tibble: 18,988 x 12
-> >    date       stateCode word  cases dataDay Region Division totalTokens
-> >    <date>     <chr>     <chr> <int>   <int> <chr>  <chr>          <dbl>
-> >  1 2013-10-07 AL        anime     0       1 South  East So…      184649
-> >  2 2013-10-07 AR        anime     0       1 South  West So…       23641
-> >  3 2013-10-07 AZ        anime     1       1 West   Mountain      198852
-> >  4 2013-10-07 CA        anime    11       1 West   Pacific      1209652
-> >  5 2013-10-07 CO        anime     0       1 West   Mountain      106166
-> >  6 2013-10-07 CT        anime     1       1 North… New Eng…      149773
-> >  7 2013-10-07 DE        anime     0       1 South  South A…       12039
-> >  8 2013-10-07 FL        anime    10       1 South  South A…      675243
-> >  9 2013-10-07 GA        anime     4       1 South  South A…      363111
-> > 10 2013-10-07 IA        anime     0       1 Midwe… West No…       73405
-> > # ... with 18,978 more rows, and 4 more variables: totalPop <int>,
-> > #   ruralpct <dbl>, State <chr>, BLACK_2010 <dbl>
+> > # A tibble: 18,988 x 8
+> >    date       stateCode word  cases dataDay Region   totalTokens State    
+> >    <date>     <chr>     <chr> <int>   <int> <chr>          <dbl> <chr>    
+> >  1 2013-10-07 AL        anime     0       1 South         184649 Alabama  
+> >  2 2013-10-07 AR        anime     0       1 South          23641 Arkansas 
+> >  3 2013-10-07 AZ        anime     1       1 West          198852 Arizona  
+> >  4 2013-10-07 CA        anime    11       1 West         1209652 Californ…
+> >  5 2013-10-07 CO        anime     0       1 West          106166 Colorado 
+> >  6 2013-10-07 CT        anime     1       1 Northea…      149773 Connecti…
+> >  7 2013-10-07 DE        anime     0       1 South          12039 Delaware 
+> >  8 2013-10-07 FL        anime    10       1 South         675243 Florida  
+> >  9 2013-10-07 GA        anime     4       1 South         363111 Georgia  
+> > 10 2013-10-07 IA        anime     0       1 Midwest        73405 Iowa     
+> > # ... with 18,978 more rows
 > > ~~~
 > > {: .output}
 > {: .solution}
