@@ -1,0 +1,18 @@
+---
+title: "Analysis of twitter data"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE, message=FALSE}
+library(tidyverse)
+twitterData <- read_csv("../_episodes_rmd/data/twitterData.csv")
+
+```
+
+Our data look like this:
+```{r, echo=FALSE}
+print(twitterData)
+```
+
