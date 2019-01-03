@@ -102,8 +102,10 @@ twitterData <- read_csv("data/twitterData.csv",
                                cases = col_double(),
                                dataDay = col_double(),
                                Region = col_character(),
-                               Division = col_character()
-                             ) )
+                               totalTokens = col_double(),
+                               State = col_character()
+                             )
+)
 ~~~
 {: .language-r}
 
