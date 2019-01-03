@@ -77,7 +77,7 @@ When you first open RStudio, you will be greeted by three panels:
 
 When we are performing an analysis we will typically be using many files...
 input data, files containing code to perform the analysis, and results.    By creating a _project_ in
-Rstudio we make it easier to manage these files.
+RStudio we make it easier to manage these files.
 
 Let's start the course by making a new project in RStudio, and copying the data we'll be using for the
 rest of the day into it.
@@ -256,7 +256,7 @@ performed in our analysis, and we (and others) can re-run them if required.
 
 We can create a new script by choosing the menu item: `File, New File, R script`, or with the keyboard
 shortcut <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd>.    Commands we type in here
-won't be excuted immediately.
+won't be executed immediately.
 
 Script files are text files.  By convention they have the extension `.R`.
 
@@ -527,7 +527,7 @@ We will discuss the important concept of _data types_ in the next episode.
 
 ## Introducing functions
 
-What if we want to do something more complicated than using R as a fancy calculator?  This is where _functions_ are useful.   We can think of a function as a black box.  It takes zero or more _arguments_, and returns something (the "something" can be a single value, or something more complicated).   R contains many built in fuctions.  We can also make use of additional functions using libraries, which we will cover later today.
+What if we want to do something more complicated than using R as a fancy calculator?  This is where _functions_ are useful.   We can think of a function as a black box.  It takes zero or more _arguments_, and returns something (the "something" can be a single value, or something more complicated).   R contains many built in functions.  We can also make use of additional functions using libraries, which we will cover later today.
 
 We can think of a function as a recipe that takes certain ingredients ("arguments"), and produces a given product (what it "returns").  For example, the `toupper()` function will convert text to upper case:
 

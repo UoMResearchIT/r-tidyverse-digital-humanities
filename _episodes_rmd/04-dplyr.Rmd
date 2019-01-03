@@ -30,7 +30,7 @@ The data we'll be using for the rest of the course is taken from Twitter. The da
 
 Let's dive in and look at how we can use the tidyverse to analyse and, in a couple of episodes' time,  plot data from twitter.    At [the start of the course]({{ page.root}}/02-project-intro), you should have copied the file `twitterData.csv` to your `data` directory.     Take a look at it using a text editor such as notepad.   The first line contains variable names, and values are separated by commas.  Each record starts on a new line. 
 
-The data are in what's often referred to as "tidy" format; each observation is on a new line, and each column represents a variable.  This is what's sometimes known as "long" format.   The tidyverse is geared up towards working with data in tidy format.  Often (almost always in fact), your data won't be in the "shape" you need to analyse it. Transforming and cleaning your data is often one of the most time consuming (and frustrating) parts of the analysis process.   For these reasons, and because it's very problem specific we won't spend much time on it today.  I'll mention a few general teachniques and tips at the [end of the course]({{ page.root }}/08-wrap-up).
+The data are in what's often referred to as "tidy" format; each observation is on a new line, and each column represents a variable.  This is what's sometimes known as "long" format.   The tidyverse is geared up towards working with data in tidy format.  Often (almost always in fact), your data won't be in the "shape" you need to analyse it. Transforming and cleaning your data is often one of the most time consuming (and frustrating) parts of the analysis process.   For these reasons, and because it's very problem specific we won't spend much time on it today.  I'll mention a few general techniques and tips at the [end of the course]({{ page.root }}/08-wrap-up).
  
 
 As we did with the [previous episode]({{ page.root }}/03-loading-data-into-R) we use the `read_csv()` function to load the comma separated file. Let's make a new script (using the file menu), and load the tidyverse: (in the previous episode we only loaded `readr`; since we'll be using several packages in the tidyverse, we load them all)
@@ -130,7 +130,7 @@ twitterData %>%
   filter(cases >= 1)
 ```
 
-We can use the same idea to select tweets that occured on, before or after a certain date.  We need a way of providing the date to R in a way it can understand.  If we want all the tweets that occured on or after 1st Jan 2014, we might try something like:
+We can use the same idea to select tweets that occurred on, before or after a certain date.  We need a way of providing the date to R in a way it can understand.  If we want all the tweets that occurred on or after 1st Jan 2014, we might try something like:
 
 ```{r}
 twitterData %>% 
@@ -394,7 +394,7 @@ twitterData %>%
   summarise(totalAnime = sum(cases))
 ```
 
-Tells us how often "anime" occured in the whole data set
+Tells us how often "anime" occurred in the whole data set
 
 To generate summary statistics for each value of another variable we use the 
 `group_by()` function:
@@ -414,7 +414,7 @@ If you need to revise or learn about statistical concepts, the University Librar
 
 ## Challenge 3
 
-For each day in January 2014 calculate the number of times each word occured
+For each day in January 2014 calculate the number of times each word occurred
 
 Hint - first filter the data so that only observations in January 2014 are included.  Then group by date and word
 

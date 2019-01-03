@@ -28,7 +28,7 @@ At the start of the course I mentioned that we skipped over the process of resha
 
 * Try and do everything as programatically as possible (i.e. put your data cleaning code in a script, rather then manually editing files).  As we mentioned at the start, you should treat your source data as read-only.  By cleaning the data within a script you, and others (and your future self) can see exactly what has changed.  Following this approach can feel really frustrating; it is especially useful if your source data are updated; it's then simple to clean the updated data.  
 
-* The tidyverse assumes your data are in "tidy", or "long" format.  This means that each observation is a row, and each variable is a column.  You may need to reshape your ata (i.e. turn it from wide format, where multiple observations are in the same row).  The `tidyr` package helps with this.
+* The tidyverse assumes your data are in "tidy", or "long" format.  This means that each observation is a row, and each variable is a column.  You may need to reshape your data (i.e. turn it from wide format, where multiple observations are in the same row).  The `tidyr` package helps with this.
 
 * Text data can be fiddly to work with; the `stringr` package has some functions which make this a bit easier.   It's beyond the scope of this course, but [regular expressions](https://www.regular-expressions.info/) can be *really* powerful if you want to extract bits of structured data from free text (for example, postcodes from addresses).  
 

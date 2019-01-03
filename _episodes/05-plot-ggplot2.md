@@ -537,7 +537,7 @@ monthlyData %>%
 > > ~~~
 > > {: .output}
 > > 
-> > It's a good idea to set the column types, as we did previosuly (though this isn't essential).  We can do this by adding the 
+> > It's a good idea to set the column types, as we did previously (though this isn't essential).  We can do this by adding the 
 > > `col_types` argument, and cutting and pasting the column specification that's output when we don't specify column types:
 > > 
 > > 

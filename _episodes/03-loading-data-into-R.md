@@ -308,7 +308,7 @@ cats[,1]
 > 
 > Tibbles are used to represent tabular data in the tidyverse.  In contrast, base R
 > uses data frames to represent tabular data. One of the differences between these 
-> two types of obbject is *what* is returned when you extract a subset of rows/columns.
+> two types of object is *what* is returned when you extract a subset of rows/columns.
 > In contrast to a tibble, taking a subset of a data frame doesn't always return
 > another data frame. For more details see the callout at the end of this episode.
 {: .callout}
@@ -448,9 +448,9 @@ take this idea a step further, and define `coat` as a factor when we load the da
 > >  You may have noticed while reading the help file for `col_factor()` and `parse_factor()` that we can pass
 > > the option `levels = NULL`.  This will cause R to generate the factor levels automatically.  This can be a bad idea,
 > > since invalid data (such as "calic0" in the example above) will get their own factor level.  If, on the other hand
-> > you've got hundereds of possible values,  that's a lot of typing.  
+> > you've got hundreds of possible values,  that's a lot of typing.  
 > >
-> > A compromise between these two approaches is to look at the levels your factor has having loded the data, using the `levels()` function: e.g. `levels(cats$coat)`.  By testing the length of this vector you can check that you have as many factor levels as you expect.
+> > A compromise between these two approaches is to look at the levels your factor has having loaded the data, using the `levels()` function: e.g. `levels(cats$coat)`.  By testing the length of this vector you can check that you have as many factor levels as you expect.
 > >
 > {: .solution}
 {: .challenge}
