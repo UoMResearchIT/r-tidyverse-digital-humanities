@@ -383,7 +383,25 @@ Firstly, load the daily data, using `read_csv()`
 ```{r}
 twitterData <- read_csv("data/twitterData.csv")
 ```
-FIXME - set up col_types once we've finalised the data set
+
+It's a good idea to set the column types, as we did previosuly (though this isn't essential).  We can do this by adding the 
+`col_types` argument, and cutting and pasting the column specification that's output when we don't specify column types:
+
+```{r}
+twitterData <- read_csv("data/twitterData.csv",
+                        col_types = cols(
+                          date = col_date(format = ""),
+                          stateCode = col_character(),
+                          word = col_character(),
+                          cases = col_double(),
+                          dataDay = col_double(),
+                          Region = col_character(),
+                          totalTokens = col_double(),
+                          State = col_character()
+                        ))
+```
+
+
 {: .solution}
 
 The next thing to do is to filter the data so that we are only looking at data for the word "anime"

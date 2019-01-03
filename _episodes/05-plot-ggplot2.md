@@ -536,7 +536,27 @@ monthlyData %>%
 > > )
 > > ~~~
 > > {: .output}
-> > FIXME - set up col_types once we've finalised the data set
+> > 
+> > It's a good idea to set the column types, as we did previosuly (though this isn't essential).  We can do this by adding the 
+> > `col_types` argument, and cutting and pasting the column specification that's output when we don't specify column types:
+> > 
+> > 
+> > ~~~
+> > twitterData <- read_csv("data/twitterData.csv",
+> >                         col_types = cols(
+> >                           date = col_date(format = ""),
+> >                           stateCode = col_character(),
+> >                           word = col_character(),
+> >                           cases = col_double(),
+> >                           dataDay = col_double(),
+> >                           Region = col_character(),
+> >                           totalTokens = col_double(),
+> >                           State = col_character()
+> >                         ))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
 > {: .solution}
 > 
 > The next thing to do is to filter the data so that we are only looking at data for the word "anime"
@@ -555,7 +575,7 @@ monthlyData %>%
 > > ~~~
 > > # A tibble: 18,988 x 8
 > >    date       stateCode word  cases dataDay Region   totalTokens State    
-> >    <date>     <chr>     <chr> <int>   <int> <chr>          <dbl> <chr>    
+> >    <date>     <chr>     <chr> <dbl>   <dbl> <chr>          <dbl> <chr>    
 > >  1 2013-10-07 AL        anime     0       1 South         184649 Alabama  
 > >  2 2013-10-07 AR        anime     0       1 South          23641 Arkansas 
 > >  3 2013-10-07 AZ        anime     1       1 West          198852 Arizona  
@@ -586,7 +606,7 @@ monthlyData %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
 > > 
 > > Note that we don't need to set the `group` aesthetic here, since we've only got one set of data for each state.
 > {: .solution}
@@ -607,7 +627,7 @@ monthlyData %>%
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-06-unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-06-unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />
 > {: .solution}
 > 
 {: .challenge}
