@@ -5,9 +5,11 @@ exercises: 0
 questions:
 - "How can I write software that other people can use?"
 - "What are the next steps in learning and using R?"
+- "How do I get my data in an appropriate format?"
 objectives:
 - "Describe best practices for writing R and explain the justification for each."
-- "To be aware of additioanl resources for learning R"
+- "To be aware of additional resources for learning R"
+- "Describe approaches and techniques for data cleaning"
 keypoints:
 - "Document what and why, not how."
 - "Break programs into short single-purpose functions."
@@ -18,6 +20,17 @@ source: Rmd
 ---
 
 
+
+
+## Loading and cleaning your data
+
+At the start of the course I mentioned that we skipped over the process of reshaping and cleaning your data.   This is often one of the most time consuming and frustrating parts of a project.   It is also very project specific, so it is difficult to provide a "recipe" for.  Some general tips and tools are:
+
+* Try and do everything as programatically as possible (i.e. put your data cleaning code in a script, rather then manually editing files).  As we mentioned at the start, you should treat your source data as read-only.  By cleaning the data within a script you, and others (and your future self) can see exactly what has changed.  Following this approach can feel really frustrating; it is especially useful if your source data are updated; it's then simple to clean the updated data.  
+
+* The tidyverse assumes your data are in "tidy", or "long" format.  This means that each observation is a row, and each variable is a column.  You may need to reshape your ata (i.e. turn it from wide format, where multiple observations are in the same row).  The `tidyr` package helps with this.
+
+* Text data can be fiddly to work with; the `stringr` package has some functions which make this a bit easier.   It's beyond the scope of this course, but [regular expressions](https://www.regular-expressions.info/) can be *really* powerful if you want to extract bits of structured data from free text (for example, postcodes from addresses).  
 
 ## Make code readable
 
