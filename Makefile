@@ -166,8 +166,9 @@ _episodes_rmd/data/%.csv: prepareData.R
 data: data/r-novice.zip
 
 data/r-novice.zip: $(DATA_FILES) 
+	@rm -f $@ # Remove old zip file so stale files don't stick around
 	@zip -j $@ $^
-	cp $(DATA_FILES) $(dir $@) # Copy raw data so we can use it in notebooks (need same relative path as learners will have)
+	@cp $(DATA_FILES) $(dir $@) # Copy raw data so we can use it in notebooks (need same relative path as learners will have)
 
 #-------------------------------------------------------------------------------
 # Include extra commands if available.
