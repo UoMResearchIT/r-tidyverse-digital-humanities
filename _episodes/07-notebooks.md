@@ -40,11 +40,13 @@ The header at the start of the notebook (between the `---`s) contains metadata w
 
 Before we go any further, make a new subdirectory for your notebooks, for example, `notebooks`. and save the notebook in it using `File`, `Save`.  We need to do this so that we can preview and build the notebook.   When you run code in your notebook, RStudio will set the working directory to be the notebook's directory.  This means that if we want to load some data from our `data` folder, we will need to use the path `../data/twitterData.csv` (rather than `data/twitterData.csv`, as we used previously).  The `..` tells R to look in the parent directory of the working directory.  
 
-
+## Running notebooks
 
 We can run the notebook interactively within R Studio.  Press the "Run" button (at the top of the editor window) and choose "Run all" (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd>).   This will execute each chunk of code within R Studio and show us the results of each chunk within the document. This makes it easier to interactively edit our code, look at the results of our analysis, and edit our text within the same environment.
 
 We can preview the notebook by selecting "Preview notebook" from the top of the editor window.  This will render the text and code into an html document.   Note that the preview will use executed chunks of R code in the editor window.  For this reason it is a good idea to choose "Restart R and run all chunks" from the run button (at the top of the editor).  This will ensure your code has been run in order, and that it is self consistent.
+
+## Example
 
 As an example of using notebooks, let's use the Twitter data, and some of the ideas introduced earlier to run, and to document, an analysis of the data.  I'll do this as a running demonstration, to illustrate the principles.    
 
@@ -52,7 +54,9 @@ As these lessons are written in R Markdown, it is difficult to show the markdown
 
 
 
-We can modify the example notebook to load the twitter data into our working environment, and to print of extract of it.  The notebook to do this can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digtial-humanities/gh-pages/notebooks/example1.Rmd)
+We can modify the example notebook to load the twitter data into our working environment, and to print of extract of it.  The notebook to do this can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digital-humanities/gh-pages/notebooks/example1.Rmd)
+
+## Controlling what's output
 
 At the moment all the code and data we've written are shown in the document.  This can be excessive.  For example, we may get diagnostic messages which we don't anticipate being of interest to the reader.  We can hide the R code in a chunk as follows: 
 
@@ -87,19 +91,9 @@ knitr::opts_chunk$set(echo = FALSE, warning = TRUE)
 
 You would typically include this in your setup chunk, and use `include=FALSE` so as not to output the code or output of the setup chunk itself.
 
-> ## Challenge 2
-> 
-> Hide the output and any messages when you load your data and libraries. Hide the command needed to preview the gapminder data.
-> 
-> > ## Solution
-> > 
-> > The solution can be found [here](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-intro/gh-pages/notebooks/challenge2.Rmd)
-> {: .solution}
-{: .challenge}
-
 How much of the "behind the scenes" work you show in a notebook is up to you, and will depend on the intended audience.   If you hide all the code, you can produce something which looks very much like a regular scientific paper.  The benefit of writing a paper like this is that your analysis and write up are in the same place.   If your analysis (or data) change, the paper will be updated automatically.   By keeping the underlying R Markdown file it is possible for you, or others to work out exactly how each figure in you work was produced.
 
-[This example](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digtial-humanities/gh-pages/notebooks/example2.Rmd) shows the effect of using `include=FALSE` and `echo=FALSE` to hide the package loading messages and our R code.
+[This example](https://raw.githubusercontent.com/UoMResearchIT/r-tidyverse-digital-humanities/gh-pages/notebooks/example2.Rmd) shows the effect of using `include=FALSE` and `echo=FALSE` to hide the package loading messages and our R code.
 
 We can also display R output "inline" (i.e. so it appears as normal text within a paragraph):  For example:
 <pre>
