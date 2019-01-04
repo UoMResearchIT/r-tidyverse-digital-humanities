@@ -155,7 +155,7 @@ Your project structure should look like this:
 
 ![](../fig/01-project.png)
 
-The data directory should looks like this:
+The data directory should look like this:
 
 ![](../fig/01-project-data.png)
 
@@ -394,7 +394,7 @@ The right hand side is *fully evaluated* before the assignment occurs.
 > What you use is up to you, but **be consistent**.
 > 
 > Variables that start with a "." are hidden variables.  These will not appear in the environment window
-> or when we use the `ls()` function (unless we us `ls(all.names = TRUE)`. The `ls()` function is introduced in the next episode.  Hidden variables are used for things
+> or when we use the `ls()` function (unless we use `ls(all.names = TRUE)`. The `ls()` function is introduced in the next episode.  Hidden variables are used for things
 > such as storing R's random number seed, which we typically don't want to change within a session.
 {: .callout}
 
@@ -546,8 +546,8 @@ start of the function's name, type the start of it, then press the <kbd>tab</kbd
 This will show a list of
 functions whose name matches what you've typed so far; this is known
 as _tab completion_, and can save a lot of typing (and reduce the risk
-of typing errors).  Tab completion works in R (i.e. running it out
-of RStudio), and in RStudio. In RStudio this feature is even more useful; a
+of typing errors).  Tab completion works in R whether you are using it from the command line or RStudio. 
+ In RStudio this feature is even more useful; a
 extract of the function's help file will be shown alongside the function name.
 
 This is one advantage that RStudio has over R on its own: it
