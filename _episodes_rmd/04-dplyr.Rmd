@@ -72,7 +72,7 @@ twitterData <- read_csv("data/twitterData.csv",
 You may notice from the column specification that the date column of the data has bene read in as a `col_date()`.  R has special data types for handling dates, and "date times" (e.g. `r lubridate::ymd_hms("2018-01-01 00:00:01")`).  Dates and date times are awkward to handle in any programming language (including R); things like different ways of writing dates (day/month/year or month/day/year?) time zones, leap years (and leap seconds) complicate things.  The `lubridate` package in the tidyverse makes dates a bit easier to handle.  This isn't loaded by default.  We will be using one of the functions from it later in this episode, so we'll load it now. Add the following to the top of your script:
 
 ```{r}
-library(lubridate)
+library("lubridate")
 ```
 
 
@@ -146,7 +146,7 @@ dmy("1/1/2014")
 ```
 
 will all work.  There are also `mdy()` and `ymd()` functions if you prefer to specify the parts of the date in a different order.
-(If these commands don't work, check you have loaded the `lubridate` package with `library(lubridate)`)
+(If these commands don't work, check you have loaded the `lubridate` package with `library("lubridate")`)
 
 So, to only keep tweets on or after 1 Jan 2014 we can use:
 ```{r}

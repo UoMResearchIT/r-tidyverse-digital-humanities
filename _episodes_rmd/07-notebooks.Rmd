@@ -147,7 +147,7 @@ will add the appropriate markdown formatting to many R functions to make them di
 and loaded the `pander` package,  run the `pander()` function on the object you wish to display, e.g.
 
 ```{r, eval=FALSE}
-library(pander)
+library("pander")
 pander(uk_lifeExp_model_squared)
 ```
 

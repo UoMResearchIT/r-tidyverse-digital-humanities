@@ -123,7 +123,7 @@ You may notice from the column specification that the date column of the data ha
 
 
 ~~~
-library(lubridate)
+library("lubridate")
 ~~~
 {: .language-r}
 
@@ -328,7 +328,7 @@ dmy("1/1/2014")
 {: .output}
 
 will all work.  There are also `mdy()` and `ymd()` functions if you prefer to specify the parts of the date in a different order.
-(If these commands don't work, check you have loaded the `lubridate` package with `library(lubridate)`)
+(If these commands don't work, check you have loaded the `lubridate` package with `library("lubridate")`)
 
 So, to only keep tweets on or after 1 Jan 2014 we can use:
 

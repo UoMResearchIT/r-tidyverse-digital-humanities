@@ -42,11 +42,11 @@ We can import the data into R using the `read_csv()` function; this is part of t
 
 Let's make a new script for this episode, by choosing the menu options `File`, `New File`, `R script`.
 
-Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(readr)` in the new script.   We could use `library(tidyverse)` to load all of the commonly used packages in the tidyverse.   We then use   the `read_csv()` function to import the data, which we store in the object named `cats`:
+Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library("readr")` in the new script.   We could use `library("tidyverse")` to load all of the commonly used packages in the tidyverse.   We then use   the `read_csv()` function to import the data, which we store in the object named `cats`:
 
 
 ~~~
-library(readr)
+library("readr")
 cats <- read_csv(file = "data/feline-data.csv")
 ~~~
 {: .language-r}

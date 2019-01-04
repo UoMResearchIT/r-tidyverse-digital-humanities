@@ -147,7 +147,7 @@ and loaded the `pander` package,  run the `pander()` function on the object you 
 
 
 ~~~
-library(pander)
+library("pander")
 pander(uk_lifeExp_model_squared)
 ~~~
 {: .language-r}
