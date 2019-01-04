@@ -40,7 +40,7 @@ We can view the contents of the file by selecting it from the "Files" window in 
 
 We can import the data into R using the `read_csv()` function; this is part of the `readr` package, which is part of the `tidyverse`. 
 
-Let's make a new script for this episode, by choosing the menu options _File_, _New File_, _R Script_.
+Let's make a new script for this episode, by choosing the menu options `File`, `New File`, `R script`.
 
 Although we loaded the tidyverse in the previous episode, we should make our scripts self-contained, so we should include `library(readr)` in the new script.   We could use `library(tidyverse)` to load all of the commonly used packages in the tidyverse.   We then use   the `read_csv()` function to import the data, which we store in the object named `cats`:
 
