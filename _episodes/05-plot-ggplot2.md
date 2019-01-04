@@ -198,8 +198,6 @@ monthlyData %>%
 > 
 > Modify the graph so that it plots `tokenProp` instead of `cases` on the y axis.
 > 
-> The `aes()` function maps a visual property of the graph (for example what's on the y axis) to a variable in the data.  Another visual property of the graph we can change is the point colour.  Modify the aesthetic on your graph so that the colour (or color  - ggplot accepts either spelling) of the points depends on the region
-> 
 > > ## Solution to challenge 1
 > > 
 > > 
@@ -211,6 +209,12 @@ monthlyData %>%
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-06-ch1-sol-1.png" title="plot of chunk ch1-sol" alt="plot of chunk ch1-sol" style="display: block; margin: auto;" />
+> > 
+> {: .solution}
+> 
+> The `aes()` function maps a visual property of the graph (for example what's on the y axis) to a variable in the data.  Another visual property of the graph we can change is the point colour.  Modify the aesthetic on your graph so that the colour (or color  - ggplot accepts either spelling) of the points depends on the region
+> 
+> > ## Solution to challenge 1 (part 2)
 > > 
 > > We can colour the points according to the region by adding `colour = Region` to the aesthetic:
 > > 

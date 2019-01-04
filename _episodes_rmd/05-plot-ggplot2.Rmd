@@ -143,8 +143,6 @@ Plotting the number of times "bae" was used may not be the most sensible approac
 
 Modify the graph so that it plots `tokenProp` instead of `cases` on the y axis.
 
-The `aes()` function maps a visual property of the graph (for example what's on the y axis) to a variable in the data.  Another visual property of the graph we can change is the point colour.  Modify the aesthetic on your graph so that the colour (or color  - ggplot accepts either spelling) of the points depends on the region
-
 ## Solution to challenge 1
 
 ```{r ch1-sol}
@@ -152,6 +150,12 @@ monthlyData %>%
   ggplot(aes(x = monthyear, y = tokenProp)) +
   geom_point()
 ```
+
+{: .solution}
+
+The `aes()` function maps a visual property of the graph (for example what's on the y axis) to a variable in the data.  Another visual property of the graph we can change is the point colour.  Modify the aesthetic on your graph so that the colour (or color  - ggplot accepts either spelling) of the points depends on the region
+
+## Solution to challenge 1 (part 2)
 
 We can colour the points according to the region by adding `colour = Region` to the aesthetic:
 ```{r ch1-sol-b}
