@@ -989,7 +989,7 @@ When creating new variables, we can hook this with a logical condition. A simple
 This easy-to-read statement is a fast and powerful way of discarding certain data (even though the overall dimension
 of the tibble will not change) or for updating values depending on this given condition.
 
-The `ifelse()` function takes three parameters.  The first it the logical test.  The second is the value to use if the test is TRUE for that observation, and the third is the value to use if the test is FALSE.
+The `ifelse()` function takes three parameters.  The first is the logical test.  The second is the value to use if the test is TRUE for that observation, and the third is the value to use if the test is FALSE.
 
 For example, if we wanted to take the log of all observations where the word was mentioned at least once, and use `NA` otherwise, we could use:
 
