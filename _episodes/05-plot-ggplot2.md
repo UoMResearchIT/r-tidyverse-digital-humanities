@@ -246,7 +246,7 @@ monthlyData %>%
 
 <img src="../fig/rmd-06-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
-This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each country.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`. The data associated with each `stateCode` is in the same group (if we plotted a the data for a single state we would expect a single line).  We modify the aesthetic function to include this mapping: 
+This probably isn't quite what you were expecting.   ggplot has drawn a single line for each region, rather than a single line for each state.    We need to tell ggplot that each state is a separate group.  The property of the graph is `group`. The data associated with each `stateCode` is in the same group (if we plotted a the data for a single state we would expect a single line).  We modify the aesthetic function to include this mapping: 
 
 
 
