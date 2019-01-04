@@ -135,7 +135,7 @@ get shared between projects.
 
 
 
-Create `data`, `src`, and `results` directories in your project directory.
+Create `data`, `src`, and `results` directories in your project directory. You can do this using Windows Explorer, or by using the "New Folder" button in the files tab of RStudio.
 
 Copy the all the files from the [zip file you downloaded]({{ page.root }}/data/r-novice.zip) as part of the lesson set up to the `data/` folder within your project.  We will load and use these files later in the course.
 
