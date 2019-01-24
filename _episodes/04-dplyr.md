@@ -851,6 +851,42 @@ twitterData %>%
 ~~~
 {: .output}
 
+In [the first episode of the course]({{ page.root }}/01-rstudio-intro), we mentioned `NA`; this occurs when there is missing data.  You might remember that NAs "propagate", e.g.
+
+
+~~~
+1 + NA
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NA
+~~~
+{: .output}
+
+This means that there must be at least one missing value in the `cases` column.  We can ignore the NA values in the sum by giving the sum function the `na.rm=TRUE` option:
+
+
+
+~~~
+twitterData %>% 
+  filter(word == "anime") %>% 
+  summarise(totalAnime = sum(cases, na.rm = TRUE))
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 1 x 1
+  totalAnime
+       <int>
+1      50971
+~~~
+{: .output}
+
 Tells us how often "anime" occurred in the whole data set
 
 To generate summary statistics for each value of another variable we use the 
@@ -860,7 +896,7 @@ To generate summary statistics for each value of another variable we use the
 ~~~
 twitterData %>% 
   group_by(word) %>% 
-  summarise(total = sum(cases))
+  summarise(total = sum(cases, na.rm = TRUE))
 ~~~
 {: .language-r}
 
@@ -868,13 +904,13 @@ twitterData %>%
 
 ~~~
 # A tibble: 5 x 2
-  word   total
-  <chr>  <int>
-1 anime     NA
-2 bae       NA
-3 boi       NA
-4 bruhhh    NA
-5 fleek     NA
+  word     total
+  <chr>    <int>
+1 anime    50971
+2 bae    2552573
+3 boi     151263
+4 bruhhh   51743
+5 fleek    33982
 ~~~
 {: .output}
 
